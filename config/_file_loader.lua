@@ -12,6 +12,7 @@ return {
     'modules.commands.me',
     'modules.commands.kill',
     'modules.commands.admin-chat',
+    'modules.commands.admin-markers',
     'modules.commands.teleport',
     'modules.commands.cheat-mode',
     'modules.commands.ratio',
@@ -28,6 +29,10 @@ return {
     'modules.commands.find',
     'modules.commands.home',
     'modules.commands.connect',
+    'modules.commands.last-location',
+    'modules.commands.protection',
+    'modules.commands.spectate',
+    'modules.commands.search',
 
     --- Addons
     'modules.addons.chat-popups',
@@ -42,6 +47,9 @@ return {
     'modules.addons.discord-alerts',
     'modules.addons.chat-reply',
     'modules.addons.tree-decon',
+    'modules.addons.afk-kick',
+    'modules.addons.report-jail',
+    'modules.addons.protection-jail',
 
     --- Data
     'modules.data.statistics',
@@ -56,12 +64,12 @@ return {
     'modules.gui.readme',
     'modules.gui.rocket-info',
     'modules.gui.science-info',
+    'modules.gui.autofill',
     'modules.gui.warp-list',
     'modules.gui.task-list',
     'modules.gui.player-list',
     'modules.gui.server-ups',
     'modules.commands.debug',
-    'modules.gui.autofill',
 
     --- Config Files
     'config.expcore.command_auth_admin', -- commands tagged with admin_only are blocked for non admins
