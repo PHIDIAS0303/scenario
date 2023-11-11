@@ -6,48 +6,48 @@ simple-format-tagged=__1__ __2__
 simple-format-div=__1__:__2__
 
 [expcore-commands]
-unauthorized=Unauthorized, Access is denied due to invalid credentials
-reject-string-options=Invalid Option, Must be one of: __1__
-reject-string-max-length=Invalid Length, Max: __1__
-reject-number=Invalid Number.
-reject-number-range=Invalid Range, Min (inclusive): __1__, Max (inclusive): __2__
-reject-player=Invalid Player Name, __1__ ,try using tab key to auto-complete the name
-reject-player-online=Player is offline.
-reject-player-alive=Player is dead.
-reject-force=Invalid Force Name.
-reject-surface=Invalid Surface Name.
-reject-color=Invalid Color Name.
-invalid-inputs=Invalid Input, /__1__ __2__
-invalid-param=Invalid Param "__1__"; __2__
+unauthorized=你沒有權限運行該項目
+reject-string-options=無效的選項. 要在: __1__
+reject-string-max-length=無效的長度, 最長: __1__
+reject-number=無效的數值.
+reject-number-range=無效的範圍. 最少 (包括): __1__, 最大 (包括): __2__
+reject-player=無效的用戶名稱, __1__ , 可以用 TAB 鍵來自動完成
+reject-player-online=用戶不在線.
+reject-player-alive=用戶已死亡.
+reject-force=無效的勢力.
+reject-surface=無效的表面.
+reject-color=無效的顏色.
+invalid-inputs=無效的輸入, /__1__ __2__
+invalid-param=無效的參數 "__1__"; __2__
 command-help=__1__ - __2__
-command-ran=Command Complete
-command-fail=Command failed to run: __1__
+command-ran=指令運行完成
+command-fail=指令運行失敗 failed to run: __1__
 command-error-log-format=[ERROR] command/__1__ :: __2__
 
 [expcore-roles]
 error-log-format-flag=[ERROR] roleFlag/__1__ :: __2__
 error-log-format-assign=[ERROR] rolePromote/__1__ :: __2__
-game-message-assign=__1__ has been assigned to __2__ by __3__
-game-message-unassign=__1__ has been unassigned from __2__ by __3__
-reject-role=Invalid Role Name.
-reject-player-role=Player has a higher role.
+game-message-assign=__1__ 已被  __3__ 指派到身分組 __2__
+game-message-unassign=__1__ 已被  __3__ 取消指派到身分組 __2__
+reject-role=無效的身分組.
+reject-player-role=用戶已有更高的身分組.
 
 [gui_util]
-button_tooltip=Shows/hides the toolbar.
+button_tooltip=是否顯示工具欄.
 
 [expcore-gui]
-left-button-tooltip=Hide all open windows.
+left-button-tooltip=關閉所有打開的視窗.
 
 [expcore-data]
-set-preference=You data saving preference has been set to __1__. Existing data will not be effected until you rejoin.
-get-preference=You data saving preference is __1__. Use /set-preference to change this. Use /save-data to get a local copy of your data.
-get-data=Your player data has been writen to file, location: factorio/script_output/expgaming_player_data.json
-data-failed=Your player data has failed to load. Any changes to your data will not be saved.
-data-restore=Your player data has been restored and changes will now save when you leave.
-preference=Saving Preference
-preference-tooltip=Which categories will be saved when you leave the game
-preference-value-tooltip=Change by using /set-preference
-preference-All=All data will be saved
-preference-Statistics=Only statistics, settings, and required data will be saved
-preference-Settings=Only settings and required data will be saved
-preference-Required=Only required data will be saved
+set-preference=你的喜好已設定為 __1__. 在你重新加入前將不會有任何改動.
+get-preference=你的喜好為 __1__. 使用 /set-preference 來更改. 使用 /save-data 來獲得一份資料副本.
+get-data=你的個人資料已寫入: factorio/script_output/expgaming_player_data.json
+data-failed=無法載入你的個人資料. 任何改動將不會保存.
+data-restore=已載入你的個人資料. 改動將會被保存.
+preference=儲存喜好
+preference-tooltip=那種資料將在退出時保存
+preference-value-tooltip=使用 /set-preference 來更換儲存喜好
+preference-All=所有資料都會被儲存
+preference-Statistics=只有數據, 設定和資料會被儲存
+preference-Settings=只有設定和資料會被儲存
+preference-Required=只有需要的資料會被儲存
