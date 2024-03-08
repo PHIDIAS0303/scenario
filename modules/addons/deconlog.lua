@@ -39,7 +39,7 @@ Event.on_init(function()
 end)
 
 if config.decon_area then
-	Event.add(defines.events.on_player_deconstructed_area, function (e)
+	Event.add(defines.events.on_player_deconstructed_area, function(e)
 		if e.alt then
 			return
 		end
