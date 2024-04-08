@@ -77,12 +77,20 @@ local function res_queue(force)
     end
 end
 
-Event.add(defines.events.on_research_finished, function(event)
+local function research_queue_logic(event)
     research_notification(event)
 
     if research.res_queue_enable then
         res_queue(event.research.force)
     end
+end
+
+Event.add(defines.events.on_research_finished, function(event)
+    research_queue_logic(event)
+end)
+
+Event.add(defines.events.on_research_cancelled, function(event)
+    research_queue_logic(event)
 end)
 
 Commands.new_command('auto-research', 'Automatically queue up research')
