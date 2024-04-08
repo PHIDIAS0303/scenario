@@ -238,16 +238,8 @@ Gui.element{
     local res = vlayer_convert_chest(player)
 
     if res then
-        local e = vlayer.create_input_interface(player.surface, res.pos, player)
+        vlayer.create_input_interface(player.surface, res.pos, res.circuit, player)
         game.print(player.name .. ' built a vlayer storage input on ' .. pos_to_gps_string(res.pos))
-
-        for k, _ in pairs(res.circuit) do
-            if next(res.circuit[k]) ~= nil then
-                for _, v in pairs(res.circuit[k]) do
-                    e.connect_neighbour({wire = defines.wire_type[k], target_entity = v})
-                end
-            end
-        end
     end
 
     element.enabled = (vlayer.get_interface_counts().storage_input < config.interface_limit.storage_input)
@@ -266,16 +258,8 @@ Gui.element{
     local res = vlayer_convert_chest(player)
 
     if res then
-        local e = vlayer.create_output_interface(player.surface, res.pos, player)
+        vlayer.create_output_interface(player.surface, res.pos, res.circuit, player)
         game.print(player.name .. ' built a vlayer storage output on ' .. pos_to_gps_string(res.pos))
-
-        for k, _ in pairs(res.circuit) do
-            if next(res.circuit[k]) ~= nil then
-                for _, v in pairs(res.circuit[k]) do
-                    e.connect_neighbour({wire = defines.wire_type[k], target_entity = v})
-                end
-            end
-        end
     end
 
     element.enabled = (vlayer.get_interface_counts().storage_output < config.interface_limit.storage_output)
@@ -294,16 +278,8 @@ Gui.element{
     local res = vlayer_convert_chest(player)
 
     if res then
-        local e = vlayer.create_circuit_interface(player.surface, res.pos, player)
+        vlayer.create_circuit_interface(player.surface, res.pos, res.circuit, player)
         game.print(player.name .. ' built a vlayer circuit on ' .. pos_to_gps_string(res.pos))
-
-        for k, _ in pairs(res.circuit) do
-            if next(res.circuit[k]) ~= nil then
-                for _, v in pairs(res.circuit[k]) do
-                    e.connect_neighbour({wire = defines.wire_type[k], target_entity = v})
-                end
-            end
-        end
     end
 
     element.enabled = (vlayer.get_interface_counts().circuit < config.interface_limit.circuit)
