@@ -118,12 +118,8 @@ Roles.new_role('Trainee','TrMod')
     'command/get-reports',
     'command/protect-entity',
     'command/protect-area',
-    'command/jail',
-    'command/unjail',
     'command/kick',
     'command/ban',
-    'command/spectate',
-    'command/follow',
     'command/search',
     'command/search-amount',
     'command/search-recent',
@@ -179,7 +175,7 @@ Roles.new_role('Senior Member','SMem')
 :set_flag('report-immune')
 :set_flag('instant-respawn')
 :set_flag('deconlog-bypass')
-:set_parent('Veteran')
+:set_parent('Member')
 :allow{
     'command/join-message',
     'command/join-message-clear',
@@ -192,7 +188,33 @@ Roles.new_role('Senior Member','SMem')
     'command/personal-battery-recharge',
     'gui/rocket-info/toggle-active',
     'gui/rocket-info/remote_launch',
-    'command/tag-color'
+    'command/tag-color',
+}
+
+--- Standard User Roles
+Roles.new_role('Member','Mem')
+:set_permission_group('Trusted')
+:set_custom_color{r=24,g=172,b=188}
+:set_flag('deconlog-bypass')
+:set_parent('Veteran')
+:allow{
+    'gui/vlayer-edit',
+    'gui/surveillance',
+    'command/waterfill',
+    'command/vlayer-info',
+    'command/auto-research',
+    'command/set-trains-to-automatic',
+    'command/clear-item-on-ground',
+    'command/clear-blueprint',
+    -- 'gui/rate',
+    'command/bonus',
+    'command/bonus/2',
+    'command/home',
+    'command/home-set',
+    'command/home-get',
+    'command/return',
+    'fast-tree-decon'
+    -- 'gui/linked'
 }
 
 local hours6, hours250 = 6*216000, 250*60
@@ -202,6 +224,13 @@ Roles.new_role('Veteran','Vet')
 :set_flag('deconlog-bypass')
 :set_parent('Member')
 :allow{
+    'gui/warp-list/add',
+    'gui/warp-list/edit',
+    'command/save-quickbar',
+    'command/personal-logistic',
+    'command/last-location',
+    'command/lawnmower',
+    'command/artillery-target-remote',
 }
 :set_auto_assign_condition(function(player)
     if player.online_time >= hours6 then
@@ -213,41 +242,6 @@ Roles.new_role('Veteran','Vet')
     end
 end)
 
---- Standard User Roles
-Roles.new_role('Member','Mem')
-:set_permission_group('Standard')
-:set_custom_color{r=24,g=172,b=188}
-:set_flag('deconlog-bypass')
-:set_parent('Regular')
-:allow{
-    'command/chat-bot',
-    'command/last-location',
-    'gui/task-list/add',
-    'gui/task-list/edit',
-    'gui/warp-list/add',
-    'gui/warp-list/edit',
-    'command/save-quickbar',
-    'gui/vlayer-edit',
-    'command/vlayer-info',
-    'command/personal-logistic',
-    'command/auto-research',
-    'command/set-trains-to-automatic',
-    'command/lawnmower',
-    'command/waterfill',
-    'command/clear-item-on-ground',
-    'command/clear-blueprint',
-    'command/artillery-target-remote',
-    'gui/surveillance',
-    -- 'gui/rate',
-    'command/bonus',
-    'command/bonus/2',
-    'command/home',
-    'command/home-set',
-    'command/home-get',
-    'command/return',
-    'fast-tree-decon'
-    -- 'gui/linked'
-}
 
 local hours1, hours15 = 1*216000, 15*60
 Roles.new_role('Regular','Reg')
@@ -262,7 +256,10 @@ Roles.new_role('Regular','Reg')
     'command/me',
     'standard-decon',
     'bypass-entity-protection',
-	'bypass-nukeprotect'
+	'bypass-nukeprotect',
+    'gui/task-list/add',
+    'gui/task-list/edit',
+    'command/chat-bot'
 }
 :set_auto_assign_condition(function(player)
     if player.online_time >= hours1 then
@@ -327,8 +324,8 @@ Roles.define_role_order{
     'Supporter',
     'Partner',
     'Senior Member',
-    'Veteran',
     'Member',
+    'Veteran',
     'Regular',
     'Jail',
     'Guest' -- Default must be last if you want to apply restrictions to other roles
