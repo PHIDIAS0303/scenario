@@ -420,24 +420,9 @@ Gui.element{
 }:style{
     width = 160
 }:on_click(function(player, element, _)
-    local category_look
-    local target = frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_type.name].items
+    local target = frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_type.name].selected_index
     local n = frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_list.name].selected_index
-
-    if target == 'Energy' then
-        category_look = vlayer.get_interfaces()['energy']
-
-    elseif target == 'Circuit' then
-        category_look = vlayer.get_interfaces()['circuit']
-
-    elseif target == 'Storage Input' then
-        category_look = vlayer.get_interfaces()['storage_input']
-
-    elseif target == 'Storage Output' then
-        category_look = vlayer.get_interfaces()['storage_output']
-    end
-
-    local interface_type, interface_position = vlayer.remove_interface(category_look[n].surface, category_look[n].position)
+    local interface_type, interface_position = vlayer.remove_interface(vlayer.get_interfaces()[vlayer_remove_type_list[target]][n].surface, vlayer.get_interfaces()[vlayer_remove_type_list[target]][n].position)
 
     if not interface_type then
         return player.print('Interface not found in range, please move closer')
@@ -465,6 +450,7 @@ Gui.element(function(_, parent, name)
     vlayer_gui_control_power(disp).enabled = (interfaces.energy < config.interface_limit.energy)
     vlayer_gui_control_remove_type(disp)
     vlayer_gui_control_remove_list(disp)
+    vlayer_gui_control_remove_refresh(disp)
     vlayer_gui_control_remove_see(disp)
     vlayer_gui_control_remove(disp)
 
@@ -490,6 +476,7 @@ Gui.element(function(definition, parent)
     table[vlayer_gui_control_power.name].visible = visible
     table[vlayer_gui_control_remove_type.name].visible = visible
     table[vlayer_gui_control_remove_list.name].visible = visible
+    table[vlayer_gui_control_remove_refresh.name].visible = visible
     table[vlayer_gui_control_remove_see.name].visible = visible
     table[vlayer_gui_control_remove.name].visible = visible
     return container.parent
