@@ -598,15 +598,17 @@ local function handle_energy_interfaces()
 
         for k, v in pairs(vlayer_data.storage.power_items) do
             if v.count > 0 then
+                local to_burn = 0
+
                 if (v.count * v.value) < max_burning then
-                    vlayer_data.storage.energy = vlayer_data.storage.energy + (v.count * v.value)
-                    vlayer_data.storage.power_items[k].count = 0
+                    to_burn = v.count
 
                 else
-                    local to_burn = math.min(max_burning / v.value)
-                    vlayer_data.storage.energy = vlayer_data.storage.energy + (to_burn * v.value)
-                    vlayer_data.storage.power_items[k].count = vlayer_data.storage.power_items[k].count - to_burn
+                    to_burn = math.min(max_burning / v.value)
                 end
+
+                vlayer_data.storage.energy = vlayer_data.storage.energy + (to_burn * v.value)
+                vlayer_data.storage.power_items[k].count = vlayer_data.storage.power_items[k].count - to_burn
             end
         end
     end
