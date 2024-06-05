@@ -320,7 +320,9 @@ Gui.element{
 }:on_click(function(player, element, _)
     local target = element.parent[vlayer_gui_control_remove_type.name].selected_index
     local n = element.parent[vlayer_gui_control_remove_list.name].selected_index
-    player.zoom_to_world(vlayer.get_interfaces()[vlayer_remove_type_list[target]][n].position, 2)
+    local pos = vlayer.get_interfaces()[vlayer_remove_type_list[target]][n].position
+    player.zoom_to_world(pos, 2)
+    game.print('The vlayer interface on ' .. pos_to_gps_string(pos))
 end)
 
 --- A button used to build the vlayer interface
