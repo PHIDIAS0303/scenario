@@ -320,7 +320,7 @@ Gui.element{
     caption = 'See Special'
 }:style{
     width = 160
-}:on_click(function(player, element, _)
+}:on_click(function(player, _, _)
     local target = frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_type.name].selected_index
     local n = frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_list.name].selected_index
     player.zoom_to_world(vlayer.get_interfaces()[vlayer_remove_type_list[target]][n].position, 2)
