@@ -321,9 +321,10 @@ local function handle_input_interfaces()
                     else
                         if vlayer_data.storage.power_items[name] then
                             vlayer_data.storage.power_items[name].count = vlayer_data.storage.power_items[name].count + count
-                        end
 
-                        vlayer.insert_item(name, count)
+                        else
+                            vlayer.insert_item(name, count)
+                        end
                     end
 
                     inventory.remove({name=name, count=count})
