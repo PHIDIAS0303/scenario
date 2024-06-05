@@ -322,7 +322,7 @@ Gui.element{
     local n = element.parent[vlayer_gui_control_list.name].selected_index
     local pos = vlayer.get_interfaces()[vlayer_control_type_list[target]][n].position
     player.zoom_to_world(pos, 2)
-    game.print('The vlayer interface on ' .. pos_to_gps_string(pos))
+    game.print{'vlayer.result-interface', pos_to_gps_string(pos)}
 end)
 
 --- A button used to build the vlayer interface
@@ -343,10 +343,10 @@ Gui.element{
 
             if res then
                 if vlayer.create_energy_interface(player.surface, res.pos, player) then
-                    game.print(player.name .. ' built a vlayer energy interface on ' .. pos_to_gps_string(res.pos))
+                    game.print{'vlayer.result-energy', player.name, pos_to_gps_string(res.pos)}
 
                 else
-                    player.print('Unable to build vlayer energy entity')
+                    player.print{'vlayer.result-unable-energy'}
                 end
             end
         end
@@ -357,7 +357,7 @@ Gui.element{
 
             if res then
                 vlayer.create_circuit_interface(player.surface, res.pos, res.circuit, player)
-                game.print(player.name .. ' built a vlayer circuit on ' .. pos_to_gps_string(res.pos))
+                game.print{'vlayer.result-circuit', player.name, pos_to_gps_string(res.pos)}
             end
         end
 
@@ -367,7 +367,7 @@ Gui.element{
 
             if res then
                 vlayer.create_input_interface(player.surface, res.pos, res.circuit, player)
-                game.print(player.name .. ' built a vlayer storage input on ' .. pos_to_gps_string(res.pos))
+                game.print{'vlayer.result-storage-input', player.name, pos_to_gps_string(res.pos)}
             end
         end
 
@@ -377,7 +377,7 @@ Gui.element{
 
             if res then
                 vlayer.create_output_interface(player.surface, res.pos, res.circuit, player)
-                game.print(player.name .. ' built a vlayer storage output on ' .. pos_to_gps_string(res.pos))
+                game.print{'vlayer.result-storage-output', player.name, pos_to_gps_string(res.pos)}
             end
         end
     end
@@ -396,13 +396,7 @@ Gui.element{
     local target = element.parent[vlayer_gui_control_type.name].selected_index
     local n = element.parent[vlayer_gui_control_list.name].selected_index
     local interface_type, interface_position = vlayer.remove_interface(vlayer.get_interfaces()[vlayer_control_type_list[target]][n].surface, vlayer.get_interfaces()[vlayer_control_type_list[target]][n].position)
-
-    if not interface_type then
-        return player.print('Interface not found in range, please move closer')
-    end
-
-    local interfaces = vlayer.get_interface_counts()
-    game.print(player.name .. ' removed a vlayer ' .. interface_type .. ' on ' .. pos_to_gps_string(interface_position))
+    game.print{'vlayer.result-remove', player.name, interface_type, pos_to_gps_string(interface_position)}
 end)
 
 --- A vertical flow containing all the control buttons
