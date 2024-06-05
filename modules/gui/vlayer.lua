@@ -303,7 +303,7 @@ Gui.element{
     local interface = vlayer.get_interfaces()[vlayer_control_type_list[target]]
 
     for i=1, vlayer.get_interface_counts()[vlayer_control_type_list[target]], 1 do
-        table.insert(full_list, i .. ' ' .. pos_to_gps_string(interface[i].position))
+        table.insert(full_list, i .. ' X ' .. interface[i].position.x .. ' Y'.. interface[i].position.y)
     end
 
     element.parent[vlayer_gui_control_list.name].items = full_list
