@@ -237,6 +237,8 @@ Gui.element(function(_, parent, name)
     vlayer_gui_display_item_solar_count(disp)
     vlayer_gui_display_item_accumulator_name(disp)
     vlayer_gui_display_item_accumulator_count(disp)
+    vlayer_gui_display_signal_remaining_surface_area_name(disp)
+    vlayer_gui_display_signal_remaining_surface_area_count(disp)
     vlayer_gui_display_signal_production_name(disp)
     vlayer_gui_display_signal_production_count(disp)
     vlayer_gui_display_signal_sustained_name(disp)
@@ -245,8 +247,6 @@ Gui.element(function(_, parent, name)
     vlayer_gui_display_signal_capacity_count(disp)
     vlayer_gui_display_signal_current_name(disp)
     vlayer_gui_display_signal_current_count(disp)
-    vlayer_gui_display_signal_remaining_surface_area_name(disp)
-    vlayer_gui_display_signal_remaining_surface_area_count(disp)
 
     return vlayer_set
 end)
@@ -426,11 +426,11 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
     local vlayer_display = {
         [vlayer_gui_display_item_solar_count.name] = format_number(items['solar-panel']),
         [vlayer_gui_display_item_accumulator_count.name] = format_number(items['accumulator']),
+        [vlayer_gui_display_signal_remaining_surface_area_count.name] = format_number(stats.remaining_surface_area),
         [vlayer_gui_display_signal_production_count.name] = format_energy(stats.energy_production, 'W'),
         [vlayer_gui_display_signal_sustained_count.name] = format_energy(stats.energy_sustained, 'W'),
         [vlayer_gui_display_signal_capacity_count.name] = format_energy(stats.energy_capacity, 'J'),
         [vlayer_gui_display_signal_current_count.name] = format_energy(stats.energy_storage, 'J'),
-        [vlayer_gui_display_signal_remaining_surface_area_count] = format_number(stats.remaining_surface_area),
     }
 
     for _, player in pairs(game.connected_players) do
