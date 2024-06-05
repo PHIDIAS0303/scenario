@@ -599,7 +599,7 @@ local function handle_energy_interfaces()
 
         for k, v in pairs(vlayer_data.storage.power_items) do
             if v.count > 0 then
-                local to_burn = 0
+                local to_burn
 
                 if (v.count * v.value) < max_burning then
                     to_burn = v.count
