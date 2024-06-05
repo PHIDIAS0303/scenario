@@ -593,6 +593,7 @@ local function handle_energy_interfaces()
     if not config.unlimited_capacity and vlayer_data.storage.energy > vlayer_data.properties.capacity * mega then
         vlayer_data.storage.energy = vlayer_data.properties.capacity * mega
 
+    --[[
     elseif vlayer_data.storage.power_items then
         local max_burning = (vlayer_data.properties.capacity * mega / 2) - vlayer_data.storage.energy
 
@@ -611,6 +612,7 @@ local function handle_energy_interfaces()
                 vlayer_data.storage.power_items[k].count = vlayer_data.storage.power_items[k].count - to_burn
             end
         end
+        ]]
     end
 end
 
