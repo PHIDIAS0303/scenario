@@ -32,7 +32,8 @@ local function format_energy(amount, unit)
         end
     end
 
-    local formatted, k = amount
+    local k
+    local formatted = amount
 
     while true do
         formatted, k = string.gsub(formatted, '^(-?%d+)(%d%d%d)', '%1,%2')
@@ -55,6 +56,7 @@ local function vlayer_convert_chest(player)
 
     local entity = entities[1]
     local pos = entity.position
+    local circuit = entity.circuit_connected_entities
 
     if (not entity.get_inventory(defines.inventory.chest).is_empty()) then
         player.print('Chest is not emptied')
@@ -62,7 +64,7 @@ local function vlayer_convert_chest(player)
     end
 
     entity.destroy()
-    return {x=string.format('%.1f', pos.x), y=string.format('%.1f', pos.y)}
+    return {pos={x=string.format('%.1f', pos.x), y=string.format('%.1f', pos.y)}, circuit=circuit}
 end
 
 --- Display label for the number of solar panels
@@ -71,7 +73,7 @@ local vlayer_gui_display_item_solar_name =
 Gui.element{
     type = 'label',
     name = 'vlayer_display_item_solar_name',
-    caption = '[img=entity/solar-panel] Solar Panel',
+    caption = {'vlayer.display-item-solar'},
     style = 'heading_1_label'
 }:style{
     width = 200
@@ -93,7 +95,7 @@ local vlayer_gui_display_item_accumulator_name =
 Gui.element{
     type = 'label',
     name = 'vlayer_display_item_accumulator_name',
-    caption = '[img=entity/accumulator] Accumulator',
+    caption = {'vlayer.display-item-accumulator'},
     style = 'heading_1_label'
 }:style{
     width = 200
@@ -115,7 +117,8 @@ local vlayer_gui_display_signal_production_name =
 Gui.element{
     type = 'label',
     name = 'vlayer_display_signal_peak_name',
-    caption = '[virtual-signal=signal-P] Current Production',
+    caption = {'vlayer.display-current-production'},
+    tooltip = {'vlayer.display-current-production-tooltip'},
     style = 'heading_1_label'
 }:style{
     width = 200
@@ -137,7 +140,8 @@ local vlayer_gui_display_signal_sustained_name =
 Gui.element{
     type = 'label',
     name = 'vlayer_display_signal_sustained_name',
-    caption = '[virtual-signal=signal-S] Sustained Production',
+    caption = {'vlayer.display-sustained-production'},
+    tooltip = {'vlayer.display-sustained-production-tooltip'},
     style = 'heading_1_label'
 }:style{
     width = 200
@@ -159,7 +163,8 @@ local vlayer_gui_display_signal_capacity_name =
 Gui.element{
     type = 'label',
     name = 'vlayer_display_signal_max_name',
-    caption = '[virtual-signal=signal-C] Battery Capacity',
+    caption = {'vlayer.display-max-capacity'},
+    tooltip = {'vlayer.display-max-capacity-tooltip'},
     style = 'heading_1_label'
 }:style{
     width = 200
@@ -181,7 +186,8 @@ local vlayer_gui_display_signal_current_name =
 Gui.element{
     type = 'label',
     name = 'vlayer_display_signal_current_name',
-    caption = '[virtual-signal=signal-E] Battery Charge',
+    caption = {'vlayer.display-current-capacity'},
+    tooltip = {'vlayer.display-current-capacity-tooltip'},
     style = 'heading_1_label'
 }:style{
     width = 200
@@ -191,6 +197,29 @@ local vlayer_gui_display_signal_current_count =
 Gui.element{
     type = 'label',
     name = 'vlayer_display_signal_current_count',
+    caption = '0',
+    style = 'heading_1_label'
+}:style{
+    width = 120
+}
+
+--- Display label for the remaining surface area
+-- @element vlayer_gui_display_signal_remaining_surface_area_name
+local vlayer_gui_display_signal_remaining_surface_area_name =
+Gui.element{
+    type = 'label',
+    name = 'vlayer_display_signal_remaining_surface_area_name',
+    caption = {'vlayer.display-remaining_surface_area'},
+    tooltip = {'vlayer.display-remaining_surface_area-tooltip'},
+    style = 'heading_1_label'
+}:style{
+    width = 200
+}
+
+local vlayer_gui_display_signal_remaining_surface_area_count =
+Gui.element{
+    type = 'label',
+    name = 'vlayer_display_signal_remaining_surface_area_count',
     caption = '0',
     style = 'heading_1_label'
 }:style{
@@ -216,6 +245,8 @@ Gui.element(function(_, parent, name)
     vlayer_gui_display_signal_capacity_count(disp)
     vlayer_gui_display_signal_current_name(disp)
     vlayer_gui_display_signal_current_count(disp)
+    vlayer_gui_display_signal_remaining_surface_area_name(disp)
+    vlayer_gui_display_signal_remaining_surface_area_count(disp)
 
     return vlayer_set
 end)
@@ -234,11 +265,11 @@ Gui.element{
 }:style{
     width = 160
 }:on_click(function(player, element, _)
-    local pos = vlayer_convert_chest(player)
+    local res = vlayer_convert_chest(player)
 
-    if (pos) then
-        vlayer.create_input_interface(player.surface, pos, player)
-        game.print(player.name .. ' built a vlayer storage input on ' .. pos_to_gps_string(pos))
+    if res then
+        vlayer.create_input_interface(player.surface, res.pos, res.circuit, player)
+        game.print(player.name .. ' built a vlayer storage input on ' .. pos_to_gps_string(res.pos))
     end
 
     element.enabled = (vlayer.get_interface_counts().storage_input < config.interface_limit.storage_input)
@@ -254,11 +285,11 @@ Gui.element{
 }:style{
     width = 160
 }:on_click(function(player, element, _)
-    local pos = vlayer_convert_chest(player)
+    local res = vlayer_convert_chest(player)
 
-    if (pos) then
-        vlayer.create_output_interface(player.surface, pos, player)
-        game.print(player.name .. ' built a vlayer storage output on ' .. pos_to_gps_string(pos))
+    if res then
+        vlayer.create_output_interface(player.surface, res.pos, res.circuit, player)
+        game.print(player.name .. ' built a vlayer storage output on ' .. pos_to_gps_string(res.pos))
     end
 
     element.enabled = (vlayer.get_interface_counts().storage_output < config.interface_limit.storage_output)
@@ -274,11 +305,11 @@ Gui.element{
 }:style{
     width = 160
 }:on_click(function(player, element, _)
-    local pos = vlayer_convert_chest(player)
+    local res = vlayer_convert_chest(player)
 
-    if (pos) then
-        vlayer.create_circuit_interface(player.surface, pos, player)
-        game.print(player.name .. ' built a vlayer circuit on ' .. pos_to_gps_string(pos))
+    if res then
+        vlayer.create_circuit_interface(player.surface, res.pos, res.circuit, player)
+        game.print(player.name .. ' built a vlayer circuit on ' .. pos_to_gps_string(res.pos))
     end
 
     element.enabled = (vlayer.get_interface_counts().circuit < config.interface_limit.circuit)
@@ -294,11 +325,12 @@ Gui.element{
 }:style{
     width = 160
 }:on_click(function(player, element, _)
-    local pos = vlayer_convert_chest(player)
+    local res = vlayer_convert_chest(player)
 
-    if (pos) then
-        if vlayer.create_energy_interface(player.surface, pos, player) then
-            game.print(player.name .. ' built a vlayer energy interface on ' .. pos_to_gps_string(pos))
+    if res then
+        if vlayer.create_energy_interface(player.surface, res.pos, player) then
+            game.print(player.name .. ' built a vlayer energy interface on ' .. pos_to_gps_string(res.pos))
+
         else
             player.print('Unable to build vlayer energy entity')
         end
@@ -318,6 +350,7 @@ Gui.element{
     width = 160
 }:on_click(function(player, element, _)
     local interface_type, interface_position = vlayer.remove_closest_interface(player.surface, player.position, 4)
+
     if not interface_type then
         return player.print('Interface not found in range, please move closer')
     end
@@ -397,6 +430,7 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
         [vlayer_gui_display_signal_sustained_count.name] = format_energy(stats.energy_sustained, 'W'),
         [vlayer_gui_display_signal_capacity_count.name] = format_energy(stats.energy_capacity, 'J'),
         [vlayer_gui_display_signal_current_count.name] = format_energy(stats.energy_storage, 'J'),
+        [vlayer_gui_display_signal_remaining_surface_area_count] = format_number(stats.remaining_surface_area),
     }
 
     for _, player in pairs(game.connected_players) do
