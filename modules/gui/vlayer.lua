@@ -20,6 +20,10 @@ local vlayer_remove_type_list = {
     [4] = 'storage_output'
 }
 
+local function pos_to_gps_string(pos)
+	return '[gps=' .. string.format('%.1f', pos.x) .. ',' .. string.format('%.1f', pos.y) .. ']'
+end
+
 local function format_energy(amount, unit)
     if amount < 1 then
         return '0 ' .. unit
@@ -260,10 +264,6 @@ Gui.element(function(_, parent, name)
     return vlayer_set
 end)
 
-local function pos_to_gps_string(pos)
-	return '[gps=' .. string.format('%.1f', pos.x) .. ',' .. string.format('%.1f', pos.y) .. ']'
-end
-
 --- A drop down list filter by this type
 -- @element vlayer_gui_control_remove_type
 local vlayer_gui_control_remove_type =
@@ -305,10 +305,7 @@ Gui.element{
         table.insert(full_list, i)
     end
 
-    for _, player_ in pairs(game.connected_players) do
-        local frame = Gui.get_left_element(player_, vlayer_container)
-        element.parent[vlayer_gui_control_remove_list.name].items = full_list
-    end
+    element.parent[vlayer_gui_control_remove_list.name].items = full_list
 end)
 
 --- A button to check if the item is the one wanted to remove
@@ -326,91 +323,65 @@ Gui.element{
     player.zoom_to_world(vlayer.get_interfaces()[vlayer_remove_type_list[target]][n].position, 2)
 end)
 
---- A button used to add a new storage input interface
--- @element vlayer_gui_control_storage_input
-local vlayer_gui_control_storage_input =
+--- A button used to build the vlayer interface
+-- @element vlayer_gui_control_build
+local vlayer_gui_control_build =
 Gui.element{
     type = 'button',
     name = Gui.unique_static_name,
-    caption = 'Add Input Storage'
+    caption = 'Build Special'
 }:style{
     width = 160
 }:on_click(function(player, element, _)
-    local res = vlayer_convert_chest(player)
+    local target = vlayer_remove_type_list[element.parent[vlayer_gui_control_remove_type.name].selected_index]
 
-    if res then
-        vlayer.create_input_interface(player.surface, res.pos, res.circuit, player)
-        game.print(player.name .. ' built a vlayer storage input on ' .. pos_to_gps_string(res.pos))
-    end
+    if target == 'energy' then
+        if (vlayer.get_interface_counts().energy < config.interface_limit.energy) then
+            local res = vlayer_convert_chest(player)
 
-    element.enabled = (vlayer.get_interface_counts().storage_input < config.interface_limit.storage_input)
-end)
+            if res then
+                if vlayer.create_energy_interface(player.surface, res.pos, player) then
+                    game.print(player.name .. ' built a vlayer energy interface on ' .. pos_to_gps_string(res.pos))
 
---- A button used to add a new storage output interface
--- @element vlayer_gui_control_storage_output
-local vlayer_gui_control_storage_output =
-Gui.element{
-    type = 'button',
-    name = Gui.unique_static_name,
-    caption = 'Add Output Storage'
-}:style{
-    width = 160
-}:on_click(function(player, element, _)
-    local res = vlayer_convert_chest(player)
+                else
+                    player.print('Unable to build vlayer energy entity')
+                end
+            end
+        end
 
-    if res then
-        vlayer.create_output_interface(player.surface, res.pos, res.circuit, player)
-        game.print(player.name .. ' built a vlayer storage output on ' .. pos_to_gps_string(res.pos))
-    end
+    elseif target == 'circuit' then
+        if (vlayer.get_interface_counts().circuit < config.interface_limit.circuit) then
+            local res = vlayer_convert_chest(player)
 
-    element.enabled = (vlayer.get_interface_counts().storage_output < config.interface_limit.storage_output)
-end)
+            if res then
+                vlayer.create_circuit_interface(player.surface, res.pos, res.circuit, player)
+                game.print(player.name .. ' built a vlayer circuit on ' .. pos_to_gps_string(res.pos))
+            end
+        end
 
---- A button used to add a new circuit interface
--- @element vlayer_gui_control_circuit
-local vlayer_gui_control_circuit =
-Gui.element{
-    type = 'button',
-    name = Gui.unique_static_name,
-    caption = 'Add Circuit'
-}:style{
-    width = 160
-}:on_click(function(player, element, _)
-    local res = vlayer_convert_chest(player)
+    elseif target == 'storage_input' then
+        if (vlayer.get_interface_counts().storage_input < config.interface_limit.storage_input) then
+            local res = vlayer_convert_chest(player)
 
-    if res then
-        vlayer.create_circuit_interface(player.surface, res.pos, res.circuit, player)
-        game.print(player.name .. ' built a vlayer circuit on ' .. pos_to_gps_string(res.pos))
-    end
+            if res then
+                vlayer.create_input_interface(player.surface, res.pos, res.circuit, player)
+                game.print(player.name .. ' built a vlayer storage input on ' .. pos_to_gps_string(res.pos))
+            end
+        end
 
-    element.enabled = (vlayer.get_interface_counts().circuit < config.interface_limit.circuit)
-end)
+    elseif target == 'storage_output' then
+        if (vlayer.get_interface_counts().storage_output < config.interface_limit.storage_output) then
+            local res = vlayer_convert_chest(player)
 
---- A button used to add a new energy interface
--- @element vlayer_gui_control_power
-local vlayer_gui_control_power =
-Gui.element{
-    type = 'button',
-    name = Gui.unique_static_name,
-    caption = 'Add Power'
-}:style{
-    width = 160
-}:on_click(function(player, element, _)
-    local res = vlayer_convert_chest(player)
-
-    if res then
-        if vlayer.create_energy_interface(player.surface, res.pos, player) then
-            game.print(player.name .. ' built a vlayer energy interface on ' .. pos_to_gps_string(res.pos))
-
-        else
-            player.print('Unable to build vlayer energy entity')
+            if res then
+                vlayer.create_output_interface(player.surface, res.pos, res.circuit, player)
+                game.print(player.name .. ' built a vlayer storage output on ' .. pos_to_gps_string(res.pos))
+            end
         end
     end
-
-    element.enabled = (vlayer.get_interface_counts().energy < config.interface_limit.energy)
 end)
 
---- A button used to remove the closest vlayer interface
+--- A button used to remove the vlayer interface
 -- @element vlayer_gui_control_remove
 local vlayer_gui_control_remove =
 Gui.element{
@@ -430,10 +401,6 @@ Gui.element{
 
     local interfaces = vlayer.get_interface_counts()
     game.print(player.name .. ' removed a vlayer ' .. interface_type .. ' on ' .. pos_to_gps_string(interface_position))
-    element.parent[vlayer_gui_control_storage_input.name].enabled = (interfaces.storage_input < config.interface_limit.storage_input)
-    element.parent[vlayer_gui_control_storage_output.name].enabled = (interfaces.storage_output < config.interface_limit.storage_output)
-    element.parent[vlayer_gui_control_circuit.name].enabled = (interfaces.circuit < config.interface_limit.circuit)
-    element.parent[vlayer_gui_control_power.name].enabled = (interfaces.energy < config.interface_limit.energy)
 end)
 
 --- A vertical flow containing all the control buttons
@@ -443,15 +410,11 @@ Gui.element(function(_, parent, name)
     local vlayer_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(vlayer_set, 320, 2, 'disp')
 
-    local interfaces = vlayer.get_interface_counts()
-    vlayer_gui_control_storage_input(disp).enabled = (interfaces.storage_input < config.interface_limit.storage_input)
-    vlayer_gui_control_storage_output(disp).enabled = (interfaces.storage_output < config.interface_limit.storage_output)
-    vlayer_gui_control_circuit(disp).enabled = (interfaces.circuit < config.interface_limit.circuit)
-    vlayer_gui_control_power(disp).enabled = (interfaces.energy < config.interface_limit.energy)
     vlayer_gui_control_remove_type(disp)
     vlayer_gui_control_remove_list(disp)
     vlayer_gui_control_remove_refresh(disp)
     vlayer_gui_control_remove_see(disp)
+    vlayer_gui_control_build(disp)
     vlayer_gui_control_remove(disp)
 
     return vlayer_set
@@ -470,15 +433,13 @@ Gui.element(function(definition, parent)
     local table = container['vlayer_st_2'].disp.table
     local visible = Roles.player_allowed(player, 'gui/vlayer-edit')
 
-    table[vlayer_gui_control_storage_input.name].visible = visible
-    table[vlayer_gui_control_storage_output.name].visible = visible
-    table[vlayer_gui_control_circuit.name].visible = visible
-    table[vlayer_gui_control_power.name].visible = visible
     table[vlayer_gui_control_remove_type.name].visible = visible
     table[vlayer_gui_control_remove_list.name].visible = visible
     table[vlayer_gui_control_remove_refresh.name].visible = visible
     table[vlayer_gui_control_remove_see.name].visible = visible
+    table[vlayer_gui_control_build].visible = visible
     table[vlayer_gui_control_remove.name].visible = visible
+
     return container.parent
 end)
 :static_name(Gui.unique_static_name)
