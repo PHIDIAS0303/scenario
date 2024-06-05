@@ -69,7 +69,7 @@ return {
             surface_area = 0,
             fuel_value = 4, -- MJ
             power = true -- turn all wood to power to reduce trash
-        },
+        }
         --[[
         ['iron-ore'] = {
             starting_value = 0,
