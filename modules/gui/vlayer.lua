@@ -270,7 +270,7 @@ local vlayer_gui_control_type =
 Gui.element{
     type = 'drop-down',
     name = Gui.unique_static_name,
-    items = {'Energy', 'Circuit', 'Storage Input', 'Storage Output'},
+    items = {{'vlayer.control-type-energy'}, {'vlayer.control-type-circuit'}, {'vlayer.control-type-storage-input'}, {'vlayer.control-type-storage-output'}},
     selected_index = 1
 }:style{
     width = 160
@@ -293,7 +293,7 @@ Gui.element{
 local vlayer_gui_control_refresh =
 Gui.element{
     type = 'button',
-    name = Gui.unique_static_name,
+    name = Gui.unique_static_name,  
     caption = {'vlayer.control-refresh'}
 }:style{
     width = 160
@@ -303,7 +303,7 @@ Gui.element{
     local interface = vlayer.get_interfaces()[vlayer_control_type_list[target]]
 
     for i=1, vlayer.get_interface_counts()[vlayer_control_type_list[target]], 1 do
-        table.insert(full_list, i .. ' X ' .. interface[i].position.x .. ' Y'.. interface[i].position.y)
+        table.insert(full_list, i .. ' X ' .. interface[i].position.x .. ' Y '.. interface[i].position.y)
     end
 
     element.parent[vlayer_gui_control_list.name].items = full_list
