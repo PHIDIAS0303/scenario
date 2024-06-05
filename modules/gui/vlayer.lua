@@ -11,6 +11,15 @@ local format_number = require('util').format_number --- @dep util
 local config = require 'config.vlayer' --- @dep config.vlayer
 local vlayer = require 'modules.control.vlayer'
 
+local vlayer_container
+
+local vlayer_remove_type_list = {
+    [1] = 'energy',
+    [2] = 'circuit',
+    [3] = 'storage_input',
+    [4] = 'storage_output'
+}
+
 local function format_energy(amount, unit)
     if amount < 1 then
         return '0 ' .. unit
@@ -255,6 +264,68 @@ local function pos_to_gps_string(pos)
 	return '[gps=' .. string.format('%.1f', pos.x) .. ',' .. string.format('%.1f', pos.y) .. ']'
 end
 
+--- A drop down list filter by this type
+-- @element vlayer_gui_control_remove_type
+local vlayer_gui_control_remove_type =
+Gui.element{
+    type = 'drop-down',
+    name = Gui.unique_static_name,
+    items = {'Energy', 'Circuit', 'Storage Input', 'Storage Output'},
+    selected_index = 1
+}:style{
+    width = 160
+}
+
+--- A drop down list to see the exact item to remove
+-- @element vlayer_gui_control_remove_list
+local vlayer_gui_control_remove_list =
+Gui.element{
+    type = 'drop-down',
+    name = Gui.unique_static_name,
+    items = {''},
+    selected_index = 1
+}:style{
+    width = 160
+}
+
+--- A button to refresh the remove list
+-- @element vlayer_gui_control_remove_refresh
+local vlayer_gui_control_remove_refresh =
+Gui.element{
+    type = 'button',
+    name = Gui.unique_static_name,
+    caption = 'Refresh List'
+}:style{
+    width = 160
+}:on_click(function(_, _, _)
+    local target = frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_type.name].selected_index
+    local full_list = {}
+
+    for _, interface in pairs(vlayer.get_interfaces()[vlayer_remove_type_list[target]]) do
+        table.insert(full_list, interface)
+    end
+
+    for _, player_ in pairs(game.connected_players) do
+        local frame = Gui.get_left_element(player_, vlayer_container)
+        frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_list.name].items = full_list
+    end
+end)
+
+--- A button to check if the item is the one wanted to remove
+-- @element vlayer_gui_control_remove_see
+local vlayer_gui_control_remove_see =
+Gui.element{
+    type = 'button',
+    name = Gui.unique_static_name,
+    caption = 'See Special'
+}:style{
+    width = 160
+}:on_click(function(player, element, _)
+    local target = frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_type.name].selected_index
+    local n = frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_list.name].selected_index
+    player.zoom_to_world(vlayer.get_interfaces()[vlayer_remove_type_list[target]][n].position, 2)
+end)
+
 --- A button used to add a new storage input interface
 -- @element vlayer_gui_control_storage_input
 local vlayer_gui_control_storage_input =
@@ -349,7 +420,24 @@ Gui.element{
 }:style{
     width = 160
 }:on_click(function(player, element, _)
-    local interface_type, interface_position = vlayer.remove_closest_interface(player.surface, player.position, 4)
+    local category_look
+    local target = frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_type.name].items
+    local n = frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_list.name].selected_index
+
+    if target == 'Energy' then
+        category_look = vlayer.get_interfaces()['energy']
+
+    elseif target == 'Circuit' then
+        category_look = vlayer.get_interfaces()['circuit']
+
+    elseif target == 'Storage Input' then
+        category_look = vlayer.get_interfaces()['storage_input']
+
+    elseif target == 'Storage Output' then
+        category_look = vlayer.get_interfaces()['storage_output']
+    end
+
+    local interface_type, interface_position = vlayer.remove_interface(category_look[n].surface, category_look[n].position)
 
     if not interface_type then
         return player.print('Interface not found in range, please move closer')
@@ -375,6 +463,9 @@ Gui.element(function(_, parent, name)
     vlayer_gui_control_storage_output(disp).enabled = (interfaces.storage_output < config.interface_limit.storage_output)
     vlayer_gui_control_circuit(disp).enabled = (interfaces.circuit < config.interface_limit.circuit)
     vlayer_gui_control_power(disp).enabled = (interfaces.energy < config.interface_limit.energy)
+    vlayer_gui_control_remove_type(disp)
+    vlayer_gui_control_remove_list(disp)
+    vlayer_gui_control_remove_see(disp)
     vlayer_gui_control_remove(disp)
 
     return vlayer_set
@@ -382,7 +473,7 @@ end)
 
 --- The main container for the vlayer gui
 -- @element vlayer_container
-local vlayer_container =
+vlayer_container =
 Gui.element(function(definition, parent)
     local player = Gui.get_player_from_element(parent)
     local container = Gui.container(parent, definition.name, 320)
@@ -397,6 +488,9 @@ Gui.element(function(definition, parent)
     table[vlayer_gui_control_storage_output.name].visible = visible
     table[vlayer_gui_control_circuit.name].visible = visible
     table[vlayer_gui_control_power.name].visible = visible
+    table[vlayer_gui_control_remove_type.name].visible = visible
+    table[vlayer_gui_control_remove_list.name].visible = visible
+    table[vlayer_gui_control_remove_see.name].visible = visible
     table[vlayer_gui_control_remove.name].visible = visible
     return container.parent
 end)

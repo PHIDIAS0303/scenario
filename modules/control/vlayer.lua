@@ -84,6 +84,19 @@ function vlayer.get_interface_counts()
     }
 end
 
+--- Get interfaces
+-- @treturn table a dictionary of the vlayer interfaces
+function vlayer.get_interfaces()
+    local interfaces = vlayer_data.entity_interfaces
+
+    return {
+        energy = interfaces.energy,
+        circuit = interfaces.circuit,
+        storage_input = interfaces.storage_input,
+        storage_output = interfaces.storage_output,
+    }
+end
+
 --[[
     25,000 / 416 s
     昼      208秒   ソーラー効率100%
@@ -616,18 +629,17 @@ local function handle_energy_interfaces()
     end
 end
 
---- Remove the closest entity interface to the given position
+--- Remove the entity interface using the given position
 -- @tparam LuaSurface surface The surface to search for an interface on
--- @tparam MapPosition position The position to start the search from
--- @tparam number radius The radius to search for an interface within
+-- @tparam MapPosition position The position of the item
 -- @treturn string The type of interface that was removed, or nil if no interface was found
 -- @treturn MapPosition The position the interface was at, or nil if no interface was found
-function vlayer.remove_closest_interface(surface, position, radius)
+function vlayer.remove_interface(surface, position)
     local entities = surface.find_entities_filtered{
         name = {'logistic-chest-storage', 'logistic-chest-requester', 'constant-combinator', 'electric-energy-interface'},
         force = 'neutral',
         position = position,
-        radius = radius,
+        radius = 2,
         limit = 1
     }
 
