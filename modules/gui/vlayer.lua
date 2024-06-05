@@ -297,17 +297,17 @@ Gui.element{
     caption = 'Refresh List'
 }:style{
     width = 160
-}:on_click(function(_, _, _)
-    local target = frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_type.name].selected_index
+}:on_click(function(_, element, _)
+    local target = element.parent[vlayer_gui_control_remove_type.name].selected_index
     local full_list = {}
 
-    for _, interface in pairs(vlayer.get_interfaces()[vlayer_remove_type_list[target]]) do
-        table.insert(full_list, interface)
+    for i=1, vlayer.get_interface_counts()[vlayer_remove_type_list[target]], 1 do
+        table.insert(full_list, i)
     end
 
     for _, player_ in pairs(game.connected_players) do
         local frame = Gui.get_left_element(player_, vlayer_container)
-        frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_list.name].items = full_list
+        element.parent[vlayer_gui_control_remove_list.name].items = full_list
     end
 end)
 
@@ -320,9 +320,9 @@ Gui.element{
     caption = 'See Special'
 }:style{
     width = 160
-}:on_click(function(player, _, _)
-    local target = frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_type.name].selected_index
-    local n = frame.container.scroll['vlayer_st_2'].buttons.table[vlayer_gui_control_remove_list.name].selected_index
+}:on_click(function(player, element, _)
+    local target = element.parent[vlayer_gui_control_remove_type.name].selected_index
+    local n = element.parent[vlayer_gui_control_remove_list.name].selected_index
     player.zoom_to_world(vlayer.get_interfaces()[vlayer_remove_type_list[target]][n].position, 2)
 end)
 
