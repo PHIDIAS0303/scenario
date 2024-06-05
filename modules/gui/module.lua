@@ -152,6 +152,7 @@ local function row_set(player, element)
             end
             frame.container.scroll.table[element .. i].elem_filters = elem_filter.normal
         end
+
     else
         local mf = elem_filter.normal
 

@@ -473,6 +473,10 @@ end)
 	event.element = element.parent.alignment[toggle_section.name]
 	toggle_section:raise_event(event)
 end)
+:on_click(function(_, element, event)
+	event.element = element.parent.alignment[toggle_section.name]
+	toggle_section:raise_custom_event(event)
+end)
 
 --- Main gui container for the left flow
 -- @element rocket_list_container

@@ -54,7 +54,7 @@ return {
     'modules.addons.advanced-start',
     'modules.addons.spawn-area',
     'modules.addons.compilatron',
-    'modules.addons.scorched-earth',
+    -- 'modules.addons.scorched-earth',
     'modules.addons.pollution-grading',
     'modules.addons.station-auto-name',
     'modules.addons.discord-alerts',
@@ -70,6 +70,7 @@ return {
 
     -- Control
     'modules.control.vlayer',
+    -- 'modules.control.shared_spawn',
 
     --- Data
     'modules.data.statistics',
@@ -96,6 +97,8 @@ return {
     'modules.gui.module',
     'modules.gui.playerdata',
     'modules.gui.surveillance',
+    -- 'modules.gui.linked',
+    -- 'modules.gui.rate-calc',
 		'modules.graftorio.require', -- graftorio
     'modules.gui.toolbar', -- must be loaded last to register toolbar handlers
 

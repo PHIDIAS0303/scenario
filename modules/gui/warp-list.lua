@@ -165,7 +165,7 @@ Gui.element(function(definition, parent, warp)
         name = definition.name,
         tooltip = {'warp-list.goto-tooltip', warp_position.x, warp_position.y},
         style = 'slot_button'
-    }
+    })
 end)
 :style(Styles.sprite32)
 :static_name(Gui.unique_static_name)
@@ -192,7 +192,7 @@ Gui.element(function(definition, parent, warp)
         elem_type = 'signal',
         signal = {type = warp.icon.type, name = warp.icon.name},
         tooltip = {'warp-list.goto-edit'}
-    }
+    })
 end)
 :static_name(Gui.unique_static_name)
 :style(Styles.sprite32)

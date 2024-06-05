@@ -165,7 +165,7 @@ return {
         },
         {
             name = 'character_trash_slot_count',
-            enabled = false,
+            enabled = true,
             min = 0,
             max = 20
         },
