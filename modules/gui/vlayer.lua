@@ -346,9 +346,12 @@ Gui.element{
                     game.print{'vlayer.result-energy', player.name, pos_to_gps_string(res.pos)}
 
                 else
-                    player.print{'vlayer.result-unable-energy'}
+                    player.print{'vlayer.result-unable'}
                 end
             end
+
+        else
+            player.print{'vlayer.result-unable'}
         end
 
     elseif target == 'circuit' then
@@ -359,6 +362,9 @@ Gui.element{
                 vlayer.create_circuit_interface(player.surface, res.pos, res.circuit, player)
                 game.print{'vlayer.result-circuit', player.name, pos_to_gps_string(res.pos)}
             end
+
+        else
+            player.print{'vlayer.result-unable'}
         end
 
     elseif target == 'storage_input' then
@@ -369,6 +375,9 @@ Gui.element{
                 vlayer.create_input_interface(player.surface, res.pos, res.circuit, player)
                 game.print{'vlayer.result-storage-input', player.name, pos_to_gps_string(res.pos)}
             end
+
+        else
+            player.print{'vlayer.result-unable'}
         end
 
     elseif target == 'storage_output' then
@@ -379,6 +388,9 @@ Gui.element{
                 vlayer.create_output_interface(player.surface, res.pos, res.circuit, player)
                 game.print{'vlayer.result-storage-output', player.name, pos_to_gps_string(res.pos)}
             end
+
+        else
+            player.print{'vlayer.result-unable'}
         end
     end
 end)
