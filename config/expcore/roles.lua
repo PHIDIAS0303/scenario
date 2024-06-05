@@ -241,7 +241,6 @@ Roles.new_role('Veteran','Vet')
     end
 end)
 
-
 local hours1, hours15 = 1*216000, 15*60
 Roles.new_role('Regular','Reg')
 :set_permission_group('Standard')
