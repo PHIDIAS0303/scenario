@@ -300,9 +300,10 @@ Gui.element{
 }:on_click(function(_, element, _)
     local target = element.parent[vlayer_gui_control_type.name].selected_index
     local full_list = {}
+    local interface = vlayer.get_interfaces()[vlayer_control_type_list[target]]
 
     for i=1, vlayer.get_interface_counts()[vlayer_control_type_list[target]], 1 do
-        table.insert(full_list, i)
+        table.insert(full_list, i .. ' ' .. pos_to_gps_string(interface[i].position))
     end
 
     element.parent[vlayer_gui_control_list.name].items = full_list
