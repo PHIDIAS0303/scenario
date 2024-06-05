@@ -13,7 +13,7 @@ local vlayer = require 'modules.control.vlayer'
 
 local vlayer_container
 
-local vlayer_remove_type_list = {
+local vlayer_control_type_list = {
     [1] = 'energy',
     [2] = 'circuit',
     [3] = 'storage_input',
@@ -63,7 +63,7 @@ local function vlayer_convert_chest(player)
     local entities = player.surface.find_entities_filtered{position=player.position, radius=8, name='steel-chest', force=player.force, limit=1}
 
     if (not entities or #entities == 0) then
-        player.print('No steel chest detected')
+        player.print{'vlayer.steel-chest-detect'}
         return
     end
 
@@ -72,7 +72,7 @@ local function vlayer_convert_chest(player)
     local circuit = entity.circuit_connected_entities
 
     if (not entity.get_inventory(defines.inventory.chest).is_empty()) then
-        player.print('Chest is not emptied')
+        player.print{'vlayer.steel-chest-detect'}
         return nil
     end
 
@@ -265,8 +265,8 @@ Gui.element(function(_, parent, name)
 end)
 
 --- A drop down list filter by this type
--- @element vlayer_gui_control_remove_type
-local vlayer_gui_control_remove_type =
+-- @element vlayer_gui_control_type
+local vlayer_gui_control_type =
 Gui.element{
     type = 'drop-down',
     name = Gui.unique_static_name,
@@ -277,8 +277,8 @@ Gui.element{
 }
 
 --- A drop down list to see the exact item to remove
--- @element vlayer_gui_control_remove_list
-local vlayer_gui_control_remove_list =
+-- @element vlayer_gui_control_list
+local vlayer_gui_control_list =
 Gui.element{
     type = 'drop-down',
     name = Gui.unique_static_name,
@@ -289,38 +289,38 @@ Gui.element{
 }
 
 --- A button to refresh the remove list
--- @element vlayer_gui_control_remove_refresh
-local vlayer_gui_control_remove_refresh =
+-- @element vlayer_gui_control_refresh
+local vlayer_gui_control_refresh =
 Gui.element{
     type = 'button',
     name = Gui.unique_static_name,
-    caption = 'Refresh List'
+    caption = {'vlayer.control-refresh'}
 }:style{
     width = 160
 }:on_click(function(_, element, _)
-    local target = element.parent[vlayer_gui_control_remove_type.name].selected_index
+    local target = element.parent[vlayer_gui_control_type.name].selected_index
     local full_list = {}
 
-    for i=1, vlayer.get_interface_counts()[vlayer_remove_type_list[target]], 1 do
+    for i=1, vlayer.get_interface_counts()[vlayer_control_type_list[target]], 1 do
         table.insert(full_list, i)
     end
 
-    element.parent[vlayer_gui_control_remove_list.name].items = full_list
+    element.parent[vlayer_gui_control_list.name].items = full_list
 end)
 
 --- A button to check if the item is the one wanted to remove
--- @element vlayer_gui_control_remove_see
-local vlayer_gui_control_remove_see =
+-- @element vlayer_gui_control_see
+local vlayer_gui_control_see =
 Gui.element{
     type = 'button',
     name = Gui.unique_static_name,
-    caption = 'See Special'
+    caption = {'vlayer.control-see'}
 }:style{
     width = 160
 }:on_click(function(player, element, _)
-    local target = element.parent[vlayer_gui_control_remove_type.name].selected_index
-    local n = element.parent[vlayer_gui_control_remove_list.name].selected_index
-    local pos = vlayer.get_interfaces()[vlayer_remove_type_list[target]][n].position
+    local target = element.parent[vlayer_gui_control_type.name].selected_index
+    local n = element.parent[vlayer_gui_control_list.name].selected_index
+    local pos = vlayer.get_interfaces()[vlayer_control_type_list[target]][n].position
     player.zoom_to_world(pos, 2)
     game.print('The vlayer interface on ' .. pos_to_gps_string(pos))
 end)
@@ -331,11 +331,11 @@ local vlayer_gui_control_build =
 Gui.element{
     type = 'button',
     name = Gui.unique_static_name,
-    caption = 'Build Special'
+    caption = {'vlayer.control-build'}
 }:style{
     width = 160
 }:on_click(function(player, element, _)
-    local target = vlayer_remove_type_list[element.parent[vlayer_gui_control_remove_type.name].selected_index]
+    local target = vlayer_control_type_list[element.parent[vlayer_gui_control_type.name].selected_index]
 
     if target == 'energy' then
         if (vlayer.get_interface_counts().energy < config.interface_limit.energy) then
@@ -389,13 +389,13 @@ local vlayer_gui_control_remove =
 Gui.element{
     type = 'button',
     name = Gui.unique_static_name,
-    caption = 'Remove Special'
+    caption = {'vlayer.control-remove'}
 }:style{
     width = 160
 }:on_click(function(player, element, _)
-    local target = element.parent[vlayer_gui_control_remove_type.name].selected_index
-    local n = element.parent[vlayer_gui_control_remove_list.name].selected_index
-    local interface_type, interface_position = vlayer.remove_interface(vlayer.get_interfaces()[vlayer_remove_type_list[target]][n].surface, vlayer.get_interfaces()[vlayer_remove_type_list[target]][n].position)
+    local target = element.parent[vlayer_gui_control_type.name].selected_index
+    local n = element.parent[vlayer_gui_control_list.name].selected_index
+    local interface_type, interface_position = vlayer.remove_interface(vlayer.get_interfaces()[vlayer_control_type_list[target]][n].surface, vlayer.get_interfaces()[vlayer_control_type_list[target]][n].position)
 
     if not interface_type then
         return player.print('Interface not found in range, please move closer')
@@ -412,10 +412,10 @@ Gui.element(function(_, parent, name)
     local vlayer_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(vlayer_set, 320, 2, 'disp')
 
-    vlayer_gui_control_remove_type(disp)
-    vlayer_gui_control_remove_list(disp)
-    vlayer_gui_control_remove_refresh(disp)
-    vlayer_gui_control_remove_see(disp)
+    vlayer_gui_control_type(disp)
+    vlayer_gui_control_list(disp)
+    vlayer_gui_control_refresh(disp)
+    vlayer_gui_control_see(disp)
     vlayer_gui_control_build(disp)
     vlayer_gui_control_remove(disp)
 
@@ -435,10 +435,10 @@ Gui.element(function(definition, parent)
     local table = container['vlayer_st_2'].disp.table
     local visible = Roles.player_allowed(player, 'gui/vlayer-edit')
 
-    table[vlayer_gui_control_remove_type.name].visible = visible
-    table[vlayer_gui_control_remove_list.name].visible = visible
-    table[vlayer_gui_control_remove_refresh.name].visible = visible
-    table[vlayer_gui_control_remove_see.name].visible = visible
+    table[vlayer_gui_control_type.name].visible = visible
+    table[vlayer_gui_control_list.name].visible = visible
+    table[vlayer_gui_control_refresh.name].visible = visible
+    table[vlayer_gui_control_see.name].visible = visible
     table[vlayer_gui_control_build].visible = visible
     table[vlayer_gui_control_remove.name].visible = visible
 
