@@ -84,7 +84,7 @@ Gui.element(function(_, parent, server_id, wrong_version)
         sprite = 'utility/circuit_network_panel_white', --- network panel white, warning white, download white
         hovered_sprite = 'utility/circuit_network_panel_black', --- network panel black, warning black, download black
         tooltip = {'readme.servers-connect-'..status, wrong_version}
-    })
+    }
 
     if status == 'Offline' or status == 'Current' then
         button.enabled = false
