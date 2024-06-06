@@ -62,7 +62,7 @@ Gui.element(function(_, parent, entity_name)
         sprite = 'utility/confirm_slot',
         tooltip = {'autofill.toggle-entity-tooltip', rich_img('item', entity_name)},
         style = 'shortcut_bar_button_green'
-    })
+    }
 end)
 :style(Gui.sprite_style(22))
 :on_click(function(player, element, _)
@@ -119,10 +119,6 @@ end)
 :on_click(function(_, element, event)
     event.element = element.parent.alignment[toggle_section.name]
     toggle_section:raise_event(event)
-end)
-:on_click(function(_, element, event)
-    event.element = element.parent.alignment[toggle_section.name]
-    toggle_section:raise_custom_event(event)
 end)
 
 --- Toggle item button, used for toggling autofill for the specific item
