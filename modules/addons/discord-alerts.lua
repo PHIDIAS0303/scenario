@@ -113,6 +113,7 @@ end
 --- Reports added and removed
 if config.player_reports then
     local Reports = require 'modules.control.reports' --- @dep modules.control.reports
+
     Event.add(Reports.events.on_player_reported, function(event)
         local player_name, by_player_name = get_player_name(event)
         emit_event{
@@ -125,6 +126,7 @@ if config.player_reports then
             ['Reason']=event.reason
         }
     end)
+
     Event.add(Reports.events.on_report_removed, function(event)
         if event.batch ~= 1 then return end
         local player_name = get_player_name(event)
