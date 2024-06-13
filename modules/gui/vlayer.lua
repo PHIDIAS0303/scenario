@@ -222,7 +222,7 @@ local vlayer_gui_display_signal_remaining_surface_area_name =
 Gui.element{
     type = 'label',
     name = 'vlayer_display_signal_remaining_surface_area_name',
-    caption = {'vlayer.display-remaining_surface_area'},
+    caption = {'vlayer.display-remaining-surface-area'},
     tooltip = {'vlayer.display-remaining-surface-area-tooltip'},
     style = 'heading_1_label'
 }:style{
@@ -408,9 +408,12 @@ Gui.element{
 }:on_click(function(player, element, _)
     local target = element.parent[vlayer_gui_control_type.name].selected_index
     local n = element.parent[vlayer_gui_control_list.name].selected_index
-    local t = vlayer.get_interfaces()[vlayer_control_type_list[target]]
-    local interface_type, interface_position = vlayer.remove_interface(t[n].surface, t[n].position)
-    game.print{'vlayer.result-remove', player.name, interface_type, pos_to_gps_string(interface_position)}
+
+    if n then
+        local t = vlayer.get_interfaces()[vlayer_control_type_list[target]]
+        local interface_type, interface_position = vlayer.remove_interface(t[n].surface, t[n].position)
+        game.print{'vlayer.result-remove', player.name, interface_type, pos_to_gps_string(interface_position)}
+    end
 end)
 
 --- A vertical flow containing all the control buttons
