@@ -18,26 +18,31 @@ return {
         ['character_mining_speed_modifier'] = {
             value = 2,
             max = 5,
+            scale = 0.25,
             cost = 10
         },
         ['character_running_speed_modifier'] = {
             value = 1.5,
             max = 3,
+            scale = 0.25,
             cost = 20
         },
         ['character_crafting_speed_modifier'] = {
             value = 5,
-            max = 20,
+            max = 10,
+            scale = 0.5,
             cost = 10
         },
         ['character_inventory_slots_bonus'] = {
-            value = 100,
-            max = 150,
+            value = 80,
+            max = 120,
+            scale = 10,
             cost = 1
         },
         ['character_health_bonus'] = {
             value = 200,
-            max = 400,
+            max = 500,
+            scale = 50,
             cost = 0.01
         }
         --[[

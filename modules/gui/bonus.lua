@@ -30,7 +30,7 @@ Gui.element{
     caption = '0',
     value = config.player_bonus['character_mining_speed_modifier'].value,
     maximum_value = config.player_bonus['character_mining_speed_modifier'].max,
-    value_step = 0.25,
+    value_step = config.player_bonus['character_mining_speed_modifier'].scale,
     discrete_values = false,
     style = 'notched_slider'
 }:style{
@@ -69,7 +69,7 @@ Gui.element{
     caption = '0',
     value = config.player_bonus['character_running_speed_modifier'].value,
     maximum_value = config.player_bonus['character_running_speed_modifier'].max,
-    value_step = 0.25,
+    value_step = config.player_bonus['character_running_speed_modifier'].scale,
     discrete_values = false,
     style = 'notched_slider'
 }:style{
@@ -108,7 +108,7 @@ Gui.element{
     caption = '0',
     value = config.player_bonus['character_crafting_speed_modifier'].value,
     maximum_value = config.player_bonus['character_crafting_speed_modifier'].max,
-    value_step = 0.5,
+    value_step = config.player_bonus['character_crafting_speed_modifier'].scale,
     discrete_values = false,
     style = 'notched_slider'
 }:style{
@@ -147,7 +147,7 @@ Gui.element{
     caption = '0',
     value = config.player_bonus['character_inventory_slots_bonus'].value,
     maximum_value = config.player_bonus['character_inventory_slots_bonus'].max,
-    value_step = 10,
+    value_step = config.player_bonus['character_inventory_slots_bonus'].scale,
     discrete_values = true,
     style = 'notched_slider'
 }:style{
@@ -186,7 +186,7 @@ Gui.element{
     caption = '0',
     value = config.player_bonus['character_health_bonus'].value,
     maximum_value = config.player_bonus['character_health_bonus'].max,
-    value_step = 50,
+    value_step = config.player_bonus['character_health_bonus'].scale,
     discrete_values = true,
     style = 'notched_slider'
 }:style{
