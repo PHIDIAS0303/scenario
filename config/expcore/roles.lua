@@ -293,6 +293,7 @@ local default = Roles.new_role('Guest','')
     'gui/task-list',
     'gui/warp-list',
     'gui/readme',
+    'gui/bonus',
     'gui/vlayer',
     'gui/research',
     'gui/autofill',

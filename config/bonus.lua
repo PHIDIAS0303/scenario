@@ -3,6 +3,17 @@
 
 return {
     -- level of player bonus for lower roles, 1 level is 10 %
+    --[[
+    Total point is something like 200
+    point is given by role.
+    so below will be not able to see
+    then do like crafting speed is 2:1 (1 = 0.5x speed)
+    running speed is something like 1:10
+    blah blah ...
+    and limit maximum...
+
+    work with vlayer, virtual power source blah blah...
+    ]]
     player_bonus_level = 1,
     player_bonus = {
         {
@@ -22,6 +33,18 @@ return {
             enabled = true,
             min = 0,
             max = 5
+        },
+        {
+            name = 'character_inventory_slots_bonus',
+            enabled = true,
+            min = 0,
+            max = 100
+        },
+        {
+            name = 'character_health_bonus',
+            enabled = true,
+            min = 0,
+            max = 200
         },
         {
             name = 'character_reach_distance_bonus',
@@ -58,18 +81,6 @@ return {
             enabled = false,
             min = 0,
             max = 5
-        },
-        {
-            name = 'character_inventory_slots_bonus',
-            enabled = true,
-            min = 0,
-            max = 100
-        },
-        {
-            name = 'character_health_bonus',
-            enabled = true,
-            min = 0,
-            max = 200
         }
     },
     force_bonus = {
@@ -92,6 +103,18 @@ return {
             max = 5
         },
         {
+            name = 'character_inventory_slots_bonus',
+            enabled = false,
+            min = 0,
+            max = 100
+        },
+        {
+            name = 'character_health_bonus',
+            enabled = false,
+            min = 0,
+            max = 200
+        },
+        {
             name = 'character_reach_distance_bonus',
             enabled = false,
             min = 0,
@@ -126,18 +149,6 @@ return {
             enabled = false,
             min = 0,
             max = 5
-        },
-        {
-            name = 'character_inventory_slots_bonus',
-            enabled = false,
-            min = 0,
-            max = 100
-        },
-        {
-            name = 'character_health_bonus',
-            enabled = false,
-            min = 0,
-            max = 200
         },
         {
             name = 'worker_robots_speed_modifier',
@@ -165,7 +176,7 @@ return {
         },
         {
             name = 'character_trash_slot_count',
-            enabled = true,
+            enabled = false,
             min = 0,
             max = 20
         },
