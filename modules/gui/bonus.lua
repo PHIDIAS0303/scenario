@@ -26,7 +26,7 @@ local bonus_gui_control_pts_a_count =
 Gui.element{
     type = 'label',
     name = 'bonus_control_pts_a_count',
-    caption = config.pts.base,
+    caption = '0',
     style = 'heading_1_label'
 }:style{
     width = config.gui_display_width['half']
@@ -392,7 +392,6 @@ end)
 -- @element bonus_container
 bonus_container =
 Gui.element(function(definition, parent)
-    local player = Gui.get_player_from_element(parent)
     local container = Gui.container(parent, definition.name, 320)
 
     bonus_control_set(container, 'bonus_st_1')
