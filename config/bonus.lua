@@ -23,7 +23,7 @@ return {
         },
         ['character_running_speed_modifier'] = {
             value = 1.5,
-            max = 5,
+            max = 3,
             cost = 20
         },
         ['character_crafting_speed_modifier'] = {
