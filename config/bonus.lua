@@ -22,7 +22,7 @@ return {
     player_bonus = {
         ['character_mining_speed_modifier'] = {
             value = 2,
-            max = 5,
+            max = 4,
             scale = 0.25,
             cost = 10
         },
