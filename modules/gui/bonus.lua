@@ -17,6 +17,7 @@ Gui.element{
     type = 'label',
     name = 'bonus_display_cmms',
     caption = {'bonus.display-cmms'},
+    tooltip = {'bonus.display-cmms-tooltip'},
     style = 'heading_1_label'
 }:style{
     width = 200
@@ -55,6 +56,7 @@ Gui.element{
     type = 'label',
     name = 'bonus_display_crs',
     caption = {'bonus.display-crs'},
+    tooltip = {'bonus.display-crs-tooltip'},
     style = 'heading_1_label'
 }:style{
     width = 200
@@ -93,6 +95,7 @@ Gui.element{
     type = 'label',
     name = 'bonus_display_ccs',
     caption = {'bonus.display-ccs'},
+    tooltip = {'bonus.display-ccs-tooltip'},
     style = 'heading_1_label'
 }:style{
     width = 200
@@ -131,6 +134,7 @@ Gui.element{
     type = 'label',
     name = 'bonus_display_cisb',
     caption = {'bonus.display-cisb'},
+    tooltip = {'bonus.display-cisb-tooltip'},
     style = 'heading_1_label'
 }:style{
     width = 200
@@ -169,6 +173,7 @@ Gui.element{
     type = 'label',
     name = 'bonus_display_chb',
     caption = {'bonus.display-chb'},
+    tooltip = {'bonus.display-chb-tooltip'},
     style = 'heading_1_label'
 }:style{
     width = 200
