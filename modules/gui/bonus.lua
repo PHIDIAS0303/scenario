@@ -23,6 +23,8 @@ Gui.element{
     width = 100
 }
 
+local bonus_gui_display_cmms_count
+
 local bonus_gui_display_cmms_slider =
 Gui.element{
     type = 'slider',
@@ -35,9 +37,11 @@ Gui.element{
     style = 'notched_slider'
 }:style{
     width = 200
-}
+}:on_gui_value_changed(function(_, element, _)
+    bonus_gui_display_cmms_count.caption = element.slider_value
+end)
 
-local bonus_gui_display_cmms_count =
+bonus_gui_display_cmms_count =
 Gui.element{
     type = 'textfield',
     name = 'bonus_display_cmms_count',
@@ -47,7 +51,17 @@ Gui.element{
     allow_negative = false
 }:style{
     width = 60
-}
+}:on_gui_text_changed(function(_, element, _)
+    local nearby = math.floor((tonumber(element.text) or 0) / element.parent[bonus_gui_display_cmms_slider.name].value_step)
+
+    if nearby < element.parent[bonus_gui_display_cmms_slider.name].minimum_value then
+        bonus_gui_display_cmms_slider.value = element.parent[bonus_gui_display_cmms_slider.name].minimum_value
+        element.text = element.parent[bonus_gui_display_cmms_slider.name].minimum_value
+
+    else
+        bonus_gui_display_cmms_slider.value = nearby
+    end
+end)
 
 --- Display label for the character, running speed
 -- @element bonus_gui_display_crs
