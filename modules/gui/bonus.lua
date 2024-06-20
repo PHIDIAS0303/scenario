@@ -166,7 +166,7 @@ Gui.element{
     width = config.gui_display_width['count']
 }
 
---- Display label for the character, inventory slots bonus
+--- Display label for the character, health bonus
 -- @element bonus_gui_display_chb
 local bonus_gui_display_chb =
 Gui.element{
@@ -205,6 +205,84 @@ Gui.element{
     width = config.gui_display_width['count']
 }
 
+--- Display label for the character, reach distance bonus
+-- @element bonus_gui_display_crdb
+local bonus_gui_display_crdb =
+Gui.element{
+    type = 'label',
+    name = 'bonus_display_crdb',
+    caption = {'bonus.display-crdb'},
+    tooltip = {'bonus.display-crdb-tooltip'},
+    style = 'heading_1_label'
+}:style{
+    width = config.gui_display_width['label']
+}
+
+local bonus_gui_display_crdb_slider =
+Gui.element{
+    type = 'slider',
+    name = 'bonus_display_crdb_slider',
+    value = config.player_bonus['character_reach_distance_bonus'].value,
+    maximum_value = config.player_bonus['character_reach_distance_bonus'].max,
+    value_step = config.player_bonus['character_reach_distance_bonus'].scale,
+    discrete_values = true,
+    style = 'notched_slider'
+}:style{
+    width = config.gui_display_width['slider']
+}
+
+local bonus_gui_display_crdb_count =
+Gui.element{
+    type = 'textfield',
+    name = 'bonus_display_crdb_count',
+    text = config.player_bonus['character_reach_distance_bonus'].value,
+    read_only = true,
+    numeric = true,
+    allow_decimal = false,
+    allow_negative = false
+}:style{
+    width = config.gui_display_width['count']
+}
+
+--- Display label for the character, resource reach distance bonus
+-- @element bonus_gui_display_crrdb
+local bonus_gui_display_crrdb =
+Gui.element{
+    type = 'label',
+    name = 'bonus_display_crrdb',
+    caption = {'bonus.display-crrdb'},
+    tooltip = {'bonus.display-crrdb-tooltip'},
+    style = 'heading_1_label'
+}:style{
+    width = config.gui_display_width['label']
+}
+
+local bonus_gui_display_crrdb_slider =
+Gui.element{
+    type = 'slider',
+    name = 'bonus_display_crrdb_slider',
+    value = config.player_bonus['character_resource_reach_distance_bonus'].value,
+    maximum_value = config.player_bonus['character_resource_reach_distance_bonus'].max,
+    value_step = config.player_bonus['character_resource_reach_distance_bonus'].scale,
+    discrete_values = true,
+    style = 'notched_slider'
+}:style{
+    width = config.gui_display_width['slider']
+}
+
+local bonus_gui_display_crrdb_count =
+Gui.element{
+    type = 'textfield',
+    name = 'bonus_display_crrdb_count',
+    text = config.player_bonus['character_resource_reach_distance_bonus'].value,
+    read_only = true,
+    numeric = true,
+    allow_decimal = false,
+    allow_negative = false
+}:style{
+    width = config.gui_display_width['count']
+}
+
 --- The main container for the bonus gui
 -- @element bonus_container
 bonus_container =
@@ -232,6 +310,14 @@ Gui.element(function(definition, parent)
     bonus_gui_display_chb(scroll)
     bonus_gui_display_chb_slider(scroll)
     bonus_gui_display_chb_count(scroll)
+
+    bonus_gui_display_crdb(scroll)
+    bonus_gui_display_crdb_slider(scroll)
+    bonus_gui_display_crdb_count(scroll)
+
+    bonus_gui_display_crrdb(scroll)
+    bonus_gui_display_crrdb_slider(scroll)
+    bonus_gui_display_crrdb_count(scroll)
 
     return container.parent
 end)
