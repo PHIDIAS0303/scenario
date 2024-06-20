@@ -22,16 +22,6 @@ Gui.element{
     width = 200
 }
 
-local bonus_gui_display_cmms_count =
-Gui.element{
-    type = 'label',
-    name = 'bonus_display_cmms_count',
-    caption = '0',
-    style = 'heading_1_label'
-}:style{
-    width = 120
-}
-
 local bonus_gui_display_cmms_slider =
 Gui.element{
     type = 'slider',
@@ -40,8 +30,17 @@ Gui.element{
     value = config.player_bonus['character_mining_speed_modifier'].value,
     maximum_value = config.player_bonus['character_mining_speed_modifier'].max,
     value_step = 0.2,
-    discrete_slider = true,
     discrete_values = false
+}:style{
+    width = 120
+}
+
+local bonus_gui_display_cmms_count =
+Gui.element{
+    type = 'label',
+    name = 'bonus_display_cmms_count',
+    caption = '0',
+    style = 'heading_1_label'
 }:style{
     width = 120
 }
@@ -58,16 +57,6 @@ Gui.element{
     width = 200
 }
 
-local bonus_gui_display_crs_count =
-Gui.element{
-    type = 'label',
-    name = 'bonus_display_crs_count',
-    caption = '0',
-    style = 'heading_1_label'
-}:style{
-    width = 120
-}
-
 local bonus_gui_display_crs_slider =
 Gui.element{
     type = 'slider',
@@ -76,8 +65,17 @@ Gui.element{
     value = config.player_bonus['character_running_speed_modifier'].value,
     maximum_value = config.player_bonus['character_running_speed_modifier'].max,
     value_step = 0.1,
-    discrete_slider = true,
     discrete_values = false
+}:style{
+    width = 120
+}
+
+local bonus_gui_display_crs_count =
+Gui.element{
+    type = 'label',
+    name = 'bonus_display_crs_count',
+    caption = '0',
+    style = 'heading_1_label'
 }:style{
     width = 120
 }
@@ -94,16 +92,6 @@ Gui.element{
     width = 200
 }
 
-local bonus_gui_display_ccs_count =
-Gui.element{
-    type = 'label',
-    name = 'bonus_display_ccs_count',
-    caption = '0',
-    style = 'heading_1_label'
-}:style{
-    width = 120
-}
-
 local bonus_gui_display_ccs_slider =
 Gui.element{
     type = 'slider',
@@ -112,8 +100,17 @@ Gui.element{
     value = config.player_bonus['character_crafting_speed_modifier'].value,
     maximum_value = config.player_bonus['character_crafting_speed_modifier'].max,
     value_step = 0.2,
-    discrete_slider = true,
     discrete_values = false
+}:style{
+    width = 120
+}
+
+local bonus_gui_display_ccs_count =
+Gui.element{
+    type = 'label',
+    name = 'bonus_display_ccs_count',
+    caption = '0',
+    style = 'heading_1_label'
 }:style{
     width = 120
 }
@@ -130,16 +127,6 @@ Gui.element{
     width = 200
 }
 
-local bonus_gui_display_cisb_count =
-Gui.element{
-    type = 'label',
-    name = 'bonus_display_cisb_count',
-    caption = '0',
-    style = 'heading_1_label'
-}:style{
-    width = 120
-}
-
 local bonus_gui_display_cisb_slider =
 Gui.element{
     type = 'slider',
@@ -148,8 +135,17 @@ Gui.element{
     value = config.player_bonus['character_inventory_slots_bonus'].value,
     maximum_value = config.player_bonus['character_inventory_slots_bonus'].max,
     value_step = 10,
-    discrete_slider = true,
     discrete_values = true
+}:style{
+    width = 120
+}
+
+local bonus_gui_display_cisb_count =
+Gui.element{
+    type = 'label',
+    name = 'bonus_display_cisb_count',
+    caption = '0',
+    style = 'heading_1_label'
 }:style{
     width = 120
 }
@@ -166,16 +162,6 @@ Gui.element{
     width = 200
 }
 
-local bonus_gui_display_chb_count =
-Gui.element{
-    type = 'label',
-    name = 'bonus_display_chb_count',
-    caption = '0',
-    style = 'heading_1_label'
-}:style{
-    width = 120
-}
-
 local bonus_gui_display_chb_slider =
 Gui.element{
     type = 'slider',
@@ -184,8 +170,17 @@ Gui.element{
     value = config.player_bonus['character_health_bonus'].value,
     maximum_value = config.player_bonus['character_health_bonus'].max,
     value_step = 100,
-    discrete_slider = true,
     discrete_values = true
+}:style{
+    width = 120
+}
+
+local bonus_gui_display_chb_count =
+Gui.element{
+    type = 'label',
+    name = 'bonus_display_chb_count',
+    caption = '0',
+    style = 'heading_1_label'
 }:style{
     width = 120
 }
@@ -199,20 +194,24 @@ Gui.element(function(definition, parent)
     local scroll = Gui.scroll_table(container, 480, 3, 'bonus_st_1')
 
     bonus_gui_display_cmms(scroll)
-    bonus_gui_display_cmms_count(scroll)
     bonus_gui_display_cmms_slider(scroll)
+    bonus_gui_display_cmms_count(scroll)
+
     bonus_gui_display_crs(scroll)
-    bonus_gui_display_crs_count(scroll)
     bonus_gui_display_crs_slider(scroll)
+    bonus_gui_display_crs_count(scroll)
+
     bonus_gui_display_ccs(scroll)
-    bonus_gui_display_ccs_count(scroll)
     bonus_gui_display_ccs_slider(scroll)
+    bonus_gui_display_ccs_count(scroll)
+
     bonus_gui_display_cisb(scroll)
-    bonus_gui_display_cisb_count(scroll)
     bonus_gui_display_cisb_slider(scroll)
+    bonus_gui_display_cisb_count(scroll)
+
     bonus_gui_display_chb(scroll)
-    bonus_gui_display_chb_count(scroll)
     bonus_gui_display_chb_slider(scroll)
+    bonus_gui_display_chb_count(scroll)
 
     return container.parent
 end)
