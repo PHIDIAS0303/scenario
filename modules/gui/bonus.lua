@@ -245,21 +245,29 @@ Gui.left_toolbar_button('item/exoskeleton-equipment', {'bonus.main-tooltip'}, bo
 end)
 
 Event.add(Roles.events.on_gui_value_changed, function(event)
+    local player = game.get_player(event.player_index)
+    local frame = Gui.get_left_element(player, bonus_container)
+    local table = frame.container['bonus_st_1'].table
+
     if event.element.name == bonus_gui_display_cmms_slider.name then
-        bonus_gui_display_cmms_count.caption = event.element.slider_value
+        table[bonus_gui_display_cmms_count.name].caption = event.element.slider_value
     end
 end)
 
 Event.add(Roles.events.on_gui_text_changed, function(event)
-    if event.element.name == bonus_gui_display_cmms_count.name then
-        local nearby = math.floor((tonumber(event.element.text) or 0) / event.element.parent[bonus_gui_display_cmms_slider.name].value_step)
+    local player = game.get_player(event.player_index)
+    local frame = Gui.get_left_element(player, bonus_container)
+    local table = frame.container['bonus_st_1'].table
 
-        if nearby < event.element.parent[bonus_gui_display_cmms_slider.name].minimum_value then
-            bonus_gui_display_cmms_slider.value = event.element.parent[bonus_gui_display_cmms_slider.name].minimum_value
-            event.element.text = event.element.parent[bonus_gui_display_cmms_slider.name].minimum_value
+    if event.element.name == bonus_gui_display_cmms_count.name then
+        local nearby = math.floor((tonumber(event.element.text) or 0) / table[bonus_gui_display_cmms_slider.name].value_step)
+
+        if nearby < table[bonus_gui_display_cmms_slider.name].minimum_value then
+            table[bonus_gui_display_cmms_slider.name].value = table[bonus_gui_display_cmms_slider.name].minimum_value
+            event.element.text = table[bonus_gui_display_cmms_slider.name].minimum_value
 
         else
-            bonus_gui_display_cmms_slider.value = nearby
+            table[bonus_gui_display_cmms_slider.name].value = nearby
         end
     end
 end)
