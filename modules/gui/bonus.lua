@@ -41,7 +41,7 @@ Gui.element{
     type = 'textfield',
     name = 'bonus_display_cmms_count',
     text = config.player_bonus['character_mining_speed_modifier'].value,
-    enabled = false,
+    read_only = true,
     numeric = true,
     allow_decimal = true,
     allow_negative = false
@@ -80,7 +80,7 @@ Gui.element{
     type = 'textfield',
     name = 'bonus_display_crs_count',
     text = config.player_bonus['character_running_speed_modifier'].value,
-    enabled = false,
+    read_only = true,
     numeric = true,
     allow_decimal = true,
     allow_negative = false
@@ -119,7 +119,7 @@ Gui.element{
     type = 'textfield',
     name = 'bonus_display_ccs_count',
     text = config.player_bonus['character_crafting_speed_modifier'].value,
-    enabled = false,
+    read_only = true,
     numeric = true,
     allow_decimal = true,
     allow_negative = false
@@ -158,7 +158,7 @@ Gui.element{
     type = 'textfield',
     name = 'bonus_display_cisb_count',
     text = config.player_bonus['character_inventory_slots_bonus'].value,
-    enabled = false,
+    read_only = true,
     numeric = true,
     allow_decimal = false,
     allow_negative = false
@@ -197,7 +197,7 @@ Gui.element{
     type = 'textfield',
     name = 'bonus_display_chb_count',
     text = config.player_bonus['character_health_bonus'].value,
-    enabled = false,
+    read_only = true,
     numeric = true,
     allow_decimal = false,
     allow_negative = false
@@ -250,7 +250,7 @@ Event.add(Roles.events.on_gui_value_changed, function(event)
     local table = frame.container['bonus_st_1'].table
 
     if event.element.name == bonus_gui_display_cmms_slider.name then
-        table[bonus_gui_display_cmms_count.name].caption = event.element.slider_value
+        table[bonus_gui_display_cmms_count.name].text = event.element.slider_value
     end
 end)
 
