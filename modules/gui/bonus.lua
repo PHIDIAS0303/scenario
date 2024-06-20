@@ -30,17 +30,20 @@ Gui.element{
     value = config.player_bonus['character_mining_speed_modifier'].value,
     maximum_value = config.player_bonus['character_mining_speed_modifier'].max,
     value_step = 0.2,
-    discrete_values = false
+    discrete_values = false,
+    style = 'notched_slider'
 }:style{
     width = 120
 }
 
 local bonus_gui_display_cmms_count =
 Gui.element{
-    type = 'label',
+    type = 'textfield',
     name = 'bonus_display_cmms_count',
-    caption = '0',
-    style = 'heading_1_label'
+    text = '0',
+    numeric = true,
+    allow_decimal = true,
+    allow_negative = false
 }:style{
     width = 120
 }
@@ -65,17 +68,20 @@ Gui.element{
     value = config.player_bonus['character_running_speed_modifier'].value,
     maximum_value = config.player_bonus['character_running_speed_modifier'].max,
     value_step = 0.1,
-    discrete_values = false
+    discrete_values = false,
+    style = 'notched_slider'
 }:style{
     width = 120
 }
 
 local bonus_gui_display_crs_count =
 Gui.element{
-    type = 'label',
+    type = 'textfield',
     name = 'bonus_display_crs_count',
-    caption = '0',
-    style = 'heading_1_label'
+    text = '0',
+    numeric = true,
+    allow_decimal = true,
+    allow_negative = false
 }:style{
     width = 120
 }
@@ -100,17 +106,20 @@ Gui.element{
     value = config.player_bonus['character_crafting_speed_modifier'].value,
     maximum_value = config.player_bonus['character_crafting_speed_modifier'].max,
     value_step = 0.2,
-    discrete_values = false
+    discrete_values = false,
+    style = 'notched_slider'
 }:style{
     width = 120
 }
 
 local bonus_gui_display_ccs_count =
 Gui.element{
-    type = 'label',
+    type = 'textfield',
     name = 'bonus_display_ccs_count',
-    caption = '0',
-    style = 'heading_1_label'
+    text = '0',
+    numeric = true,
+    allow_decimal = true,
+    allow_negative = false
 }:style{
     width = 120
 }
@@ -135,17 +144,20 @@ Gui.element{
     value = config.player_bonus['character_inventory_slots_bonus'].value,
     maximum_value = config.player_bonus['character_inventory_slots_bonus'].max,
     value_step = 10,
-    discrete_values = true
+    discrete_values = true,
+    style = 'notched_slider'
 }:style{
     width = 120
 }
 
 local bonus_gui_display_cisb_count =
 Gui.element{
-    type = 'label',
+    type = 'textfield',
     name = 'bonus_display_cisb_count',
-    caption = '0',
-    style = 'heading_1_label'
+    text = '0',
+    numeric = true,
+    allow_decimal = false,
+    allow_negative = false
 }:style{
     width = 120
 }
@@ -170,17 +182,20 @@ Gui.element{
     value = config.player_bonus['character_health_bonus'].value,
     maximum_value = config.player_bonus['character_health_bonus'].max,
     value_step = 100,
-    discrete_values = true
+    discrete_values = true,
+    style = 'notched_slider'
 }:style{
     width = 120
 }
 
 local bonus_gui_display_chb_count =
 Gui.element{
-    type = 'label',
+    type = 'textfield',
     name = 'bonus_display_chb_count',
-    caption = '0',
-    style = 'heading_1_label'
+    text = '0',
+    numeric = true,
+    allow_decimal = false,
+    allow_negative = false
 }:style{
     width = 120
 }
