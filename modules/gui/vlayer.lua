@@ -290,8 +290,8 @@ Gui.element{
 
 local function vlayer_gui_list_refresh(player)
     local frame = Gui.get_left_element(player, vlayer_container)
-    local table = frame.container['vlayer_st_2'].disp.table
-    local target = table[vlayer_gui_control_type.name].selected_index
+    local disp = frame.container['vlayer_st_2'].disp.table
+    local target = disp[vlayer_gui_control_type.name].selected_index
     local full_list = {}
 
     if target then
@@ -301,7 +301,7 @@ local function vlayer_gui_list_refresh(player)
             table.insert(full_list, i .. ' X ' .. interface[i].position.x .. ' Y '.. interface[i].position.y)
         end
 
-        table[vlayer_gui_control_list.name].items = full_list
+        disp[vlayer_gui_control_list.name].items = full_list
     end
 end
 
@@ -456,15 +456,15 @@ Gui.element(function(definition, parent)
     vlayer_display_set(container, 'vlayer_st_1')
     vlayer_control_set(container, 'vlayer_st_2')
 
-    local table = container['vlayer_st_2'].disp.table
+    local disp = container['vlayer_st_2'].disp.table
     local visible = Roles.player_allowed(player, 'gui/vlayer-edit')
 
-    table[vlayer_gui_control_type.name].visible = visible
-    table[vlayer_gui_control_list.name].visible = visible
-    table[vlayer_gui_control_refresh.name].visible = visible
-    table[vlayer_gui_control_see.name].visible = visible
-    table[vlayer_gui_control_build].visible = visible
-    table[vlayer_gui_control_remove.name].visible = visible
+    disp[vlayer_gui_control_type.name].visible = visible
+    disp[vlayer_gui_control_list.name].visible = visible
+    disp[vlayer_gui_control_refresh.name].visible = visible
+    disp[vlayer_gui_control_see.name].visible = visible
+    disp[vlayer_gui_control_build.name].visible = visible
+    disp[vlayer_gui_control_remove.name].visible = visible
 
     return container.parent
 end)
@@ -503,10 +503,10 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
 
     for _, player in pairs(game.connected_players) do
         local frame = Gui.get_left_element(player, vlayer_container)
-        local table = frame.container['vlayer_st_1'].disp.table
+        local disp = frame.container['vlayer_st_1'].disp.table
 
         for k, v in pairs(vlayer_display) do
-            table[k].caption = v
+            disp[k].caption = v
         end
     end
 end)

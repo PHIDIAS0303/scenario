@@ -238,18 +238,37 @@ Gui.element{
     width = config.gui_display_width['count']
 }
 
-local function bonus_gui_List_refresh(player)
+local function bonus_gui_pts_needed(player)
     local frame = Gui.get_left_element(player, bonus_container)
-    local table = frame.container['bonus_st_2'].disp.table
+    local disp = frame.container['bonus_st_2'].disp.table
     local total = 0
 
-    total = total + tonumber(table[bonus_gui_display_cmms_count.name].text) / config.player_bonus['character_mining_speed_modifier'].scale * config.player_bonus['character_mining_speed_modifier'].cost
-    total = total + tonumber(table[bonus_gui_display_crs_count.name].text) / config.player_bonus['character_running_speed_modifier'].scale * config.player_bonus['character_running_speed_modifier'].cost
-    total = total + tonumber(table[bonus_gui_display_ccs_count.name].text) / config.player_bonus['character_crafting_speed_modifier'].scale * config.player_bonus['character_crafting_speed_modifier'].cost
-    total = total + tonumber(table[bonus_gui_display_cisb_count.name].text) / config.player_bonus['character_inventory_slots_bonus'].scale * config.player_bonus['character_inventory_slots_bonus'].cost
-    total = total + tonumber(table[bonus_gui_display_chb_count.name].text) / config.player_bonus['character_health_bonus'].scale * config.player_bonus['character_health_bonus'].cost
-    total = total + tonumber(table[bonus_gui_display_crdb_count.name].text) / config.player_bonus['character_reach_distance_bonus'].scale * config.player_bonus['character_reach_distance_bonus'].cost
+    total = total + tonumber(disp[bonus_gui_display_cmms_count.name].text) / config.player_bonus['character_mining_speed_modifier'].scale * config.player_bonus['character_mining_speed_modifier'].cost
+    total = total + tonumber(disp[bonus_gui_display_crs_count.name].text) / config.player_bonus['character_running_speed_modifier'].scale * config.player_bonus['character_running_speed_modifier'].cost
+    total = total + tonumber(disp[bonus_gui_display_ccs_count.name].text) / config.player_bonus['character_crafting_speed_modifier'].scale * config.player_bonus['character_crafting_speed_modifier'].cost
+    total = total + tonumber(disp[bonus_gui_display_cisb_count.name].text) / config.player_bonus['character_inventory_slots_bonus'].scale * config.player_bonus['character_inventory_slots_bonus'].cost
+    total = total + tonumber(disp[bonus_gui_display_chb_count.name].text) / config.player_bonus['character_health_bonus'].scale * config.player_bonus['character_health_bonus'].cost
+    total = total + tonumber(disp[bonus_gui_display_crdb_count.name].text) / config.player_bonus['character_reach_distance_bonus'].scale * config.player_bonus['character_reach_distance_bonus'].cost
 
+    return total
+end
+
+local function apply_bonus(player)
+    if not player.character then
+        return
+    end
+
+    local frame = Gui.get_left_element(player, bonus_container)
+    local disp = frame.container['bonus_st_2'].disp.table
+
+    player['character_mining_speed_modifier'] = tonumber(disp[bonus_gui_display_cmms_count.name].text)
+    player['character_running_speed_modifier'] = tonumber(disp[bonus_gui_display_crs_count.name].text)
+    player['character_crafting_speed_modifier'] = tonumber(disp[bonus_gui_display_ccs_count.name].text)
+    player['character_inventory_slots_bonus'] = tonumber(disp[bonus_gui_display_cisb_count.name].text)
+    player['character_health_bonus'] = tonumber(disp[bonus_gui_display_chb_count.name].text)
+    player['character_reach_distance_bonus'] = tonumber(disp[bonus_gui_display_crdb_count.name].text)
+    player['character_resource_reach_distance_bonus'] = tonumber(disp[bonus_gui_display_crdb_count.name].text)
+    player['character_build_distance_bonus'] = tonumber(disp[bonus_gui_display_crdb_count.name].text)
 end
 
 --- Control label for the bonus points available
@@ -327,8 +346,10 @@ Gui.element{
     caption = {'bonus.control-refresh'}
 }:style{
     width = config.gui_display_width['half']
-}:on_click(function(player, _, _)
-    bonus_gui_List_refresh(player)
+}:on_click(function(player, element, _)
+    local r = bonus_gui_pts_needed(player)
+    element.parent[bonus_gui_control_pts_n_count.name].caption = r
+    element.parent[bonus_gui_control_pts_r_count.name].caption = tonumber(element.parent[bonus_gui_control_pts_a_count.name].caption) - r
 end)
 
 --- A button used for pts apply
@@ -341,8 +362,13 @@ Gui.element{
 }:style{
     width = config.gui_display_width['half']
 }:on_click(function(player, element, _)
-    --[[
-    ]]
+    local r = bonus_gui_pts_needed(player)
+    element.parent[bonus_gui_control_pts_n_count.name].caption = r
+    element.parent[bonus_gui_control_pts_r_count.name].caption = tonumber(element.parent[bonus_gui_control_pts_a_count.name].caption) - r
+
+    if r >= 0 then
+        apply_bonus(player)
+    end
 end)
 
 --- A vertical flow containing all the bonus control
@@ -424,10 +450,10 @@ end)
 Event.add(Roles.events.on_gui_value_changed, function(event)
     local player = game.get_player(event.player_index)
     local frame = Gui.get_left_element(player, bonus_container)
-    local table = frame.container['bonus_st_2'].disp.table
+    local disp = frame.container['bonus_st_2'].disp.table
 
     if event.element.name == bonus_gui_display_cmms_slider.name then
-        table[bonus_gui_display_cmms_count.name].text = event.element.slider_value
+        disp[bonus_gui_display_cmms_count.name].text = event.element.slider_value
     end
 end)
 
@@ -435,17 +461,17 @@ end)
 Event.add(Roles.events.on_gui_text_changed, function(event)
     local player = game.get_player(event.player_index)
     local frame = Gui.get_left_element(player, bonus_container)
-    local table = frame.container['bonus_st_2'].disp.table
+    local disp = frame.container['bonus_st_2'].disp.table
 
     if event.element.name == bonus_gui_display_cmms_count.name then
-        local nearby = math.floor((tonumber(event.element.text) or 0) / table[bonus_gui_display_cmms_slider.name].value_step)
+        local nearby = math.floor((tonumber(event.element.text) or 0) / disp[bonus_gui_display_cmms_slider.name].value_step)
 
-        if nearby < table[bonus_gui_display_cmms_slider.name].minimum_value then
-            table[bonus_gui_display_cmms_slider.name].value = table[bonus_gui_display_cmms_slider.name].minimum_value
-            event.element.text = table[bonus_gui_display_cmms_slider.name].minimum_value
+        if nearby < disp[bonus_gui_display_cmms_slider.name].minimum_value then
+            disp[bonus_gui_display_cmms_slider.name].value = disp[bonus_gui_display_cmms_slider.name].minimum_value
+            event.element.text = disp[bonus_gui_display_cmms_slider.name].minimum_value
 
         else
-            table[bonus_gui_display_cmms_slider.name].value = nearby
+            disp[bonus_gui_display_cmms_slider.name].value = nearby
         end
     end
 end)
