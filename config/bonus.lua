@@ -33,13 +33,13 @@ return {
         },
         ['character_inventory_slots_bonus'] = {
             value = 100,
-            max = 200,
+            max = 150,
             cost = 1
         },
         ['character_health_bonus'] = {
             value = 200,
             max = 400,
-            cost = 0.005
+            cost = 0.01
         }
         --[[
         {
