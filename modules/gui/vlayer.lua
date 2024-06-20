@@ -288,7 +288,7 @@ Gui.element{
     width = 160
 }
 
-local function vlayer_gui_List_refresh(player)
+local function vlayer_gui_list_refresh(player)
     local frame = Gui.get_left_element(player, vlayer_container)
     local table = frame.container['vlayer_st_2'].disp.table
     local target = table[vlayer_gui_control_type.name].selected_index
@@ -315,7 +315,7 @@ Gui.element{
 }:style{
     width = 160
 }:on_click(function(player, _, _)
-    vlayer_gui_List_refresh(player)
+    vlayer_gui_list_refresh(player)
 end)
 
 --- A button to check if the item is the one wanted to remove
@@ -404,7 +404,7 @@ Gui.element{
         end
     end
 
-    vlayer_gui_List_refresh(player)
+    vlayer_gui_list_refresh(player)
 end)
 
 --- A button used to remove the vlayer interface
@@ -426,7 +426,7 @@ Gui.element{
         game.print{'vlayer.result-remove', player.name, interface_type, pos_to_gps_string(interface_position)}
     end
 
-    vlayer_gui_List_refresh(player)
+    vlayer_gui_list_refresh(player)
 end)
 
 --- A vertical flow containing all the control buttons
