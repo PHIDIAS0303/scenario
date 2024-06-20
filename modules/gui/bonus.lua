@@ -20,7 +20,7 @@ Gui.element{
     tooltip = {'bonus.display-cmms-tooltip'},
     style = 'heading_1_label'
 }:style{
-    width = 100
+    width = config.gui_display_width['label']
 }
 
 local bonus_gui_display_cmms_slider =
@@ -34,7 +34,7 @@ Gui.element{
     discrete_values = false,
     style = 'notched_slider'
 }:style{
-    width = 200
+    width = config.gui_display_width['slider']
 }
 
 local bonus_gui_display_cmms_count =
@@ -46,7 +46,7 @@ Gui.element{
     allow_decimal = true,
     allow_negative = false
 }:style{
-    width = 60
+    width = config.gui_display_width['count']
 }
 
 --- Display label for the character, running speed
@@ -59,7 +59,7 @@ Gui.element{
     tooltip = {'bonus.display-crs-tooltip'},
     style = 'heading_1_label'
 }:style{
-    width = 100
+    width = config.gui_display_width['label']
 }
 
 local bonus_gui_display_crs_slider =
@@ -73,7 +73,7 @@ Gui.element{
     discrete_values = false,
     style = 'notched_slider'
 }:style{
-    width = 200
+    width = config.gui_display_width['slider']
 }
 
 local bonus_gui_display_crs_count =
@@ -85,7 +85,7 @@ Gui.element{
     allow_decimal = true,
     allow_negative = false
 }:style{
-    width = 60
+    width = config.gui_display_width['count']
 }
 
 --- Display label for the character, crafting speed
@@ -98,7 +98,7 @@ Gui.element{
     tooltip = {'bonus.display-ccs-tooltip'},
     style = 'heading_1_label'
 }:style{
-    width = 100
+    width = config.gui_display_width['label']
 }
 
 local bonus_gui_display_ccs_slider =
@@ -112,7 +112,7 @@ Gui.element{
     discrete_values = false,
     style = 'notched_slider'
 }:style{
-    width = 200
+    width = config.gui_display_width['slider']
 }
 
 local bonus_gui_display_ccs_count =
@@ -124,7 +124,7 @@ Gui.element{
     allow_decimal = true,
     allow_negative = false
 }:style{
-    width = 60
+    width = config.gui_display_width['count']
 }
 
 --- Display label for the character, inventory slots bonus
@@ -137,7 +137,7 @@ Gui.element{
     tooltip = {'bonus.display-cisb-tooltip'},
     style = 'heading_1_label'
 }:style{
-    width = 100
+    width = config.gui_display_width['label']
 }
 
 local bonus_gui_display_cisb_slider =
@@ -151,7 +151,7 @@ Gui.element{
     discrete_values = true,
     style = 'notched_slider'
 }:style{
-    width = 200
+    width = config.gui_display_width['slider']
 }
 
 local bonus_gui_display_cisb_count =
@@ -163,7 +163,7 @@ Gui.element{
     allow_decimal = false,
     allow_negative = false
 }:style{
-    width = 60
+    width = config.gui_display_width['count']
 }
 
 --- Display label for the character, inventory slots bonus
@@ -176,7 +176,7 @@ Gui.element{
     tooltip = {'bonus.display-chb-tooltip'},
     style = 'heading_1_label'
 }:style{
-    width = 100
+    width = config.gui_display_width['label']
 }
 
 local bonus_gui_display_chb_slider =
@@ -190,7 +190,7 @@ Gui.element{
     discrete_values = true,
     style = 'notched_slider'
 }:style{
-    width = 200
+    width = config.gui_display_width['slider']
 }
 
 local bonus_gui_display_chb_count =
@@ -202,7 +202,7 @@ Gui.element{
     allow_decimal = false,
     allow_negative = false
 }:style{
-    width = 60
+    width = config.gui_display_width['count']
 }
 
 --- The main container for the bonus gui

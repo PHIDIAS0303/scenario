@@ -14,6 +14,11 @@ return {
 
     work with vlayer, virtual power source blah blah...
     ]]
+    gui_display_width = {
+        label = 60,
+        slider = 200,
+        count = 60
+    },
     player_bonus = {
         ['character_mining_speed_modifier'] = {
             value = 2,
