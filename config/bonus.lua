@@ -54,19 +54,11 @@ return {
             value = 10,
             max = 20,
             scale = 1,
-            cost = 1
-        },
-        ['character_resource_reach_distance_bonus'] = {
-            value = 10,
-            max = 20,
-            scale = 1,
-            cost = 1
-        },
-        ['character_build_distance_bonus'] = {
-            value = 10,
-            max = 20,
-            scale = 1,
-            cost = 1
+            cost = 1,
+            combined_bonus = {
+                'character_resource_reach_distance_bonus',
+                'character_build_distance_bonus'
+            }
         },
         --[[
         ['character_item_pickup_distance_bonus'] = {
@@ -124,19 +116,11 @@ return {
             value = 10,
             max = 20,
             scale = 1,
-            cost = 1
-        },
-        ['character_resource_reach_distance_bonus'] = {
-            value = 10,
-            max = 20,
-            scale = 1,
-            cost = 1
-        },
-        ['character_build_distance_bonus'] = {
-            value = 10,
-            max = 20,
-            scale = 1,
-            cost = 1
+            cost = 1,
+            combined_bonus = {
+                'character_resource_reach_distance_bonus',
+                'character_build_distance_bonus'
+            }
         },
         ['worker_robots_speed_modifier'] = {
             value = 0,
