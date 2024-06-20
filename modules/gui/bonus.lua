@@ -27,7 +27,6 @@ local bonus_gui_display_cmms_slider =
 Gui.element{
     type = 'slider',
     name = 'bonus_display_cmms_slider',
-    caption = '0',
     value = config.player_bonus['character_mining_speed_modifier'].value,
     maximum_value = config.player_bonus['character_mining_speed_modifier'].max,
     value_step = config.player_bonus['character_mining_speed_modifier'].scale,
@@ -41,7 +40,8 @@ local bonus_gui_display_cmms_count =
 Gui.element{
     type = 'textfield',
     name = 'bonus_display_cmms_count',
-    text = '0',
+    text = config.player_bonus['character_mining_speed_modifier'].value,
+    read_only = true,
     numeric = true,
     allow_decimal = true,
     allow_negative = false
@@ -66,7 +66,6 @@ local bonus_gui_display_crs_slider =
 Gui.element{
     type = 'slider',
     name = 'bonus_display_crs_slider',
-    caption = '0',
     value = config.player_bonus['character_running_speed_modifier'].value,
     maximum_value = config.player_bonus['character_running_speed_modifier'].max,
     value_step = config.player_bonus['character_running_speed_modifier'].scale,
@@ -80,7 +79,8 @@ local bonus_gui_display_crs_count =
 Gui.element{
     type = 'textfield',
     name = 'bonus_display_crs_count',
-    text = '0',
+    text = config.player_bonus['character_running_speed_modifier'].value,
+    read_only = true,
     numeric = true,
     allow_decimal = true,
     allow_negative = false
@@ -105,7 +105,6 @@ local bonus_gui_display_ccs_slider =
 Gui.element{
     type = 'slider',
     name = 'bonus_display_ccs_slider',
-    caption = '0',
     value = config.player_bonus['character_crafting_speed_modifier'].value,
     maximum_value = config.player_bonus['character_crafting_speed_modifier'].max,
     value_step = config.player_bonus['character_crafting_speed_modifier'].scale,
@@ -119,7 +118,8 @@ local bonus_gui_display_ccs_count =
 Gui.element{
     type = 'textfield',
     name = 'bonus_display_ccs_count',
-    text = '0',
+    text = config.player_bonus['character_crafting_speed_modifier'].value,
+    read_only = true,
     numeric = true,
     allow_decimal = true,
     allow_negative = false
@@ -144,7 +144,6 @@ local bonus_gui_display_cisb_slider =
 Gui.element{
     type = 'slider',
     name = 'bonus_display_cisb_slider',
-    caption = '0',
     value = config.player_bonus['character_inventory_slots_bonus'].value,
     maximum_value = config.player_bonus['character_inventory_slots_bonus'].max,
     value_step = config.player_bonus['character_inventory_slots_bonus'].scale,
@@ -158,7 +157,8 @@ local bonus_gui_display_cisb_count =
 Gui.element{
     type = 'textfield',
     name = 'bonus_display_cisb_count',
-    text = '0',
+    text = config.player_bonus['character_inventory_slots_bonus'].value,
+    read_only = true,
     numeric = true,
     allow_decimal = false,
     allow_negative = false
@@ -183,7 +183,6 @@ local bonus_gui_display_chb_slider =
 Gui.element{
     type = 'slider',
     name = 'bonus_display_chb_slider',
-    caption = '0',
     value = config.player_bonus['character_health_bonus'].value,
     maximum_value = config.player_bonus['character_health_bonus'].max,
     value_step = config.player_bonus['character_health_bonus'].scale,
@@ -197,7 +196,8 @@ local bonus_gui_display_chb_count =
 Gui.element{
     type = 'textfield',
     name = 'bonus_display_chb_count',
-    text = '0',
+    text = config.player_bonus['character_health_bonus'].value,
+    read_only = true,
     numeric = true,
     allow_decimal = false,
     allow_negative = false
@@ -254,6 +254,7 @@ Event.add(Roles.events.on_gui_value_changed, function(event)
     end
 end)
 
+--[[
 Event.add(Roles.events.on_gui_text_changed, function(event)
     local player = game.get_player(event.player_index)
     local frame = Gui.get_left_element(player, bonus_container)
@@ -271,3 +272,4 @@ Event.add(Roles.events.on_gui_text_changed, function(event)
         end
     end
 end)
+]]
