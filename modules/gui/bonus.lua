@@ -26,11 +26,14 @@ local bonus_gui_display_cmms_count =
 Gui.element{
     type = 'slider',
     name = 'bonus_display_cmms_count',
-    caption = '0'
+    caption = '0',
+    value = config.player_bonus['character_mining_speed_modifier'].value,
+    maximum_value = config.player_bonus['character_mining_speed_modifier'].max,
+    value_step = 0.2,
+    discrete_values=false
 }:style{
     width = 120
 }
-
 
 --- Display label for the character, running speed
 -- @element bonus_gui_display_crs
@@ -48,7 +51,11 @@ local bonus_gui_display_crs_count =
 Gui.element{
     type = 'slider',
     name = 'bonus_display_crs_count',
-    caption = '0'
+    caption = '0',
+    value = config.player_bonus['character_running_speed_modifier'].value,
+    maximum_value = config.player_bonus['character_running_speed_modifier'].max,
+    value_step = 0.1,
+    discrete_values=false
 }:style{
     width = 120
 }
@@ -69,11 +76,64 @@ local bonus_gui_display_ccs_count =
 Gui.element{
     type = 'slider',
     name = 'bonus_display_ccs_count',
-    caption = '0'
+    caption = '0',
+    value = config.player_bonus['character_crafting_speed_modifier'].value,
+    maximum_value = config.player_bonus['character_crafting_speed_modifier'].max,
+    value_step = 0.2,
+    discrete_values=false
 }:style{
     width = 120
 }
 
+--- Display label for the character, inventory slots bonus
+-- @element bonus_gui_display_cisb
+local bonus_gui_display_cisb =
+Gui.element{
+    type = 'label',
+    name = 'bonus_display_cisb',
+    caption = {'bonus.display-cisb'},
+    style = 'heading_1_label'
+}:style{
+    width = 200
+}
+
+local bonus_gui_display_cisb_count =
+Gui.element{
+    type = 'slider',
+    name = 'bonus_display_cisb_count',
+    caption = '0',
+    value = config.player_bonus['character_inventory_slots_bonus'].value,
+    maximum_value = config.player_bonus['character_inventory_slots_bonus'].max,
+    value_step = 0.2,
+    discrete_values=false
+}:style{
+    width = 120
+}
+
+--- Display label for the character, inventory slots bonus
+-- @element bonus_gui_display_chb
+local bonus_gui_display_chb =
+Gui.element{
+    type = 'label',
+    name = 'bonus_display_chb',
+    caption = {'bonus.display-chb'},
+    style = 'heading_1_label'
+}:style{
+    width = 200
+}
+
+local bonus_gui_display_chb_count =
+Gui.element{
+    type = 'slider',
+    name = 'bonus_display_chb_count',
+    caption = '0',
+    value = config.player_bonus['character_health_bonus'].value,
+    maximum_value = config.player_bonus['character_health_bonus'].max,
+    value_step = 0.2,
+    discrete_values=false
+}:style{
+    width = 120
+}
 
 --- The main container for the bonus gui
 -- @element bonus_container
@@ -89,6 +149,10 @@ Gui.element(function(definition, parent)
     bonus_gui_display_crs_count(scroll)
     bonus_gui_display_ccs(scroll)
     bonus_gui_display_ccs_count(scroll)
+    bonus_gui_display_cisb(scroll)
+    bonus_gui_display_cisb_count(scroll)
+    bonus_gui_display_chb(scroll)
+    bonus_gui_display_chb_count(scroll)
 
     return container.parent
 end)
