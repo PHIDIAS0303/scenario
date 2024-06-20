@@ -33,9 +33,9 @@ local function apply_bonus(player, stage)
     for _, v in pairs(config.player_bonus) do
         if v.enabled then
             if stage == 0 then
-                player[v.name] = v.min
+                player[v.name] = 0
             else
-                player[v.name] = v.min + (v.max - v.min) * stage / 10
+                player[v.name] = v.value * stage / 10
             end
         end
     end
@@ -99,13 +99,13 @@ Event.add(defines.events.on_player_created, function(event)
 
     for _, v in pairs(config.force_bonus) do
         if v.enabled then
-            game.players[event.player_index].force[v.name] = game.players[event.player_index].force[v.name] + v.max
+            game.players[event.player_index].force[v.name] = v.value
         end
     end
 
     for _, v in pairs(config.surface_bonus) do
         if v.enabled then
-            game.players[event.player_index].surface[v.name] = game.players[event.player_index].surface[v.name] + v.max
+            game.players[event.player_index].surface[v.name] = v.value
         end
     end
 end)
