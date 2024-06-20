@@ -19,7 +19,7 @@ Gui.element{
     caption = {'bonus.control-pts-a'},
     style = 'heading_1_label'
 }:style{
-    width = config.gui_display_width['label'] * 2
+    width = config.gui_display_width['half']
 }
 
 local bonus_gui_control_pts_a_count =
@@ -29,7 +29,7 @@ Gui.element{
     caption = config.pts.base,
     style = 'heading_1_label'
 }:style{
-    width = config.gui_display_width['label'] * 2
+    width = config.gui_display_width['half']
 }
 
 --- Control label for the bonus points needed
@@ -41,7 +41,7 @@ Gui.element{
     caption = {'bonus.control-pts-n'},
     style = 'heading_1_label'
 }:style{
-    width = config.gui_display_width['label'] * 2
+    width = config.gui_display_width['half']
 }
 
 local bonus_gui_control_pts_n_count =
@@ -51,7 +51,7 @@ Gui.element{
     caption = config.pts.base,
     style = 'heading_1_label'
 }:style{
-    width = config.gui_display_width['label'] * 2
+    width =config.gui_display_width['half']
 }
 
 --- Control label for the bonus points remaining
@@ -63,7 +63,7 @@ Gui.element{
     caption = {'bonus.control-pts-r'},
     style = 'heading_1_label'
 }:style{
-    width = config.gui_display_width['label'] * 2
+    width = config.gui_display_width['half']
 }
 
 local bonus_gui_control_pts_r_count =
@@ -73,7 +73,7 @@ Gui.element{
     caption = '0',
     style = 'heading_1_label'
 }:style{
-    width = config.gui_display_width['label'] * 2
+    width = config.gui_display_width['half']
 }
 
 --- A button used for pts calculations
@@ -84,7 +84,7 @@ Gui.element{
     name = Gui.unique_static_name,
     caption = {'bonus.control-refresh'}
 }:style{
-    width = config.gui_display_width['label'] * 2
+    width = config.gui_display_width['half']
 }:on_click(function(player, element, _)
     --[[
     ]]
@@ -98,7 +98,7 @@ Gui.element{
     name = Gui.unique_static_name,
     caption = {'bonus.control-apply'}
 }:style{
-    width = config.gui_display_width['label'] * 2
+    width = config.gui_display_width['half']
 }:on_click(function(player, element, _)
     --[[
     ]]
@@ -412,7 +412,7 @@ end)
 Event.add(Roles.events.on_gui_value_changed, function(event)
     local player = game.get_player(event.player_index)
     local frame = Gui.get_left_element(player, bonus_container)
-    local table = frame.container['bonus_st_1'].disp.table
+    local table = frame.container['bonus_st_2'].disp.table
 
     if event.element.name == bonus_gui_display_cmms_slider.name then
         table[bonus_gui_display_cmms_count.name].text = event.element.slider_value
@@ -423,7 +423,7 @@ end)
 Event.add(Roles.events.on_gui_text_changed, function(event)
     local player = game.get_player(event.player_index)
     local frame = Gui.get_left_element(player, bonus_container)
-    local table = frame.container['bonus_st_1'].table
+    local table = frame.container['bonus_st_2'].disp.table
 
     if event.element.name == bonus_gui_display_cmms_count.name then
         local nearby = math.floor((tonumber(event.element.text) or 0) / table[bonus_gui_display_cmms_slider.name].value_step)

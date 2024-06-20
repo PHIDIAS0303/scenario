@@ -17,16 +17,17 @@ return {
     Base point is equal to the amount of standard value in each parameter.
 
             CMMS    CRS     CCS     CISB    CHB     CRDB
-    STD     20      75      25      30      20      20
-    =       190
+    STD     20      75      25      40      24      20
+    =       204
 
-    MAX     50      150     50      45      50      40
-    =       385
+    MAX     40      150     50      60      48      50
+    =       398
     ]]
     pts = {
-        base = 190
+        base = 204
     },
     gui_display_width = {
+        half = 180,
         label = 80,
         slider = 200,
         count = 80
@@ -34,7 +35,7 @@ return {
     player_bonus = {
         ['character_mining_speed_modifier'] = {
             value = 2,
-            max = 5,
+            max = 4,
             scale = 0.25,
             cost = 10
         },
@@ -54,17 +55,17 @@ return {
             value = 100,
             max = 150,
             scale = 10,
-            cost = 0.3
+            cost = 4
         },
         ['character_health_bonus'] = {
             value = 200,
-            max = 500,
+            max = 400,
             scale = 50,
-            cost = 0.1
+            cost = 6
         },
         ['character_reach_distance_bonus'] = {
             value = 10,
-            max = 20,
+            max = 25,
             scale = 1,
             cost = 2,
             combined_bonus = {
@@ -104,31 +105,31 @@ return {
             value = 1.5,
             max = 3,
             scale = 0.25,
-            cost = 20
+            cost = 50
         },
         ['character_crafting_speed_modifier'] = {
             value = 5,
             max = 10,
             scale = 0.5,
-            cost = 10
+            cost = 5
         },
         ['character_inventory_slots_bonus'] = {
-            value = 80,
-            max = 120,
+            value = 100,
+            max = 150,
             scale = 10,
-            cost = 1
+            cost = 4
         },
         ['character_health_bonus'] = {
             value = 200,
-            max = 500,
+            max = 400,
             scale = 50,
-            cost = 0.01
+            cost = 6
         },
         ['character_reach_distance_bonus'] = {
             value = 10,
-            max = 20,
+            max = 25,
             scale = 1,
-            cost = 1,
+            cost = 2,
             combined_bonus = {
                 'character_resource_reach_distance_bonus',
                 'character_build_distance_bonus'
