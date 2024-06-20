@@ -243,3 +243,23 @@ end)
 Gui.left_toolbar_button('item/exoskeleton-equipment', {'bonus.main-tooltip'}, bonus_container, function(player)
 	return Roles.player_allowed(player, 'gui/bonus')
 end)
+
+Event.add(Roles.events.on_gui_value_changed, function(event)
+    if event.element.name == bonus_gui_display_cmms_slider.name then
+        bonus_gui_display_cmms_count.caption = event.element.slider_value
+    end
+end)
+
+Event.add(Roles.events.on_gui_text_changed, function(event)
+    if event.element.name == bonus_gui_display_cmms_count.name then
+        local nearby = math.floor((tonumber(event.element.text) or 0) / event.element.parent[bonus_gui_display_cmms_slider.name].value_step)
+
+        if nearby < event.element.parent[bonus_gui_display_cmms_slider.name].minimum_value then
+            bonus_gui_display_cmms_slider.value = event.element.parent[bonus_gui_display_cmms_slider.name].minimum_value
+            event.element.text = event.element.parent[bonus_gui_display_cmms_slider.name].minimum_value
+
+        else
+            bonus_gui_display_cmms_slider.value = nearby
+        end
+    end
+end)
