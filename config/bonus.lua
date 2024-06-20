@@ -14,7 +14,6 @@ return {
 
     work with vlayer, virtual power source blah blah...
     ]]
-    player_bonus_level = 1,
     player_bonus = {
         ['character_mining_speed_modifier'] = {
             value = 2,
