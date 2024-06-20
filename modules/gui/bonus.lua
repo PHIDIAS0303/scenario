@@ -10,27 +10,99 @@ local config = require 'config.bonus' --- @dep config.bonus
 
 local bonus_container
 
---- Control label for the bonus points
--- @element bonus_gui_control_pts
-local bonus_gui_control_pts =
+--- Control label for the bonus points available
+-- @element bonus_gui_control_pts_a
+local bonus_gui_control_pts_a =
 Gui.element{
     type = 'label',
-    name = 'bonus_control_pts',
-    caption = {'bonus.control-pts'},
+    name = 'bonus_control_pts_a',
+    caption = {'bonus.control-pts-a'},
     style = 'heading_1_label'
 }:style{
     width = config.gui_display_width['label'] * 2
 }
 
-local bonus_gui_control_pts_count =
+local bonus_gui_control_pts_a_count =
 Gui.element{
     type = 'label',
-    name = 'bonus_control_pts_count',
+    name = 'bonus_control_pts_a_count',
+    caption = config.pts.base,
+    style = 'heading_1_label'
+}:style{
+    width = config.gui_display_width['label'] * 2
+}
+
+--- Control label for the bonus points needed
+-- @element bonus_gui_control_pts_n
+local bonus_gui_control_pts_n =
+Gui.element{
+    type = 'label',
+    name = 'bonus_control_pts_n',
+    caption = {'bonus.control-pts-n'},
+    style = 'heading_1_label'
+}:style{
+    width = config.gui_display_width['label'] * 2
+}
+
+local bonus_gui_control_pts_n_count =
+Gui.element{
+    type = 'label',
+    name = 'bonus_control_pts_n_count',
+    caption = config.pts.base,
+    style = 'heading_1_label'
+}:style{
+    width = config.gui_display_width['label'] * 2
+}
+
+--- Control label for the bonus points remaining
+-- @element bonus_gui_control_pts_r
+local bonus_gui_control_pts_r =
+Gui.element{
+    type = 'label',
+    name = 'bonus_control_pts_r',
+    caption = {'bonus.control-pts-r'},
+    style = 'heading_1_label'
+}:style{
+    width = config.gui_display_width['label'] * 2
+}
+
+local bonus_gui_control_pts_r_count =
+Gui.element{
+    type = 'label',
+    name = 'bonus_control_pts_r_count',
     caption = '0',
     style = 'heading_1_label'
 }:style{
     width = config.gui_display_width['label'] * 2
 }
+
+--- A button used for pts calculations
+-- @element bonus_gui_control_refresh
+local bonus_gui_control_refresh =
+Gui.element{
+    type = 'button',
+    name = Gui.unique_static_name,
+    caption = {'bonus.control-refresh'}
+}:style{
+    width = config.gui_display_width['label'] * 2
+}:on_click(function(player, element, _)
+    --[[
+    ]]
+end)
+
+--- A button used for pts apply
+-- @element bonus_gui_control_apply
+local bonus_gui_control_apply =
+Gui.element{
+    type = 'button',
+    name = Gui.unique_static_name,
+    caption = {'bonus.control-apply'}
+}:style{
+    width = config.gui_display_width['label'] * 2
+}:on_click(function(player, element, _)
+    --[[
+    ]]
+end)
 
 --- A vertical flow containing all the bonus control
 -- @element bonus_control_set
@@ -39,8 +111,17 @@ Gui.element(function(_, parent, name)
     local bonus_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(bonus_set, 360, 2, 'disp')
 
-    bonus_gui_control_pts(disp)
-    bonus_gui_control_pts_count(disp)
+    bonus_gui_control_pts_a(disp)
+    bonus_gui_control_pts_a_count(disp)
+
+    bonus_gui_control_pts_n(disp)
+    bonus_gui_control_pts_n_count(disp)
+
+    bonus_gui_control_pts_r(disp)
+    bonus_gui_control_pts_r_count(disp)
+
+    bonus_gui_control_refresh(disp)
+    bonus_gui_control_apply(disp)
 
     return bonus_set
 end)

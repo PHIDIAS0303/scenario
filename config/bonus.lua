@@ -20,8 +20,8 @@ return {
     STD     20      75      25      30      20      20
     =       190
 
-    MAX     50      200     50      45      50      40
-    =       435
+    MAX     50      150     50      45      50      40
+    =       385
     ]]
     pts = {
         base = 190
@@ -40,7 +40,7 @@ return {
         },
         ['character_running_speed_modifier'] = {
             value = 1.5,
-            max = 4,
+            max = 3,
             scale = 0.25,
             cost = 50
         },
