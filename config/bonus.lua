@@ -8,12 +8,24 @@ return {
     point is given by role.
     so below will be not able to see
     then do like crafting speed is 2:1 (1 = 0.5x speed)
-    running speed is something like 1:10
     blah blah ...
     and limit maximum...
 
     work with vlayer, virtual power source blah blah...
     ]]
+    --[[
+    Base point is equal to the amount of standard value in each parameter.
+
+            CMMS    CRS     CCS     CISB    CHB     CRDB
+    STD     20      75      25      30      20      20
+    =       190
+
+    MAX     50      200     50      45      50      40
+    =       435
+    ]]
+    pts = {
+        base = 190
+    },
     gui_display_width = {
         label = 80,
         slider = 200,
@@ -22,39 +34,39 @@ return {
     player_bonus = {
         ['character_mining_speed_modifier'] = {
             value = 2,
-            max = 4,
+            max = 5,
             scale = 0.25,
             cost = 10
         },
         ['character_running_speed_modifier'] = {
             value = 1.5,
-            max = 3,
+            max = 4,
             scale = 0.25,
-            cost = 20
+            cost = 50
         },
         ['character_crafting_speed_modifier'] = {
             value = 5,
             max = 10,
             scale = 0.5,
-            cost = 10
+            cost = 5
         },
         ['character_inventory_slots_bonus'] = {
-            value = 80,
-            max = 120,
+            value = 100,
+            max = 150,
             scale = 10,
-            cost = 1
+            cost = 0.3
         },
         ['character_health_bonus'] = {
             value = 200,
             max = 500,
             scale = 50,
-            cost = 0.01
+            cost = 0.1
         },
         ['character_reach_distance_bonus'] = {
             value = 10,
             max = 20,
             scale = 1,
-            cost = 1,
+            cost = 2,
             combined_bonus = {
                 'character_resource_reach_distance_bonus',
                 'character_build_distance_bonus'

@@ -10,6 +10,41 @@ local config = require 'config.bonus' --- @dep config.bonus
 
 local bonus_container
 
+--- Control label for the bonus points
+-- @element bonus_gui_control_pts
+local bonus_gui_control_pts =
+Gui.element{
+    type = 'label',
+    name = 'bonus_control_pts',
+    caption = {'bonus.control-pts'},
+    style = 'heading_1_label'
+}:style{
+    width = config.gui_display_width['label'] * 2
+}
+
+local bonus_gui_control_pts_count =
+Gui.element{
+    type = 'label',
+    name = 'bonus_control_pts_count',
+    caption = '0',
+    style = 'heading_1_label'
+}:style{
+    width = config.gui_display_width['label'] * 2
+}
+
+--- A vertical flow containing all the bonus control
+-- @element bonus_control_set
+local bonus_control_set =
+Gui.element(function(_, parent, name)
+    local bonus_set = parent.add{type='flow', direction='vertical', name=name}
+    local disp = Gui.scroll_table(bonus_set, 360, 2, 'disp')
+
+    bonus_gui_control_pts(disp)
+    bonus_gui_control_pts_count(disp)
+
+    return bonus_set
+end)
+
 --- Display label for the character, manual mining speed
 -- @element bonus_gui_display_cmms
 local bonus_gui_display_cmms =
@@ -41,7 +76,6 @@ Gui.element{
     type = 'textfield',
     name = 'bonus_display_cmms_count',
     text = config.player_bonus['character_mining_speed_modifier'].value,
-    read_only = true,
     numeric = true,
     allow_decimal = true,
     allow_negative = false
@@ -80,7 +114,6 @@ Gui.element{
     type = 'textfield',
     name = 'bonus_display_crs_count',
     text = config.player_bonus['character_running_speed_modifier'].value,
-    read_only = true,
     numeric = true,
     allow_decimal = true,
     allow_negative = false
@@ -119,7 +152,6 @@ Gui.element{
     type = 'textfield',
     name = 'bonus_display_ccs_count',
     text = config.player_bonus['character_crafting_speed_modifier'].value,
-    read_only = true,
     numeric = true,
     allow_decimal = true,
     allow_negative = false
@@ -158,7 +190,6 @@ Gui.element{
     type = 'textfield',
     name = 'bonus_display_cisb_count',
     text = config.player_bonus['character_inventory_slots_bonus'].value,
-    read_only = true,
     numeric = true,
     allow_decimal = false,
     allow_negative = false
@@ -197,7 +228,6 @@ Gui.element{
     type = 'textfield',
     name = 'bonus_display_chb_count',
     text = config.player_bonus['character_health_bonus'].value,
-    read_only = true,
     numeric = true,
     allow_decimal = false,
     allow_negative = false
@@ -236,7 +266,6 @@ Gui.element{
     type = 'textfield',
     name = 'bonus_display_crdb_count',
     text = config.player_bonus['character_reach_distance_bonus'].value,
-    read_only = true,
     numeric = true,
     allow_decimal = false,
     allow_negative = false
@@ -244,37 +273,49 @@ Gui.element{
     width = config.gui_display_width['count']
 }
 
+--- A vertical flow containing all the bonus data
+-- @element bonus_data_set
+local bonus_data_set =
+Gui.element(function(_, parent, name)
+    local bonus_set = parent.add{type='flow', direction='vertical', name=name}
+    local disp = Gui.scroll_table(bonus_set, 360, 3, 'disp')
+
+    bonus_gui_display_cmms(disp)
+    bonus_gui_display_cmms_slider(disp)
+    bonus_gui_display_cmms_count(disp)
+
+    bonus_gui_display_crs(disp)
+    bonus_gui_display_crs_slider(disp)
+    bonus_gui_display_crs_count(disp)
+
+    bonus_gui_display_ccs(disp)
+    bonus_gui_display_ccs_slider(disp)
+    bonus_gui_display_ccs_count(disp)
+
+    bonus_gui_display_cisb(disp)
+    bonus_gui_display_cisb_slider(disp)
+    bonus_gui_display_cisb_count(disp)
+
+    bonus_gui_display_chb(disp)
+    bonus_gui_display_chb_slider(disp)
+    bonus_gui_display_chb_count(disp)
+
+    bonus_gui_display_crdb(disp)
+    bonus_gui_display_crdb_slider(disp)
+    bonus_gui_display_crdb_count(disp)
+
+    return bonus_set
+end)
+
 --- The main container for the bonus gui
 -- @element bonus_container
 bonus_container =
 Gui.element(function(definition, parent)
-    -- local player = Gui.get_player_from_element(parent)
+    local player = Gui.get_player_from_element(parent)
     local container = Gui.container(parent, definition.name, 320)
-    local scroll = Gui.scroll_table(container, 480, 3, 'bonus_st_1')
 
-    bonus_gui_display_cmms(scroll)
-    bonus_gui_display_cmms_slider(scroll)
-    bonus_gui_display_cmms_count(scroll)
-
-    bonus_gui_display_crs(scroll)
-    bonus_gui_display_crs_slider(scroll)
-    bonus_gui_display_crs_count(scroll)
-
-    bonus_gui_display_ccs(scroll)
-    bonus_gui_display_ccs_slider(scroll)
-    bonus_gui_display_ccs_count(scroll)
-
-    bonus_gui_display_cisb(scroll)
-    bonus_gui_display_cisb_slider(scroll)
-    bonus_gui_display_cisb_count(scroll)
-
-    bonus_gui_display_chb(scroll)
-    bonus_gui_display_chb_slider(scroll)
-    bonus_gui_display_chb_count(scroll)
-
-    bonus_gui_display_crdb(scroll)
-    bonus_gui_display_crdb_slider(scroll)
-    bonus_gui_display_crdb_count(scroll)
+    bonus_control_set(container, 'bonus_st_1')
+    bonus_data_set(container, 'bonus_st_2')
 
     return container.parent
 end)
@@ -290,7 +331,7 @@ end)
 Event.add(Roles.events.on_gui_value_changed, function(event)
     local player = game.get_player(event.player_index)
     local frame = Gui.get_left_element(player, bonus_container)
-    local table = frame.container['bonus_st_1'].table
+    local table = frame.container['bonus_st_1'].disp.table
 
     if event.element.name == bonus_gui_display_cmms_slider.name then
         table[bonus_gui_display_cmms_count.name].text = event.element.slider_value
