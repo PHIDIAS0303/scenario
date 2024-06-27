@@ -15,14 +15,6 @@ local research_time_format = {hours=true, minutes=true, seconds=true, time=true,
 research.res_queue_enable = false
 local base_rate = 0
 
-if config.bonus.enabled then
-    for k, _ in pairs(config_bonus.force_bonus) do
-        if config_bonus.force_bonus[k].name == config.bonus.name then
-            base_rate = config_bonus.force_bonus[k].max
-        end
-    end
-end
-
 local function research_notification(event)
     local is_inf_res = false
 
