@@ -30,12 +30,18 @@ local function apply_bonus(player, stage)
         return
     end
 
-    for _, v in pairs(config.player_bonus) do
+    for k, v in pairs(config.player_bonus) do
         if v.enabled then
             if stage == 0 then
-                player[v.name] = 0
+                player[k] = 0
             else
-                player[v.name] = v.value * stage / 10
+                player[k] = v.value * stage / 10
+
+                if v.combined_bonus then
+                    for i=1, #v.combined_bonus, 1 do
+                        player[v.combined_bonus[i]] = v.value * stage / 10
+                    end
+                end
             end
         end
     end
