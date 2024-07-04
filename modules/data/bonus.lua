@@ -31,17 +31,11 @@ local function apply_bonus(player, stage)
     end
 
     for k, v in pairs(config.player_bonus) do
-        if v.enabled then
-            if stage == 0 then
-                player[k] = 0
-            else
-                player[k] = v.value * stage / 10
+        player[k] = v.value * stage / 10
 
-                if v.combined_bonus then
-                    for i=1, #v.combined_bonus, 1 do
-                        player[v.combined_bonus[i]] = v.value * stage / 10
-                    end
-                end
+        if v.combined_bonus then
+            for i=1, #v.combined_bonus, 1 do
+                player[v.combined_bonus[i]] = v.value * stage / 10
             end
         end
     end
@@ -97,15 +91,11 @@ Event.add(defines.events.on_player_created, function(event)
     end
 
     for _, v in pairs(config.force_bonus) do
-        if v.enabled then
-            game.players[event.player_index].force[v.name] = v.value
-        end
+        game.players[event.player_index].force[v.name] = v.value
     end
 
     for _, v in pairs(config.surface_bonus) do
-        if v.enabled then
-            game.players[event.player_index].surface[v.name] = v.value
-        end
+        game.players[event.player_index].surface[v.name] = v.value
     end
 end)
 
