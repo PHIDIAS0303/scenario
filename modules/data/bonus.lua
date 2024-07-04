@@ -90,12 +90,12 @@ Event.add(defines.events.on_player_created, function(event)
         return
     end
 
-    for _, v in pairs(config.force_bonus) do
-        game.players[event.player_index].force[v.name] = v.value
+    for k, v in pairs(config.force_bonus) do
+        game.players[event.player_index].force[k] = v.value
     end
 
-    for _, v in pairs(config.surface_bonus) do
-        game.players[event.player_index].surface[v.name] = v.value
+    for k, v in pairs(config.surface_bonus) do
+        game.players[event.player_index].surface[k] = v.value
     end
 end)
 
