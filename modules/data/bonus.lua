@@ -58,16 +58,9 @@ end)
 Commands.new_command('bonus', 'Changes the amount of bonus you receive')
 :add_param('amount', 'integer-range', 0, 10)
 :register(function(player, amount)
-    if amount > config.player_bonus_level then
-        if not Roles.player_allowed(player, 'command/bonus/2') then
-            Commands.print{'expcom-bonus.perm', 2}
-            return
-        end
-    elseif amount <= config.player_bonus_level then
-        if not Roles.player_allowed(player, 'command/bonus') then
-            Commands.print{'expcom-bonus.perm', 1}
-            return
-        end
+    if not Roles.player_allowed(player, 'command/bonus') then
+        Commands.print{'expcom-bonus.perm', 1}
+        return
     end
 
     PlayerBonus:set(player, amount)
