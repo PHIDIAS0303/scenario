@@ -15,6 +15,7 @@ Global.register(research, function(tbl)
 end)
 
 research.time = {}
+local res = {}
 local res_i = {}
 local res_total = 0
 local research_time_format = {
@@ -34,6 +35,19 @@ local empty_time = format_time(0, {
 })
 research.res_queue_enable = false
 local base_rate = 0
+local mi = 1
+
+for k, v in pairs(config.milestone) do
+	res_total = res_total + v * 60
+	res_i[k] = mi
+	research.time[mi] = 0
+	res[mi] = {
+		name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
+		prev = res_total,
+		prev_disp = format_time(res_total, research_time_format),
+	}
+	mi = mi + 1
+end
 
 local function research_res_n(res_)
 	local res_n = 1
@@ -56,20 +70,6 @@ local function research_res_n(res_)
 	end
 
 	return res_n
-end
-
-local mi = 1
-
-for k, v in pairs(config.milestone) do
-	res_total = res_total + v * 60
-	res_i[k] = mi
-	research.time[mi] = 0
-	res[mi] = {
-		name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
-		prev = res_total,
-		prev_disp = format_time(res_total, research_time_format),
-	}
-	mi = mi + 1
 end
 
 local function research_notification(event)
@@ -131,7 +131,7 @@ local function research_queue_logic(event)
     research_notification(event)
 
     if research.res_queue_enable then
-        res_queue(event)
+        resf.res_queue(event)
     end
 end
 
