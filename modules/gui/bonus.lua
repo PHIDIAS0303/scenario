@@ -249,12 +249,12 @@ local function bonus_gui_pts_needed(player)
     local disp = frame.container['bonus_st_2'].disp.table
     local total = 0
 
-    total = total + tonumber(disp[bonus_gui_display_cmms_count.name].text) / config.player_bonus['character_mining_speed_modifier'].scale * config.player_bonus['character_mining_speed_modifier'].cost
-    total = total + tonumber(disp[bonus_gui_display_crs_count.name].text) / config.player_bonus['character_running_speed_modifier'].scale * config.player_bonus['character_running_speed_modifier'].cost
-    total = total + tonumber(disp[bonus_gui_display_ccs_count.name].text) / config.player_bonus['character_crafting_speed_modifier'].scale * config.player_bonus['character_crafting_speed_modifier'].cost
-    total = total + tonumber(disp[bonus_gui_display_cisb_count.name].text) / config.player_bonus['character_inventory_slots_bonus'].scale * config.player_bonus['character_inventory_slots_bonus'].cost
-    total = total + tonumber(disp[bonus_gui_display_chb_count.name].text) / config.player_bonus['character_health_bonus'].scale * config.player_bonus['character_health_bonus'].cost
-    total = total + tonumber(disp[bonus_gui_display_crdb_count.name].text) / config.player_bonus['character_reach_distance_bonus'].scale * config.player_bonus['character_reach_distance_bonus'].cost
+    total = total + (tonumber(disp[bonus_gui_display_cmms_count.name].caption) / config.player_bonus['character_mining_speed_modifier'].scale * config.player_bonus['character_mining_speed_modifier'].cost)
+    total = total + (tonumber(disp[bonus_gui_display_crs_count.name].caption) / config.player_bonus['character_running_speed_modifier'].scale * config.player_bonus['character_running_speed_modifier'].cost)
+    total = total + (tonumber(disp[bonus_gui_display_ccs_count.name].caption) / config.player_bonus['character_crafting_speed_modifier'].scale * config.player_bonus['character_crafting_speed_modifier'].cost)
+    total = total + (tonumber(disp[bonus_gui_display_cisb_count.name].caption) / config.player_bonus['character_inventory_slots_bonus'].scale * config.player_bonus['character_inventory_slots_bonus'].cost)
+    total = total + (tonumber(disp[bonus_gui_display_chb_count.name].caption) / config.player_bonus['character_health_bonus'].scale * config.player_bonus['character_health_bonus'].cost)
+    total = total + (tonumber(disp[bonus_gui_display_crdb_count.name].caption) / config.player_bonus['character_reach_distance_bonus'].scale * config.player_bonus['character_reach_distance_bonus'].cost)
 
     return total
 end
@@ -267,14 +267,14 @@ local function apply_bonus(player)
     local frame = Gui.get_left_element(player, bonus_container)
     local disp = frame.container['bonus_st_2'].disp.table
 
-    player['character_mining_speed_modifier'] = tonumber(disp[bonus_gui_display_cmms_count.name].text)
-    player['character_running_speed_modifier'] = tonumber(disp[bonus_gui_display_crs_count.name].text)
-    player['character_crafting_speed_modifier'] = tonumber(disp[bonus_gui_display_ccs_count.name].text)
-    player['character_inventory_slots_bonus'] = tonumber(disp[bonus_gui_display_cisb_count.name].text)
-    player['character_health_bonus'] = tonumber(disp[bonus_gui_display_chb_count.name].text)
-    player['character_reach_distance_bonus'] = tonumber(disp[bonus_gui_display_crdb_count.name].text)
-    player['character_resource_reach_distance_bonus'] = tonumber(disp[bonus_gui_display_crdb_count.name].text)
-    player['character_build_distance_bonus'] = tonumber(disp[bonus_gui_display_crdb_count.name].text)
+    player['character_mining_speed_modifier'] = tonumber(disp[bonus_gui_display_cmms_count.name].caption)
+    player['character_running_speed_modifier'] = tonumber(disp[bonus_gui_display_crs_count.name].caption)
+    player['character_crafting_speed_modifier'] = tonumber(disp[bonus_gui_display_ccs_count.name].caption)
+    player['character_inventory_slots_bonus'] = tonumber(disp[bonus_gui_display_cisb_count.name].caption)
+    player['character_health_bonus'] = tonumber(disp[bonus_gui_display_chb_count.name].caption)
+    player['character_reach_distance_bonus'] = tonumber(disp[bonus_gui_display_crdb_count.name].caption)
+    player['character_resource_reach_distance_bonus'] = tonumber(disp[bonus_gui_display_crdb_count.name].caption)
+    player['character_build_distance_bonus'] = tonumber(disp[bonus_gui_display_crdb_count.name].caption)
 end
 
 --- Control label for the bonus points available
