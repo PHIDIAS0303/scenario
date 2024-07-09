@@ -46,17 +46,17 @@ local elem_filter = {
 local function clear_module(player, area, machine)
     for _, entity in pairs(player.surface.find_entities_filtered{area=area, name=machine, force=player.force}) do
         for _, r in pairs(player.surface.find_entities_filtered{position=entity.position, name='item-request-proxy', force=player.force}) do
-            if r ~= nil then
+            if r then
                 r.destroy{raise_destroy=true}
             end
         end
 
         local m_current_module = entity.get_module_inventory()
 
-        if m_current_module ~= nil then
+        if m_current_module then
             local m_current_module_content = m_current_module.get_contents()
 
-            if m_current_module_content ~= nil then
+            if m_current_module_content then
                 for k, m in pairs(m_current_module_content) do
                     player.surface.spill_item_stack(entity.bounding_box.left_top, {name=k, count=m}, true, player.force, false)
                 end
@@ -69,10 +69,10 @@ end
 
 local function apply_module(player, area, machine, modules)
     for _, entity in pairs(player.surface.find_entities_filtered{area=area, name=machine, force=player.force}) do
-        if config.machine_craft[machine] then
+        if config.machine[machine].craft then
             local m_current_recipe = entity.get_recipe()
 
-            if m_current_recipe ~= nil then
+            if m_current_recipe then
                 if config.module_allowed[m_current_recipe.name] then
                     entity.surface.create_entity{name='item-request-proxy', target=entity, position=entity.position, force=entity.force, modules=modules}
                     entity.last_user = player
@@ -115,13 +115,13 @@ Selection.on_selection(SelectionModuleArea, function(event)
     for i=1, config.default_module_row_count do
         local m_machine = frame.container.scroll.table['module_mm_' .. i .. '_0'].elem_value
 
-        if m_machine ~= nil then
+        if m_machine then
             local m_module = {}
 
             for j=1, config.module_slot_max do
                 local mmo = frame.container.scroll.table['module_mm_' .. i .. '_' .. j].elem_value
 
-                if mmo ~= nil then
+                if mmo then
                     if m_module[mmo] == nil then
                         m_module[mmo] = 1
                     else
@@ -130,7 +130,7 @@ Selection.on_selection(SelectionModuleArea, function(event)
                 end
             end
 
-            if m_module ~= nil then
+            if m_module then
                 clear_module(player, area, m_machine)
                 apply_module(player, area, m_machine, m_module)
             end
@@ -141,11 +141,11 @@ end)
 local function row_set(player, element)
     local frame = Gui.get_left_element(player, module_container)
 
-    if frame.container.scroll.table[element .. '0'].elem_value ~= nil then
+    if frame.container.scroll.table[element .. '0'].elem_value then
         for i=1, config.module_slot_max do
             if i <= game.entity_prototypes[frame.container.scroll.table[element .. '0'].elem_value].module_inventory_size then
                 frame.container.scroll.table[element .. i].enabled = true
-                frame.container.scroll.table[element .. i].elem_value = config.machine[frame.container.scroll.table[element .. '0'].elem_value]
+                frame.container.scroll.table[element .. i].elem_value = config.machine[frame.container.scroll.table[element .. '0'].elem_value].module
             else
                 frame.container.scroll.table[element .. i].enabled = false
                 frame.container.scroll.table[element .. i].elem_value = nil
@@ -156,10 +156,8 @@ local function row_set(player, element)
     else
         local mf = elem_filter.normal
 
-        if config.machine_prod_disallow[element.elem_value] ~= nil then
-            if config.machine_prod_disallow[element.elem_value] then
-                mf = elem_filter.prod
-            end
+        if not config.machine[element.elem_value].prod then
+            mf = elem_filter.prod
         end
 
         for i=1, config.module_slot_max do
