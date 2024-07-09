@@ -249,12 +249,12 @@ local function bonus_gui_pts_needed(player)
     local disp = frame.container['bonus_st_2'].disp.table
     local total = 0
 
-    total = total + (tonumber(disp[bonus_gui_display_cmms_count.name].caption) / config.player_bonus['character_mining_speed_modifier'].scale * config.player_bonus['character_mining_speed_modifier'].cost)
-    total = total + (tonumber(disp[bonus_gui_display_crs_count.name].caption) / config.player_bonus['character_running_speed_modifier'].scale * config.player_bonus['character_running_speed_modifier'].cost)
-    total = total + (tonumber(disp[bonus_gui_display_ccs_count.name].caption) / config.player_bonus['character_crafting_speed_modifier'].scale * config.player_bonus['character_crafting_speed_modifier'].cost)
-    total = total + (tonumber(disp[bonus_gui_display_cisb_count.name].caption) / config.player_bonus['character_inventory_slots_bonus'].scale * config.player_bonus['character_inventory_slots_bonus'].cost)
-    total = total + (tonumber(disp[bonus_gui_display_chb_count.name].caption) / config.player_bonus['character_health_bonus'].scale * config.player_bonus['character_health_bonus'].cost)
-    total = total + (tonumber(disp[bonus_gui_display_crdb_count.name].caption) / config.player_bonus['character_reach_distance_bonus'].scale * config.player_bonus['character_reach_distance_bonus'].cost)
+    total = total + (tonumber(disp[bonus_gui_display_cmms_count.name].caption) / config.player_bonus['character_mining_speed_modifier'].cost_scale * config.player_bonus['character_mining_speed_modifier'].cost)
+    total = total + (tonumber(disp[bonus_gui_display_crs_count.name].caption) / config.player_bonus['character_running_speed_modifier'].cost_scale * config.player_bonus['character_running_speed_modifier'].cost)
+    total = total + (tonumber(disp[bonus_gui_display_ccs_count.name].caption) / config.player_bonus['character_crafting_speed_modifier'].cost_scale * config.player_bonus['character_crafting_speed_modifier'].cost)
+    total = total + (tonumber(disp[bonus_gui_display_cisb_count.name].caption) / config.player_bonus['character_inventory_slots_bonus'].cost_scale * config.player_bonus['character_inventory_slots_bonus'].cost)
+    total = total + (tonumber(disp[bonus_gui_display_chb_count.name].caption) / config.player_bonus['character_health_bonus'].cost_scale * config.player_bonus['character_health_bonus'].cost)
+    total = total + (tonumber(disp[bonus_gui_display_crdb_count.name].caption) / config.player_bonus['character_reach_distance_bonus'].cost_scale * config.player_bonus['character_reach_distance_bonus'].cost)
 
     return total
 end
@@ -293,7 +293,7 @@ local bonus_gui_control_pts_a_count =
 Gui.element{
     type = 'label',
     name = 'bonus_control_pts_a_count',
-    caption = '0',
+    caption = config.pts.base,
     style = 'heading_1_label'
 }:style{
     width = config.gui_display_width['half']
@@ -315,7 +315,7 @@ local bonus_gui_control_pts_n_count =
 Gui.element{
     type = 'label',
     name = 'bonus_control_pts_n_count',
-    caption = config.pts.base,
+    caption = '0',
     style = 'heading_1_label'
 }:style{
     width =config.gui_display_width['half']
