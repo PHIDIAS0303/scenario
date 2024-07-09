@@ -17,7 +17,6 @@ local function aabb_align_expand(aabb)
 end
 
 local module_container
-
 local machine_name = {}
 
 for k, _ in pairs(config.machine) do
