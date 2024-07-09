@@ -43,15 +43,18 @@ local function research_res_n(res_)
 	return res_n
 end
 
-for i=1, #config.milestone do
-	res_total = res_total + config.milestone[i].time * 60
-	res_i[config.milestone[i].name] = i
+local i = 1
+
+for k, v in pairs(config.milestone) do
+	res_total = res_total + v * 60
+	res_i[k] = i
 	research.time[i] = 0
 	res[i] = {
-		name = '[technology=' .. config.milestone[i].name .. '] ' .. config.milestone[i].name:gsub('-', ' '),
+		name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
 		prev = res_total,
 		prev_disp = format_time(res_total, research_time_format),
 	}
+	i = i + 1
 end
 
 local research_container =
@@ -122,7 +125,7 @@ Gui.element(function(definition, parent)
 	for j=1, 8 do
 		local res_j = res_n + j - 3
 
-		if res[res_j] ~= nil then
+		if res[res_j] then
 			local res_r = res[res_j]
 			scroll_table['research_display_n_' .. j].caption = res_r.name
 
@@ -170,7 +173,7 @@ Event.add(defines.events.on_research_finished, function(event)
 		local res_j = res_n + j - 3
 		res_disp[j] = {}
 
-		if res[res_j] ~= nil then
+		if res[res_j] then
 			local res_r = res[res_j]
 			res_disp[j]['n'] = res_r.name
 

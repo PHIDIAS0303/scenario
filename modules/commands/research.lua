@@ -1,8 +1,6 @@
 local Event = require 'utils.event' --- @dep utils.event
-local Common = require 'expcore.common' --- @dep utils.event
 local Global = require 'utils.global' --- @dep utils.global
 local config = require 'config.research' --- @dep config.research
-local config_bonus = Common.opt_require 'config.bonus' --- @dep config.bonus
 local Commands = require 'expcore.commands' --- @dep expcore.commands
 local format_time = _C.format_time --- @dep expcore.common
 
@@ -11,27 +9,28 @@ Global.register(research, function(tbl)
     research = tbl
 end)
 
-local research_time_format = {hours=true, minutes=true, seconds=true, time=true, string=true}
+local research_time_format = {
+    hours=true,
+    minutes=true,
+    seconds=true,
+    time=true,
+    string=true
+}
 research.res_queue_enable = false
 local base_rate = 0
 
 local function research_notification(event)
     local is_inf_res = false
 
-    for i=1, #config.inf_res do
-        if (event.research.name == config.inf_res[i].name) and (event.research.level >= config.inf_res[i].level) then
+    for k, v in pairs(config.inf_res) do
+        if (event.research.name == k) and (event.research.level >= v) then
             is_inf_res = true
         end
     end
 
     if config.bonus_inventory.enabled then
         if (event.research.force.mining_drill_productivity_bonus * 10) <= (config.bonus_inventory.limit / config.bonus_inventory.rate) then
-            if event.research.force.technologies['toolbelt'].researched then
-                event.research.force[config.bonus_inventory.name] = (math.floor(event.research.force.mining_drill_productivity_bonus * 10) * config.bonus_inventory.rate) + 10
-
-            else
-                event.research.force[config.bonus_inventory.name] = math.floor(event.research.force.mining_drill_productivity_bonus * 10) * config.bonus_inventory.rate
-            end
+            event.research.force[config.bonus_inventory.name] = math.floor(event.research.force.mining_drill_productivity_bonus * 10) * config.bonus_inventory.rate
         end
     end
 
