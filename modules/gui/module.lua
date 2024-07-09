@@ -92,47 +92,43 @@ end
 Selection.on_selection(SelectionModuleArea, function(event)
     local area = aabb_align_expand(event.area)
     local player = game.get_player(event.player_index)
-
-    if player == nil then
-        return
-    end
-
     local frame = Gui.get_left_element(player, module_container)
+    local table = frame.container.scroll.table
 
     for i=1, config.default_module_row_count do
-        local m_machine = frame.container.scroll.table['module_mm_' .. i .. '_0'].elem_value
+        local mma = table['module_mm_' .. i .. '_0'].elem_value
 
-        if m_machine then
-            local m_module = {
-                n = {},
-                p = {}
+        if mma then
+            local mm = {
+                ['n'] = {},
+                ['p'] = {}
             }
 
-            for j=1, config.module_slot_max do
-                local mmo = frame.container.scroll.table['module_mm_' .. i .. '_' .. j].elem_value
+            for j=1, game.entity_prototypes[mma].module_inventory_size, 1 do
+                local mmo = table['module_mm_' .. i .. '_' .. j].elem_value
 
                 if mmo then
-                    if m_module['n'][mmo] == nil then
-                        m_module['n'][mmo] = 1
+                    if mm['n'][mmo] then
+                        mm['n'][mmo] = mm['n'][mmo] + 1
 
                     else
-                        m_module['n'][mmo] = m_module['n'][mmo] + 1
+                        mm['n'][mmo] = 1
                     end
                 end
             end
 
-            m_module['p'] = m_module['n']
+            mm['p'] = table.deepcopy(mm['n'])
 
-            for k, _ in pairs(m_module['p']) do
+            for k, _ in pairs(mm['p']) do
                 if k:find('productivity') then
-                    m_module['p'][k:gsub('productivity', 'effectivity')] = m_module['p']
-                    m_module['p'][k] = nil
+                    mm['p'][k:gsub('productivity', 'effectivity')] = mm['p'][k]
+                    mm['p'][k] = nil
                 end
             end
 
-            if m_module then
-                clear_module(player, area, m_machine)
-                apply_module(player, area, m_machine, m_module)
+            if mm then
+                clear_module(player, area, mma)
+                apply_module(player, area, mma, mm)
             end
         end
     end
@@ -140,18 +136,20 @@ end)
 
 local function row_set(player, element)
     local frame = Gui.get_left_element(player, module_container)
+    local table = frame.container.scroll.table
 
-    if frame.container.scroll.table[element .. '0'].elem_value then
+    if table[element .. '0'].elem_value then
         for i=1, config.module_slot_max do
-            if i <= game.entity_prototypes[frame.container.scroll.table[element .. '0'].elem_value].module_inventory_size then
-                frame.container.scroll.table[element .. i].enabled = true
-                frame.container.scroll.table[element .. i].elem_value = config.machine[frame.container.scroll.table[element .. '0'].elem_value].module
+            if i <= game.entity_prototypes[table[element .. '0'].elem_value].module_inventory_size then
+                table[element .. i].enabled = true
+                table[element .. i].elem_value = config.machine[table[element .. '0'].elem_value].module
 
             else
-                frame.container.scroll.table[element .. i].enabled = false
-                frame.container.scroll.table[element .. i].elem_value = nil
+                table[element .. i].enabled = false
+                table[element .. i].elem_value = nil
             end
-            frame.container.scroll.table[element .. i].elem_filters = elem_filter.normal
+
+            table[element .. i].elem_filters = elem_filter.normal
         end
 
     else
@@ -162,9 +160,9 @@ local function row_set(player, element)
         end
 
         for i=1, config.module_slot_max do
-            frame.container.scroll.table[element .. i].enabled = true
-            frame.container.scroll.table[element .. i].elem_filters = mf
-            frame.container.scroll.table[element .. i].elem_value = nil
+            table[element .. i].enabled = true
+            table[element .. i].elem_filters = mf
+            table[element .. i].elem_value = nil
         end
     end
 end

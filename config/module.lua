@@ -1,12 +1,11 @@
 return {
     -- type of machine to handle together
-    default_module_row_count = 10,
+    default_module_row_count = 9,
     module_slot_max = 4,
     machine = {
         ['electric-mining-drill'] = {
             module = 'effectivity-module',
-            prod = true,
-            craft = false
+            prod = true
         },
         ['pumpjack'] = {
             module = 'effectivity-module',
