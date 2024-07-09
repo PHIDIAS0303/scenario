@@ -7,8 +7,8 @@ local Event = require 'utils.event' --- @dep utils.event
 local Roles = require 'expcore.roles' --- @dep expcore.roles
 local config = require 'config.research' --- @dep config.research
 local format_time = _C.format_time --- @dep expcore.common
+local resf = require 'modules.commands.research' --- @dep expcore.commands
 
-local resf = {}
 local research = {}
 Global.register(research, function(tbl)
     research = tbl
@@ -79,17 +79,18 @@ local function research_notification(event)
     for k, v in pairs(config.inf_res) do
         if (event.research.name == k) and (event.research.level >= v) then
             is_inf_res = true
-        end
-    end
-
-    if config.bonus_inventory.enabled then
-        if (event.research.force.mining_drill_productivity_bonus * 10) <= (config.bonus_inventory.limit / config.bonus_inventory.rate) then
-            event.research.force[config.bonus_inventory.name] = math.floor(event.research.force.mining_drill_productivity_bonus * 10) * config.bonus_inventory.rate
+			break
         end
     end
 
     if is_inf_res then
         if event.research.name == 'mining-productivity-4' and event.research.level > 4 then
+			if config.bonus_inventory.enabled then
+				if (event.research.force.mining_drill_productivity_bonus * 10) <= (config.bonus_inventory.limit / config.bonus_inventory.rate) then
+					event.research.force[config.bonus_inventory.name] = math.floor(event.research.force.mining_drill_productivity_bonus * 10) * config.bonus_inventory.rate
+				end
+			end
+
             if config.bonus.enabled then
                 event.research.force[config.bonus.name] = base_rate + event.research.level * config.bonus.rate
             end
@@ -107,36 +108,16 @@ local function research_notification(event)
         if not (event.by_script) then
             game.print{'expcom-res.msg', format_time(game.tick, research_time_format), event.research.name}
         end
+
+		if event.research.name == 'mining-productivity-1' or event.research.name == 'mining-productivity-2' or event.research.name == 'mining-productivity-3' then
+			if config.bonus_inventory.enabled then
+				if (event.research.force.mining_drill_productivity_bonus * 10) <= (config.bonus_inventory.limit / config.bonus_inventory.rate) then
+					event.research.force[config.bonus_inventory.name] = math.floor(event.research.force.mining_drill_productivity_bonus * 10) * config.bonus_inventory.rate
+				end
+			end
+		end
     end
 end
-
-function resf.res_queue(event)
-    if event.research.force.rockets_launched == 0 or event.research.force.technologies['mining-productivity-4'].level <= 4 then
-        return
-    end
-
-    local res_q = event.research.research_queue
-
-    if #res_q < config.queue_amount then
-        for i=1, config.queue_amount - #res_q do
-            event.research.force.add_research(event.research.force.technologies['mining-productivity-4'])
-
-            if not (event.by_script) then
-                game.print{'expcom-res.inf-q', event.research.name, event.research.level + i}
-            end
-        end
-    end
-end
-
-local function research_queue_logic(event)
-    research_notification(event)
-
-    if research.res_queue_enable then
-        resf.res_queue(event)
-    end
-end
-
-Event.add(defines.events.on_research_cancelled, research_queue_logic)
 
 local research_container =
 Gui.element(function(definition, parent)
@@ -244,7 +225,11 @@ Event.add(defines.events.on_research_finished, function(event)
 		return
 	end
 
-	research_queue_logic(event)
+	research_notification(event)
+
+    if research.res_queue_enable then
+        resf.res_queue(event)
+    end
 
 	local n_i = res_i[event.research.name]
 	research.time[n_i] = game.tick
@@ -290,6 +275,8 @@ Event.add(defines.events.on_research_finished, function(event)
     end
 end)
 
+-- Event.add(defines.events.on_research_cancelled, research_queue_logic)
+
 Event.on_nth_tick(60, function()
 	local current_time = format_time(game.tick, research_time_format)
 
@@ -298,5 +285,3 @@ Event.on_nth_tick(60, function()
 		frame.container.scroll.table['clock_display'].caption = current_time
     end
 end)
-
-return resf
