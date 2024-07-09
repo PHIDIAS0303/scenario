@@ -124,6 +124,7 @@ Gui.element(function(definition, parent)
     local container = Gui.container(parent, definition.name, 200)
 	local scroll_table = Gui.scroll_table(container, 400, 4)
 
+	--[[
 	scroll_table.add{
         name = 'clock_text',
         caption = 'Time:',
@@ -151,6 +152,7 @@ Gui.element(function(definition, parent)
         type = 'label',
         style = 'heading_1_label'
     }
+	]]
 
 	for i=1, 8 do
         scroll_table.add{
@@ -276,7 +278,7 @@ Event.add(defines.events.on_research_finished, function(event)
 end)
 
 -- Event.add(defines.events.on_research_cancelled, research_queue_logic)
-
+--[[
 Event.on_nth_tick(60, function()
 	local current_time = format_time(game.tick, research_time_format)
 
@@ -285,3 +287,4 @@ Event.on_nth_tick(60, function()
 		frame.container.scroll.table['clock_display'].caption = current_time
     end
 end)
+]]
