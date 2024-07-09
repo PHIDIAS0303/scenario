@@ -69,33 +69,20 @@ end
 
 local function apply_module(player, area, machine, modules)
     for _, entity in pairs(player.surface.find_entities_filtered{area=area, name=machine, force=player.force}) do
-        if config.machine[machine].craft then
-            local m_current_recipe = entity.get_recipe()
+        local m_current_recipe = entity.get_recipe()
 
-            if m_current_recipe then
-                if config.module_allowed[m_current_recipe.name] then
-                    entity.surface.create_entity{name='item-request-proxy', target=entity, position=entity.position, force=entity.force, modules=modules}
-                    entity.last_user = player
-
-                else
-                    for k in pairs(modules) do
-                        if k:find('productivity') then
-                            modules[k:gsub('productivity', 'effectivity')] = modules[k]
-                            modules[k] = nil
-                        end
-                    end
-
-                    entity.surface.create_entity{name='item-request-proxy', target=entity, position=entity.position, force=entity.force, modules=modules}
-                    entity.last_user = player
-                end
+        if m_current_recipe then
+            if config.module_allowed[m_current_recipe.name] then
+                entity.surface.create_entity{name='item-request-proxy', target=entity, position=entity.position, force=entity.force, modules=modules['n']}
+                entity.last_user = player
 
             else
-                entity.surface.create_entity{name='item-request-proxy', target=entity, position=entity.position, force=entity.force, modules=modules}
+                entity.surface.create_entity{name='item-request-proxy', target=entity, position=entity.position, force=entity.force, modules=modules['p']}
                 entity.last_user = player
             end
 
         else
-            entity.surface.create_entity{name='item-request-proxy', target=entity, position=entity.position, force=entity.force, modules=modules}
+            entity.surface.create_entity{name='item-request-proxy', target=entity, position=entity.position, force=entity.force, modules=modules['n']}
             entity.last_user = player
         end
     end
@@ -116,18 +103,30 @@ Selection.on_selection(SelectionModuleArea, function(event)
         local m_machine = frame.container.scroll.table['module_mm_' .. i .. '_0'].elem_value
 
         if m_machine then
-            local m_module = {}
+            local m_module = {
+                n = {},
+                p = {}
+            }
 
             for j=1, config.module_slot_max do
                 local mmo = frame.container.scroll.table['module_mm_' .. i .. '_' .. j].elem_value
 
                 if mmo then
-                    if m_module[mmo] == nil then
-                        m_module[mmo] = 1
+                    if m_module['n'][mmo] == nil then
+                        m_module['n'][mmo] = 1
 
                     else
-                        m_module[mmo] = m_module[mmo] + 1
+                        m_module['n'][mmo] = m_module['n'][mmo] + 1
                     end
+                end
+            end
+
+            m_module['p'] = m_module['n']
+
+            for k, _ in pairs(m_module['p']) do
+                if k:find('productivity') then
+                    m_module['p'][k:gsub('productivity', 'effectivity')] = m_module['p']
+                    m_module['p'][k] = nil
                 end
             end
 
