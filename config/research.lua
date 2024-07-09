@@ -12,7 +12,6 @@ return {
         rate = 5,
         limit = 20
     },
-    file = 'research.log',
     milestone = {
         ['automation'] = 600,
         ['logistics'] = 300,

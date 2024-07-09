@@ -15,6 +15,10 @@ Global.register(research, function(tbl)
 end)
 
 research.time = {}
+research.res_queue_enable = false
+
+local base_rate = 0
+local mi = 1
 local res = {}
 local res_i = {}
 local res_total = 0
@@ -33,9 +37,6 @@ local empty_time = format_time(0, {
 	string=true,
 	null=true
 })
-research.res_queue_enable = false
-local base_rate = 0
-local mi = 1
 
 for k, v in pairs(config.milestone) do
 	res_total = res_total + v * 60
