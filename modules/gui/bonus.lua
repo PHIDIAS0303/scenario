@@ -453,7 +453,7 @@ Gui.left_toolbar_button('item/exoskeleton-equipment', {'bonus.main-tooltip'}, bo
 	return Roles.player_allowed(player, 'gui/bonus')
 end)
 
-Event.add(Roles.events.on_gui_value_changed, function(event)
+Event.add(defines.events.on_gui_value_changed, function(event)
     local player = game.get_player(event.player_index)
     local frame = Gui.get_left_element(player, bonus_container)
     local disp = frame.container['bonus_st_2'].disp.table
@@ -463,5 +463,17 @@ Event.add(Roles.events.on_gui_value_changed, function(event)
 
     elseif event.element.name == bonus_gui_display_crs_slider.name then
         disp[bonus_gui_display_crs_count.name].caption = event.element.slider_value
+
+    elseif event.element.name == bonus_gui_display_ccs_slider.name then
+        disp[bonus_gui_display_ccs_count.name].caption = event.element.slider_value
+
+    elseif event.element.name == bonus_gui_display_cisb_slider.name then
+        disp[bonus_gui_display_cisb_count.name].caption = event.element.slider_value
+
+    elseif event.element.name == bonus_gui_display_chb_slider.name then
+        disp[bonus_gui_display_chb_count.name].caption = event.element.slider_value
+
+    elseif event.element.name == bonus_gui_display_crdb_slider.name then
+        disp[bonus_gui_display_crdb_count.name].caption = event.element.slider_value
     end
 end)
