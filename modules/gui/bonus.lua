@@ -454,25 +454,8 @@ Event.add(Roles.events.on_gui_value_changed, function(event)
 
     if event.element.name == bonus_gui_display_cmms_slider.name then
         disp[bonus_gui_display_cmms_count.name].text = event.element.slider_value
+
+    elseif event.element.name == bonus_gui_display_crs_slider.name then
+        disp[bonus_gui_display_crs_count.name].text = event.element.slider_value
     end
 end)
-
---[[
-Event.add(Roles.events.on_gui_text_changed, function(event)
-    local player = game.get_player(event.player_index)
-    local frame = Gui.get_left_element(player, bonus_container)
-    local disp = frame.container['bonus_st_2'].disp.table
-
-    if event.element.name == bonus_gui_display_cmms_count.name then
-        local nearby = math.floor((tonumber(event.element.text) or 0) / disp[bonus_gui_display_cmms_slider.name].value_step)
-
-        if nearby < disp[bonus_gui_display_cmms_slider.name].minimum_value then
-            disp[bonus_gui_display_cmms_slider.name].value = disp[bonus_gui_display_cmms_slider.name].minimum_value
-            event.element.text = disp[bonus_gui_display_cmms_slider.name].minimum_value
-
-        else
-            disp[bonus_gui_display_cmms_slider.name].value = nearby
-        end
-    end
-end)
-]]
