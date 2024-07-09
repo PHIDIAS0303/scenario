@@ -11,8 +11,14 @@ local SelectionModuleArea = 'ModuleArea'
 --- align an aabb to the grid by expanding it
 local function aabb_align_expand(aabb)
     return {
-        left_top = {x = math.floor(aabb.left_top.x), y = math.floor(aabb.left_top.y)},
-        right_bottom = {x = math.ceil(aabb.right_bottom.x), y = math.ceil(aabb.right_bottom.y)}
+        left_top = {
+            x = math.floor(aabb.left_top.x),
+            y = math.floor(aabb.left_top.y)
+        },
+        right_bottom = {
+            x = math.ceil(aabb.right_bottom.x),
+            y = math.ceil(aabb.right_bottom.y)
+        }
     }
 end
 
