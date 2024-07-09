@@ -124,6 +124,7 @@ Selection.on_selection(SelectionModuleArea, function(event)
                 if mmo then
                     if m_module[mmo] == nil then
                         m_module[mmo] = 1
+
                     else
                         m_module[mmo] = m_module[mmo] + 1
                     end
@@ -146,6 +147,7 @@ local function row_set(player, element)
             if i <= game.entity_prototypes[frame.container.scroll.table[element .. '0'].elem_value].module_inventory_size then
                 frame.container.scroll.table[element .. i].enabled = true
                 frame.container.scroll.table[element .. i].elem_value = config.machine[frame.container.scroll.table[element .. '0'].elem_value].module
+
             else
                 frame.container.scroll.table[element .. i].enabled = false
                 frame.container.scroll.table[element .. i].elem_value = nil
