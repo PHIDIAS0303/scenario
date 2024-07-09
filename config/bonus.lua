@@ -104,42 +104,43 @@ return {
         ]]
     },
     force_bonus = {
+        --[[
         ['character_mining_speed_modifier'] = {
-            value = 2,
+            value = 0,
             max = 4,
             scale = 0.25,
             cost_scale = 1,
             cost = 10
         },
         ['character_running_speed_modifier'] = {
-            value = 1.5,
+            value = 0,
             max = 3,
             scale = 0.25,
             cost_scale = 1,
             cost = 50
         },
         ['character_crafting_speed_modifier'] = {
-            value = 5,
+            value = 0,
             max = 10,
             scale = 0.5,
             cost_scale = 1,
             cost = 5
         },
         ['character_inventory_slots_bonus'] = {
-            value = 100,
+            value = 0,
             max = 150,
             scale = 10,
             cost_scale = 100,
             cost = 4
         },
         ['character_health_bonus'] = {
-            value = 200,
+            value = 0,
             max = 400,
             scale = 50,
             cost = 6
         },
         ['character_reach_distance_bonus'] = {
-            value = 10,
+            value = 0,
             max = 25,
             scale = 1,
             cost_scale = 1,
@@ -156,6 +157,7 @@ return {
             cost_scale = 1,
             cost = 1
         },
+        ]]
         ['worker_robots_battery_modifier'] = {
             value = 1,
             max = 1,

@@ -277,6 +277,22 @@ local function apply_bonus(player)
     player['character_build_distance_bonus'] = tonumber(disp[bonus_gui_display_crdb_count.name].caption)
 end
 
+local function role_update(event)
+    local player = game.players[event.player_index]
+
+    if not Roles.player_allowed(player, 'gui/bonus') then
+        player['character_mining_speed_modifier'] = 0
+        player['character_running_speed_modifier'] = 0
+        player['character_crafting_speed_modifier'] = 0
+        player['character_inventory_slots_bonus'] = 0
+        player['character_health_bonus'] = 0
+        player['character_reach_distance_bonus'] = 0
+        player['character_resource_reach_distance_bonus'] = 0
+        player['character_build_distance_bonus'] = 0
+        apply_bonus(player)
+    end
+end
+
 --- Control label for the bonus points available
 -- @element bonus_gui_control_pts_a
 local bonus_gui_control_pts_a =
@@ -477,3 +493,20 @@ Event.add(defines.events.on_gui_value_changed, function(event)
         disp[bonus_gui_display_crdb_count.name].caption = event.element.slider_value
     end
 end)
+
+Event.add(defines.events.on_player_created, function(event)
+    if event.player_index ~= 1 then
+        return
+    end
+
+    for k, v in pairs(config.force_bonus) do
+        game.players[event.player_index].force[k] = v.value
+    end
+
+    for k, v in pairs(config.surface_bonus) do
+        game.players[event.player_index].surface[k] = v.value
+    end
+end)
+
+Event.add(Roles.events.on_role_assigned, role_update)
+Event.add(Roles.events.on_role_unassigned, role_update)
