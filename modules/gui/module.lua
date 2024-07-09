@@ -110,18 +110,18 @@ Selection.on_selection(SelectionModuleArea, function(event)
                 if mmo then
                     if mm['n'][mmo] then
                         mm['n'][mmo] = mm['n'][mmo] + 1
+                        mm['p'][mmo] = mm['p'][mmo] + 1
 
                     else
                         mm['n'][mmo] = 1
+                        mm['p'][mmo] = 1
                     end
                 end
             end
 
-            mm['p'] = table.deepcopy(mm['n'])
-
-            for k, _ in pairs(mm['p']) do
+            for k, v in pairs(mm['p']) do
                 if k:find('productivity') then
-                    mm['p'][k:gsub('productivity', 'effectivity')] = mm['p'][k]
+                    mm['p'][k:gsub('productivity', 'effectivity')] = v
                     mm['p'][k] = nil
                 end
             end
