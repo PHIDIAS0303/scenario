@@ -38,12 +38,13 @@ Gui.element{
 
 local bonus_gui_display_cmms_count =
 Gui.element{
-    type = 'textfield',
+    type = 'label',
     name = 'bonus_display_cmms_count',
-    text = config.player_bonus['character_mining_speed_modifier'].value,
+    caption = config.player_bonus['character_mining_speed_modifier'].value,
     numeric = true,
     allow_decimal = true,
-    allow_negative = false
+    allow_negative = false,
+    style = 'heading_1_label'
 }:style{
     width = config.gui_display_width['count']
 }
@@ -76,12 +77,13 @@ Gui.element{
 
 local bonus_gui_display_crs_count =
 Gui.element{
-    type = 'textfield',
+    type = 'label',
     name = 'bonus_display_crs_count',
-    text = config.player_bonus['character_running_speed_modifier'].value,
+    caption = config.player_bonus['character_running_speed_modifier'].value,
     numeric = true,
     allow_decimal = true,
-    allow_negative = false
+    allow_negative = false,
+    style = 'heading_1_label'
 }:style{
     width = config.gui_display_width['count']
 }
@@ -114,12 +116,13 @@ Gui.element{
 
 local bonus_gui_display_ccs_count =
 Gui.element{
-    type = 'textfield',
+    type = 'label',
     name = 'bonus_display_ccs_count',
-    text = config.player_bonus['character_crafting_speed_modifier'].value,
+    caption = config.player_bonus['character_crafting_speed_modifier'].value,
     numeric = true,
     allow_decimal = true,
-    allow_negative = false
+    allow_negative = false,
+    style = 'heading_1_label'
 }:style{
     width = config.gui_display_width['count']
 }
@@ -152,12 +155,13 @@ Gui.element{
 
 local bonus_gui_display_cisb_count =
 Gui.element{
-    type = 'textfield',
+    type = 'label',
     name = 'bonus_display_cisb_count',
-    text = config.player_bonus['character_inventory_slots_bonus'].value,
+    caption = config.player_bonus['character_inventory_slots_bonus'].value,
     numeric = true,
     allow_decimal = false,
-    allow_negative = false
+    allow_negative = false,
+    style = 'heading_1_label'
 }:style{
     width = config.gui_display_width['count']
 }
@@ -190,12 +194,13 @@ Gui.element{
 
 local bonus_gui_display_chb_count =
 Gui.element{
-    type = 'textfield',
+    type = 'label',
     name = 'bonus_display_chb_count',
-    text = config.player_bonus['character_health_bonus'].value,
+    caption = config.player_bonus['character_health_bonus'].value,
     numeric = true,
     allow_decimal = false,
-    allow_negative = false
+    allow_negative = false,
+    style = 'heading_1_label'
 }:style{
     width = config.gui_display_width['count']
 }
@@ -228,12 +233,13 @@ Gui.element{
 
 local bonus_gui_display_crdb_count =
 Gui.element{
-    type = 'textfield',
+    type = 'label',
     name = 'bonus_display_crdb_count',
-    text = config.player_bonus['character_reach_distance_bonus'].value,
+    caption = config.player_bonus['character_reach_distance_bonus'].value,
     numeric = true,
     allow_decimal = false,
-    allow_negative = false
+    allow_negative = false,
+    style = 'heading_1_label'
 }:style{
     width = config.gui_display_width['count']
 }
@@ -453,9 +459,9 @@ Event.add(Roles.events.on_gui_value_changed, function(event)
     local disp = frame.container['bonus_st_2'].disp.table
 
     if event.element.name == bonus_gui_display_cmms_slider.name then
-        disp[bonus_gui_display_cmms_count.name].text = event.element.slider_value
+        disp[bonus_gui_display_cmms_count.name].caption = event.element.slider_value
 
     elseif event.element.name == bonus_gui_display_crs_slider.name then
-        disp[bonus_gui_display_crs_count.name].text = event.element.slider_value
+        disp[bonus_gui_display_crs_count.name].caption = event.element.slider_value
     end
 end)
