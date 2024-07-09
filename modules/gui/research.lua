@@ -136,7 +136,6 @@ local function research_queue_logic(event)
     end
 end
 
-Event.add(defines.events.on_research_finished, research_queue_logic)
 Event.add(defines.events.on_research_cancelled, research_queue_logic)
 
 local research_container =
@@ -244,6 +243,8 @@ Event.add(defines.events.on_research_finished, function(event)
 	elseif res_i[event.research.name] == nil then
 		return
 	end
+
+	research_queue_logic(event)
 
 	local n_i = res_i[event.research.name]
 	research.time[n_i] = game.tick
