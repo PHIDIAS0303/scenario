@@ -1,89 +1,11 @@
-local Event = require 'utils.event' --- @dep utils.event
 local Global = require 'utils.global' --- @dep utils.global
-local config = require 'config.research' --- @dep config.research
 local Commands = require 'expcore.commands' --- @dep expcore.commands
-local format_time = _C.format_time --- @dep expcore.common
+local res = require 'modules.gui.research' --- @dep expcore.commands
 
 local research = {}
 Global.register(research, function(tbl)
     research = tbl
 end)
-
-local research_time_format = {
-    hours=true,
-    minutes=true,
-    seconds=true,
-    time=true,
-    string=true
-}
-research.res_queue_enable = false
-local base_rate = 0
-
-local function research_notification(event)
-    local is_inf_res = false
-
-    for k, v in pairs(config.inf_res) do
-        if (event.research.name == k) and (event.research.level >= v) then
-            is_inf_res = true
-        end
-    end
-
-    if config.bonus_inventory.enabled then
-        if (event.research.force.mining_drill_productivity_bonus * 10) <= (config.bonus_inventory.limit / config.bonus_inventory.rate) then
-            event.research.force[config.bonus_inventory.name] = math.floor(event.research.force.mining_drill_productivity_bonus * 10) * config.bonus_inventory.rate
-        end
-    end
-
-    if is_inf_res then
-        if event.research.name == 'mining-productivity-4' and event.research.level > 4 then
-            if config.bonus.enabled then
-                event.research.force[config.bonus.name] = base_rate + event.research.level * config.bonus.rate
-            end
-
-            if config.pollution_ageing_by_research then
-                game.map_settings.pollution.ageing = math.min(10, event.research.level / 5)
-            end
-        end
-
-        if not (event.by_script) then
-            game.print{'expcom-res.inf', format_time(game.tick, research_time_format), event.research.name, event.research.level - 1}
-        end
-
-    else
-        if not (event.by_script) then
-            game.print{'expcom-res.msg', format_time(game.tick, research_time_format), event.research.name}
-        end
-    end
-end
-
-local function res_queue(event)
-    if event.research.force.rockets_launched == 0 or event.research.force.technologies['mining-productivity-4'].level <= 4 then
-        return
-    end
-
-    local res_q = event.research.research_queue
-
-    if #res_q < config.queue_amount then
-        for i=1, config.queue_amount - #res_q do
-            event.research.force.add_research(event.research.force.technologies['mining-productivity-4'])
-
-            if not (event.by_script) then
-                game.print{'expcom-res.inf-q', event.research.name, event.research.level + i}
-            end
-        end
-    end
-end
-
-local function research_queue_logic(event)
-    research_notification(event)
-
-    if research.res_queue_enable then
-        res_queue(event)
-    end
-end
-
-Event.add(defines.events.on_research_finished, research_queue_logic)
-Event.add(defines.events.on_research_cancelled, research_queue_logic)
 
 Commands.new_command('auto-research', 'Automatically queue up research')
 :add_alias('ares')
@@ -91,7 +13,7 @@ Commands.new_command('auto-research', 'Automatically queue up research')
     research.res_queue_enable = not research.res_queue_enable
 
     if research.res_queue_enable then
-        res_queue(player.force)
+        res.res_queue(player.force)
     end
 
     game.print{'expcom-res.res', player.name, research.res_queue_enable}

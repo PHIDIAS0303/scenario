@@ -8,17 +8,32 @@ local Roles = require 'expcore.roles' --- @dep expcore.roles
 local config = require 'config.research' --- @dep config.research
 local format_time = _C.format_time --- @dep expcore.common
 
+local resf = {}
 local research = {}
 Global.register(research, function(tbl)
     research = tbl
 end)
 
 research.time = {}
-local res = {}
 local res_i = {}
 local res_total = 0
-local research_time_format = {hours=true, minutes=true, seconds=true, time=true, string=true}
-local empty_time = format_time(0, {hours=true, minutes=true, seconds=true, time=true, string=true, null=true})
+local research_time_format = {
+    hours=true,
+    minutes=true,
+    seconds=true,
+    time=true,
+    string=true
+}
+local empty_time = format_time(0, {
+	hours=true,
+	minutes=true,
+	seconds=true,
+	time=true,
+	string=true,
+	null=true
+})
+research.res_queue_enable = false
+local base_rate = 0
 
 local function research_res_n(res_)
 	local res_n = 1
@@ -43,19 +58,85 @@ local function research_res_n(res_)
 	return res_n
 end
 
-local i = 1
+local mi = 1
 
 for k, v in pairs(config.milestone) do
 	res_total = res_total + v * 60
-	res_i[k] = i
-	research.time[i] = 0
-	res[i] = {
+	res_i[k] = mi
+	research.time[mi] = 0
+	res[mi] = {
 		name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
 		prev = res_total,
 		prev_disp = format_time(res_total, research_time_format),
 	}
-	i = i + 1
+	mi = mi + 1
 end
+
+local function research_notification(event)
+    local is_inf_res = false
+
+    for k, v in pairs(config.inf_res) do
+        if (event.research.name == k) and (event.research.level >= v) then
+            is_inf_res = true
+        end
+    end
+
+    if config.bonus_inventory.enabled then
+        if (event.research.force.mining_drill_productivity_bonus * 10) <= (config.bonus_inventory.limit / config.bonus_inventory.rate) then
+            event.research.force[config.bonus_inventory.name] = math.floor(event.research.force.mining_drill_productivity_bonus * 10) * config.bonus_inventory.rate
+        end
+    end
+
+    if is_inf_res then
+        if event.research.name == 'mining-productivity-4' and event.research.level > 4 then
+            if config.bonus.enabled then
+                event.research.force[config.bonus.name] = base_rate + event.research.level * config.bonus.rate
+            end
+
+            if config.pollution_ageing_by_research then
+                game.map_settings.pollution.ageing = math.min(10, event.research.level / 5)
+            end
+        end
+
+        if not (event.by_script) then
+            game.print{'expcom-res.inf', format_time(game.tick, research_time_format), event.research.name, event.research.level - 1}
+        end
+
+    else
+        if not (event.by_script) then
+            game.print{'expcom-res.msg', format_time(game.tick, research_time_format), event.research.name}
+        end
+    end
+end
+
+function resf.res_queue(event)
+    if event.research.force.rockets_launched == 0 or event.research.force.technologies['mining-productivity-4'].level <= 4 then
+        return
+    end
+
+    local res_q = event.research.research_queue
+
+    if #res_q < config.queue_amount then
+        for i=1, config.queue_amount - #res_q do
+            event.research.force.add_research(event.research.force.technologies['mining-productivity-4'])
+
+            if not (event.by_script) then
+                game.print{'expcom-res.inf-q', event.research.name, event.research.level + i}
+            end
+        end
+    end
+end
+
+local function research_queue_logic(event)
+    research_notification(event)
+
+    if research.res_queue_enable then
+        res_queue(event)
+    end
+end
+
+Event.add(defines.events.on_research_finished, research_queue_logic)
+Event.add(defines.events.on_research_cancelled, research_queue_logic)
 
 local research_container =
 Gui.element(function(definition, parent)
@@ -215,3 +296,5 @@ Event.on_nth_tick(60, function()
 		frame.container.scroll.table['clock_display'].caption = current_time
     end
 end)
+
+return resf
