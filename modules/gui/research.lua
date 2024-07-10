@@ -58,17 +58,13 @@ for k, v in pairs(config.milestone) do
 end
 
 local function add_log()
-	local result_data = {
-	}
+	local result_data = {}
 
 	for i=1, #research.time, 1 do
 		result_data[res['disp'][i]['raw_name']] = research.time[i]
 	end
 
-	result_data = game.json_to_table(result_data)
-	game.print(result_data)
-
-	game.write_file(config.file_name, result_data .. '\n', true, 0)
+	game.write_file(config.file_name, game.json_to_table(result_data) .. '\n', true, 0)
 end
 
 local function research_res_n(res_)
@@ -101,7 +97,7 @@ local function research_notification(event)
     local is_inf_res = false
 
     if config.inf_res[event.research.name] then
-		if event.research.name == 'mining-productivity-4' and event.research.level == (config.inf_res['mining-productivity-4'] + 1) then
+		if event.research.name == 'mining-productivity-4' and event.research.level == 5 then
 			-- Add run result to log
 			add_log()
 		end
@@ -114,14 +110,10 @@ local function research_notification(event)
     if is_inf_res then
         if event.research.name == 'mining-productivity-4' then
 			if config.bonus_inventory.enabled then
-				if (event.research.force.mining_drill_productivity_bonus * 10) <= (config.bonus_inventory.limit / config.bonus_inventory.rate) then
-					event.research.force[config.bonus_inventory.name] = math.floor(event.research.force.mining_drill_productivity_bonus * 10) * config.bonus_inventory.rate
+				if (event.research.level - 1) <= math.ceil(config.bonus_inventory.limit / config.bonus_inventory.rate) then
+					event.research.force[config.bonus_inventory.name] = math.max((event.research.level - 1) * config.bonus_inventory.rate, config.bonus_inventory.limit)
 				end
 			end
-
-            if config.bonus.enabled then
-                event.research.force[config.bonus.name] = event.research.level * config.bonus.rate
-            end
 
             if config.pollution_ageing_by_research then
                 game.map_settings.pollution.ageing = math.min(10, event.research.level / 5)
@@ -139,9 +131,7 @@ local function research_notification(event)
 
 		if event.research.name == 'mining-productivity-1' or event.research.name == 'mining-productivity-2' or event.research.name == 'mining-productivity-3' then
 			if config.bonus_inventory.enabled then
-				if (event.research.force.mining_drill_productivity_bonus * 10) <= (config.bonus_inventory.limit / config.bonus_inventory.rate) then
-					event.research.force[config.bonus_inventory.name] = math.floor(event.research.force.mining_drill_productivity_bonus * 10) * config.bonus_inventory.rate
-				end
+				event.research.force[config.bonus_inventory.name] = event.research.level * config.bonus_inventory.rate
 			end
 		end
     end
@@ -254,15 +244,15 @@ Gui.left_toolbar_button('item/space-science-pack', {'expcom-res.main-tooltip'}, 
 end)
 
 Event.add(defines.events.on_research_finished, function(event)
+	research_notification(event)
+
+	if research.res_queue_enable then
+        resf.res_queue(event)
+    end
+
 	if res['lookup_name'][event.research.name] == nil then
 		return
 	end
-
-	research_notification(event)
-
-    if research.res_queue_enable then
-        resf.res_queue(event)
-    end
 
 	local n_i = res['lookup_name'][event.research.name]
 	research.time[n_i] = game.tick
