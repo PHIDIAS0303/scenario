@@ -5,8 +5,6 @@
 
 local Gui = require 'expcore.gui' --- @dep expcore.gui
 local Roles = require 'expcore.roles' --- @dep expcore.roles
-local Event = require 'utils.event' --- @dep utils.event
-local format_number = require('util').format_number --- @dep util
 local config = require 'config.personal_logistic' --- @dep config.personal-logistic
 
 --[[
@@ -22,8 +20,10 @@ local pl_main_set =
 Gui.element(function(_, parent, name)
     local player = Gui.get_player_from_element(parent)
     local pl_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(pl_set, 400, 3, 'disp')
+    local disp = Gui.scroll_table(pl_set, 400, 6, 'disp')
     local i = 0
+
+    --[[
     local stats = player.force.item_production_statistics
     local research = {}
 
@@ -32,6 +32,7 @@ Gui.element(function(_, parent, name)
             research[v] = true
         end
     end
+    ]]
 
     for k, v in pairs(config.pl) do
         disp.add{
@@ -55,42 +56,18 @@ Gui.element(function(_, parent, name)
         }
 
         local j = 1
-        local max_j = math.min(3, #v['item'])
 
-        for k2, v2 in pairs(v['item']) do
-            local final_item = k2
-            local loop = true
-
-            while loop do
-                local rtl = true
-
-                if v['item'][final_item]['upgrade_of'] then
-                    for i2=1, #v['item'][v['item'][final_item]['upgrade_of']]['technology'], 1 do
-                        if not research[i2] then
-                            rtl = false
-                            break
-                        end
-                    end
-                end
-
-                if rtl then
-                    final_item = v['item'][final_item]['upgrade_of']
-
-                else
-                    break
-                end
-            end
-
+        for k2, v2 in pairs(v) do
             disp.add{
                 type = 'sprite-button',
                 name = 'pl_display_m_' .. i .. '_' .. j,
-                sprite = 'item/' .. final_item,
-                number = v['item'][final_item]['stack'] * v['item'][final_item]['ratio']
+                sprite = 'item/' .. k2,
+                number = v2['stack'] * v2['ratio']
             }
 
             j = j + 1
 
-            if j > max_j then
+            if j > 3 then
                 break
             end
         end

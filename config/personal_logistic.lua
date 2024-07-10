@@ -13,72 +13,69 @@ return {
     },
     pl = {
       ['belt'] = {
-        ['item'] = {
-            ['transport-belt'] = {
-                ['key'] = 1,
-                ['stack'] = 100,
-                ['ratio'] = 3,
-                ['upgrade_of'] = nil,
-                ['technology'] = {1}
-            },
-            ['underground-belt'] = {
-                ['key'] = 2,
-                ['stack'] = 50,
-                ['ratio'] = 3,
-                ['upgrade_of'] = nil,
-                ['technology'] = {1}
-            },
-            ['splitter'] = {
-                ['key'] = 3,
-                ['stack'] = 50,
-                ['ratio'] = 1,
-                ['upgrade_of'] = nil,
-                ['technology'] = {1}
-            },
-            ['fast-transport-belt'] = {
-                ['key'] = 11,
-                ['stack'] = 100,
-                ['ratio'] = 3,
-                ['upgrade_of'] = 'transport-belt',
-                ['technology'] = {1, 2}
-            },
-            ['fast-underground-belt'] = {
-                ['key'] = 12,
-                ['stack'] = 50,
-                ['ratio'] = 3,
-                ['upgrade_of'] = 'underground-belt',
-                ['technology'] = {1, 2}
-            },
-            ['fast-splitter'] = {
-                ['key'] = 13,
-                ['stack'] = 50,
-                ['ratio'] = 1,
-                ['upgrade_of'] = 'splitter',
-                ['technology'] = {1, 2}
-            },
-            ['express-transport-belt'] = {
-                ['key'] = 21,
-                ['stack'] = 50,
-                ['ratio'] = 3,
-                ['upgrade_of'] = 'fast-transport-belt',
-                ['technology'] = {1, 2, 4, 6}
-            },
-            ['express-underground-belt'] = {
-                ['key'] = 22,
-                ['stack'] = 50,
-                ['ratio'] = 3,
-                ['upgrade_of'] = 'fast-underground-belt',
-                ['technology'] = {1, 2, 4, 6}
-            },
-            ['express-splitter'] = {
-                ['key'] = 23,
-                ['stack'] = 50,
-                ['ratio'] = 1,
-                ['upgrade_of'] = 'fast-splitter',
-                ['technology'] = {1, 2, 4, 6}
-            }
+        ['transport-belt'] = {
+            ['key'] = 1,
+            ['stack'] = 100,
+            ['ratio'] = 3,
+            ['upgrade_of'] = nil,
+            ['technology'] = {1}
+        },
+        ['underground-belt'] = {
+            ['key'] = 2,
+            ['stack'] = 50,
+            ['ratio'] = 3,
+            ['upgrade_of'] = nil,
+            ['technology'] = {1}
+        },
+        ['splitter'] = {
+            ['key'] = 3,
+            ['stack'] = 50,
+            ['ratio'] = 1,
+            ['upgrade_of'] = nil,
+            ['technology'] = {1}
+        },
+        ['fast-transport-belt'] = {
+            ['key'] = 11,
+            ['stack'] = 100,
+            ['ratio'] = 3,
+            ['upgrade_of'] = 'transport-belt',
+            ['technology'] = {1, 2}
+        },
+        ['fast-underground-belt'] = {
+            ['key'] = 12,
+            ['stack'] = 50,
+            ['ratio'] = 3,
+            ['upgrade_of'] = 'underground-belt',
+            ['technology'] = {1, 2}
+        },
+        ['fast-splitter'] = {
+            ['key'] = 13,
+            ['stack'] = 50,
+            ['ratio'] = 1,
+            ['upgrade_of'] = 'splitter',
+            ['technology'] = {1, 2}
+        },
+        ['express-transport-belt'] = {
+            ['key'] = 21,
+            ['stack'] = 50,
+            ['ratio'] = 3,
+            ['upgrade_of'] = 'fast-transport-belt',
+            ['technology'] = {1, 2, 4, 6}
+        },
+        ['express-underground-belt'] = {
+            ['key'] = 22,
+            ['stack'] = 50,
+            ['ratio'] = 3,
+            ['upgrade_of'] = 'fast-underground-belt',
+            ['technology'] = {1, 2, 4, 6}
+        },
+        ['express-splitter'] = {
+            ['key'] = 23,
+            ['stack'] = 50,
+            ['ratio'] = 1,
+            ['upgrade_of'] = 'fast-splitter',
+            ['technology'] = {1, 2, 4, 6}
         }
-      }
     }
     --[[
     production_required = {
