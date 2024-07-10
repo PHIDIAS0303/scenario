@@ -17,12 +17,6 @@ end)
 research.time = {}
 research.res_queue_enable = false
 
-local res = {
-}
-
-local res_a = {}
-local res_i = {}
-local res_total = 0
 local research_time_format = {
     hours=true,
     minutes=true,
@@ -30,6 +24,7 @@ local research_time_format = {
     time=true,
     string=true
 }
+
 local empty_time = format_time(0, {
 	hours=true,
 	minutes=true,
@@ -39,17 +34,25 @@ local empty_time = format_time(0, {
 	null=true
 })
 
+local res = {
+	['lookup_name'] = {},
+	['disp'] = {}
+}
+
+local res_total = 0
 local mi = 1
 
 for k, v in pairs(config.milestone) do
-	res_total = res_total + v * 60
-	res_i[k] = mi
 	research.time[mi] = 0
-	res_a[mi] = {
+	res['lookup_name'][k] = mi
+	res_total = res_total + v * 60
+
+	res['disp'][mi] = {
 		name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
 		prev = res_total,
 		prev_disp = format_time(res_total, research_time_format),
 	}
+
 	mi = mi + 1
 end
 
@@ -121,32 +124,44 @@ local function research_notification(event)
     end
 end
 
+--- Display label for the clock name
+-- @element research_gui_clock_name
+local research_gui_clock_name =
+Gui.element{
+    type = 'label',
+    name = 'research_gui_clock_name',
+    caption = {'research.clock'},
+    style = 'heading_1_label'
+}:style{
+    width = 120
+}
 
---- A vertical flow containing all the control buttons
+--- Display label for the clock display
+-- @element research_gui_clock_display
+local research_gui_clock_display =
+Gui.element{
+    type = 'label',
+    name = 'research_gui_clock_display',
+    caption = empty_time,
+    style = 'heading_1_label'
+}:style{
+    width = 240
+}
+
+--- A vertical flow containing the clock
 -- @element research_clock_set
 local research_clock_set =
 Gui.element(function(_, parent, name)
     local research_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(research_set, 360, 2, 'disp')
 
-	disp.add{
-        name = 'clock_text',
-        caption = 'Time:',
-        type = 'label',
-        style = 'heading_1_label'
-    }
-
-    disp.add{
-        name = 'clock_display',
-        caption = empty_time,
-        type = 'label',
-        style = 'heading_1_label'
-    }
+	research_gui_clock_name(disp)
+    research_gui_clock_display(disp)
 
     return research_set
 end)
 
---- A vertical flow containing all the control buttons
+--- A vertical flow containing the data
 -- @element research_data_set
 local research_data_set =
 Gui.element(function(_, parent, name)
@@ -159,44 +174,52 @@ Gui.element(function(_, parent, name)
             caption = '',
             type = 'label',
             style = 'heading_1_label'
-        }
+        }:style{
+			width = 120
+		}
 
 		disp.add{
             name = 'research_display_d_' .. i,
             caption = empty_time,
             type = 'label',
             style = 'heading_1_label'
-        }
+        }:style{
+			width = 80
+		}
 
 		disp.add{
             name = 'research_display_p_' .. i,
 			caption = '',
             type = 'label',
             style = 'heading_1_label'
-        }
+        }:style{
+			width = 80
+		}
 
 		disp.add{
             name = 'research_display_t_' .. i,
             caption = empty_time,
             type = 'label',
             style = 'heading_1_label'
-        }
+        }:style{
+			width = 80
+		}
 	end
 
-	local res_n = research_res_n(res_a)
+	local res_n = research_res_n(res['disp'])
 
 	for j=1, 8 do
 		local res_j = res_n + j - 3
 
-		if res_a[res_j] then
-			local res_r = res_a[res_j]
+		if res['disp'][res_j] then
+			local res_r = res['disp'][res_j]
 			disp['research_display_n_' .. j].caption = res_r.name
 
-			if research.time[res_j] < res_a[res_j].prev then
-				disp['research_display_d_' .. j].caption = '-' .. format_time(res_a[res_j].prev - research.time[res_j], research_time_format)
+			if research.time[res_j] < res['disp'][res_j].prev then
+				disp['research_display_d_' .. j].caption = '-' .. format_time(res['disp'][res_j].prev - research.time[res_j], research_time_format)
 
 			else
-				disp['research_display_d_' .. j].caption = format_time(research.time[res_j] - res_a[res_j].prev, research_time_format)
+				disp['research_display_d_' .. j].caption = format_time(research.time[res_j] - res['disp'][res_j].prev, research_time_format)
 			end
 
 			disp['research_display_p_' .. j].caption = res_r.prev_disp
@@ -231,7 +254,7 @@ Gui.left_toolbar_button('item/space-science-pack', {'expcom-res.main-tooltip'}, 
 end)
 
 Event.add(defines.events.on_research_finished, function(event)
-	if res_i[event.research.name] == nil then
+	if res['lookup_name'][event.research.name] == nil then
 		return
 	end
 
@@ -241,25 +264,25 @@ Event.add(defines.events.on_research_finished, function(event)
         resf.res_queue(event)
     end
 
-	local n_i = res_i[event.research.name]
+	local n_i = res['lookup_name'][event.research.name]
 	research.time[n_i] = game.tick
 
-	local res_n = research_res_n(res_a)
+	local res_n = research_res_n(res['disp'])
 	local res_disp = {}
 
 	for j=1, 8 do
 		local res_j = res_n + j - 3
 		res_disp[j] = {}
 
-		if res_a[res_j] then
-			local res_r = res_a[res_j]
+		if res['disp'][res_j] then
+			local res_r = res['disp'][res_j]
 			res_disp[j]['n'] = res_r.name
 
-			if research.time[res_j] < res_a[res_j].prev then
-				res_disp[j]['d'] = '-' .. format_time(res_a[res_j].prev - research.time[res_j], research_time_format)
+			if research.time[res_j] < res['disp'][res_j].prev then
+				res_disp[j]['d'] = '-' .. format_time(res['disp'][res_j].prev - research.time[res_j], research_time_format)
 
 			else
-				res_disp[j]['d'] = format_time(research.time[res_j] - res_a[res_j].prev, research_time_format)
+				res_disp[j]['d'] = format_time(research.time[res_j] - res['disp'][res_j].prev, research_time_format)
 			end
 
 			res_disp[j]['p'] = res_r.prev_disp
@@ -294,6 +317,6 @@ Event.on_nth_tick(60, function()
 	for _, player in pairs(game.connected_players) do
         local frame = Gui.get_left_element(player, research_container)
 		local disp = frame.container['research_st_1'].disp.table
-		disp['clock_display'].caption = current_time
+		disp[research_gui_clock_display.name].caption = current_time
     end
 end)
