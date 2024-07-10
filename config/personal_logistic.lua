@@ -18,7 +18,6 @@ return {
                     ['key'] = 1,
                     ['stack'] = 100,
                     ['ratio'] = 3,
-                    ['upgrade_of'] = nil,
                     ['technology'] = {1},
                     ['preset'] = {
                         ['1'] = 3,
@@ -29,7 +28,6 @@ return {
                     ['key'] = 2,
                     ['stack'] = 50,
                     ['ratio'] = 3,
-                    ['upgrade_of'] = nil,
                     ['technology'] = {1},
                     ['preset'] = {
                         ['1'] = 3,
@@ -40,7 +38,6 @@ return {
                     ['key'] = 3,
                     ['stack'] = 50,
                     ['ratio'] = 1,
-                    ['upgrade_of'] = nil,
                     ['technology'] = {1},
                     ['preset'] = {
                         ['1'] = 1,
@@ -121,7 +118,6 @@ return {
                     ['key'] = 31,
                     ['stack'] = 50,
                     ['ratio'] = 1,
-                    ['upgrade_of'] = nil,
                     ['technology'] = {1},
                     ['preset'] = {
                         ['1'] = 1,
@@ -132,7 +128,6 @@ return {
                     ['key'] = 32,
                     ['stack'] = 50,
                     ['ratio'] = 2,
-                    ['upgrade_of'] = nil,
                     ['technology'] = {1},
                     ['preset'] = {
                         ['1'] = 2,
@@ -143,7 +138,6 @@ return {
                     ['key'] = 33,
                     ['stack'] = 50,
                     ['ratio'] = 1,
-                    ['upgrade_of'] = nil,
                     ['technology'] = {1},
                     ['preset'] = {
                         ['1'] = 1,
@@ -154,7 +148,6 @@ return {
                     ['key'] = 34,
                     ['stack'] = 50,
                     ['ratio'] = 3,
-                    ['upgrade_of'] = nil,
                     ['technology'] = {1},
                     ['preset'] = {
                         ['1'] = 3,
@@ -165,7 +158,6 @@ return {
                     ['key'] = 35,
                     ['stack'] = 50,
                     ['ratio'] = 1,
-                    ['upgrade_of'] = nil,
                     ['technology'] = {1},
                     ['preset'] = {
                         ['1'] = 1
@@ -175,7 +167,6 @@ return {
                     ['key'] = 36,
                     ['stack'] = 50,
                     ['ratio'] = 3,
-                    ['upgrade_of'] = nil,
                     ['technology'] = {1, 2},
                     ['preset'] = {
                         ['1'] = 0,
@@ -186,7 +177,6 @@ return {
                     ['key'] = 37,
                     ['stack'] = 50,
                     ['ratio'] = 1,
-                    ['upgrade_of'] = nil,
                     ['technology'] = {1, 2},
                     ['preset'] = {
                         ['1'] = 0,

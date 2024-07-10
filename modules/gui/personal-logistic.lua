@@ -20,7 +20,7 @@ local pl_main_set =
 Gui.element(function(_, parent, name)
     local player = Gui.get_player_from_element(parent)
     local pl_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(pl_set, 480, 12, 'disp')
+    local disp = Gui.scroll_table(pl_set, 480, 6, 'disp')
     local i = 0
 
     --[[
@@ -55,14 +55,16 @@ Gui.element(function(_, parent, name)
             selected_index = 1
         }
 
-        for j=1, math.min(#v['list'], 9), 1 do
+        --[[
+        for j=1, math.min(#v['list'], 3), 1 do
             disp.add{
                 type = 'sprite-button',
                 name = 'pl_display_m_' .. i .. '_' .. j,
-                sprite = 'item/' .. v['item'][v['list'][j]],
-                number = v['item'][v['list'][j]]['stack'] * v['item'][v['list'][j]]['ratio']
+                sprite = 'item/' .. v['item'][v['list'][j] ],
+                number = v['item'][v['list'][j] ]['stack'] * v['item'][v['list'][j] ]['ratio']
             }
         end
+        ]]
 
         i = i + 1
 	end
