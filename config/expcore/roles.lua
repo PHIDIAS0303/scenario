@@ -205,7 +205,6 @@ Roles.new_role('Member','Mem')
     'command/set-trains-to-automatic',
     'command/clear-item-on-ground',
     'command/clear-blueprint',
-    -- 'gui/rate',
     -- 'command/bonus',
     'gui/bonus',
     'command/home',
@@ -213,7 +212,6 @@ Roles.new_role('Member','Mem')
     'command/home-get',
     'command/return',
     'fast-tree-decon'
-    -- 'gui/linked'
 }
 
 local hours6, hours250 = 6*216000, 250*60
@@ -286,7 +284,6 @@ local default = Roles.new_role('Guest','')
     'command/preference',
     'command/set-preference',
     'command/connect',
-    -- 'command/create-base-individual-spawn',
     'gui/player-list',
     'gui/rocket-info',
     'gui/science-info',

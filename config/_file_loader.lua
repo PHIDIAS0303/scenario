@@ -70,7 +70,6 @@ return {
 
     -- Control
     'modules.control.vlayer',
-    -- 'modules.control.shared_spawn',
 
     --- Data
     'modules.data.statistics',
@@ -98,8 +97,6 @@ return {
     'modules.gui.module',
     'modules.gui.playerdata',
     'modules.gui.surveillance',
-    -- 'modules.gui.linked',
-    -- 'modules.gui.rate-calc',
 		'modules.graftorio.require', -- graftorio
     'modules.gui.toolbar', -- must be loaded last to register toolbar handlers
 
