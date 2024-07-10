@@ -308,5 +308,3 @@ Event.on_nth_tick(60, function()
 		disp[research_gui_clock.name].caption = current_time
     end
 end)
-
--- Event.add(defines.events.on_research_cancelled, research_queue_logic)
