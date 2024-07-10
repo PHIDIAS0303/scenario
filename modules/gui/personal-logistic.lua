@@ -14,6 +14,14 @@ to set the current requirements
 make those as preset and further adjust later
 ]]
 
+for _, v in pairs(config.pl) do
+    v['list'] = {}
+
+    for k2, _ in pairs(v['item']) do
+        table.insert(v['list'], k2)
+    end
+end
+
 --- A vertical flow containing all the main control
 -- @element pl_main_set
 local pl_main_set =
@@ -55,7 +63,6 @@ Gui.element(function(_, parent, name)
             selected_index = 1
         }
 
-        --[[
         for j=1, math.min(#v['list'], 3), 1 do
             disp.add{
                 type = 'sprite-button',
@@ -64,7 +71,6 @@ Gui.element(function(_, parent, name)
                 number = v['item'][v['list'][j] ]['stack'] * v['item'][v['list'][j] ]['ratio']
             }
         end
-        ]]
 
         i = i + 1
 	end
