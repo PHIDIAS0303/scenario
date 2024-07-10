@@ -17,8 +17,9 @@ end)
 research.time = {}
 research.res_queue_enable = false
 
-local base_rate = 0
-local mi = 1
+local res = {
+}
+
 local res_a = {}
 local res_i = {}
 local res_total = 0
@@ -37,6 +38,8 @@ local empty_time = format_time(0, {
 	string=true,
 	null=true
 })
+
+local mi = 1
 
 for k, v in pairs(config.milestone) do
 	res_total = res_total + v * 60
@@ -91,7 +94,7 @@ local function research_notification(event)
 			end
 
             if config.bonus.enabled then
-                event.research.force[config.bonus.name] = base_rate + event.research.level * config.bonus.rate
+                event.research.force[config.bonus.name] = event.research.level * config.bonus.rate
             end
 
             if config.pollution_ageing_by_research then
