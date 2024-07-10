@@ -58,13 +58,17 @@ for k, v in pairs(config.milestone) do
 end
 
 local function add_log()
-	local result_data = {}
+	local result_data = {
+	}
 
 	for i=1, #research.time, 1 do
 		result_data[res['disp'][i]['raw_name']] = research.time[i]
 	end
 
-	game.write_file(config.file_name, game.json_to_table(result_data) .. '\n', true, 0)
+	result_data = game.json_to_table(result_data)
+	game.print(result_data)
+
+	game.write_file(config.file_name, result_data .. '\n', true, 0)
 end
 
 local function research_res_n(res_)
@@ -85,6 +89,9 @@ local function research_res_n(res_)
 
 	if res_n < 3 then
 		res_n = 3
+
+	elseif res_n > (#research.time - 5) then
+		res_n = #research.time - 5
 	end
 
 	return res_n
@@ -94,13 +101,18 @@ local function research_notification(event)
     local is_inf_res = false
 
     if config.inf_res[event.research.name] then
+		if event.research.name == 'mining-productivity-4' and event.research.level == config.inf_res['mining-productivity-4'] then
+			-- Add run result to log
+			add_log()
+		end
+
 		if event.research.level >= config.inf_res[event.research.name] then
         	is_inf_res = true
 		end
     end
 
     if is_inf_res then
-        if event.research.name == 'mining-productivity-4' and event.research.level > config.inf_res['mining-productivity-4'] then
+        if event.research.name == 'mining-productivity-4' then
 			if config.bonus_inventory.enabled then
 				if (event.research.force.mining_drill_productivity_bonus * 10) <= (config.bonus_inventory.limit / config.bonus_inventory.rate) then
 					event.research.force[config.bonus_inventory.name] = math.floor(event.research.force.mining_drill_productivity_bonus * 10) * config.bonus_inventory.rate
@@ -120,10 +132,6 @@ local function research_notification(event)
             game.print{'expcom-res.inf', format_time(game.tick, research_time_format), event.research.name, event.research.level - 1}
         end
 
-	elseif event.research.name == 'mining-productivity-4' and event.research.level == config.inf_res['mining-productivity-4'] then
-		-- Add run result to log
-		add_log()
-
     else
         if not (event.by_script) then
             game.print{'expcom-res.msg', format_time(game.tick, research_time_format), event.research.name}
@@ -139,28 +147,14 @@ local function research_notification(event)
     end
 end
 
---- Display label for the clock name
--- @element research_gui_clock_name
-local research_gui_clock_name =
-Gui.element{
-    type = 'label',
-    name = Gui.unique_static_name,
-    caption = 'Time: ',
-    style = 'heading_1_label'
-}:style{
-    width = 240
-}
-
 --- Display label for the clock display
 -- @element research_gui_clock_display
-local research_gui_clock_display =
+local research_gui_clock =
 Gui.element{
     type = 'label',
     name = Gui.unique_static_name,
     caption = empty_time,
     style = 'heading_1_label'
-}:style{
-    width = 120
 }
 
 --- A vertical flow containing the clock
@@ -168,10 +162,9 @@ Gui.element{
 local research_clock_set =
 Gui.element(function(_, parent, name)
     local research_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(research_set, 360, 2, 'disp')
+    local disp = Gui.scroll_table(research_set, 360, 1, 'disp')
 
-	research_gui_clock_name(disp)
-    research_gui_clock_display(disp)
+    research_gui_clock(disp)
 
     return research_set
 end)
@@ -322,7 +315,7 @@ Event.on_nth_tick(60, function()
 	for _, player in pairs(game.connected_players) do
         local frame = Gui.get_left_element(player, research_container)
 		local disp = frame.container['research_st_1'].disp.table
-		disp[research_gui_clock_display.name].caption = current_time
+		disp[research_gui_clock.name].caption = current_time
     end
 end)
 
