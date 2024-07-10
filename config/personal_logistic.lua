@@ -194,14 +194,12 @@ return {
     }
     --[[
     production_required = {
-        ['belt'] = 100,
         ['power'] = 20,
         ['miner'] = 20,
         ['furnace'] = 20,
         ['machine'] = 20,
         ['pole'] = 20,
         ['bot'] = 20,
-        ['inserter'] = 20,
         ['chest'] = 20,
         ['rail'] = 100,
         ['module'] = 20,
