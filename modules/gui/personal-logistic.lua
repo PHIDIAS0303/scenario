@@ -56,6 +56,7 @@ Gui.element(function(_, parent, name)
         }
 
         local j = 1
+        local max_j = math.min(3, #v)
 
         for k2, v2 in pairs(v) do
             disp.add{
@@ -67,7 +68,7 @@ Gui.element(function(_, parent, name)
 
             j = j + 1
 
-            if j > 3 then
+            if j > max_j then
                 break
             end
         end
