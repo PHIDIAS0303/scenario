@@ -1,4 +1,4 @@
---- research milestone gui
+--- research gui
 -- @gui Research
 
 local Gui = require 'expcore.gui' --- @dep expcore.gui
@@ -19,18 +19,18 @@ research.res_queue_enable = false
 
 local base_rate = 0
 local mi = 1
-local res = {}
+local res_a = {}
 local res_i = {}
 local res_total = 0
 local research_time_format = {
-    hours=true,
+    hours=false,
     minutes=true,
     seconds=true,
     time=true,
     string=true
 }
 local empty_time = format_time(0, {
-	hours=true,
+	hours=false,
 	minutes=true,
 	seconds=true,
 	time=true,
@@ -42,7 +42,7 @@ for k, v in pairs(config.milestone) do
 	res_total = res_total + v * 60
 	res_i[k] = mi
 	research.time[mi] = 0
-	res[mi] = {
+	res_a[mi] = {
 		name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
 		prev = res_total,
 		prev_disp = format_time(res_total, research_time_format),
@@ -118,64 +118,61 @@ local function research_notification(event)
     end
 end
 
-local research_container =
-Gui.element(function(definition, parent)
-    local container = Gui.container(parent, definition.name, 200)
-	local scroll_table = Gui.scroll_table(container, 400, 4)
 
-	--[[
-	scroll_table.add{
+--- A vertical flow containing all the control buttons
+-- @element research_clock_set
+local research_clock_set =
+Gui.element(function(_, parent, name)
+    local research_set = parent.add{type='flow', direction='vertical', name=name}
+    local disp = Gui.scroll_table(research_set, 320, 2, 'disp')
+
+	disp.add{
         name = 'clock_text',
         caption = 'Time:',
         type = 'label',
         style = 'heading_1_label'
     }
 
-	scroll_table.add{
-        name = 'clock_text_2',
-        caption = '',
-        type = 'label',
-        style = 'heading_1_label'
-    }
-
-	scroll_table.add{
-        name = 'clock_text_3',
-        caption = '',
-        type = 'label',
-        style = 'heading_1_label'
-    }
-
-    scroll_table.add{
+    disp.add{
         name = 'clock_display',
         caption = empty_time,
         type = 'label',
         style = 'heading_1_label'
     }
-	]]
+
+    return research_set
+end)
+
+--- A vertical flow containing all the control buttons
+-- @element research_data_set
+local research_data_set =
+Gui.element(function(_, parent, name)
+    local research_set = parent.add{type='flow', direction='vertical', name=name}
+    local disp = Gui.scroll_table(research_set, 320, 4, 'disp')
 
 	for i=1, 8 do
-        scroll_table.add{
+        disp.add{
             name = 'research_display_n_' .. i,
             caption = '',
             type = 'label',
             style = 'heading_1_label'
         }
 
-		scroll_table.add{
+		disp.add{
             name = 'research_display_d_' .. i,
             caption = empty_time,
             type = 'label',
             style = 'heading_1_label'
         }
 
-		scroll_table.add{
+		disp.add{
             name = 'research_display_p_' .. i,
 			caption = '',
             type = 'label',
             style = 'heading_1_label'
         }
 
-		scroll_table.add{
+		disp.add{
             name = 'research_display_t_' .. i,
             caption = empty_time,
             type = 'label',
@@ -183,33 +180,44 @@ Gui.element(function(definition, parent)
         }
 	end
 
-	local res_n = research_res_n(res)
+	local res_n = research_res_n(res_a)
 
 	for j=1, 8 do
 		local res_j = res_n + j - 3
 
-		if res[res_j] then
-			local res_r = res[res_j]
-			scroll_table['research_display_n_' .. j].caption = res_r.name
+		if res_a[res_j] then
+			local res_r = res_a[res_j]
+			disp['research_display_n_' .. j].caption = res_r.name
 
-			if research.time[res_j] < res[res_j].prev then
-				scroll_table['research_display_d_' .. j].caption = '-' .. format_time(res[res_j].prev - research.time[res_j], research_time_format)
+			if research.time[res_j] < res_a[res_j].prev then
+				disp['research_display_d_' .. j].caption = '-' .. format_time(res_a[res_j].prev - research.time[res_j], research_time_format)
 
 			else
-				scroll_table['research_display_d_' .. j].caption = format_time(research.time[res_j] - res[res_j].prev, research_time_format)
+				disp['research_display_d_' .. j].caption = format_time(research.time[res_j] - res_a[res_j].prev, research_time_format)
 			end
 
-			scroll_table['research_display_p_' .. j].caption = res_r.prev_disp
-			scroll_table['research_display_t_' .. j].caption = format_time(research.time[res_j], research_time_format)
+			disp['research_display_p_' .. j].caption = res_r.prev_disp
+			disp['research_display_t_' .. j].caption = format_time(research.time[res_j], research_time_format)
 
 		else
-			scroll_table['research_display_n_' .. j].caption = ''
-			scroll_table['research_display_d_' .. j].caption = ''
-			scroll_table['research_display_p_' .. j].caption = ''
-			scroll_table['research_display_t_' .. j].caption = ''
+			disp['research_display_n_' .. j].caption = ''
+			disp['research_display_d_' .. j].caption = ''
+			disp['research_display_p_' .. j].caption = ''
+			disp['research_display_t_' .. j].caption = ''
 		end
 	end
 
+    return research_set
+end)
+
+local research_container =
+Gui.element(function(definition, parent)
+	local container = Gui.container(parent, definition.name, 320)
+
+	research_clock_set(container, 'research_st_1')
+    research_data_set(container, 'research_st_2')
+
+	research_data_set(table)
     return container.parent
 end)
 :static_name(Gui.unique_static_name)
@@ -220,9 +228,7 @@ Gui.left_toolbar_button('item/space-science-pack', {'expcom-res.main-tooltip'}, 
 end)
 
 Event.add(defines.events.on_research_finished, function(event)
-	if event.research.name == nil then
-		return
-	elseif res_i[event.research.name] == nil then
+	if res_i[event.research.name] == nil then
 		return
 	end
 
@@ -235,22 +241,22 @@ Event.add(defines.events.on_research_finished, function(event)
 	local n_i = res_i[event.research.name]
 	research.time[n_i] = game.tick
 
-	local res_n = research_res_n(res)
+	local res_n = research_res_n(res_a)
 	local res_disp = {}
 
 	for j=1, 8 do
 		local res_j = res_n + j - 3
 		res_disp[j] = {}
 
-		if res[res_j] then
-			local res_r = res[res_j]
+		if res_a[res_j] then
+			local res_r = res_a[res_j]
 			res_disp[j]['n'] = res_r.name
 
-			if research.time[res_j] < res[res_j].prev then
-				res_disp[j]['d'] = '-' .. format_time(res[res_j].prev - research.time[res_j], research_time_format)
+			if research.time[res_j] < res_a[res_j].prev then
+				res_disp[j]['d'] = '-' .. format_time(res_a[res_j].prev - research.time[res_j], research_time_format)
 
 			else
-				res_disp[j]['d'] = format_time(research.time[res_j] - res[res_j].prev, research_time_format)
+				res_disp[j]['d'] = format_time(research.time[res_j] - res_a[res_j].prev, research_time_format)
 			end
 
 			res_disp[j]['p'] = res_r.prev_disp
@@ -266,24 +272,25 @@ Event.add(defines.events.on_research_finished, function(event)
 
 	for _, player in pairs(game.connected_players) do
         local frame = Gui.get_left_element(player, research_container)
+		local disp = frame.container['research_st_2'].disp.table
 
 		for j=1, 8 do
-			frame.container.scroll.table['research_display_n_' .. j].caption = res_disp[j]['n']
-			frame.container.scroll.table['research_display_d_' .. j].caption = res_disp[j]['d']
-			frame.container.scroll.table['research_display_p_' .. j].caption = res_disp[j]['p']
-			frame.container.scroll.table['research_display_t_' .. j].caption = res_disp[j]['t']
+			disp['research_display_n_' .. j].caption = res_disp[j]['n']
+			disp['research_display_d_' .. j].caption = res_disp[j]['d']
+			disp['research_display_p_' .. j].caption = res_disp[j]['p']
+			disp['research_display_t_' .. j].caption = res_disp[j]['t']
 		end
     end
 end)
 
 -- Event.add(defines.events.on_research_cancelled, research_queue_logic)
---[[
+
 Event.on_nth_tick(60, function()
 	local current_time = format_time(game.tick, research_time_format)
 
 	for _, player in pairs(game.connected_players) do
         local frame = Gui.get_left_element(player, research_container)
-		frame.container.scroll.table['clock_display'].caption = current_time
+		local disp = frame.container['research_st_1'].disp.table
+		disp['clock_display'].caption = current_time
     end
 end)
-]]
