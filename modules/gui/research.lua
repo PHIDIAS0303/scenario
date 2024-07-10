@@ -129,7 +129,7 @@ end
 local research_gui_clock_name =
 Gui.element{
     type = 'label',
-    name = 'research_gui_clock_name',
+    name = Gui.unique_static_name,
     caption = {'research.clock'},
     style = 'heading_1_label'
 }:style{
@@ -141,7 +141,7 @@ Gui.element{
 local research_gui_clock_display =
 Gui.element{
     type = 'label',
-    name = 'research_gui_clock_display',
+    name = Gui.unique_static_name,
     caption = empty_time,
     style = 'heading_1_label'
 }:style{
