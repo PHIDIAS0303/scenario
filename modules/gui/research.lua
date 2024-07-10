@@ -48,7 +48,7 @@ for k, v in pairs(config.milestone) do
 	res_total = res_total + v * 60
 
 	res['disp'][mi] = {
-		name = '[technology=' .. k .. '] ' .. game.players[1].force.technologies[k].localised_name,
+		name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
 		prev = res_total,
 		prev_disp = format_time(res_total, research_time_format),
 	}
@@ -301,8 +301,6 @@ Event.add(defines.events.on_research_finished, function(event)
     end
 end)
 
--- Event.add(defines.events.on_research_cancelled, research_queue_logic)
-
 Event.on_nth_tick(60, function()
 	local current_time = format_time(game.tick, research_time_format)
 
@@ -312,3 +310,5 @@ Event.on_nth_tick(60, function()
 		disp[research_gui_clock_display.name].caption = current_time
     end
 end)
+
+-- Event.add(defines.events.on_research_cancelled, research_queue_logic)
