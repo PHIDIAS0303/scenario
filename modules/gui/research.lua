@@ -101,7 +101,7 @@ local function research_notification(event)
     local is_inf_res = false
 
     if config.inf_res[event.research.name] then
-		if event.research.name == 'mining-productivity-4' and event.research.level == config.inf_res['mining-productivity-4'] then
+		if event.research.name == 'mining-productivity-4' and event.research.level == (config.inf_res['mining-productivity-4'] + 1) then
 			-- Add run result to log
 			add_log()
 		end
