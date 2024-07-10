@@ -49,11 +49,22 @@ for k, v in pairs(config.milestone) do
 
 	res['disp'][mi] = {
 		name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
+		raw_name = k,
 		prev = res_total,
 		prev_disp = format_time(res_total, research_time_format),
 	}
 
 	mi = mi + 1
+end
+
+local function add_log()
+	local result_data = {}
+
+	for i=1, #research.time, 1 do
+		result_data[res['disp'][i]['raw_name']] = research.time[i]
+	end
+
+	game.write_file(config.file_name, game.json_to_table(result_data) .. '\n', true, 0)
 end
 
 local function research_res_n(res_)
@@ -109,6 +120,10 @@ local function research_notification(event)
             game.print{'expcom-res.inf', format_time(game.tick, research_time_format), event.research.name, event.research.level - 1}
         end
 
+	elseif event.research.name == 'mining-productivity-4' and event.research.level == config.inf_res['mining-productivity-4'] then
+		-- Add run result to log
+		add_log()
+
     else
         if not (event.by_script) then
             game.print{'expcom-res.msg', format_time(game.tick, research_time_format), event.research.name}
@@ -133,7 +148,7 @@ Gui.element{
     caption = 'Time: ',
     style = 'heading_1_label'
 }:style{
-    width = 300
+    width = 240
 }
 
 --- Display label for the clock display
@@ -145,7 +160,7 @@ Gui.element{
     caption = empty_time,
     style = 'heading_1_label'
 }:style{
-    width = 60
+    width = 120
 }
 
 --- A vertical flow containing the clock
