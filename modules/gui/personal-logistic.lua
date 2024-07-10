@@ -67,8 +67,8 @@ Gui.element(function(_, parent, name)
             disp.add{
                 type = 'sprite-button',
                 name = 'pl_display_m_' .. i .. '_' .. j,
-                sprite = 'item/' .. v['item'][v['list'][j] ],
-                number = v['item'][v['list'][j] ]['stack'] * v['item'][v['list'][j] ]['ratio']
+                sprite = 'item/' .. v['item'][v['list'][j]],
+                number = v['item'][v['list'][j]]['stack'] * v['item'][v['list'][j]]['ratio']
             }
         end
 
