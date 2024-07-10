@@ -48,7 +48,7 @@ for k, v in pairs(config.milestone) do
 	res_total = res_total + v * 60
 
 	res['disp'][mi] = {
-		name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
+		name = '[technology=' .. k .. '] ' .. game.players[1].force.technologies[k].localised_name,
 		prev = res_total,
 		prev_disp = format_time(res_total, research_time_format),
 	}
@@ -130,10 +130,10 @@ local research_gui_clock_name =
 Gui.element{
     type = 'label',
     name = Gui.unique_static_name,
-    caption = {'research.clock'},
+    caption = 'Time: ',
     style = 'heading_1_label'
 }:style{
-    width = 120
+    width = 300
 }
 
 --- Display label for the clock display
@@ -145,7 +145,7 @@ Gui.element{
     caption = empty_time,
     style = 'heading_1_label'
 }:style{
-    width = 240
+    width = 60
 }
 
 --- A vertical flow containing the clock
@@ -174,36 +174,28 @@ Gui.element(function(_, parent, name)
             caption = '',
             type = 'label',
             style = 'heading_1_label'
-        }:style{
-			width = 120
-		}
+        }
 
 		disp.add{
             name = 'research_display_d_' .. i,
             caption = empty_time,
             type = 'label',
             style = 'heading_1_label'
-        }:style{
-			width = 80
-		}
+        }
 
 		disp.add{
             name = 'research_display_p_' .. i,
 			caption = '',
             type = 'label',
             style = 'heading_1_label'
-        }:style{
-			width = 80
-		}
+        }
 
 		disp.add{
             name = 'research_display_t_' .. i,
             caption = empty_time,
             type = 'label',
             style = 'heading_1_label'
-        }:style{
-			width = 80
-		}
+        }
 	end
 
 	local res_n = research_res_n(res['disp'])
