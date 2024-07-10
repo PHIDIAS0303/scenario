@@ -310,7 +310,6 @@ Gui.element{
     width = 160
 }
 
-
 --- A button to refresh the remove list
 -- @element vlayer_gui_control_refresh
 local vlayer_gui_control_refresh =
