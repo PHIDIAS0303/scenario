@@ -2,6 +2,85 @@
 -- @config Personal Logistic
 
 return {
+    sci = {
+        ['automation-science-pack'] = 1,
+        ['logistic-science-pack'] = 2,
+        ['military-science-pack'] = 3,
+        ['chemical-science-pack'] = 4,
+        ['utility-science-pack'] = 5,
+        ['production-science-pack'] = 6,
+        ['space-science-pack'] = 7
+    },
+    pl = {
+      ['belt'] = {
+        ['item'] = {
+            ['transport-belt'] = {
+                ['key'] = 1,
+                ['stack'] = 100,
+                ['ratio'] = 3,
+                ['upgrade_of'] = nil,
+                ['technology'] = {1}
+            },
+            ['underground-belt'] = {
+                ['key'] = 2,
+                ['stack'] = 50,
+                ['ratio'] = 3,
+                ['upgrade_of'] = nil,
+                ['technology'] = {1}
+            },
+            ['splitter'] = {
+                ['key'] = 3,
+                ['stack'] = 50,
+                ['ratio'] = 1,
+                ['upgrade_of'] = nil,
+                ['technology'] = {1}
+            },
+            ['fast-transport-belt'] = {
+                ['key'] = 11,
+                ['stack'] = 100,
+                ['ratio'] = 3,
+                ['upgrade_of'] = 'transport-belt',
+                ['technology'] = {1, 2}
+            },
+            ['fast-underground-belt'] = {
+                ['key'] = 12,
+                ['stack'] = 50,
+                ['ratio'] = 3,
+                ['upgrade_of'] = 'underground-belt',
+                ['technology'] = {1, 2}
+            },
+            ['fast-splitter'] = {
+                ['key'] = 13,
+                ['stack'] = 50,
+                ['ratio'] = 1,
+                ['upgrade_of'] = 'splitter',
+                ['technology'] = {1, 2}
+            },
+            ['express-transport-belt'] = {
+                ['key'] = 21,
+                ['stack'] = 50,
+                ['ratio'] = 3,
+                ['upgrade_of'] = 'fast-transport-belt',
+                ['technology'] = {1, 2, 4, 6}
+            },
+            ['express-underground-belt'] = {
+                ['key'] = 22,
+                ['stack'] = 50,
+                ['ratio'] = 3,
+                ['upgrade_of'] = 'fast-underground-belt',
+                ['technology'] = {1, 2, 4, 6}
+            },
+            ['express-splitter'] = {
+                ['key'] = 23,
+                ['stack'] = 50,
+                ['ratio'] = 1,
+                ['upgrade_of'] = 'fast-splitter',
+                ['technology'] = {1, 2, 4, 6}
+            }
+        }
+      }
+    }
+    --[[
     production_required = {
         ['belt'] = 100,
         ['power'] = 20,
@@ -22,79 +101,6 @@ return {
         ['weapon'] = 0
     },
     request = {
-        -- belt
-        ['transport-belt'] = {
-            key = 1,
-            upgrade_of = nil,
-            type = 'belt',
-            stack = 100,
-            min = 800,
-            max = 800
-        },
-        ['underground-belt'] = {
-            key = 2,
-            upgrade_of = nil,
-            type = 'belt',
-            stack = 50,
-            min = 250,
-            max = 250
-        },
-        ['splitter'] = {
-            key = 3,
-            upgrade_of = nil,
-            type = 'belt',
-            stack = 50,
-            min = 100,
-            max = 100
-        },
-        ['fast-transport-belt'] = {
-            key = 11,
-            upgrade_of = 'transport-belt',
-            type = 'belt',
-            stack = 100,
-            min = 800,
-            max = 800
-        },
-        ['fast-underground-belt'] = {
-            key = 12,
-            upgrade_of = 'underground-belt',
-            type = 'belt',
-            stack = 50,
-            min = 250,
-            max = 250
-        },
-        ['fast-splitter'] = {
-            key = 13,
-            upgrade_of = 'splitter',
-            type = 'belt',
-            stack = 50,
-            min = 100,
-            max = 100
-        },
-        ['express-transport-belt'] = {
-            key = 21,
-            upgrade_of = 'fast-transport-belt',
-            type = 'belt',
-            stack = 100,
-            min = 800,
-            max = 800
-        },
-        ['express-underground-belt'] = {
-            key = 22,
-            upgrade_of = 'fast-underground-belt',
-            type = 'belt',
-            stack = 50,
-            min = 250,
-            max = 250
-        },
-        ['express-splitter'] = {
-            key = 23,
-            upgrade_of = 'fast-splitter',
-            type = 'belt',
-            stack = 50,
-            min = 100,
-            max = 100
-        },
         -- power
         ['solar-panel'] = {
             key = 4,
@@ -1637,4 +1643,5 @@ return {
             max = 0
         }
     }
+    ]]
 }
