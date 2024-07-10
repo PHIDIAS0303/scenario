@@ -55,21 +55,13 @@ Gui.element(function(_, parent, name)
             selected_index = 1
         }
 
-        local j = 1
-
-        for k2, v2 in pairs(v) do
+        for j=1, #v['display'], 1 do
             disp.add{
                 type = 'sprite-button',
                 name = 'pl_display_m_' .. i .. '_' .. j,
-                sprite = 'item/' .. k2,
-                number = v2['stack'] * v2['ratio']
+                sprite = 'item/' .. v['display'][j],
+                number = v['item'][v['display'][j]]['stack'] * v['item'][v['display'][j]]['ratio']
             }
-
-            j = j + 1
-
-            if j > 3 then
-                break
-            end
         end
 
         i = i + 1

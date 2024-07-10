@@ -13,68 +13,133 @@ return {
     },
     pl = {
         ['belt'] = {
-            ['transport-belt'] = {
-                ['key'] = 1,
-                ['stack'] = 100,
-                ['ratio'] = 3,
-                ['upgrade_of'] = nil,
-                ['technology'] = {1}
+            ['display'] = {
+                'fast-transport-belt',
+                'fast-underground-belt',
+                'fast-splitter'
             },
-            ['underground-belt'] = {
-                ['key'] = 2,
-                ['stack'] = 50,
-                ['ratio'] = 3,
-                ['upgrade_of'] = nil,
-                ['technology'] = {1}
+            ['item'] = {
+                ['transport-belt'] = {
+                    ['key'] = 1,
+                    ['stack'] = 100,
+                    ['ratio'] = 3,
+                    ['upgrade_of'] = nil,
+                    ['technology'] = {1}
+                },
+                ['underground-belt'] = {
+                    ['key'] = 2,
+                    ['stack'] = 50,
+                    ['ratio'] = 3,
+                    ['upgrade_of'] = nil,
+                    ['technology'] = {1}
+                },
+                ['splitter'] = {
+                    ['key'] = 3,
+                    ['stack'] = 50,
+                    ['ratio'] = 1,
+                    ['upgrade_of'] = nil,
+                    ['technology'] = {1}
+                },
+                ['fast-transport-belt'] = {
+                    ['key'] = 11,
+                    ['stack'] = 100,
+                    ['ratio'] = 3,
+                    ['upgrade_of'] = 'transport-belt',
+                    ['technology'] = {1, 2}
+                },
+                ['fast-underground-belt'] = {
+                    ['key'] = 12,
+                    ['stack'] = 50,
+                    ['ratio'] = 3,
+                    ['upgrade_of'] = 'underground-belt',
+                    ['technology'] = {1, 2}
+                },
+                ['fast-splitter'] = {
+                    ['key'] = 13,
+                    ['stack'] = 50,
+                    ['ratio'] = 1,
+                    ['upgrade_of'] = 'splitter',
+                    ['technology'] = {1, 2}
+                },
+                ['express-transport-belt'] = {
+                    ['key'] = 21,
+                    ['stack'] = 50,
+                    ['ratio'] = 3,
+                    ['upgrade_of'] = 'fast-transport-belt',
+                    ['technology'] = {1, 2, 4, 6}
+                },
+                ['express-underground-belt'] = {
+                    ['key'] = 22,
+                    ['stack'] = 50,
+                    ['ratio'] = 3,
+                    ['upgrade_of'] = 'fast-underground-belt',
+                    ['technology'] = {1, 2, 4, 6}
+                },
+                ['express-splitter'] = {
+                    ['key'] = 23,
+                    ['stack'] = 50,
+                    ['ratio'] = 1,
+                    ['upgrade_of'] = 'fast-splitter',
+                    ['technology'] = {1, 2, 4, 6}
+                }
+            }
+        },
+        ['inserter'] = {
+            ['display'] = {
+                'inserter',
+                'fast-inserter',
+                'stack-inserter'
             },
-            ['splitter'] = {
-                ['key'] = 3,
-                ['stack'] = 50,
-                ['ratio'] = 1,
-                ['upgrade_of'] = nil,
-                ['technology'] = {1}
-            },
-            ['fast-transport-belt'] = {
-                ['key'] = 11,
-                ['stack'] = 100,
-                ['ratio'] = 3,
-                ['upgrade_of'] = 'transport-belt',
-                ['technology'] = {1, 2}
-            },
-            ['fast-underground-belt'] = {
-                ['key'] = 12,
-                ['stack'] = 50,
-                ['ratio'] = 3,
-                ['upgrade_of'] = 'underground-belt',
-                ['technology'] = {1, 2}
-            },
-            ['fast-splitter'] = {
-                ['key'] = 13,
-                ['stack'] = 50,
-                ['ratio'] = 1,
-                ['upgrade_of'] = 'splitter',
-                ['technology'] = {1, 2}
-            },
-            ['express-transport-belt'] = {
-                ['key'] = 21,
-                ['stack'] = 50,
-                ['ratio'] = 3,
-                ['upgrade_of'] = 'fast-transport-belt',
-                ['technology'] = {1, 2, 4, 6}
-            },
-            ['express-underground-belt'] = {
-                ['key'] = 22,
-                ['stack'] = 50,
-                ['ratio'] = 3,
-                ['upgrade_of'] = 'fast-underground-belt',
-                ['technology'] = {1, 2, 4, 6}
-            },
-            ['express-splitter'] = {
-                ['key'] = 23,
-                ['stack'] = 50,
-                ['ratio'] = 1,
-                ['upgrade_of'] = 'fast-splitter',
-                ['technology'] = {1, 2, 4, 6}
+            ['item'] = {
+                ['burner-inserter'] = {
+                    ['key'] = 31,
+                    ['stack'] = 50,
+                    ['ratio'] = 1,
+                    ['upgrade_of'] = nil,
+                    ['technology'] = {1}
+                },
+                ['inserter'] = {
+                    ['key'] = 32,
+                    ['stack'] = 50,
+                    ['ratio'] = 2,
+                    ['upgrade_of'] = nil,
+                    ['technology'] = {1}
+                },
+                ['long-handed-inserter'] = {
+                    ['key'] = 33,
+                    ['stack'] = 50,
+                    ['ratio'] = 1,
+                    ['upgrade_of'] = nil,
+                    ['technology'] = {1}
+                },
+                ['fast-inserter'] = {
+                    ['key'] = 34,
+                    ['stack'] = 50,
+                    ['ratio'] = 2,
+                    ['upgrade_of'] = nil,
+                    ['technology'] = {1}
+                },
+                ['filter-inserter'] = {
+                    ['key'] = 35,
+                    ['stack'] = 50,
+                    ['ratio'] = 1,
+                    ['upgrade_of'] = nil,
+                    ['technology'] = {1}
+                },
+                ['stack-inserter'] = {
+                    ['key'] = 36,
+                    ['stack'] = 50,
+                    ['ratio'] = 2,
+                    ['upgrade_of'] = nil,
+                    ['technology'] = {1, 2}
+                },
+                ['stack-filter-inserter'] = {
+                    ['key'] = 37,
+                    ['stack'] = 50,
+                    ['ratio'] = 1,
+                    ['upgrade_of'] = nil,
+                    ['technology'] = {1, 2}
+                }
             }
         }
     }
@@ -441,63 +506,6 @@ return {
             stack = 1,
             min = 0,
             max = 0
-        },
-        -- inserter
-        ['burner-inserter'] = {
-            key = 41,
-            upgrade_of = nil,
-            type = 'inserter',
-            stack = 50,
-            min = 0,
-            max = 50
-        },
-        ['inserter'] = {
-            key = 42,
-            upgrade_of = 'burner-inserter',
-            type = 'inserter',
-            stack = 50,
-            min = 0,
-            max = 50
-        },
-        ['long-handed-inserter'] = {
-            key = 43,
-            upgrade_of = nil,
-            type = 'inserter',
-            stack = 50,
-            min = 0,
-            max = 0
-        },
-        ['fast-inserter'] = {
-            key = 44,
-            upgrade_of = 'inserter',
-            type = 'inserter',
-            stack = 50,
-            min = 0,
-            max = 50
-        },
-        ['filter-inserter'] = {
-            key = 45,
-            upgrade_of = nil,
-            type = 'inserter',
-            stack = 50,
-            min = 50,
-            max = 50
-        },
-        ['stack-inserter'] = {
-            key = 46,
-            upgrade_of = 'fast-inserter',
-            type = 'inserter',
-            stack = 50,
-            min = 100,
-            max = 100
-        },
-        ['stack-filter-inserter'] = {
-            key = 47,
-            upgrade_of = nil,
-            type = 'inserter',
-            stack = 50,
-            min = 50,
-            max = 50
         },
         -- pipe
         ['pipe'] = {
