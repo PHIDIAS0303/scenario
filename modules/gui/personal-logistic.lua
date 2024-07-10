@@ -16,74 +16,82 @@ to set the current requirements
 make those as preset and further adjust later
 ]]
 
-for _, v in pairs(config.pl) do
-    v['technology'] = {}
-
-    for k2, v2 in pairs(v['item']) do
-        local max = math.max(table.unpack(v2['technology']))
-
-        if v['technology'][max] then
-            table.insert(v['technology'][max], k2)
-
-        else
-            v['technology'][max] = {}
-            table.insert(v['technology'][max], k2)
-        end
-    end
-end
-
 --- A vertical flow containing all the main control
 -- @element pl_main_set
 local pl_main_set =
 Gui.element(function(_, parent, name)
     local player = Gui.get_player_from_element(parent)
     local pl_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(pl_set, 400, 6, 'disp')
+    local disp = Gui.scroll_table(pl_set, 400, 3, 'disp')
     local i = 0
     local stats = player.force.item_production_statistics
     local research = {}
-    local max_research = 1
 
     for k, v in pairs(config.sci) do
         if stats.get_input_count(k) > 100 then
             research[v] = true
-            max_research = v
         end
     end
 
     for k, v in pairs(config.pl) do
         disp.add{
             type = 'label',
-            name = Gui.unique_static_name,
+            name = 'pl_display_g_' .. i,
             caption = 'group ' .. i .. ' - ' .. k,
             style = 'heading_1_label'
         }
 
 		disp.add{
             type = 'checkbox',
-            name = Gui.unique_static_name,
+            name = 'pl_display_c_' .. i,
             state = false
         }
 
         disp.add{
             type = 'drop-down',
-            name = Gui.unique_static_name,
+            name = 'pl_display_m_' .. i,
             items = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
             selected_index = 1
         }
 
-        for j=#v['technology'], 1, -1 do
-            if v['technology'][max_research] then
-                for l=1, math.min(3, v['technology'][max_research]), 1 do
-                    local item = v['item'][v['technology'][max_research][l]]
+        local j = 1
+        local max_j = math.min(3, #v['item'])
 
-                    disp.add{
-                        type = 'sprite-button',
-                        name = Gui.unique_static_name,
-                        sprite = 'item/' .. v['technology'][max_research][l],
-                        number = item['stack'] * item['ratio']
-                    }
+        for k2, v2 in pairs(v['item']) do
+            local final_item = k2
+            local loop = true
+
+            while loop do
+                local rtl = true
+
+                if v['item'][final_item]['upgrade_of'] then
+                    for i2=1, #v['item'][v['item'][final_item]['upgrade_of']]['technology'], 1 do
+                        if not research[i2] then
+                            rtl = false
+                            break
+                        end
+                    end
                 end
+
+                if rtl then
+                    final_item = v['item'][final_item]['upgrade_of']
+
+                else
+                    break
+                end
+            end
+
+            disp.add{
+                type = 'sprite-button',
+                name = 'pl_display_m_' .. i .. '_' .. j,
+                sprite = 'item/' .. final_item,
+                number = v['item'][final_item]['stack'] * v['item'][final_item]['ratio']
+            }
+
+            j = j + 1
+
+            if j > max_j then
+                break
             end
         end
 
