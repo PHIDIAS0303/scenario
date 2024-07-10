@@ -20,7 +20,7 @@ local pl_main_set =
 Gui.element(function(_, parent, name)
     local player = Gui.get_player_from_element(parent)
     local pl_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(pl_set, 400, 6, 'disp')
+    local disp = Gui.scroll_table(pl_set, 480, 6, 'disp')
     local i = 0
 
     --[[
@@ -74,7 +74,7 @@ end)
 -- @element pl_container
 local pl_container =
 Gui.element(function(definition, parent)
-    local container = Gui.container(parent, definition.name, 400)
+    local container = Gui.container(parent, definition.name, 480)
 
     pl_main_set(container, 'pl_st_1')
 

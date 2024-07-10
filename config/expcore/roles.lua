@@ -207,6 +207,7 @@ Roles.new_role('Member','Mem')
     'command/clear-blueprint',
     -- 'command/bonus',
     'gui/bonus',
+    'command/personal-logistic',
     'gui/personal-logistic',
     'command/home',
     'command/home-set',
