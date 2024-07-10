@@ -24,14 +24,14 @@ local res_a = {}
 local res_i = {}
 local res_total = 0
 local research_time_format = {
-    hours=false,
+    hours=true,
     minutes=true,
     seconds=true,
     time=true,
     string=true
 }
 local empty_time = format_time(0, {
-	hours=false,
+	hours=true,
 	minutes=true,
 	seconds=true,
 	time=true,
@@ -127,7 +127,7 @@ end
 local research_clock_set =
 Gui.element(function(_, parent, name)
     local research_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(research_set, 320, 2, 'disp')
+    local disp = Gui.scroll_table(research_set, 360, 2, 'disp')
 
 	disp.add{
         name = 'clock_text',
@@ -151,7 +151,7 @@ end)
 local research_data_set =
 Gui.element(function(_, parent, name)
     local research_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(research_set, 320, 4, 'disp')
+    local disp = Gui.scroll_table(research_set, 360, 4, 'disp')
 
 	for i=1, 8 do
         disp.add{
