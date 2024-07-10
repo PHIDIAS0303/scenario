@@ -76,15 +76,14 @@ end
 local function research_notification(event)
     local is_inf_res = false
 
-    for k, v in pairs(config.inf_res) do
-        if (event.research.name == k) and (event.research.level >= v) then
-            is_inf_res = true
-			break
-        end
+    if config.inf_res[event.research.name] then
+		if event.research.level >= config.inf_res[event.research.name] then
+        	is_inf_res = true
+		end
     end
 
     if is_inf_res then
-        if event.research.name == 'mining-productivity-4' and event.research.level > 4 then
+        if event.research.name == 'mining-productivity-4' and event.research.level > config.inf_res['mining-productivity-4'] then
 			if config.bonus_inventory.enabled then
 				if (event.research.force.mining_drill_productivity_bonus * 10) <= (config.bonus_inventory.limit / config.bonus_inventory.rate) then
 					event.research.force[config.bonus_inventory.name] = math.floor(event.research.force.mining_drill_productivity_bonus * 10) * config.bonus_inventory.rate
