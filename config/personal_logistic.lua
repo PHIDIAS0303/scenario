@@ -13,8 +13,26 @@ return {
     },
     pl = {
         ['belt'] = {
+            ['group'] = {
+                {
+                    'transport-belt',
+                    'underground-belt',
+                    'splitter'
+                },
+                {
+                    'fast-transport-belt',
+                    'fast-underground-belt',
+                    'fast-splitter'
+                },
+                {
+                    'express-transport-belt',
+                    'express-underground-belt',
+                    'express-splitter'
+                }
+            },
             ['item'] = {
-                ['transport-belt'] = {
+                {
+                    ['name'] = 'transport-belt',
                     ['key'] = 1,
                     ['stack'] = 100,
                     ['ratio'] = 3,
@@ -24,8 +42,9 @@ return {
                         ['4'] = 0
                     }
                 },
-                ['underground-belt'] = {
-                    ['key'] = 2,
+                {
+                    ['name'] = 'underground-belt',
+                    ['key'] = 4,
                     ['stack'] = 50,
                     ['ratio'] = 3,
                     ['technology'] = {1},
@@ -34,8 +53,9 @@ return {
                         ['4'] = 0
                     }
                 },
-                ['splitter'] = {
-                    ['key'] = 3,
+                {
+                    ['name'] = 'splitter',
+                    ['key'] = 7,
                     ['stack'] = 50,
                     ['ratio'] = 1,
                     ['technology'] = {1},
@@ -44,11 +64,11 @@ return {
                         ['4'] = 0
                     }
                 },
-                ['fast-transport-belt'] = {
-                    ['key'] = 11,
+                {
+                    ['name'] = 'fast-transport-belt',
+                    ['key'] = 2,
                     ['stack'] = 100,
                     ['ratio'] = 3,
-                    ['upgrade_of'] = 'transport-belt',
                     ['technology'] = {1, 2},
                     ['preset'] = {
                         ['1'] = 0,
@@ -56,11 +76,11 @@ return {
                         ['7'] = 0
                     }
                 },
-                ['fast-underground-belt'] = {
-                    ['key'] = 12,
+                {
+                    ['name'] = 'fast-underground-belt',
+                    ['key'] = 5,
                     ['stack'] = 50,
                     ['ratio'] = 3,
-                    ['upgrade_of'] = 'underground-belt',
                     ['technology'] = {1, 2},
                     ['preset'] = {
                         ['1'] = 0,
@@ -68,11 +88,11 @@ return {
                         ['7'] = 0
                     }
                 },
-                ['fast-splitter'] = {
-                    ['key'] = 13,
+                {
+                    ['name'] = 'fast-splitter',
+                    ['key'] = 8,
                     ['stack'] = 50,
                     ['ratio'] = 1,
-                    ['upgrade_of'] = 'splitter',
                     ['technology'] = {1, 2},
                     ['preset'] = {
                         ['1'] = 0,
@@ -80,31 +100,31 @@ return {
                         ['7'] = 0
                     }
                 },
-                ['express-transport-belt'] = {
-                    ['key'] = 21,
+                {
+                    ['name'] = 'express-transport-belt',
+                    ['key'] = 3,
                     ['stack'] = 50,
                     ['ratio'] = 3,
-                    ['upgrade_of'] = 'fast-transport-belt',
                     ['technology'] = {1, 2, 4, 6},
                     ['preset'] = {
                         ['6'] = 3
                     }
                 },
-                ['express-underground-belt'] = {
-                    ['key'] = 22,
+                {
+                    ['name'] = 'express-underground-belt',
+                    ['key'] = 6,
                     ['stack'] = 50,
                     ['ratio'] = 3,
-                    ['upgrade_of'] = 'fast-underground-belt',
                     ['technology'] = {1, 2, 4, 6},
                     ['preset'] = {
                         ['6'] = 3
                     }
                 },
-                ['express-splitter'] = {
-                    ['key'] = 23,
+                {
+                    ['name'] = 'express-splitter',
+                    ['key'] = 9,
                     ['stack'] = 50,
                     ['ratio'] = 1,
-                    ['upgrade_of'] = 'fast-splitter',
                     ['technology'] = {1, 2, 4, 6},
                     ['preset'] = {
                         ['6'] = 1
@@ -113,9 +133,27 @@ return {
             }
         },
         ['inserter'] = {
+            ['group'] = {
+                {
+                    'transport-belt',
+                    'underground-belt',
+                    'splitter'
+                },
+                {
+                    'fast-transport-belt',
+                    'fast-underground-belt',
+                    'fast-splitter'
+                },
+                {
+                    'express-transport-belt',
+                    'express-underground-belt',
+                    'express-splitter'
+                }
+            },
             ['item'] = {
-                ['burner-inserter'] = {
-                    ['key'] = 31,
+                {
+                    ['name'] = 'burner-inserter',
+                    ['key'] = 11,
                     ['stack'] = 50,
                     ['ratio'] = 1,
                     ['technology'] = {1},
@@ -124,8 +162,9 @@ return {
                         ['4'] = 0
                     }
                 },
-                ['inserter'] = {
-                    ['key'] = 32,
+                {
+                    ['name'] = 'inserter',
+                    ['key'] = 12,
                     ['stack'] = 50,
                     ['ratio'] = 2,
                     ['technology'] = {1},
@@ -134,8 +173,9 @@ return {
                         ['4'] = 0
                     }
                 },
-                ['long-handed-inserter'] = {
-                    ['key'] = 33,
+                {
+                    ['name'] = 'long-handed-inserter',
+                    ['key'] = 13,
                     ['stack'] = 50,
                     ['ratio'] = 1,
                     ['technology'] = {1},
@@ -144,8 +184,9 @@ return {
                         ['4'] = 0
                     }
                 },
-                ['fast-inserter'] = {
-                    ['key'] = 34,
+                {
+                    ['name'] = 'fast-inserter',
+                    ['key'] = 14,
                     ['stack'] = 50,
                     ['ratio'] = 3,
                     ['technology'] = {1},
@@ -154,8 +195,9 @@ return {
                         ['4'] = 0
                     }
                 },
-                ['filter-inserter'] = {
-                    ['key'] = 35,
+                {
+                    ['name'] = 'filter-inserter',
+                    ['key'] = 15,
                     ['stack'] = 50,
                     ['ratio'] = 1,
                     ['technology'] = {1},
@@ -163,8 +205,9 @@ return {
                         ['1'] = 1
                     }
                 },
-                ['stack-inserter'] = {
-                    ['key'] = 36,
+                {
+                    ['name'] = 'stack-inserter',
+                    ['key'] = 16,
                     ['stack'] = 50,
                     ['ratio'] = 3,
                     ['technology'] = {1, 2},
@@ -173,8 +216,9 @@ return {
                         ['2'] = 3
                     }
                 },
-                ['stack-filter-inserter'] = {
-                    ['key'] = 37,
+                {
+                    ['name'] = 'stack-filter-inserter',
+                    ['key'] = 17,
                     ['stack'] = 50,
                     ['ratio'] = 1,
                     ['technology'] = {1, 2},

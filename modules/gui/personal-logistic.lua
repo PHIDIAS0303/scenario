@@ -14,24 +14,16 @@ to set the current requirements
 make those as preset and further adjust later
 ]]
 
-for _, v in pairs(config.pl) do
-    v['list'] = {}
-
-    for k2, _ in pairs(v['item']) do
-        table.insert(v['list'], k2)
-    end
-end
-
 --- A vertical flow containing all the main control
 -- @element pl_main_set
 local pl_main_set =
 Gui.element(function(_, parent, name)
-    local player = Gui.get_player_from_element(parent)
     local pl_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(pl_set, 480, 6, 'disp')
     local i = 0
 
     --[[
+    local player = Gui.get_player_from_element(parent)
     local stats = player.force.item_production_statistics
     local research = {}
 
@@ -42,33 +34,73 @@ Gui.element(function(_, parent, name)
     end
     ]]
 
+    disp.add{
+        type = 'label',
+        name = 'pl_display_c_0',
+        caption = 'category name',
+        style = 'heading_1_label'
+    }
+
+    disp.add{
+        type = 'label',
+        name = 'pl_display_g_0',
+        caption = 'group name',
+        style = 'heading_1_label'
+    }
+
+    disp.add{
+        type = 'label',
+        name = 'pl_display_m_0',
+        caption = 'multiplier',
+        style = 'heading_1_label'
+    }
+
+    for j=1, 3, 1 do
+        disp.add{
+            type = 'label',
+            name = 'pl_display_m_0_' .. j,
+            caption = 'item ' .. j,
+            style = 'heading_1_label'
+        }
+    end
+
     for k, v in pairs(config.pl) do
         disp.add{
             type = 'label',
-            name = 'pl_display_g_' .. i,
+            name = 'pl_display_c_' .. i,
             caption = 'group ' .. i .. ' - ' .. k,
             style = 'heading_1_label'
         }
 
-		disp.add{
-            type = 'checkbox',
-            name = 'pl_display_c_' .. i,
-            state = false
+        local gn = {}
+
+        for l=1, #v['group'], 1 do
+            gn[i] = i
+        end
+
+        disp.add{
+            type = 'drop-down',
+            name = 'pl_display_g_' .. i,
+            items = gn,
+            selected_index = 1
         }
 
         disp.add{
             type = 'drop-down',
             name = 'pl_display_m_' .. i,
-            items = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+            items = {0, 1, 2, 3, 4, 5, 6},
             selected_index = 1
         }
 
-        for j=1, math.min(#v['list'], 3), 1 do
+        for j=1, math.min(3, #v['group'][1]), 1 do
+            local nj = v['group'][1][j]
+            local vnj = v['item'][nj]
+
             disp.add{
                 type = 'sprite-button',
                 name = 'pl_display_m_' .. i .. '_' .. j,
-                sprite = 'item/' .. v['item'][v['list'][j]],
-                number = v['item'][v['list'][j]]['stack'] * v['item'][v['list'][j]]['ratio']
+                sprite = 'item/' .. vnj['name'],
+                number = vnj['stack'] * vnj['ratio']
             }
         end
 
