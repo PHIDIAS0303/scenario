@@ -75,7 +75,7 @@ Gui.element(function(_, parent, name)
         local gn = {}
 
         for l=1, #v['group'], 1 do
-            gn[i] = i
+            gn[l] = l
         end
 
         disp.add{

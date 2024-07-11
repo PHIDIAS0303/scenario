@@ -135,19 +135,18 @@ return {
         ['inserter'] = {
             ['group'] = {
                 {
-                    'transport-belt',
-                    'underground-belt',
-                    'splitter'
+                    'burner-inserter',
+                    'inserter'
                 },
                 {
-                    'fast-transport-belt',
-                    'fast-underground-belt',
-                    'fast-splitter'
+                    'inserter',
+                    'long-handed-inserter',
+                    'fast-inserter',
                 },
                 {
-                    'express-transport-belt',
-                    'express-underground-belt',
-                    'express-splitter'
+                    'filter-inserter',
+                    'stack-inserter',
+                    'stack-filter-inserter'
                 }
             },
             ['item'] = {
