@@ -92,16 +92,26 @@ Gui.element(function(_, parent, name)
             selected_index = 1
         }
 
-        for j=1, math.min(3, #v['group'][1]), 1 do
-            local nj = v['group'][1][j]
-            local vnj = v['item'][nj]
+        for j=1, 3, 1 do
+            if v['group'][1][j] then
+                local nj = v['group'][1][j]
+                local vnj = v['item'][nj]
 
-            disp.add{
-                type = 'sprite-button',
-                name = 'pl_display_m_' .. i .. '_' .. j,
-                sprite = 'item/' .. vnj['name'],
-                number = vnj['stack'] * vnj['ratio']
-            }
+                disp.add{
+                    type = 'sprite-button',
+                    name = 'pl_display_m_' .. i .. '_' .. j,
+                    sprite = 'item/' .. vnj['name'],
+                    number = vnj['stack'] * vnj['ratio']
+                }
+
+            else
+                disp.add{
+                    type = 'sprite-button',
+                    name = 'pl_display_m_' .. i .. '_' .. j,
+                    sprite = nil,
+                    number = 0
+                }
+            end
         end
 
         i = i + 1

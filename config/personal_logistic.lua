@@ -2,241 +2,16 @@
 -- @config Personal Logistic
 
 return {
-    sci = {
-        ['automation-science-pack'] = 1,
-        ['logistic-science-pack'] = 2,
-        ['military-science-pack'] = 3,
-        ['chemical-science-pack'] = 4,
-        ['utility-science-pack'] = 5,
-        ['production-science-pack'] = 6,
-        ['space-science-pack'] = 7
-    },
-    pl = {
-        ['belt'] = {
-            ['group'] = {
-                {
-                    'transport-belt',
-                    'underground-belt',
-                    'splitter'
-                },
-                {
-                    'fast-transport-belt',
-                    'fast-underground-belt',
-                    'fast-splitter'
-                },
-                {
-                    'express-transport-belt',
-                    'express-underground-belt',
-                    'express-splitter'
-                }
-            },
-            ['item'] = {
-                {
-                    ['name'] = 'transport-belt',
-                    ['key'] = 1,
-                    ['stack'] = 100,
-                    ['ratio'] = 3,
-                    ['technology'] = {1},
-                    ['preset'] = {
-                        ['1'] = 3,
-                        ['4'] = 0
-                    }
-                },
-                {
-                    ['name'] = 'underground-belt',
-                    ['key'] = 4,
-                    ['stack'] = 50,
-                    ['ratio'] = 3,
-                    ['technology'] = {1},
-                    ['preset'] = {
-                        ['1'] = 3,
-                        ['4'] = 0
-                    }
-                },
-                {
-                    ['name'] = 'splitter',
-                    ['key'] = 7,
-                    ['stack'] = 50,
-                    ['ratio'] = 1,
-                    ['technology'] = {1},
-                    ['preset'] = {
-                        ['1'] = 1,
-                        ['4'] = 0
-                    }
-                },
-                {
-                    ['name'] = 'fast-transport-belt',
-                    ['key'] = 2,
-                    ['stack'] = 100,
-                    ['ratio'] = 3,
-                    ['technology'] = {1, 2},
-                    ['preset'] = {
-                        ['1'] = 0,
-                        ['2'] = 3,
-                        ['7'] = 0
-                    }
-                },
-                {
-                    ['name'] = 'fast-underground-belt',
-                    ['key'] = 5,
-                    ['stack'] = 50,
-                    ['ratio'] = 3,
-                    ['technology'] = {1, 2},
-                    ['preset'] = {
-                        ['1'] = 0,
-                        ['2'] = 3,
-                        ['7'] = 0
-                    }
-                },
-                {
-                    ['name'] = 'fast-splitter',
-                    ['key'] = 8,
-                    ['stack'] = 50,
-                    ['ratio'] = 1,
-                    ['technology'] = {1, 2},
-                    ['preset'] = {
-                        ['1'] = 0,
-                        ['2'] = 1,
-                        ['7'] = 0
-                    }
-                },
-                {
-                    ['name'] = 'express-transport-belt',
-                    ['key'] = 3,
-                    ['stack'] = 50,
-                    ['ratio'] = 3,
-                    ['technology'] = {1, 2, 4, 6},
-                    ['preset'] = {
-                        ['6'] = 3
-                    }
-                },
-                {
-                    ['name'] = 'express-underground-belt',
-                    ['key'] = 6,
-                    ['stack'] = 50,
-                    ['ratio'] = 3,
-                    ['technology'] = {1, 2, 4, 6},
-                    ['preset'] = {
-                        ['6'] = 3
-                    }
-                },
-                {
-                    ['name'] = 'express-splitter',
-                    ['key'] = 9,
-                    ['stack'] = 50,
-                    ['ratio'] = 1,
-                    ['technology'] = {1, 2, 4, 6},
-                    ['preset'] = {
-                        ['6'] = 1
-                    }
-                }
-            }
-        },
-        ['inserter'] = {
-            ['group'] = {
-                {
-                    'burner-inserter',
-                    'inserter'
-                },
-                {
-                    'inserter',
-                    'long-handed-inserter',
-                    'fast-inserter',
-                },
-                {
-                    'filter-inserter',
-                    'stack-inserter',
-                    'stack-filter-inserter'
-                }
-            },
-            ['item'] = {
-                {
-                    ['name'] = 'burner-inserter',
-                    ['key'] = 11,
-                    ['stack'] = 50,
-                    ['ratio'] = 1,
-                    ['technology'] = {1},
-                    ['preset'] = {
-                        ['1'] = 1,
-                        ['4'] = 0
-                    }
-                },
-                {
-                    ['name'] = 'inserter',
-                    ['key'] = 12,
-                    ['stack'] = 50,
-                    ['ratio'] = 2,
-                    ['technology'] = {1},
-                    ['preset'] = {
-                        ['1'] = 2,
-                        ['4'] = 0
-                    }
-                },
-                {
-                    ['name'] = 'long-handed-inserter',
-                    ['key'] = 13,
-                    ['stack'] = 50,
-                    ['ratio'] = 1,
-                    ['technology'] = {1},
-                    ['preset'] = {
-                        ['1'] = 1,
-                        ['4'] = 0
-                    }
-                },
-                {
-                    ['name'] = 'fast-inserter',
-                    ['key'] = 14,
-                    ['stack'] = 50,
-                    ['ratio'] = 3,
-                    ['technology'] = {1},
-                    ['preset'] = {
-                        ['1'] = 3,
-                        ['4'] = 0
-                    }
-                },
-                {
-                    ['name'] = 'filter-inserter',
-                    ['key'] = 15,
-                    ['stack'] = 50,
-                    ['ratio'] = 1,
-                    ['technology'] = {1},
-                    ['preset'] = {
-                        ['1'] = 1
-                    }
-                },
-                {
-                    ['name'] = 'stack-inserter',
-                    ['key'] = 16,
-                    ['stack'] = 50,
-                    ['ratio'] = 3,
-                    ['technology'] = {1, 2},
-                    ['preset'] = {
-                        ['1'] = 0,
-                        ['2'] = 3
-                    }
-                },
-                {
-                    ['name'] = 'stack-filter-inserter',
-                    ['key'] = 17,
-                    ['stack'] = 50,
-                    ['ratio'] = 1,
-                    ['technology'] = {1, 2},
-                    ['preset'] = {
-                        ['1'] = 0,
-                        ['2'] = 1
-                    }
-                }
-            }
-        }
-    }
-    --[[
+    start = 0,
     production_required = {
+        ['belt'] = 100,
         ['power'] = 20,
         ['miner'] = 20,
         ['furnace'] = 20,
         ['machine'] = 20,
         ['pole'] = 20,
         ['bot'] = 20,
+        ['inserter'] = 20,
         ['chest'] = 20,
         ['rail'] = 100,
         ['module'] = 20,
@@ -248,6 +23,79 @@ return {
         ['weapon'] = 0
     },
     request = {
+        -- belt
+        ['transport-belt'] = {
+            key = 1,
+            upgrade_of = nil,
+            type = 'belt',
+            stack = 100,
+            min = 800,
+            max = 800
+        },
+        ['underground-belt'] = {
+            key = 2,
+            upgrade_of = nil,
+            type = 'belt',
+            stack = 50,
+            min = 250,
+            max = 250
+        },
+        ['splitter'] = {
+            key = 3,
+            upgrade_of = nil,
+            type = 'belt',
+            stack = 50,
+            min = 100,
+            max = 100
+        },
+        ['fast-transport-belt'] = {
+            key = 11,
+            upgrade_of = 'transport-belt',
+            type = 'belt',
+            stack = 100,
+            min = 800,
+            max = 800
+        },
+        ['fast-underground-belt'] = {
+            key = 12,
+            upgrade_of = 'underground-belt',
+            type = 'belt',
+            stack = 50,
+            min = 250,
+            max = 250
+        },
+        ['fast-splitter'] = {
+            key = 13,
+            upgrade_of = 'splitter',
+            type = 'belt',
+            stack = 50,
+            min = 100,
+            max = 100
+        },
+        ['express-transport-belt'] = {
+            key = 21,
+            upgrade_of = 'fast-transport-belt',
+            type = 'belt',
+            stack = 100,
+            min = 800,
+            max = 800
+        },
+        ['express-underground-belt'] = {
+            key = 22,
+            upgrade_of = 'fast-underground-belt',
+            type = 'belt',
+            stack = 50,
+            min = 250,
+            max = 250
+        },
+        ['express-splitter'] = {
+            key = 23,
+            upgrade_of = 'fast-splitter',
+            type = 'belt',
+            stack = 50,
+            min = 100,
+            max = 100
+        },
         -- power
         ['solar-panel'] = {
             key = 4,
@@ -590,6 +438,63 @@ return {
             stack = 1,
             min = 0,
             max = 0
+        },
+        -- inserter
+        ['burner-inserter'] = {
+            key = 41,
+            upgrade_of = nil,
+            type = 'inserter',
+            stack = 50,
+            min = 0,
+            max = 50
+        },
+        ['inserter'] = {
+            key = 42,
+            upgrade_of = 'burner-inserter',
+            type = 'inserter',
+            stack = 50,
+            min = 0,
+            max = 50
+        },
+        ['long-handed-inserter'] = {
+            key = 43,
+            upgrade_of = nil,
+            type = 'inserter',
+            stack = 50,
+            min = 0,
+            max = 0
+        },
+        ['fast-inserter'] = {
+            key = 44,
+            upgrade_of = 'inserter',
+            type = 'inserter',
+            stack = 50,
+            min = 0,
+            max = 50
+        },
+        ['filter-inserter'] = {
+            key = 45,
+            upgrade_of = nil,
+            type = 'inserter',
+            stack = 50,
+            min = 50,
+            max = 50
+        },
+        ['stack-inserter'] = {
+            key = 46,
+            upgrade_of = 'fast-inserter',
+            type = 'inserter',
+            stack = 50,
+            min = 100,
+            max = 100
+        },
+        ['stack-filter-inserter'] = {
+            key = 47,
+            upgrade_of = nil,
+            type = 'inserter',
+            stack = 50,
+            min = 50,
+            max = 50
         },
         -- pipe
         ['pipe'] = {
@@ -1733,5 +1638,4 @@ return {
             max = 0
         }
     }
-    ]]
 }

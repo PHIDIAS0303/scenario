@@ -92,7 +92,6 @@ return {
     'modules.gui.player-list',
     'modules.gui.server-ups',
     'modules.gui.bonus',
-    'modules.gui.personal-logistic',
     'modules.gui.vlayer',
     'modules.gui.research',
     'modules.gui.module',

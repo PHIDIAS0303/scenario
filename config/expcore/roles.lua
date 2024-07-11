@@ -208,7 +208,6 @@ Roles.new_role('Member','Mem')
     -- 'command/bonus',
     'gui/bonus',
     'command/personal-logistic',
-    'gui/personal-logistic',
     'command/home',
     'command/home-set',
     'command/home-get',
