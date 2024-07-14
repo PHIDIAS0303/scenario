@@ -37,8 +37,7 @@ Roles.new_role('Senior Administrator','SAdmin')
 :set_flag('instant-respawn')
 :set_flag('deconlog-bypass')
 :set_parent('Administrator')
-:allow{
-}
+:set_allow_all()
 
 Roles.new_role('Administrator','Admin')
 :set_permission_group('Admin')
