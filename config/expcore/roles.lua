@@ -67,10 +67,10 @@ Roles.new_role('Senior Moderator','SMod')
 :set_flag('deconlog-bypass')
 :set_parent('Moderator')
 :allow{
-   'gui/warp-list/bypass-proximity',
-   'gui/warp-list/bypass-cooldown',
-   'command/connect-all',
-	'command/collectdata'
+    'gui/warp-list/bypass-proximity',
+    'gui/warp-list/bypass-cooldown',
+    'command/connect-all',
+    'command/collectdata'
 }
 
 Roles.new_role('Moderator','Mod')
