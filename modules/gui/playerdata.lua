@@ -216,3 +216,15 @@ end
 
 Event.add(defines.events.on_player_joined_game, gui_player_list_update)
 Event.add(defines.events.on_player_left_game, gui_player_list_update)
+
+Event.on_nth_tick(600, function()
+    for _, player in pairs(game.connected_players) do
+        local frame = Gui.get_left_element(player, pd_container)
+        local player_index = frame.container['pd_st_1'].disp.table[pd_username_player.name].selected_index
+
+        if player_index > 0 then
+            local player_name = game.connected_players[player_index]
+            pd_update(frame.container['pd_st_2'].disp.table, player_name)
+        end
+    end
+end)
