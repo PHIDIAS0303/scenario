@@ -198,13 +198,10 @@ Roles.new_role('Member','Mem')
 :allow{
     'gui/vlayer-edit',
     'gui/surveillance',
-    'command/waterfill',
-    'command/vlayer-info',
     'command/auto-research',
     'command/set-trains-to-automatic',
     'command/clear-item-on-ground',
     'command/clear-blueprint',
-    -- 'command/bonus',
     'gui/bonus',
     'command/personal-logistic',
     'command/home',
@@ -226,6 +223,8 @@ Roles.new_role('Veteran','Vet')
     'command/save-quickbar',
     'command/last-location',
     'command/lawnmower',
+    'command/waterfill',
+    'command/vlayer-info',
     'command/artillery-target-remote',
 }
 :set_auto_assign_condition(function(player)
