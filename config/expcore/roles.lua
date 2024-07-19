@@ -202,6 +202,7 @@ Roles.new_role('Member','Mem')
     'command/set-trains-to-automatic',
     'command/clear-item-on-ground',
     'command/clear-blueprint',
+    -- 'command/bonus',
     'gui/bonus',
     'command/personal-logistic',
     'command/home',
