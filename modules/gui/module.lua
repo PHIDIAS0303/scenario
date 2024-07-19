@@ -98,10 +98,10 @@ Selection.on_selection(SelectionModuleArea, function(event)
     local area = aabb_align_expand(event.area)
     local player = game.get_player(event.player_index)
     local frame = Gui.get_left_element(player, module_container)
-    local table = frame.container.scroll.table
+    local scroll_table = frame.container.scroll.table
 
     for i=1, config.default_module_row_count do
-        local mma = table['module_mm_' .. i .. '_0'].elem_value
+        local mma = scroll_table['module_mm_' .. i .. '_0'].elem_value
 
         if mma then
             local mm = {
@@ -110,7 +110,7 @@ Selection.on_selection(SelectionModuleArea, function(event)
             }
 
             for j=1, game.entity_prototypes[mma].module_inventory_size, 1 do
-                local mmo = table['module_mm_' .. i .. '_' .. j].elem_value
+                local mmo = scroll_table['module_mm_' .. i .. '_' .. j].elem_value
 
                 if mmo then
                     if mm['n'][mmo] then
@@ -141,20 +141,20 @@ end)
 
 local function row_set(player, element)
     local frame = Gui.get_left_element(player, module_container)
-    local table = frame.container.scroll.table
+    local scroll_table = frame.container.scroll.table
 
-    if table[element .. '0'].elem_value then
+    if scroll_table[element .. '0'].elem_value then
         for i=1, config.module_slot_max do
-            if i <= game.entity_prototypes[table[element .. '0'].elem_value].module_inventory_size then
-                table[element .. i].enabled = true
-                table[element .. i].elem_value = config.machine[table[element .. '0'].elem_value].module
+            if i <= game.entity_prototypes[scroll_table[element .. '0'].elem_value].module_inventory_size then
+                scroll_table[element .. i].enabled = true
+                scroll_table[element .. i].elem_value = config.machine[scroll_table[element .. '0'].elem_value].module
 
             else
-                table[element .. i].enabled = false
-                table[element .. i].elem_value = nil
+                scroll_table[element .. i].enabled = false
+                scroll_table[element .. i].elem_value = nil
             end
 
-            table[element .. i].elem_filters = elem_filter.normal
+            scroll_table[element .. i].elem_filters = elem_filter.normal
         end
 
     else
@@ -165,9 +165,9 @@ local function row_set(player, element)
         end
 
         for i=1, config.module_slot_max do
-            table[element .. i].enabled = true
-            table[element .. i].elem_filters = mf
-            table[element .. i].elem_value = nil
+            scroll_table[element .. i].enabled = true
+            scroll_table[element .. i].elem_filters = mf
+            scroll_table[element .. i].elem_value = nil
         end
     end
 end
