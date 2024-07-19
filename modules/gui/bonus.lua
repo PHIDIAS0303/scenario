@@ -384,9 +384,10 @@ Gui.element{
 }:style{
     width = config.gui_display_width['half']
 }:on_click(function(player, element, _)
-    local r = bonus_gui_pts_needed(player)
-    element.parent[bonus_gui_control_pts_n_count.name].caption = r
-    element.parent[bonus_gui_control_pts_r_count.name].caption = tonumber(element.parent[bonus_gui_control_pts_a_count.name].caption) - r
+    local n = bonus_gui_pts_needed(player)
+    element.parent[bonus_gui_control_pts_n_count.name].caption = n
+    local r = tonumber(element.parent[bonus_gui_control_pts_a_count.name].caption) - n
+    element.parent[bonus_gui_control_pts_r_count.name].caption = r
 
     if r >= 0 then
         apply_bonus(player)
