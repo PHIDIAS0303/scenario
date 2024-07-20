@@ -7,7 +7,6 @@ local Event = require 'utils.event' --- @dep utils.event
 local Roles = require 'expcore.roles' --- @dep expcore.roles
 local config = require 'config.research' --- @dep config.research
 local format_time = _C.format_time --- @dep expcore.common
-local resf = require 'modules.commands.research' --- @dep expcore.commands
 
 local research = {}
 Global.register(research, function(tbl)
@@ -64,7 +63,7 @@ local function add_log()
 		result_data[res['disp'][i]['raw_name']] = research.time[i]
 	end
 
-	game.write_file(config.file_name, game.json_to_table(result_data) .. '\n', true, 0)
+	game.write_file(config.file_name, game.table_to_json(result_data) .. '\n', true, 0)
 end
 
 local function research_res_n(res_)
@@ -251,10 +250,6 @@ end)
 
 Event.add(defines.events.on_research_finished, function(event)
 	research_notification(event)
-
-	if research.res_queue_enable then
-        resf.res_queue(event)
-    end
 
 	if res['lookup_name'][event.research.name] == nil then
 		return
