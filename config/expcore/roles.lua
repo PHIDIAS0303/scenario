@@ -183,10 +183,7 @@ Roles.new_role('Senior Member','SMem')
     'command/spectate',
     'command/follow',
     'command/repair',
-    'command/personal-battery-recharge',
-    'gui/rocket-info/toggle-active',
-    'gui/rocket-info/remote_launch',
-    'command/tag-color',
+    'command/personal-battery-recharge'
 }
 
 --- Standard User Roles
@@ -198,10 +195,18 @@ Roles.new_role('Member','Mem')
 :allow{
     'gui/vlayer-edit',
     'gui/surveillance',
+    'gui/rocket-info/toggle-active',
+    'gui/rocket-info/remote_launch',
+    'command/tag-color',
     'command/auto-research',
     'command/set-trains-to-automatic',
     'command/clear-item-on-ground',
     'command/clear-blueprint',
+    'command/last-location',
+    'command/save-quickbar',
+    'command/waterfill',
+    'command/vlayer-info',
+    'command/artillery-target-remote',
     -- 'command/bonus',
     'gui/bonus',
     'command/personal-logistic',
@@ -222,11 +227,6 @@ Roles.new_role('Veteran','Vet')
     'gui/warp-list/add',
     'gui/warp-list/edit',
     'command/save-quickbar',
-    'command/last-location',
-    'command/lawnmower',
-    'command/waterfill',
-    'command/vlayer-info',
-    'command/artillery-target-remote',
 }
 :set_auto_assign_condition(function(player)
     if player.online_time >= hours6 then
@@ -249,6 +249,7 @@ Roles.new_role('Regular','Reg')
     'command/rainbow',
     'command/go-to-spawn',
     'command/me',
+    'command/lawnmower',
     'standard-decon',
     'bypass-entity-protection',
 	'bypass-nukeprotect',
