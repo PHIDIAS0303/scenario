@@ -289,7 +289,6 @@ local function role_update(event)
         player['character_reach_distance_bonus'] = 0
         player['character_resource_reach_distance_bonus'] = 0
         player['character_build_distance_bonus'] = 0
-        apply_bonus(player)
     end
 end
 
