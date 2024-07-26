@@ -184,7 +184,7 @@ end)
 --- Display group
 -- @element bonus_gui_slider
 local bonus_gui_slider =
-Gui.element(function(definition, parent, name, caption, tooltip, bonus)
+Gui.element(function(_definition, parent, name, caption, tooltip, bonus)
     local label = parent.add{
         type = 'label',
         caption = caption,
@@ -219,7 +219,7 @@ Gui.element(function(definition, parent, name, caption, tooltip, bonus)
     }
     count.style.width = config.gui_display_width['count']
 end)
-:on_value_changed(function(player, element, _event)
+:on_gui_value_changed(function(player, element, _event)
     element.parent[element.tags.counter].caption = element.slider_value
 
     local r = bonus_gui_pts_needed(player)
