@@ -445,6 +445,7 @@ function vlayer.get_statistics()
         energy_capacity = vlayer_data.properties.capacity * mega,
         energy_storage = vlayer_data.storage.energy,
         day = math.floor(game.tick / vlayer_data.surface.ticks_per_day),
+        day_length = vlayer_data.surface.ticks_per_day,
         time = math.floor(game.tick % vlayer_data.surface.ticks_per_day)
     }
 end
@@ -465,6 +466,7 @@ function vlayer.get_circuits()
         energy_capacity = 'signal-C',
         energy_storage = 'signal-E',
         day = 'signal-D',
+        day_length = 'signal-L',
         time = 'signal-T',
     }
 end
