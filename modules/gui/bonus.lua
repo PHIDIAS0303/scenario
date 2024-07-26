@@ -218,6 +218,8 @@ Gui.element(function(_definition, parent, name, caption, tooltip, bonus)
         style = 'heading_1_label'
     }
     count.style.width = config.gui_display_width['count']
+
+    return slider
 end)
 :on_value_changed(function(player, element, _event)
     element.parent[element.tags.counter].caption = element.slider_value
