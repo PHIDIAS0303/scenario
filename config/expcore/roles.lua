@@ -194,19 +194,14 @@ Roles.new_role('Member','Mem')
 :set_parent('Veteran')
 :allow{
     'gui/vlayer-edit',
-    'gui/surveillance',
     'gui/rocket-info/toggle-active',
     'gui/rocket-info/remote_launch',
     'command/tag-color',
-    'command/auto-research',
     'command/set-trains-to-automatic',
     'command/clear-item-on-ground',
     'command/clear-blueprint',
     'command/last-location',
-    'command/save-quickbar',
-    'command/waterfill',
     'command/vlayer-info',
-    'command/artillery-target-remote',
     -- 'command/bonus',
     'gui/bonus',
     'command/personal-logistic',
@@ -226,7 +221,11 @@ Roles.new_role('Veteran','Vet')
 :allow{
     'gui/warp-list/add',
     'gui/warp-list/edit',
+    'command/auto-research',
+    'command/artillery-target-remote',
     'command/save-quickbar',
+    'command/waterfill',
+    'gui/surveillance'
 }
 :set_auto_assign_condition(function(player)
     if player.online_time >= hours6 then
