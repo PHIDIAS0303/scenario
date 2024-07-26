@@ -519,6 +519,9 @@ local function handle_circuit_interfaces()
                 if stat_name:find('energy') then
                     circuit_oc.set_signal(signal_index, {signal={type='virtual', name=signal_name}, count=math.floor(stats[stat_name] / mega)})
 
+                elseif stat_name == 'multiplier' then
+                    circuit_oc.set_signal(signal_index, {signal={type='virtual', name=signal_name}, count=math.floor(stats[stat_name] * 10000)})
+
                 else
                     circuit_oc.set_signal(signal_index, {signal={type='virtual', name=signal_name}, count=math.floor(stats[stat_name])})
                 end
