@@ -7,7 +7,7 @@ local Gui = require 'expcore.gui' --- @dep expcore.gui
 local Roles = require 'expcore.roles' --- @dep expcore.roles
 local Event = require 'utils.event' --- @dep utils.event
 local config = require 'config.bonus' --- @dep config.bonus
-
+local format_number = require('util').format_number --- @dep util
 local bonus_container
 
 local function bonus_gui_pts_needed(player)
@@ -132,7 +132,9 @@ Gui.element{
 }:style{
     width = config.gui_display_width['half']
 }:on_click(function(player, element, _)
-    local disp = element.parent.parent['bonus_st_1'].disp.table
+    local frame = Gui.get_left_element(player, bonus_container)
+    local disp = frame.container['bonus_st_1'].disp.table
+
     disp['bonus_display_cmms_slider'].slider_value = config.player_bonus['character_mining_speed_modifier'].value
     disp['bonus_display_crs_slider'].slider_value = config.player_bonus['character_running_speed_modifier'].value
     disp['bonus_display_ccs_slider'].slider_value = config.player_bonus['character_crafting_speed_modifier'].value
@@ -202,7 +204,7 @@ Gui.element(function(_definition, parent, name, caption, tooltip, bonus)
     local value = bonus.value
 
     if bonus.is_percentage then
-        value = value * 100 .. ' %'
+        value = format_number(value * 100) .. ' %'
     end
 
     local slider = parent.add{
@@ -233,7 +235,7 @@ Gui.element(function(_definition, parent, name, caption, tooltip, bonus)
 end)
 :on_value_changed(function(player, element, _event)
     if element.tags.is_percentage then
-        element.parent[element.tags.counter].caption = element.slider_value * 100 .. ' %'
+        element.parent[element.tags.counter].caption = format_number(element.slider_value * 100) .. ' %'
 
     else
         element.parent[element.tags.counter].caption = element.slider_value
