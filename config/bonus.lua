@@ -8,7 +8,6 @@ return {
     vlayer battery recharge (auto)
     quick health regeneration
 
-
     Base point is equal to the amount of standard value in each parameter.
 
             CMMS    CRS     CCS     CISB    CHB     CRDB
