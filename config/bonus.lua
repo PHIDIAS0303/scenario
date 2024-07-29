@@ -33,6 +33,9 @@ return {
         ['cisb'] = 'character_inventory_slots_bonus',
         ['chb'] = 'character_health_bonus',
         ['crdb'] = 'character_reach_distance_bonus'
+        --[[
+        ['cpdb'] = 'character_item_pickup_distance_bonus'
+        ]]
     },
     player_bonus = {
         ['character_mining_speed_modifier'] = {
