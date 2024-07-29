@@ -225,7 +225,7 @@ Gui.element(function(_definition, parent, name, caption, tooltip, bonus)
 end)
 :on_value_changed(function(player, element, _event)
     if element.tags.is_percentage then
-        element.parent[element.tags.counter].caption = element.slider_value * 100
+        element.parent[element.tags.counter].caption = element.slider_value * 100 .. ' %'
 
     else
         element.parent[element.tags.counter].caption = element.slider_value
