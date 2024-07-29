@@ -137,7 +137,13 @@ Gui.element{
     for k, v in pairs(config.conversion) do
         local s = 'bonus_display_' .. k .. '_slider'
         disp[s].slider_value = config.player_bonus[v].value
-        disp[disp[s].tags.counter].caption = disp[s].slider_value
+
+        if config.player_bonus[v].is_percentage then
+            disp[disp[s].tags.counter].caption = format_number(disp[s].slider_value * 100) .. ' %'
+
+        else
+            disp[disp[s].tags.counter].caption = format_number(disp[s].slider_value)
+        end
     end
 
     local r = bonus_gui_pts_needed(player)
