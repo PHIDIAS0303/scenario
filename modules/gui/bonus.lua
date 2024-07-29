@@ -132,12 +132,14 @@ Gui.element{
 }:style{
     width = config.gui_display_width['half']
 }:on_click(function(player, element, _)
-    element.parent['bonus_display_cmms_slider'].slider_value = config.player_bonus['character_mining_speed_modifier'].value
-    element.parent['bonus_display_crs_slider'].slider_value = config.player_bonus['character_running_speed_modifier'].value
-    element.parent['bonus_display_ccs_slider'].slider_value = config.player_bonus['character_crafting_speed_modifier'].value
-    element.parent['bonus_display_cisb_slider'].slider_value = config.player_bonus['character_inventory_slots_bonus'].value
-    element.parent['bonus_display_chb_slider'].slider_value = config.player_bonus['character_health_bonus'].value
-    element.parent['bonus_display_crdb_slider'].slider_value = config.player_bonus['character_reach_distance_bonus'].value
+    local frame = Gui.get_left_element(player, bonus_container)
+    local disp = frame.container['bonus_st_1'].disp.table
+    disp['bonus_display_cmms_slider'].slider_value = config.player_bonus['character_mining_speed_modifier'].value
+    disp['bonus_display_crs_slider'].slider_value = config.player_bonus['character_running_speed_modifier'].value
+    disp['bonus_display_ccs_slider'].slider_value = config.player_bonus['character_crafting_speed_modifier'].value
+    disp['bonus_display_cisb_slider'].slider_value = config.player_bonus['character_inventory_slots_bonus'].value
+    disp['bonus_display_chb_slider'].slider_value = config.player_bonus['character_health_bonus'].value
+    disp['bonus_display_crdb_slider'].slider_value = config.player_bonus['character_reach_distance_bonus'].value
 
     local r = bonus_gui_pts_needed(player)
     element.parent[bonus_gui_control_pts_n_count.name].caption = r
