@@ -132,8 +132,7 @@ Gui.element{
 }:style{
     width = config.gui_display_width['half']
 }:on_click(function(player, element, _)
-    local frame = Gui.get_left_element(player, bonus_container)
-    local disp = frame.container['bonus_st_1'].disp.table
+    local disp = element.parent.parent['bonus_st_1'].disp.table
     disp['bonus_display_cmms_slider'].slider_value = config.player_bonus['character_mining_speed_modifier'].value
     disp['bonus_display_crs_slider'].slider_value = config.player_bonus['character_running_speed_modifier'].value
     disp['bonus_display_ccs_slider'].slider_value = config.player_bonus['character_crafting_speed_modifier'].value
@@ -225,8 +224,8 @@ Gui.element(function(_definition, parent, name, caption, tooltip, bonus)
     local count = parent.add{
         type = 'label',
         name = name .. '_count',
-        caption = bonus.value,
-        style = 'heading_1_label'
+        caption = value,
+        style = 'heading_1_label',
     }
     count.style.width = config.gui_display_width['count']
 
