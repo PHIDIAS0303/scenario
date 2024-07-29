@@ -26,6 +26,19 @@ local function bonus_gui_pts_needed(player)
 end
 
 local function apply_bonus(player)
+    if not Roles.player_allowed(player, 'gui/bonus') then
+        player['character_mining_speed_modifier'] = 0
+        player['character_running_speed_modifier'] = 0
+        player['character_crafting_speed_modifier'] = 0
+        player['character_inventory_slots_bonus'] = 0
+        player['character_health_bonus'] = 0
+        player['character_reach_distance_bonus'] = 0
+        player['character_resource_reach_distance_bonus'] = 0
+        player['character_build_distance_bonus'] = 0
+
+        return
+    end
+
     if not player.character then
         return
     end
@@ -41,21 +54,6 @@ local function apply_bonus(player)
     player['character_reach_distance_bonus'] = disp['bonus_display_crdb_slider'].slider_value
     player['character_resource_reach_distance_bonus'] = disp['bonus_display_crdb_slider'].slider_value
     player['character_build_distance_bonus'] = disp['bonus_display_crdb_slider'].slider_value
-end
-
-local function role_update(event)
-    local player = game.players[event.player_index]
-
-    if not Roles.player_allowed(player, 'gui/bonus') then
-        player['character_mining_speed_modifier'] = 0
-        player['character_running_speed_modifier'] = 0
-        player['character_crafting_speed_modifier'] = 0
-        player['character_inventory_slots_bonus'] = 0
-        player['character_health_bonus'] = 0
-        player['character_reach_distance_bonus'] = 0
-        player['character_resource_reach_distance_bonus'] = 0
-        player['character_build_distance_bonus'] = 0
-    end
 end
 
 --- Control label for the bonus points available
@@ -256,11 +254,13 @@ end)
 -- @element bonus_container
 bonus_container =
 Gui.element(function(definition, parent)
+    local player = Gui.get_player_from_element(parent)
     local container = Gui.container(parent, definition.name, 320)
 
     bonus_control_set(container, 'bonus_st_1')
     bonus_data_set(container, 'bonus_st_2')
 
+    apply_bonus(player)
     return container.parent
 end)
 :static_name(Gui.unique_static_name)
@@ -286,5 +286,10 @@ Event.add(defines.events.on_player_created, function(event)
     end
 end)
 
-Event.add(Roles.events.on_role_assigned, role_update)
-Event.add(Roles.events.on_role_unassigned, role_update)
+Event.add(Roles.events.on_role_assigned, function(event)
+    apply_bonus(game.players[event.player_index])
+end)
+
+Event.add(Roles.events.on_role_unassigned, function(event)
+    apply_bonus(game.players[event.player_index])
+end)
