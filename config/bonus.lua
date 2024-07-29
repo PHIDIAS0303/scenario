@@ -7,10 +7,10 @@ return {
 
             CMMS    CRS     CCS     CISB    CHB     CRDB
     STD     20      60      20      20      12      10
-    =       
+    =       142
 
-    MAX     40      150     50      60      48      50
-    =       398
+    MAX     50      120     60      40      24      25
+    =       319
     ]]
     pts = {
         base = 142
@@ -24,7 +24,7 @@ return {
     player_bonus = {
         ['character_mining_speed_modifier'] = {
             value = 2,
-            max = 4,
+            max = 5,
             scale = 0.5,
             cost_scale = 1,
             cost = 10,
@@ -40,7 +40,7 @@ return {
         },
         ['character_crafting_speed_modifier'] = {
             value = 5,
-            max = 10,
+            max = 15,
             scale = 0.5,
             cost_scale = 1,
             cost = 4,
@@ -48,7 +48,7 @@ return {
         },
         ['character_inventory_slots_bonus'] = {
             value = 100,
-            max = 150,
+            max = 200,
             scale = 10,
             cost_scale = 10,
             cost = 2,
@@ -105,7 +105,7 @@ return {
         --[[
         ['character_mining_speed_modifier'] = {
             value = 0,
-            max = 4,
+            max = 5,
             scale = 0.5,
             cost_scale = 1,
             cost = 10,
@@ -121,7 +121,7 @@ return {
         },
         ['character_crafting_speed_modifier'] = {
             value = 0,
-            max = 10,
+            max = 15,
             scale = 0.5,
             cost_scale = 1,
             cost = 4,
@@ -129,7 +129,7 @@ return {
         },
         ['character_inventory_slots_bonus'] = {
             value = 0,
-            max = 150,
+            max = 200,
             scale = 10,
             cost_scale = 100,
             cost = 2,
