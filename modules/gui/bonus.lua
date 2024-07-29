@@ -133,7 +133,7 @@ Gui.element{
     width = config.gui_display_width['half']
 }:on_click(function(player, element, _)
     local frame = Gui.get_left_element(player, bonus_container)
-    local disp = frame.container['bonus_st_1'].disp.table
+    local disp = frame.container['bonus_st_2'].disp.table
 
     disp['bonus_display_cmms_slider'].slider_value = config.player_bonus['character_mining_speed_modifier'].value
     disp['bonus_display_crs_slider'].slider_value = config.player_bonus['character_running_speed_modifier'].value
@@ -276,7 +276,7 @@ Gui.element(function(definition, parent)
     bonus_data_set(container, 'bonus_st_2')
 
     local frame = Gui.get_left_element(player, bonus_container)
-    local disp = frame.container['bonus_st_2'].disp.table
+    local disp = frame.container['bonus_st_1'].disp.table
     local n = bonus_gui_pts_needed(player)
     disp[bonus_gui_control_pts_n_count.name].caption = n
     local r = tonumber(disp[bonus_gui_control_pts_a_count.name].caption) - n
