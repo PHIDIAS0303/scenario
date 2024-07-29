@@ -14,8 +14,8 @@ return {
     STD     20      90      32      20      12      12
     =       186
 
-    MAX     50      180     60      40      24      24
-    =       378
+    MAX     50      180     64      40      24      24
+    =       382
     ]]
     pts = {
         base = 174
@@ -56,7 +56,7 @@ return {
         },
         ['character_crafting_speed_modifier'] = {
             value = 8,
-            max = 15,
+            max = 16,
             scale = 1,
             cost_scale = 1,
             cost = 4,
@@ -137,7 +137,7 @@ return {
         },
         ['character_crafting_speed_modifier'] = {
             value = 0,
-            max = 15,
+            max = 16,
             scale = 1,
             cost_scale = 1,
             cost = 4,
