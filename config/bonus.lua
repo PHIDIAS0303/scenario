@@ -62,14 +62,16 @@ return {
             max = 150,
             scale = 10,
             cost_scale = 10,
-            cost = 4
+            cost = 4,
+            is_percentage = false
         },
         ['character_health_bonus'] = {
             value = 200,
             max = 400,
             scale = 50,
             cost_scale = 50,
-            cost = 6
+            cost = 6,
+            is_percentage = false
         },
         ['character_reach_distance_bonus'] = {
             value = 10,
@@ -77,6 +79,7 @@ return {
             scale = 1,
             cost_scale = 1,
             cost = 2,
+            is_percentage = false,
             combined_bonus = {
                 'character_resource_reach_distance_bonus',
                 'character_build_distance_bonus'
@@ -88,21 +91,24 @@ return {
             max = 20,
             scale = 1,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['character_loot_pickup_distance_bonus'] = {
             value = 0,
             max = 20,
             scale = 1,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['character_item_drop_distance_bonus'] = {
             value = 0,
             max = 20,
             scale = 1,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         }
         ]]
     },
@@ -137,13 +143,15 @@ return {
             max = 150,
             scale = 10,
             cost_scale = 100,
-            cost = 4
+            cost = 4,
+            is_percentage = false
         },
         ['character_health_bonus'] = {
             value = 0,
             max = 400,
             scale = 50,
-            cost = 6
+            cost = 6,
+            is_percentage = false
         },
         ['character_reach_distance_bonus'] = {
             value = 0,
@@ -151,6 +159,7 @@ return {
             scale = 1,
             cost_scale = 1,
             cost = 2,
+            is_percentage = false,
             combined_bonus = {
                 'character_resource_reach_distance_bonus',
                 'character_build_distance_bonus'
@@ -161,7 +170,8 @@ return {
             max = 0,
             scale = 0,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ]]
         ['worker_robots_battery_modifier'] = {
@@ -169,21 +179,24 @@ return {
             max = 1,
             scale = 1,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['worker_robots_storage_bonus'] = {
             value = 1,
             max = 1,
             scale = 1,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['following_robots_lifetime_modifier'] = {
             value = 1,
             max = 1,
             scale = 1,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         --[[
         ['character_item_pickup_distance_bonus'] = {
@@ -191,77 +204,88 @@ return {
             max = 20,
             scale = 1,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['character_loot_pickup_distance_bonus'] = {
             value = 0,
             max = 20,
             scale = 1,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['character_item_drop_distance_bonus'] = {
             value = 0,
             max = 20,
             scale = 1,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['character_trash_slot_count'] = {
             value = 0,
             max = 0,
             scale = 0,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['mining_drill_productivity_bonus'] = {
             value = 0,
             max = 0,
             scale = 0,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['train_braking_force_bonus'] = {
             value = 0,
             max = 0,
             scale = 0,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['laboratory_speed_modifier'] = {
             value = 0,
             max = 0,
             scale = 0,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['laboratory_productivity_bonus'] = {
             value = 0,
             max = 0,
             scale = 0,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['inserter_stack_size_bonus'] = {
             value = 0,
             max = 0,
             scale = 0,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['stack_inserter_capacity_bonus'] = {
             value = 0,
             max = 0,
             scale = 0,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         },
         ['artillery_range_modifier'] = {
             value = 0,
             max = 0,
             scale = 0,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         }
         ]]
     },
@@ -272,7 +296,8 @@ return {
             max = 1000,
             scale = 1,
             cost_scale = 1,
-            cost = 1
+            cost = 1,
+            is_percentage = false
         }
         ]]
     }
