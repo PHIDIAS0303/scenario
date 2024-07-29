@@ -6,14 +6,14 @@ return {
     Base point is equal to the amount of standard value in each parameter.
 
             CMMS    CRS     CCS     CISB    CHB     CRDB
-    STD     20      75      25      40      24      20
-    =       204
+    STD     20      60      20      20      12      10
+    =       
 
     MAX     40      150     50      60      48      50
     =       398
     ]]
     pts = {
-        base = 204
+        base = 142
     },
     gui_display_width = {
         half = 180,
@@ -25,7 +25,7 @@ return {
         ['character_mining_speed_modifier'] = {
             value = 2,
             max = 4,
-            scale = 0.25,
+            scale = 0.5,
             cost_scale = 1,
             cost = 10,
             is_percentage = true
@@ -35,7 +35,7 @@ return {
             max = 3,
             scale = 0.25,
             cost_scale = 1,
-            cost = 50,
+            cost = 40,
             is_percentage = true
         },
         ['character_crafting_speed_modifier'] = {
@@ -43,7 +43,7 @@ return {
             max = 10,
             scale = 0.5,
             cost_scale = 1,
-            cost = 5,
+            cost = 4,
             is_percentage = true
         },
         ['character_inventory_slots_bonus'] = {
@@ -51,7 +51,7 @@ return {
             max = 150,
             scale = 10,
             cost_scale = 10,
-            cost = 4,
+            cost = 2,
             is_percentage = false
         },
         ['character_health_bonus'] = {
@@ -59,7 +59,7 @@ return {
             max = 400,
             scale = 50,
             cost_scale = 50,
-            cost = 6,
+            cost = 3,
             is_percentage = false
         },
         ['character_reach_distance_bonus'] = {
@@ -67,7 +67,7 @@ return {
             max = 25,
             scale = 1,
             cost_scale = 1,
-            cost = 2,
+            cost = 1,
             is_percentage = false,
             combined_bonus = {
                 'character_resource_reach_distance_bonus',
@@ -106,7 +106,7 @@ return {
         ['character_mining_speed_modifier'] = {
             value = 0,
             max = 4,
-            scale = 0.25,
+            scale = 0.5,
             cost_scale = 1,
             cost = 10,
             is_percentage = true
@@ -116,7 +116,7 @@ return {
             max = 3,
             scale = 0.25,
             cost_scale = 1,
-            cost = 50,
+            cost = 40,
             is_percentage = true
         },
         ['character_crafting_speed_modifier'] = {
@@ -124,7 +124,7 @@ return {
             max = 10,
             scale = 0.5,
             cost_scale = 1,
-            cost = 5,
+            cost = 4,
             is_percentage = true
         },
         ['character_inventory_slots_bonus'] = {
@@ -132,14 +132,14 @@ return {
             max = 150,
             scale = 10,
             cost_scale = 100,
-            cost = 4,
+            cost = 2,
             is_percentage = false
         },
         ['character_health_bonus'] = {
             value = 0,
             max = 400,
             scale = 50,
-            cost = 6,
+            cost = 3,
             is_percentage = false
         },
         ['character_reach_distance_bonus'] = {
@@ -147,7 +147,7 @@ return {
             max = 25,
             scale = 1,
             cost_scale = 1,
-            cost = 2,
+            cost = 1,
             is_percentage = false,
             combined_bonus = {
                 'character_resource_reach_distance_bonus',
