@@ -198,6 +198,12 @@ Gui.element(function(_definition, parent, name, caption, tooltip, bonus)
     }
     label.style.width = config.gui_display_width['label']
 
+    local value = bonus.value
+
+    if bonus.is_percentage then
+        value = value * 100 .. ' %'
+    end
+
     local slider = parent.add{
         type = 'slider',
         name = name .. '_slider',
