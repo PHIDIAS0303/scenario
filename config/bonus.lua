@@ -38,21 +38,24 @@ return {
             max = 4,
             scale = 0.25,
             cost_scale = 1,
-            cost = 10
+            cost = 10,
+            is_percentage = true
         },
         ['character_running_speed_modifier'] = {
             value = 1.5,
             max = 3,
             scale = 0.25,
             cost_scale = 1,
-            cost = 50
+            cost = 50,
+            is_percentage = true
         },
         ['character_crafting_speed_modifier'] = {
             value = 5,
             max = 10,
             scale = 0.5,
             cost_scale = 1,
-            cost = 5
+            cost = 5,
+            is_percentage = true
         },
         ['character_inventory_slots_bonus'] = {
             value = 100,
@@ -110,21 +113,24 @@ return {
             max = 4,
             scale = 0.25,
             cost_scale = 1,
-            cost = 10
+            cost = 10,
+            is_percentage = true
         },
         ['character_running_speed_modifier'] = {
             value = 0,
             max = 3,
             scale = 0.25,
             cost_scale = 1,
-            cost = 50
+            cost = 50,
+            is_percentage = true
         },
         ['character_crafting_speed_modifier'] = {
             value = 0,
             max = 10,
             scale = 0.5,
             cost_scale = 1,
-            cost = 5
+            cost = 5,
+            is_percentage = true
         },
         ['character_inventory_slots_bonus'] = {
             value = 0,
