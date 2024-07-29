@@ -155,7 +155,7 @@ return {
             value = 0,
             max = 400,
             scale = 50,
-            cost = 3,
+            cost = 4,
             is_percentage = false
         },
         ['character_reach_distance_bonus'] = {
