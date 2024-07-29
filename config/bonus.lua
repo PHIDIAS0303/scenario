@@ -2,17 +2,6 @@
 -- @config Bonuses
 
 return {
-    -- level of player bonus for lower roles, 1 level is 10 %
-    --[[
-    Total point is something like 200
-    point is given by role.
-    so below will be not able to see
-    then do like crafting speed is 2:1 (1 = 0.5x speed)
-    blah blah ...
-    and limit maximum...
-
-    work with vlayer, virtual power source blah blah...
-    ]]
     --[[
     Base point is equal to the amount of standard value in each parameter.
 

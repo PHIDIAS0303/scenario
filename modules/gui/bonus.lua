@@ -207,7 +207,8 @@ Gui.element(function(_definition, parent, name, caption, tooltip, bonus)
         discrete_values = true,
         style = 'notched_slider',
         tags = {
-            counter = name .. '_count'
+            counter = name .. '_count',
+            is_percentage = bonus.is_percentage
         }
     }
     slider.style.width = config.gui_display_width['slider']
