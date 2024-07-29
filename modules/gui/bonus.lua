@@ -126,14 +126,21 @@ Gui.element{
 
 --- A button used for pts calculations
 -- @element bonus_gui_control_refresh
-local bonus_gui_control_refresh =
+local bonus_gui_control_reset =
 Gui.element{
     type = 'button',
     name = Gui.unique_static_name,
-    caption = {'bonus.control-refresh'}
+    caption = {'bonus.control-reset'}
 }:style{
     width = config.gui_display_width['half']
 }:on_click(function(player, element, _)
+    element.parent['bonus_display_cmms_slider'].slider_value = config.player_bonus['character_mining_speed_modifier'].value
+    element.parent['bonus_display_crs_slider'].slider_value = config.player_bonus['character_running_speed_modifier'].value
+    element.parent['bonus_display_ccs_slider'].slider_value = config.player_bonus['character_crafting_speed_modifier'].value
+    element.parent['bonus_display_cisb_slider'].slider_value = config.player_bonus['character_inventory_slots_bonus'].value
+    element.parent['bonus_display_chb_slider'].slider_value = config.player_bonus['character_health_bonus'].value
+    element.parent['bonus_display_crdb_slider'].slider_value = config.player_bonus['character_reach_distance_bonus'].value
+
     local r = bonus_gui_pts_needed(player)
     element.parent[bonus_gui_control_pts_n_count.name].caption = r
     element.parent[bonus_gui_control_pts_r_count.name].caption = tonumber(element.parent[bonus_gui_control_pts_a_count.name].caption) - r
@@ -175,7 +182,7 @@ Gui.element(function(_, parent, name)
     bonus_gui_control_pts_r(disp)
     bonus_gui_control_pts_r_count(disp)
 
-    bonus_gui_control_refresh(disp)
+    bonus_gui_control_reset(disp)
     bonus_gui_control_apply(disp)
 
     return bonus_set
@@ -212,9 +219,6 @@ Gui.element(function(_definition, parent, name, caption, tooltip, bonus)
         type = 'label',
         name = name .. '_count',
         caption = bonus.value,
-        numeric = true,
-        allow_decimal = false,
-        allow_negative = false,
         style = 'heading_1_label'
     }
     count.style.width = config.gui_display_width['count']
