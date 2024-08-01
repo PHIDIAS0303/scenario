@@ -28,13 +28,12 @@ local function curve_flip_lr(oc)
 
 	for r=1, 8 do
 		for c=1, 8 do
-			nc[r][c] = oc[r][9-c]
+			nc[r][c] = oc[r][9 - c]
 		end
 	end
 
 	return nc
 end
-
 
 local function curve_flip_d(oc)
 	local nc = table.deepcopy(oc)
@@ -67,8 +66,8 @@ local function curve_map(d)
 		for c=1, 8 do
 			if map[r][c] == 1 then
 				n[index] = {
-                    ['x'] = c-5,
-                    ['y'] = r-5
+                    ['x'] = c - 5,
+                    ['y'] = r - 5
                 }
 				index = index + 1
 			end
@@ -78,28 +77,29 @@ local function curve_map(d)
 	return n
 end
 
-local function add_landfill(blueprint, player)
+local function landfill_gui_add_landfill(blueprint)
     local entities = blueprint.get_blueprint_entities()
     local old_tiles = blueprint.get_blueprint_tiles()
     local landfill_tile = {name = 'landfill'}
-    local tileIndex = 0
-    local protos = {}
+    local tile_index = 0
+    local prototypes = {}
     local new_tiles = {}
 	local rolling_stocks = {}
 
     if entities then
         for k = 1, #entities, 1 do
             local name = entities[k].name
-            if protos[name] == nil then
-                protos[name] = game.entity_prototypes[name]
+
+            if prototypes[name] == nil then
+                prototypes[name] = game.entity_prototypes[name]
             end
         end
 
-		for name, proto in pairs(game.get_filtered_entity_prototypes({{filter = "rolling-stock"}})) do
+		for name, _ in pairs(game.get_filtered_entity_prototypes({{filter = "rolling-stock"}})) do
 			rolling_stocks[name] = true
 		end
 
-        for i, ent in pairs(entities) do
+        for _, ent in pairs(entities) do
             local name = ent.name
 
 			if rolling_stocks[name] then
@@ -107,7 +107,7 @@ local function add_landfill(blueprint, player)
 
             -- special case for curved rail
             elseif 'curved-rail' ~= name then
-                local proto = protos[name]
+                local proto = prototypes[name]
                 local box = proto.collision_box or proto.selection_box
                 local pos = ent.position
 
@@ -135,8 +135,8 @@ local function add_landfill(blueprint, player)
 
                     for y = start_y, end_y, 1 do
                         for x = start_x, end_x, 1 do
-                            tileIndex = tileIndex + 1
-                            new_tiles[tileIndex] = {
+                            tile_index = tile_index + 1
+                            new_tiles[tile_index] = {
                                 name = landfill_tile.name,
                                 position = {x, y}
                             }
@@ -152,31 +152,31 @@ local function add_landfill(blueprint, player)
                     dir = 8
                 end
 
-                local curveMask = curve_map(dir)
+                local curve_mask = curve_map(dir)
                 local pos = ent.position
 
-                for m = 1, #curveMask do
-                    new_tiles[tileIndex + 1] = {
+                for m = 1, #curve_mask do
+                    new_tiles[tile_index + 1] = {
                         name = landfill_tile.name,
-                        position = {curveMask[m].x + pos.x, curveMask[m].y + pos.y}
+                        position = {curve_mask[m].x + pos.x, curve_mask[m].y + pos.y}
                     }
 
-                    tileIndex = tileIndex + 1
+                    tile_index = tile_index + 1
                 end
             end
         end
     end
 
     if old_tiles then
-        for i, old_tile in pairs(old_tiles) do
+        for _, old_tile in pairs(old_tiles) do
             local pos = old_tile.position
 
-            new_tiles[tileIndex + 1] = {
+            new_tiles[tile_index + 1] = {
                 name = landfill_tile.name,
                 position = {pos.x, pos.y}
             }
 
-            tileIndex = tileIndex + 1
+            tile_index = tile_index + 1
         end
     end
 
@@ -217,7 +217,7 @@ Gui.element{
         local blueprint = get_cursor_blueprint(player)
 
         if blueprint then
-            local modified = add_landfill(blueprint, player)
+            local modified = landfill_gui_add_landfill(blueprint)
 
             if modified and next(modified.tiles) then
                 blueprint.set_blueprint_tiles(modified.tiles)
