@@ -171,7 +171,6 @@ Gui.element{
     if player.cursor_stack and player.cursor_stack.valid_for_read then
         if player.cursor_stack.type == 'blueprint' and player.cursor_stack.is_blueprint_setup() then
             local blueprint = player.cursor_stack
-
             local modified = landfill_gui_add_landfill(blueprint)
 
             if modified and next(modified.tiles) then
