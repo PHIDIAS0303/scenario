@@ -292,7 +292,8 @@ local default = Roles.new_role('Guest','')
     'gui/vlayer',
     'gui/research',
     'gui/autofill',
-    'gui/module'
+    'gui/module',
+    'gui/landfill'
 }
 
 --- Jail role
