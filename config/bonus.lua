@@ -38,15 +38,15 @@ return {
         ]]
     },
     player_bonus_special = {
-        ['character_mining_speed_modifier'] = {
-            value = 3,
+        ['vlayer_battery_conversion'] = {
+            value = 2,
             max = 6,
             scale = 0.5,
             cost_scale = 1,
-            cost = 10,
+            cost = 30,
             is_percentage = true
         },
-    }
+    },
     player_bonus = {
         ['character_mining_speed_modifier'] = {
             value = 3,
