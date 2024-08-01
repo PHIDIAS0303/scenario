@@ -12,9 +12,9 @@ local landfill_container
 
 local function rotate_bounding_box(box)
     return {
-       left_top = {
-        x = -box.right_bottom.y,
-        y = box.left_top.X
+        left_top = {
+            x = -box.right_bottom.y,
+            y = box.left_top.x
         },
         right_bottom = {
             x = -box.left_top.y,
