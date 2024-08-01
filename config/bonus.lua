@@ -37,16 +37,6 @@ return {
         ['cpdb'] = 'character_item_pickup_distance_bonus'
         ]]
     },
-    player_bonus_special = {
-        ['vlayer_battery_conversion'] = {
-            value = 2,
-            max = 6,
-            scale = 0.5,
-            cost_scale = 1,
-            cost = 30,
-            is_percentage = true
-        },
-    },
     player_bonus = {
         ['character_mining_speed_modifier'] = {
             value = 3,
