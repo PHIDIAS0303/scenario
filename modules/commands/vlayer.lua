@@ -5,9 +5,7 @@ local Commands = require 'expcore.commands' --- @dep expcore.commands
 require 'config.expcore.command_general_parse'
 local vlayer = require 'modules.control.vlayer'
 
-Commands.new_command('personal-battery-recharge', 'Recharge Player Battery upto a portion with vlayer')
-:add_param('amount', 'number-range', 0.2, 1)
-:register(function(player, amount)
+local function personal_battery_recharge(player, amount)
     if vlayer.get_statistics()['energy_sustained'] == 0 then
         return Commands.error('vlayer need to be running to get this command work')
     end
@@ -23,6 +21,12 @@ Commands.new_command('personal-battery-recharge', 'Recharge Player Battery upto 
             vlayer.energy_changed(- energy_required)
         end
     end
+end
+
+Commands.new_command('personal-battery-recharge', 'Recharge Player Battery upto a portion with vlayer')
+:add_param('amount', 'number-range', 0.2, 1)
+:register(function(player, amount)
+    personal_battery_recharge(player, amount)
 
     return Commands.success
 end)
