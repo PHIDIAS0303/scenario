@@ -172,10 +172,8 @@ Gui.element{
         local blueprint = false
 
         if player.cursor_stack.type == 'blueprint' then
-            if player.cursor_stack and player.cursor_stack.valid_for_read then
-                if player.cursor_stack.is_blueprint_setup() then
-                    blueprint = player.cursor_stack
-                end
+            if player.cursor_stack.is_blueprint_setup() then
+                blueprint = player.cursor_stack
             end
         end
 
