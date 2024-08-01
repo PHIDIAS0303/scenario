@@ -39,3 +39,5 @@ Commands.new_command('vlayer-info', 'Vlayer Info')
         Commands.print(v .. ' : ' .. k)
     end
 end)
+
+return personal_battery_recharge
