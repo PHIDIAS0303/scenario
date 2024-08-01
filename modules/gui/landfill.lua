@@ -168,7 +168,7 @@ Gui.element{
 }:style{
     width = 160
 }:on_click(function(player, _, _)
-    if player.cursor_stack.valid_for_read then
+    if player.cursor_stack and player.cursor_stack.valid_for_read then
         local blueprint = false
 
         if player.cursor_stack.type == 'blueprint' then
