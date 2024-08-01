@@ -130,10 +130,7 @@ local function landfill_gui_add_landfill(blueprint)
                 for m=1, #curve_mask do
                     new_tiles[tile_index + 1] = {
                         name = 'landfill',
-                        position = {
-                            curve_mask[m].x + ent.position.x,
-                            curve_mask[m].y + ent.position.y
-                        }
+                        position = {curve_mask[m].x + ent.position.x, curve_mask[m].y + ent.position.y}
                     }
 
                     tile_index = tile_index + 1
@@ -148,10 +145,7 @@ local function landfill_gui_add_landfill(blueprint)
         for _, old_tile in pairs(old_tiles) do
             new_tiles[tile_index + 1] = {
                 name = 'landfill',
-                position = {
-                    old_tile.position.x,
-                    old_tile.position.y
-                }
+                position = {old_tile.position.x, old_tile.position.y}
             }
 
             tile_index = tile_index + 1
