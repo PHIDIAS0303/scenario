@@ -112,8 +112,6 @@ local function landfill_gui_add_landfill(blueprint)
                 local pos = ent.position
 
                 if proto.collision_mask['ground-tile'] == nil then
-                    -- Rotate the box if needed, in steps of 90°
-
                     if ent.direction then
                        if ent.direction ~= defines.direction.north then
                            box = rotate_bounding_box(box)
