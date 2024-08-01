@@ -95,7 +95,6 @@ local function landfill_gui_add_landfill(blueprint)
         for _, ent in pairs(entities) do
             -- vehicle
 			if not rolling_stocks[ent.name] then
-
                 -- curved rail, special
                 if 'curved-rail' ~= ent.name then
                     local box = game.entity_prototypes[ent.name].collision_box or game.entity_prototypes[ent.name].selection_box
@@ -133,12 +132,7 @@ local function landfill_gui_add_landfill(blueprint)
 
                 -- curved rail
                 else
-                    local dir = ent.direction
-
-                    if dir == nil then
-                        dir = 8
-                    end
-
+                    local dir = ent.direction or 8
                     local curve_mask = curve_map(dir)
 
                     for m = 1, #curve_mask do
