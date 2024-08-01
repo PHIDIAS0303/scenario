@@ -166,7 +166,7 @@ Gui.element{
 }:style{
     width = 160
 }:on_click(function(player, _, _)
-    if player and player.cursor_stack and player.cursor_stack.valid_for_read then
+    if player.cursor_stack and player.cursor_stack.valid_for_read then
         if player.cursor_stack.type == 'blueprint' and player.cursor_stack.is_blueprint_setup() then
             local modified = landfill_gui_add_landfill(player.cursor_stack)
 
