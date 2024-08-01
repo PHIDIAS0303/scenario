@@ -10,6 +10,7 @@ local config = require 'config.landfill' --- @dep config.landfill
 
 local landfill_container
 
+local landfill_tile = 'landfill'
 local rolling_stocks = {}
 
 for name, _ in pairs(game.get_filtered_entity_prototypes({{filter = 'rolling-stock'}})) do
@@ -86,9 +87,7 @@ end
 local function landfill_gui_add_landfill(blueprint)
     local entities = blueprint.get_blueprint_entities()
 
-    local landfill_tile = {
-        name = 'landfill'
-    }
+
     local tile_index = 0
     local new_tiles = {}
 
@@ -118,7 +117,7 @@ local function landfill_gui_add_landfill(blueprint)
                         for x = math.floor(ent.position.x + box.left_top.x), math.floor(ent.position.x + box.right_bottom.x), 1 do
                             tile_index = tile_index + 1
                             new_tiles[tile_index] = {
-                                name = landfill_tile.name,
+                                name = landfill_tile,
                                 position = {x, y}
                             }
                         end
@@ -132,7 +131,7 @@ local function landfill_gui_add_landfill(blueprint)
 
                 for m=1, #curve_mask do
                     new_tiles[tile_index + 1] = {
-                        name = landfill_tile.name,
+                        name = landfill_tile,
                         position = {curve_mask[m].x + ent.position.x, curve_mask[m].y + ent.position.y}
                     }
 
@@ -147,7 +146,7 @@ local function landfill_gui_add_landfill(blueprint)
     if old_tiles then
         for _, old_tile in pairs(old_tiles) do
             new_tiles[tile_index + 1] = {
-                name = landfill_tile.name,
+                name = landfill_tile,
                 position = {old_tile.position.x, old_tile.position.y}
             }
 
