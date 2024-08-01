@@ -79,10 +79,11 @@ end
 
 local function landfill_gui_add_landfill(blueprint)
     local entities = blueprint.get_blueprint_entities()
-    local old_tiles = blueprint.get_blueprint_tiles()
-    local landfill_tile = {name = 'landfill'}
+
+    local landfill_tile = {
+        name = 'landfill'
+    }
     local tile_index = 0
-    local prototypes = {}
     local new_tiles = {}
 	local rolling_stocks = {}
 
@@ -153,6 +154,8 @@ local function landfill_gui_add_landfill(blueprint)
             end
         end
     end
+
+    local old_tiles = blueprint.get_blueprint_tiles()
 
     if old_tiles then
         for _, old_tile in pairs(old_tiles) do
