@@ -87,14 +87,6 @@ local function landfill_gui_add_landfill(blueprint)
 	local rolling_stocks = {}
 
     if entities then
-        for k = 1, #entities, 1 do
-            local name = entities[k].name
-
-            if prototypes[name] == nil then
-                prototypes[name] = game.entity_prototypes[name]
-            end
-        end
-
 		for name, _ in pairs(game.get_filtered_entity_prototypes({{filter = 'rolling-stock'}})) do
 			rolling_stocks[name] = true
 		end
@@ -107,11 +99,10 @@ local function landfill_gui_add_landfill(blueprint)
 
             -- curved rail, special
             elseif 'curved-rail' ~= name then
-                local proto = prototypes[name]
-                local box = proto.collision_box or proto.selection_box
+                local box = game.entity_prototypes[name].collision_box or game.entity_prototypes[name].selection_box
                 local pos = ent.position
 
-                if proto.collision_mask['ground-tile'] == nil then
+                if game.entity_prototypes[name].collision_mask['ground-tile'] == nil then
                     if ent.direction then
                        if ent.direction ~= defines.direction.north then
                            box = rotate_bounding_box(box)
