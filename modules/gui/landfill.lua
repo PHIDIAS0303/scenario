@@ -101,26 +101,21 @@ local function landfill_gui_add_landfill(blueprint)
 
                     if game.entity_prototypes[ent.name].collision_mask['ground-tile'] == nil then
                         if ent.direction then
-                        if ent.direction ~= defines.direction.north then
-                            box = rotate_bounding_box(box)
-
-                            if ent.direction ~= defines.direction.east then
+                            if ent.direction ~= defines.direction.north then
                                 box = rotate_bounding_box(box)
 
-                                if ent.direction ~= defines.direction.south then
+                                if ent.direction ~= defines.direction.east then
                                     box = rotate_bounding_box(box)
+
+                                    if ent.direction ~= defines.direction.south then
+                                        box = rotate_bounding_box(box)
+                                    end
                                 end
                             end
                         end
-                        end
 
-                        local start_x = math.floor(ent.position.x + box.left_top.x)
-                        local start_y = math.floor(ent.position.y + box.left_top.y)
-                        local end_x = math.floor(ent.position.x + box.right_bottom.x)
-                        local end_y = math.floor(ent.position.y + box.right_bottom.y)
-
-                        for y = start_y, end_y, 1 do
-                            for x = start_x, end_x, 1 do
+                        for y = math.floor(ent.position.y + box.left_top.y), math.floor(ent.position.y + box.right_bottom.y), 1 do
+                            for x = math.floor(ent.position.x + box.left_top.x), math.floor(ent.position.x + box.right_bottom.x), 1 do
                                 tile_index = tile_index + 1
                                 new_tiles[tile_index] = {
                                     name = landfill_tile.name,
@@ -135,7 +130,7 @@ local function landfill_gui_add_landfill(blueprint)
                     local dir = ent.direction or 8
                     local curve_mask = curve_map(dir)
 
-                    for m = 1, #curve_mask do
+                    for m=1, #curve_mask do
                         new_tiles[tile_index + 1] = {
                             name = landfill_tile.name,
                             position = {curve_mask[m].x + ent.position.x, curve_mask[m].y + ent.position.y}
@@ -152,11 +147,9 @@ local function landfill_gui_add_landfill(blueprint)
 
     if old_tiles then
         for _, old_tile in pairs(old_tiles) do
-            local pos = old_tile.position
-
             new_tiles[tile_index + 1] = {
                 name = landfill_tile.name,
-                position = {pos.x, pos.y}
+                position = {old_tile.position.x, old_tile.position.y}
             }
 
             tile_index = tile_index + 1
