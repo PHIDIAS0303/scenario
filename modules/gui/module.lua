@@ -262,7 +262,11 @@ Event.add(defines.events.on_entity_settings_pasted, function(event)
         return
     end
 
-    local source_inventory = event.source.get_module_inventory()
+    local source_inventory = {
+        ['n'] = event.source.get_module_inventory()
+    }
+
+    source_inventory['p'] = source_inventory['n']
 
     if not source_inventory then
         return
