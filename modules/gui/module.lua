@@ -263,10 +263,9 @@ Event.add(defines.events.on_entity_settings_pasted, function(event)
     end
 
     local source_inventory = {
-        ['n'] = event.source.get_module_inventory()
+        ['n'] = event.source.get_module_inventory(),
+        ['p'] = event.source.get_module_inventory()
     }
-
-    source_inventory['p'] = source_inventory['n']
 
     if not source_inventory then
         return
