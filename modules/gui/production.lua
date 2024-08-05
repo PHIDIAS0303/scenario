@@ -37,6 +37,7 @@ local production_data_group =
 Gui.element(function(_definition, parent, i)
     local item = parent.add{
         type = 'choose-elem-button',
+        name=Gui.unique_static_name,
         elem_type = 'entity',
         elem_filters = elem_filter,
         style = 'slot_button'
