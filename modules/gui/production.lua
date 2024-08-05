@@ -142,7 +142,7 @@ Gui.left_toolbar_button('entity/assembling-machine-3', {'production.main-tooltip
 	return Roles.player_allowed(player, 'gui/production')
 end)
 
-Event.on_nth_tick(120, function()
+Event.on_nth_tick(60, function()
     for _, player in pairs(game.connected_players) do
         local frame = Gui.get_left_element(player, production_container)
         local stat = player.force.item_production_statistics
