@@ -110,10 +110,7 @@ Gui.element(function(_definition, parent, i)
     }
     item.style.width = 80
 
-    local data_set = parent.add{type='flow', direction='vertical', name='production_' .. i .. '_0s'}
-    local disp = Gui.scroll_table(data_set, 288, 3, 'disp')
-
-    local data_1 = disp.add{
+    local data_1 = parent.add{
         type = 'label',
         name = 'production_' .. i .. '_1',
         caption = '0',
@@ -123,7 +120,7 @@ Gui.element(function(_definition, parent, i)
     data_1.style.horizontal_align = 'right'
     data_1.style.font_color = font_color[1]
 
-    local data_2 = disp.add{
+    local data_2 = parent.add{
         type = 'label',
         name = 'production_' .. i .. '_2',
         caption = '0',
@@ -133,7 +130,7 @@ Gui.element(function(_definition, parent, i)
     data_2.style.horizontal_align = 'right'
     data_2.style.font_color = font_color[2]
 
-    local data_3 = disp.add{
+    local data_3 = parent.add{
         type = 'label',
         name = 'production_' .. i .. '_3',
         caption = '0',
@@ -142,8 +139,6 @@ Gui.element(function(_definition, parent, i)
     data_3.style.width = 96
     data_3.style.horizontal_align = 'right'
     data_3.style.font_color = font_color[1]
-
-    return data_set
 end)
 
 --- A vertical flow containing all the production data
@@ -151,7 +146,7 @@ end)
 local production_data_set =
 Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 368, 2, 'disp')
+    local disp = Gui.scroll_table(production_set, 368, 4, 'disp')
 
     for i=1, config.row do
         production_data_group(disp, i)
@@ -191,17 +186,16 @@ Event.on_nth_tick(60, function()
                 local add = math.floor(stat.get_flow_count{name=item, input=true, precision_index=precision_value, count=false} / 6) / 10
                 local minus = math.floor(stat.get_flow_count{name=item, input=false, precision_index=precision_value, count=false} / 6) / 10
                 local sum = add - minus
-                local table_row = table['production_' .. i .. '_0s'].disp.table
 
-                table_row['production_' .. i .. '_1'].caption = format_n(add)
-                table_row['production_' .. i .. '_2'].caption = format_n(minus)
-                table_row['production_' .. i .. '_3'].caption = format_n(sum)
+                table['production_' .. i .. '_1'].caption = format_n(add)
+                table['production_' .. i .. '_2'].caption = format_n(minus)
+                table['production_' .. i .. '_3'].caption = format_n(sum)
 
                 if sum < 0 then
-                    table_row['production_' .. i .. '_3'].font_color = font_color[2]
+                    table['production_' .. i .. '_3'].font_color = font_color[2]
 
                 else
-                    table_row['production_' .. i .. '_3'].font_color = font_color[1]
+                    table['production_' .. i .. '_3'].font_color = font_color[1]
                 end
             end
         end
