@@ -54,7 +54,8 @@ Gui.element{
     style = 'heading_1_label'
 }:style{
     width = 64,
-    font_color = font_color[1]
+    font_color = font_color[1],
+    horizontal_align = 'right'
 }
 
 local data_2s =
@@ -65,7 +66,8 @@ Gui.element{
     style = 'heading_1_label'
 }:style{
     width = 64,
-    font_color = font_color[2]
+    font_color = font_color[2],
+    horizontal_align = 'right'
 }
 
 local data_3s =
@@ -76,6 +78,7 @@ Gui.element{
     style = 'heading_1_label'
 }:style{
     width = 64,
+    horizontal_align = 'right'
 }
 
 --- A vertical flow containing all the production control
