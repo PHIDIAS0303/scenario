@@ -8,6 +8,12 @@ local config = require 'config.production' --- @dep config.production
 local format_number = require('util').format_number --- @dep util
 
 local elem_filter = {{filter='type', type='item'}}
+local precision = {
+    ['1'] = defines.flow_precision_index.one_minute,
+    ['2'] = defines.flow_precision_index.ten_minutes,
+    ['3'] = defines.flow_precision_index.one_hour,
+    ['4'] = defines.flow_precision_index.ten_hours
+}
 
 local production_time_scale =
 Gui.element{
@@ -37,6 +43,7 @@ local production_data_group =
 Gui.element(function(_definition, parent, i)
     local item = parent.add{
         type = 'choose-elem-button',
+        name = 'production_' .. i .. '_e',
         elem_type = 'item',
         elem_filters = elem_filter,
         style = 'slot_button'
@@ -124,4 +131,22 @@ end)
 
 Gui.left_toolbar_button('entity/assembling-machine-3', {'production.main-tooltip'}, production_container, function(player)
 	return Roles.player_allowed(player, 'gui/production')
+end)
+
+Event.on_nth_tick(120, function()
+    for _, player in pairs(game.connected_players) do
+        local frame = Gui.get_left_element(player, production_container)
+        local precision_value = precision[frame.container['pd_st_1'].disp.table[production_time_scale.name].selected_index]
+
+        for i=1, config.row do
+            local item_value = frame.container['pd_st_2'].disp.table['production_' .. i .. '_e'].elem_value
+            local add = player.force.item_production_statistics.get_flow_count{name=item_value, input=true, precision_index=precision_value, count=true}
+            local minus = player.force.item_production_statistics.get_flow_count{name=item_value, input=false, precision_index=precision_value, count=true}
+            local equal = add - minus
+
+            frame.container['pd_st_2'].disp.table['production_' .. i .. '_1c'].caption = format_number(add)
+            frame.container['pd_st_2'].disp.table['production_' .. i .. '_2c'].caption = format_number(minus)
+            frame.container['pd_st_2'].disp.table['production_' .. i .. '_3c'].caption = format_number(equal)
+        end
+    end
 end)
