@@ -171,8 +171,8 @@ Event.on_nth_tick(60, function()
             local item = table['production_' .. i .. '_e'].elem_value
 
             if item then
-                local add = stat.get_flow_count{name=item, input=true, precision_index=precision_value, count=false} / 60
-                local minus = stat.get_flow_count{name=item, input=false, precision_index=precision_value, count=false} / 60
+                local add = math.floor(stat.get_flow_count{name=item, input=true, precision_index=precision_value, count=false} / 6) / 10
+                local minus = math.floor(stat.get_flow_count{name=item, input=false, precision_index=precision_value, count=false} / 6) / 10
                 local table_row = table['production_' .. i .. '_0s'].disp.table
 
                 table_row['production_' .. i .. '_1c'].caption = format_number(add)
