@@ -53,7 +53,7 @@ Gui.element{
     caption = '+',
     style = 'heading_1_label'
 }:style{
-    width = 64,
+    width = 80,
     font_color = font_color[1],
     horizontal_align = 'right'
 }
@@ -65,7 +65,7 @@ Gui.element{
     caption = '-',
     style = 'heading_1_label'
 }:style{
-    width = 64,
+    width = 80,
     font_color = font_color[2],
     horizontal_align = 'right'
 }
@@ -77,7 +77,7 @@ Gui.element{
     caption = '=',
     style = 'heading_1_label'
 }:style{
-    width = 64,
+    width = 80,
     horizontal_align = 'right'
 }
 
@@ -86,7 +86,7 @@ Gui.element{
 local production_control_set =
 Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 272, 4, 'disp')
+    local disp = Gui.scroll_table(production_set, 320, 4, 'disp')
 
     production_time_scale(disp)
     data_1s(disp)
@@ -110,7 +110,7 @@ Gui.element(function(_definition, parent, i)
     item.style.width = 80
 
     local data_set = parent.add{type='flow', direction='vertical', name='production_' .. i .. '_0s'}
-    local disp = Gui.scroll_table(data_set, 192, 3, 'disp')
+    local disp = Gui.scroll_table(data_set, 240, 3, 'disp')
 
     local data_1 = disp.add{
         type = 'label',
@@ -118,7 +118,7 @@ Gui.element(function(_definition, parent, i)
         caption = '0',
         style = 'heading_1_label'
     }
-    data_1.style.width = 64
+    data_1.style.width = 80
     data_1.style.horizontal_align = 'right'
     data_1.style.font_color = font_color[1]
 
@@ -128,7 +128,7 @@ Gui.element(function(_definition, parent, i)
         caption = '0',
         style = 'heading_1_label'
     }
-    data_2.style.width = 64
+    data_2.style.width = 80
     data_2.style.horizontal_align = 'right'
     data_2.style.font_color = font_color[2]
 
@@ -138,8 +138,9 @@ Gui.element(function(_definition, parent, i)
         caption = '0',
         style = 'heading_1_label'
     }
-    data_3.style.width = 64
+    data_3.style.width = 80
     data_3.style.horizontal_align = 'right'
+    data_3.style.font_color = font_color[1]
 
     return data_set
 end)
@@ -149,7 +150,7 @@ end)
 local production_data_set =
 Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 272, 2, 'disp')
+    local disp = Gui.scroll_table(production_set, 320, 2, 'disp')
 
     for i=1, config.row do
         production_data_group(disp, i)
@@ -160,7 +161,7 @@ end)
 
 local production_container =
 Gui.element(function(definition, parent)
-    local container = Gui.container(parent, definition.name, 272)
+    local container = Gui.container(parent, definition.name, 320)
     Gui.header(container, {'production.main-tooltip'}, '', true)
 
     production_control_set(container, 'production_st_1')
@@ -188,11 +189,19 @@ Event.on_nth_tick(60, function()
             if item then
                 local add = math.floor(stat.get_flow_count{name=item, input=true, precision_index=precision_value, count=false} / 6) / 10
                 local minus = math.floor(stat.get_flow_count{name=item, input=false, precision_index=precision_value, count=false} / 6) / 10
+                local sum = add - minus
                 local table_row = table['production_' .. i .. '_0s'].disp.table
 
                 table_row['production_' .. i .. '_1'].caption = format_n(add)
                 table_row['production_' .. i .. '_2'].caption = format_n(minus)
-                table_row['production_' .. i .. '_3'].caption = format_n(add - minus)
+                table_row['production_' .. i .. '_3'].caption = format_n(sum)
+
+                if sum < 0 then
+                    table_row['production_' .. i .. '_3'].font_color = font_color[2]
+
+                else
+                    table_row['production_' .. i .. '_3'].font_color = font_color[1]
+                end
             end
         end
     end
