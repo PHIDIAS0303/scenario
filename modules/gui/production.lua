@@ -78,6 +78,7 @@ Gui.element{
     style = 'heading_1_label'
 }:style{
     width = 96,
+    font_color = font_color[1],
     horizontal_align = 'right'
 }
 
