@@ -76,6 +76,7 @@ Gui.element(function(_definition, parent, i)
     }
     data_1s.style.width = 16
     data_1s.style.horizontal_align = 'left'
+    data_1s.style.font_color = font_color[1]
 
     local data_1c = disp.add{
         type = 'label',
@@ -95,6 +96,7 @@ Gui.element(function(_definition, parent, i)
     }
     data_2s.style.width = 16
     data_2s.style.horizontal_align = 'left'
+    data_2s.style.font_color = font_color[2]
 
     local data_2c = disp.add{
         type = 'label',
