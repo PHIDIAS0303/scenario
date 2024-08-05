@@ -158,9 +158,9 @@ Event.on_nth_tick(60, function()
                 local equal = add - minus
                 local table_row = table['production_' .. i .. '_0s'].disp.table
 
-                table_row['production_' .. i .. '_1c'].caption = string.format('%.1f', add)
-                table_row['production_' .. i .. '_2c'].caption = string.format('%.1f', minus)
-                table_row['production_' .. i .. '_3c'].caption = string.format('%.1f', equal)
+                table_row['production_' .. i .. '_1c'].caption = format_number(add)
+                table_row['production_' .. i .. '_2c'].caption = format_number(minus)
+                table_row['production_' .. i .. '_3c'].caption = format_number(equal)
             end
         end
     end
