@@ -106,6 +106,8 @@ Gui.element(function(_definition, parent, i)
     }
     data_3c.style.width = 160
     data_3c.style.horizontal_align = 'right'
+
+    return data_set
 end)
 
 --- A vertical flow containing all the production data
@@ -143,18 +145,20 @@ Event.on_nth_tick(120, function()
     for _, player in pairs(game.connected_players) do
         local frame = Gui.get_left_element(player, production_container)
         local precision_value = precision[frame.container['production_st_1'].disp.table[production_time_scale.name].selected_index]
+        local table = frame.container['production_st_2'].disp.table
 
         for i=1, config.row do
-            local item_value = frame.container['production_st_2'].disp.table['production_' .. i .. '_e'].elem_value
+            local item_value = table['production_' .. i .. '_e'].elem_value
 
             if item_value then
                 local add = player.force.item_production_statistics.get_flow_count{name=item_value, input=true, precision_index=precision_value, count=true}
                 local minus = player.force.item_production_statistics.get_flow_count{name=item_value, input=false, precision_index=precision_value, count=true}
                 local equal = add - minus
+                local table_row = table['production_' .. i .. '_0s'].disp.table
 
-                frame.container['production_st_2'].disp.table.flow['production_' .. i .. '_0s'].disp.table['production_' .. i .. '_1c'].caption = string.format('%.1f', add)
-                frame.container['production_st_2'].disp.table.flow['production_' .. i .. '_0s'].disp.table['production_' .. i .. '_2c'].caption = string.format('%.1f', minus)
-                frame.container['production_st_2'].disp.table.flow['production_' .. i .. '_0s'].disp.table['production_' .. i .. '_3c'].caption = string.format('%.1f', equal)
+                table_row['production_' .. i .. '_1c'].caption = string.format('%.1f', add)
+                table_row['production_' .. i .. '_2c'].caption = string.format('%.1f', minus)
+                table_row['production_' .. i .. '_3c'].caption = string.format('%.1f', equal)
             end
         end
     end
