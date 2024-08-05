@@ -31,7 +31,7 @@ Gui.element{
 local production_control_set =
 Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 360, 2, 'disp')
+    local disp = Gui.scroll_table(production_set, 208, 2, 'disp')
 
     production_time_scale(disp)
 
@@ -52,7 +52,7 @@ Gui.element(function(_definition, parent, i)
     item.style.width = 64
 
     local data_set = parent.add{type='flow', direction='vertical', name='production_' .. i .. '_0s'}
-    local disp = Gui.scroll_table(data_set, 160, 2, 'disp')
+    local disp = Gui.scroll_table(data_set, 144, 2, 'disp')
 
     local data_1s = disp.add{
         type = 'label',
@@ -60,7 +60,7 @@ Gui.element(function(_definition, parent, i)
         caption = '+',
         style = 'heading_1_label',
     }
-    data_1s.style.width = 32
+    data_1s.style.width = 16
     data_1s.style.horizontal_align = 'left'
 
     local data_1c = disp.add{
@@ -78,7 +78,7 @@ Gui.element(function(_definition, parent, i)
         caption = '-',
         style = 'heading_1_label',
     }
-    data_2s.style.width = 32
+    data_2s.style.width = 16
     data_2s.style.horizontal_align = 'left'
 
     local data_2c = disp.add{
@@ -96,7 +96,7 @@ Gui.element(function(_definition, parent, i)
         caption = '=',
         style = 'heading_1_label',
     }
-    data_3s.style.width = 32
+    data_3s.style.width = 16
     data_3s.style.horizontal_align = 'left'
 
     local data_3c = disp.add{
@@ -116,7 +116,7 @@ end)
 local production_data_set =
 Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 224, 2, 'disp')
+    local disp = Gui.scroll_table(production_set, 208, 2, 'disp')
 
     for i=1, config.row do
         production_data_group(disp, i)
@@ -127,7 +127,7 @@ end)
 
 local production_container =
 Gui.element(function(definition, parent)
-    local container = Gui.container(parent, definition.name, 224)
+    local container = Gui.container(parent, definition.name, 208)
     Gui.header(container, {'production.main-tooltip'}, '', true)
 
     production_control_set(container, 'production_st_1')
