@@ -144,9 +144,9 @@ Event.on_nth_tick(120, function()
             local minus = player.force.item_production_statistics.get_flow_count{name=item_value, input=false, precision_index=precision_value, count=true}
             local equal = add - minus
 
-            frame.container['pd_st_2'].disp.table['production_' .. i .. '_1c'].caption = format_number(add)
-            frame.container['pd_st_2'].disp.table['production_' .. i .. '_2c'].caption = format_number(minus)
-            frame.container['pd_st_2'].disp.table['production_' .. i .. '_3c'].caption = format_number(equal)
+            frame.container['pd_st_2'].disp.table['production_' .. i .. '_s'].disp.table['production_' .. i .. '_1c'].caption = format_number(add)
+            frame.container['pd_st_2'].disp.table['production_' .. i .. '_s'].disp.table['production_' .. i .. '_2c'].caption = format_number(minus)
+            frame.container['pd_st_2'].disp.table['production_' .. i .. '_s'].disp.table['production_' .. i .. '_3c'].caption = format_number(equal)
         end
     end
 end)
