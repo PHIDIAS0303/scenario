@@ -10,18 +10,19 @@ local format_number = require('util').format_number --- @dep util
 local elem_filter = {{filter='type', type='item'}}
 
 local precision = {
-    [1] = defines.flow_precision_index.one_minute,
-    [2] = defines.flow_precision_index.ten_minutes,
-    [3] = defines.flow_precision_index.one_hour,
-    [4] = defines.flow_precision_index.ten_hours
+    [1] = defines.flow_precision_index.five_seconds,
+    [2] = defines.flow_precision_index.one_minute,
+    [3] = defines.flow_precision_index.ten_minutes,
+    [4] = defines.flow_precision_index.one_hour,
+    [5] = defines.flow_precision_index.ten_hours
 }
 
 local production_time_scale =
 Gui.element{
     type = 'drop-down',
     name = Gui.unique_static_name,
-    items = {'1m', '10m', '1h', '10h'},
-    selected_index = 2
+    items = {'5s', '1m', '10m', '1h', '10h'},
+    selected_index = 3
 }:style{
     width = 96
 }
