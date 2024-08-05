@@ -34,7 +34,7 @@ end)
 --- Display group
 -- @element production_data_group
 local production_data_group =
-Gui.element(function(_definition, parent, i, caption, tooltip)
+Gui.element(function(_definition, parent, i)
     local item = parent.add{
         type = 'choose-elem-button',
         elem_type = 'entity',
