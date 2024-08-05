@@ -252,17 +252,19 @@ end)
 Event.add(defines.events.on_player_joined_game, get_module_name)
 
 Event.add(defines.events.on_entity_settings_pasted, function(event)
+    local source = event.source
+    local destination = event.destination
     local player = game.players[event.player_index]
 
     if not player then
         return
     end
 
-    if not event.source then
+    if not source then
         return
     end
 
-    local source_inventory = event.source.get_module_inventory()
+    local source_inventory = source.get_module_inventory()
 
     if not source_inventory then
         return
@@ -274,20 +276,29 @@ Event.add(defines.events.on_entity_settings_pasted, function(event)
         return
     end
 
-    if not event.destination then
+    if not destination then
         return
     end
 
-    if (event.source.name == event.destination.name or event.source.prototype.fast_replaceable_group == event.destination.prototype.fast_replaceable_group)	and event.source.supports_direction and event.destination.supports_direction and event.source.type ~= 'transport-belt' then
-		local old_direction = event.destination.direction
-		event.destination.direction = event.source.direction
+    if (source.name == destination.name or source.prototype.fast_replaceable_group == destination.prototype.fast_replaceable_group) then
+        if source.supports_direction and destination.supports_direction and source.type ~= 'transport-belt' then
+            local destination_box = destination.bounding_box
 
-		if event.destination.bounding_box.left_top.x ~= event.destination.bounding_box.left_top.x or event.destination.bounding_box.left_top.y ~= event.destination.bounding_box.left_top.y or event.destination.bounding_box.right_bottom.x ~= event.destination.bounding_box.right_bottom.x or event.destination.bounding_box.right_bottom.y ~= event.destination.bounding_box.right_bottom.y then
-			event.destination.direction = old_direction
-		end
-	end
+            local ltx = destination_box.left_top.x
+            local lty = destination_box.left_top.y
+            local rbx = destination_box.right_bottom.x
+            local rby = destination_box.right_bottom.y
 
-    if event.source.name ~= event.destination.name then
+            local old_direction = destination.direction
+            destination.direction = source.direction
+
+            if ltx ~= destination_box.left_top.x or lty ~= destination_box.left_top.y or rbx ~= destination_box.right_bottom.x or rby ~= destination_box.right_bottom.y then
+                destination.direction = old_direction
+            end
+        end
+    end
+
+    if source.name ~= destination.name then
         return
     end
 
