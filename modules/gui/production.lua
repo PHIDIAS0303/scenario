@@ -5,7 +5,6 @@ local Gui = require 'expcore.gui' --- @dep expcore.gui
 local Event = require 'utils.event' --- @dep utils.event
 local Roles = require 'expcore.roles' --- @dep expcore.roles
 local config = require 'config.production' --- @dep config.production
-local format_number = require('util').format_number --- @dep util
 
 local elem_filter = {{filter='type', type='item'}}
 
@@ -29,6 +28,12 @@ local font_color = {
         b = 0.3
     }
 }
+
+local function format_n(n)
+    local _i, _j, m, i, f = tostring(n):find('([-]?)(%d+)([.]?%d*)')
+    i = int:reverse():gsub('(%d%d%d)', '%1,')
+    return m .. i:reverse():gsub('^,', '') .. f
+  end
 
 local production_time_scale =
 Gui.element{
@@ -175,9 +180,9 @@ Event.on_nth_tick(60, function()
                 local minus = math.floor(stat.get_flow_count{name=item, input=false, precision_index=precision_value, count=false} / 6) / 10
                 local table_row = table['production_' .. i .. '_0s'].disp.table
 
-                table_row['production_' .. i .. '_1c'].caption = format_number(add)
-                table_row['production_' .. i .. '_2c'].caption = format_number(minus)
-                table_row['production_' .. i .. '_3c'].caption = format_number(add - minus)
+                table_row['production_' .. i .. '_1c'].caption = format_n(add)
+                table_row['production_' .. i .. '_2c'].caption = format_n(minus)
+                table_row['production_' .. i .. '_3c'].caption = format_n(add - minus)
             end
         end
     end
