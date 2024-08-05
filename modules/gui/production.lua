@@ -32,8 +32,9 @@ local font_color = {
 local function format_n(n)
     local _i, _j, m, i, f = tostring(n):find('([-]?)(%d+)([.]?%d*)')
     i = i:reverse():gsub('(%d%d%d)', '%1,')
+
     return m .. i:reverse():gsub('^,', '') .. f
-  end
+end
 
 local production_time_scale =
 Gui.element{
@@ -42,7 +43,39 @@ Gui.element{
     items = {'5s', '1m', '10m', '1h', '10h'},
     selected_index = 3
 }:style{
-    width = 96
+    width = 64
+}
+
+local data_1s =
+Gui.element{
+    type = 'label',
+    name = 'production_0_1',
+    caption = '+',
+    style = 'heading_1_label'
+}:style{
+    width = 64,
+    font_color = font_color[1]
+}
+
+local data_2s =
+Gui.element{
+    type = 'label',
+    name = 'production_0_2',
+    caption = '-',
+    style = 'heading_1_label'
+}:style{
+    width = 64,
+    font_color = font_color[2]
+}
+
+local data_3s =
+Gui.element{
+    type = 'label',
+    name = 'production_0_3',
+    caption = '=',
+    style = 'heading_1_label'
+}:style{
+    width = 64,
 }
 
 --- A vertical flow containing all the production control
@@ -50,9 +83,12 @@ Gui.element{
 local production_control_set =
 Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 208, 2, 'disp')
+    local disp = Gui.scroll_table(production_set, 256, 4, 'disp')
 
     production_time_scale(disp)
+    data_1s(disp)
+    data_2s(disp)
+    data_3s(disp)
 
     return production_set
 end)
@@ -71,65 +107,36 @@ Gui.element(function(_definition, parent, i)
     item.style.width = 64
 
     local data_set = parent.add{type='flow', direction='vertical', name='production_' .. i .. '_0s'}
-    local disp = Gui.scroll_table(data_set, 144, 2, 'disp')
+    local disp = Gui.scroll_table(data_set, 256, 2, 'disp')
 
-    local data_1s = disp.add{
+    local data_1 = disp.add{
         type = 'label',
-        name = 'production_' .. i .. '_1s',
-        caption = '+',
-        style = 'heading_1_label',
-    }
-    data_1s.style.width = 16
-    data_1s.style.horizontal_align = 'left'
-    data_1s.style.font_color = font_color[1]
-
-    local data_1c = disp.add{
-        type = 'label',
-        name = 'production_' .. i .. '_1c',
+        name = 'production_' .. i .. '_1',
         caption = '0',
-        style = 'heading_1_label',
+        style = 'heading_1_label'
     }
-    data_1c.style.width = 128
-    data_1c.style.horizontal_align = 'right'
-    data_1c.style.font_color = font_color[1]
+    data_1.style.width = 64
+    data_1.style.horizontal_align = 'right'
+    data_1.style.font_color = font_color[1]
 
-    local data_2s = disp.add{
+    local data_2 = disp.add{
         type = 'label',
-        name = 'production_' .. i .. '_2s',
-        caption = '-',
-        style = 'heading_1_label',
-    }
-    data_2s.style.width = 16
-    data_2s.style.horizontal_align = 'left'
-    data_2s.style.font_color = font_color[2]
-
-    local data_2c = disp.add{
-        type = 'label',
-        name = 'production_' .. i .. '_2c',
+        name = 'production_' .. i .. '_2',
         caption = '0',
-        style = 'heading_1_label',
+        style = 'heading_1_label'
     }
-    data_2c.style.width = 128
-    data_2c.style.horizontal_align = 'right'
-    data_2c.style.font_color = font_color[2]
+    data_2.style.width = 64
+    data_2.style.horizontal_align = 'right'
+    data_2.style.font_color = font_color[2]
 
-    local data_3s = disp.add{
+    local data_3 = disp.add{
         type = 'label',
-        name = 'production_' .. i .. '_3s',
-        caption = '=',
-        style = 'heading_1_label',
-    }
-    data_3s.style.width = 16
-    data_3s.style.horizontal_align = 'left'
-
-    local data_3c = disp.add{
-        type = 'label',
-        name = 'production_' .. i .. '_3c',
+        name = 'production_' .. i .. '_3',
         caption = '0',
-        style = 'heading_1_label',
+        style = 'heading_1_label'
     }
-    data_3c.style.width = 128
-    data_3c.style.horizontal_align = 'right'
+    data_3.style.width = 64
+    data_3.style.horizontal_align = 'right'
 
     return data_set
 end)
@@ -139,7 +146,7 @@ end)
 local production_data_set =
 Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 208, 2, 'disp')
+    local disp = Gui.scroll_table(production_set, 256, 2, 'disp')
 
     for i=1, config.row do
         production_data_group(disp, i)
@@ -150,7 +157,7 @@ end)
 
 local production_container =
 Gui.element(function(definition, parent)
-    local container = Gui.container(parent, definition.name, 208)
+    local container = Gui.container(parent, definition.name, 256)
     Gui.header(container, {'production.main-tooltip'}, '', true)
 
     production_control_set(container, 'production_st_1')
@@ -180,9 +187,9 @@ Event.on_nth_tick(60, function()
                 local minus = math.floor(stat.get_flow_count{name=item, input=false, precision_index=precision_value, count=false} / 6) / 10
                 local table_row = table['production_' .. i .. '_0s'].disp.table
 
-                table_row['production_' .. i .. '_1c'].caption = format_n(add)
-                table_row['production_' .. i .. '_2c'].caption = format_n(minus)
-                table_row['production_' .. i .. '_3c'].caption = format_n(add - minus)
+                table_row['production_' .. i .. '_1'].caption = format_n(add)
+                table_row['production_' .. i .. '_2'].caption = format_n(minus)
+                table_row['production_' .. i .. '_3'].caption = format_n(add - minus)
             end
         end
     end
