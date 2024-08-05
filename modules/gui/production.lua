@@ -107,7 +107,7 @@ Gui.element(function(_definition, parent, i)
     item.style.width = 64
 
     local data_set = parent.add{type='flow', direction='vertical', name='production_' .. i .. '_0s'}
-    local disp = Gui.scroll_table(data_set, 256, 2, 'disp')
+    local disp = Gui.scroll_table(data_set, 192, 3, 'disp')
 
     local data_1 = disp.add{
         type = 'label',
