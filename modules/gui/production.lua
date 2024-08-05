@@ -8,11 +8,12 @@ local config = require 'config.production' --- @dep config.production
 local format_number = require('util').format_number --- @dep util
 
 local elem_filter = {{filter='type', type='item'}}
+
 local precision = {
-    ['1'] = defines.flow_precision_index.one_minute,
-    ['2'] = defines.flow_precision_index.ten_minutes,
-    ['3'] = defines.flow_precision_index.one_hour,
-    ['4'] = defines.flow_precision_index.ten_hours
+    [1] = defines.flow_precision_index.one_minute,
+    [2] = defines.flow_precision_index.ten_minutes,
+    [3] = defines.flow_precision_index.one_hour,
+    [4] = defines.flow_precision_index.ten_hours
 }
 
 local production_time_scale =
@@ -144,15 +145,16 @@ end)
 Event.on_nth_tick(120, function()
     for _, player in pairs(game.connected_players) do
         local frame = Gui.get_left_element(player, production_container)
+        local stat = player.force.item_production_statistics
         local precision_value = precision[frame.container['production_st_1'].disp.table[production_time_scale.name].selected_index]
         local table = frame.container['production_st_2'].disp.table
 
         for i=1, config.row do
-            local item_value = table['production_' .. i .. '_e'].elem_value
+            local item = table['production_' .. i .. '_e'].elem_value
 
-            if item_value then
-                local add = player.force.item_production_statistics.get_flow_count{name=item_value, input=true, precision_index=precision_value, count=true}
-                local minus = player.force.item_production_statistics.get_flow_count{name=item_value, input=false, precision_index=precision_value, count=true}
+            if item then
+                local add = stat.get_flow_count{name=item, input=true, precision_index=precision_value, count=true}
+                local minus = stat.get_flow_count{name=item, input=false, precision_index=precision_value, count=true}
                 local equal = add - minus
                 local table_row = table['production_' .. i .. '_0s'].disp.table
 
