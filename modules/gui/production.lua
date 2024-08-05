@@ -155,12 +155,11 @@ Event.on_nth_tick(60, function()
             if item then
                 local add = stat.get_flow_count{name=item, input=true, precision_index=precision_value, count=true}
                 local minus = stat.get_flow_count{name=item, input=false, precision_index=precision_value, count=true}
-                local equal = add - minus
                 local table_row = table['production_' .. i .. '_0s'].disp.table
 
                 table_row['production_' .. i .. '_1c'].caption = format_number(add)
                 table_row['production_' .. i .. '_2c'].caption = format_number(minus)
-                table_row['production_' .. i .. '_3c'].caption = format_number(equal)
+                table_row['production_' .. i .. '_3c'].caption = format_number(add - minus)
             end
         end
     end
