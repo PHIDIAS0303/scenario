@@ -48,10 +48,10 @@ Gui.element(function(_definition, parent, i)
         elem_filters = elem_filter,
         style = 'slot_button'
     }
-    item.style.width = 96
+    item.style.width = 64
 
-    local data_set = parent.add{type='flow', direction='vertical', name='production_' .. i .. '_s'}
-    local disp = Gui.scroll_table(data_set, 224, 2, 'disp')
+    local data_set = parent.add{type='flow', direction='vertical', name='production_' .. i .. '_0s'}
+    local disp = Gui.scroll_table(data_set, 192, 2, 'disp')
 
     local data_1s = disp.add{
         type = 'label',
@@ -59,7 +59,7 @@ Gui.element(function(_definition, parent, i)
         caption = '+',
         style = 'heading_1_label',
     }
-    data_1s.style.width = 48
+    data_1s.style.width = 32
     data_1s.style.horizontal_align = 'left'
 
     local data_1c = disp.add{
@@ -68,7 +68,7 @@ Gui.element(function(_definition, parent, i)
         caption = '0',
         style = 'heading_1_label',
     }
-    data_1c.style.width = 176
+    data_1c.style.width = 160
     data_1c.style.horizontal_align = 'right'
 
     local data_2s = disp.add{
@@ -77,7 +77,7 @@ Gui.element(function(_definition, parent, i)
         caption = '-',
         style = 'heading_1_label',
     }
-    data_2s.style.width = 48
+    data_2s.style.width = 32
     data_2s.style.horizontal_align = 'left'
 
     local data_2c = disp.add{
@@ -86,7 +86,7 @@ Gui.element(function(_definition, parent, i)
         caption = '0',
         style = 'heading_1_label',
     }
-    data_2c.style.width = 176
+    data_2c.style.width = 160
     data_2c.style.horizontal_align = 'right'
 
     local data_3s = disp.add{
@@ -95,7 +95,7 @@ Gui.element(function(_definition, parent, i)
         caption = '=',
         style = 'heading_1_label',
     }
-    data_3s.style.width = 48
+    data_3s.style.width = 32
     data_3s.style.horizontal_align = 'left'
 
     local data_3c = disp.add{
@@ -104,7 +104,7 @@ Gui.element(function(_definition, parent, i)
         caption = '0',
         style = 'heading_1_label',
     }
-    data_3c.style.width = 176
+    data_3c.style.width = 160
     data_3c.style.horizontal_align = 'right'
 end)
 
@@ -113,7 +113,7 @@ end)
 local production_data_set =
 Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 360, 2, 'disp')
+    local disp = Gui.scroll_table(production_set, 256, 2, 'disp')
 
     for i=1, config.row do
         production_data_group(disp, i)
@@ -124,7 +124,7 @@ end)
 
 local production_container =
 Gui.element(function(definition, parent)
-    local container = Gui.container(parent, definition.name, 320)
+    local container = Gui.container(parent, definition.name, 256)
     Gui.header(container, {'production.main-tooltip'}, '', true)
 
     production_control_set(container, 'production_st_1')
@@ -142,17 +142,20 @@ end)
 Event.on_nth_tick(120, function()
     for _, player in pairs(game.connected_players) do
         local frame = Gui.get_left_element(player, production_container)
-        local precision_value = precision[frame.container['pd_st_1'].disp.table[production_time_scale.name].selected_index]
+        local precision_value = precision[frame.container['production_st_1'].disp.table[production_time_scale.name].selected_index]
 
         for i=1, config.row do
-            local item_value = frame.container['pd_st_2'].disp.table['production_' .. i .. '_e'].elem_value
-            local add = player.force.item_production_statistics.get_flow_count{name=item_value, input=true, precision_index=precision_value, count=true}
-            local minus = player.force.item_production_statistics.get_flow_count{name=item_value, input=false, precision_index=precision_value, count=true}
-            local equal = add - minus
+            local item_value = frame.container['production_st_2'].disp.table['production_' .. i .. '_e'].elem_value
 
-            frame.container['pd_st_2'].disp.table['production_' .. i .. '_s'].disp.table['production_' .. i .. '_1c'].caption = format_number(add)
-            frame.container['pd_st_2'].disp.table['production_' .. i .. '_s'].disp.table['production_' .. i .. '_2c'].caption = format_number(minus)
-            frame.container['pd_st_2'].disp.table['production_' .. i .. '_s'].disp.table['production_' .. i .. '_3c'].caption = format_number(equal)
+            if item_value then
+                local add = player.force.item_production_statistics.get_flow_count{name=item_value, input=true, precision_index=precision_value, count=true}
+                local minus = player.force.item_production_statistics.get_flow_count{name=item_value, input=false, precision_index=precision_value, count=true}
+                local equal = add - minus
+
+                frame.container['production_st_2'].disp.table.flow['production_' .. i .. '_0s'].disp.table['production_' .. i .. '_1c'].caption = string.format('%.1f', add)
+                frame.container['production_st_2'].disp.table.flow['production_' .. i .. '_0s'].disp.table['production_' .. i .. '_2c'].caption = string.format('%.1f', minus)
+                frame.container['production_st_2'].disp.table.flow['production_' .. i .. '_0s'].disp.table['production_' .. i .. '_3c'].caption = string.format('%.1f', equal)
+            end
         end
     end
 end)
