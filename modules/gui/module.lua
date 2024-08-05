@@ -269,7 +269,10 @@ Event.add(defines.events.on_entity_settings_pasted, function(event)
     end
 
     local source_inventory_content = source_inventory.get_contents()
-    game.print(game.table_to_json(source_inventory_content))
+
+    if not source_inventory_content then
+        return
+    end
 
     if not event.destination then
         return
