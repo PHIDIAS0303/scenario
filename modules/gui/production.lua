@@ -31,7 +31,7 @@ local font_color = {
 
 local function format_n(n)
     local _i, _j, m, i, f = tostring(n):find('([-]?)(%d+)([.]?%d*)')
-    i = int:reverse():gsub('(%d%d%d)', '%1,')
+    i = i:reverse():gsub('(%d%d%d)', '%1,')
     return m .. i:reverse():gsub('^,', '') .. f
   end
 
