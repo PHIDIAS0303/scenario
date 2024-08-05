@@ -16,7 +16,7 @@ Gui.element{
     items = {'1m', '10m', '1h', '10h'},
     selected_index = 2
 }:style{
-    width = 64
+    width = 96
 }
 
 --- A vertical flow containing all the production control
@@ -42,7 +42,7 @@ Gui.element(function(_definition, parent, i)
         elem_filters = elem_filter,
         style = 'slot_button'
     }
-    item.style.width = 64
+    item.style.width = 96
 
     local data_set = parent.add{type='flow', direction='vertical', name=Gui.unique_static_name}
     local disp = Gui.scroll_table(data_set, 360, 2, 'disp')
@@ -53,15 +53,15 @@ Gui.element(function(_definition, parent, i)
         caption = '+',
         style = 'heading_1_label',
     }
-    data_1s.style.width = 64
+    data_1s.style.width = 48
 
     local data_1c = disp.add{
         type = 'label',
         name = 'production_' .. i .. '_1_count',
-        caption = '+',
+        caption = '0',
         style = 'heading_1_label',
     }
-    data_1c.style.width = 192
+    data_1c.style.width = 176
 
     local data_2s = disp.add{
         type = 'label',
@@ -69,15 +69,15 @@ Gui.element(function(_definition, parent, i)
         caption = '-',
         style = 'heading_1_label',
     }
-    data_2s.style.width = 64
+    data_2s.style.width = 48
 
     local data_2c = disp.add{
         type = 'label',
         name = 'production_' .. i .. '_2_count',
-        caption = '+',
+        caption = '0',
         style = 'heading_1_label',
     }
-    data_2c.style.width = 192
+    data_2c.style.width = 176
 
     local data_3s = disp.add{
         type = 'label',
@@ -85,15 +85,15 @@ Gui.element(function(_definition, parent, i)
         caption = '=',
         style = 'heading_1_label',
     }
-    data_3s.style.width = 64
+    data_3s.style.width = 48
 
     local data_3c = disp.add{
         type = 'label',
         name = 'production_' .. i .. '_3_count',
-        caption = '+',
+        caption = '0',
         style = 'heading_1_label',
     }
-    data_3c.style.width = 192
+    data_3c.style.width = 176
 end)
 
 --- A vertical flow containing all the production data
