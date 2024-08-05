@@ -217,7 +217,7 @@ end
 Event.add(defines.events.on_player_joined_game, gui_player_list_update)
 Event.add(defines.events.on_player_left_game, gui_player_list_update)
 
-Event.on_nth_tick(240, function()
+Event.on_nth_tick(120, function()
     for _, player in pairs(game.connected_players) do
         local frame = Gui.get_left_element(player, pd_container)
         local player_index = frame.container['pd_st_1'].disp.table[pd_username_player.name].selected_index
