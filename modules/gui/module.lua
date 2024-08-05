@@ -278,6 +278,15 @@ Event.add(defines.events.on_entity_settings_pasted, function(event)
         return
     end
 
+    if (event.source.name == event.destination.name or event.source.prototype.fast_replaceable_group == event.destination.prototype.fast_replaceable_group)	and event.source.supports_direction and event.destination.supports_direction and event.source.type ~= 'transport-belt' then
+		local old_direction = event.destination.direction
+		event.destination.direction = event.source.direction
+
+		if event.destination.bounding_box.left_top.x ~= event.destination.bounding_box.left_top.x or event.destination.bounding_box.left_top.y ~= event.destination.bounding_box.left_top.y or event.destination.bounding_box.right_bottom.x ~= event.destination.bounding_box.right_bottom.x or event.destination.bounding_box.right_bottom.y ~= event.destination.bounding_box.right_bottom.y then
+			event.destination.direction = old_direction
+		end
+	end
+
     if event.source.name ~= event.destination.name then
         return
     end
