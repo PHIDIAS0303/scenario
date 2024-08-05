@@ -52,7 +52,7 @@ Gui.element(function(_definition, parent, i)
     item.style.width = 64
 
     local data_set = parent.add{type='flow', direction='vertical', name='production_' .. i .. '_0s'}
-    local disp = Gui.scroll_table(data_set, 192, 2, 'disp')
+    local disp = Gui.scroll_table(data_set, 160, 2, 'disp')
 
     local data_1s = disp.add{
         type = 'label',
@@ -69,7 +69,7 @@ Gui.element(function(_definition, parent, i)
         caption = '0',
         style = 'heading_1_label',
     }
-    data_1c.style.width = 160
+    data_1c.style.width = 128
     data_1c.style.horizontal_align = 'right'
 
     local data_2s = disp.add{
@@ -87,7 +87,7 @@ Gui.element(function(_definition, parent, i)
         caption = '0',
         style = 'heading_1_label',
     }
-    data_2c.style.width = 160
+    data_2c.style.width = 128
     data_2c.style.horizontal_align = 'right'
 
     local data_3s = disp.add{
@@ -105,7 +105,7 @@ Gui.element(function(_definition, parent, i)
         caption = '0',
         style = 'heading_1_label',
     }
-    data_3c.style.width = 160
+    data_3c.style.width = 128
     data_3c.style.horizontal_align = 'right'
 
     return data_set
@@ -116,7 +116,7 @@ end)
 local production_data_set =
 Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 256, 2, 'disp')
+    local disp = Gui.scroll_table(production_set, 224, 2, 'disp')
 
     for i=1, config.row do
         production_data_group(disp, i)
@@ -127,7 +127,7 @@ end)
 
 local production_container =
 Gui.element(function(definition, parent)
-    local container = Gui.container(parent, definition.name, 256)
+    local container = Gui.container(parent, definition.name, 224)
     Gui.header(container, {'production.main-tooltip'}, '', true)
 
     production_control_set(container, 'production_st_1')
