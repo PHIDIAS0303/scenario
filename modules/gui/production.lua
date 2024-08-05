@@ -37,19 +37,18 @@ local production_data_group =
 Gui.element(function(_definition, parent, i)
     local item = parent.add{
         type = 'choose-elem-button',
-        name=Gui.unique_static_name,
         elem_type = 'entity',
         elem_filters = elem_filter,
         style = 'slot_button'
     }
     item.style.width = 96
 
-    local data_set = parent.add{type='flow', direction='vertical', name=Gui.unique_static_name}
+    local data_set = parent.add{type='flow', direction='vertical', name='production_' .. i .. '_s'}
     local disp = Gui.scroll_table(data_set, 224, 2, 'disp')
 
     local data_1s = disp.add{
         type = 'label',
-        name = Gui.unique_static_name,
+        name = 'production_' .. i .. '_1s',
         caption = '+',
         style = 'heading_1_label',
     }
@@ -57,7 +56,7 @@ Gui.element(function(_definition, parent, i)
 
     local data_1c = disp.add{
         type = 'label',
-        name = 'production_' .. i .. '_1_count',
+        name = 'production_' .. i .. '_1c',
         caption = '0',
         style = 'heading_1_label',
     }
@@ -65,7 +64,7 @@ Gui.element(function(_definition, parent, i)
 
     local data_2s = disp.add{
         type = 'label',
-        name = Gui.unique_static_name,
+        name = 'production_' .. i .. '_2s',
         caption = '-',
         style = 'heading_1_label',
     }
@@ -73,7 +72,7 @@ Gui.element(function(_definition, parent, i)
 
     local data_2c = disp.add{
         type = 'label',
-        name = 'production_' .. i .. '_2_count',
+        name = 'production_' .. i .. '_2c',
         caption = '0',
         style = 'heading_1_label',
     }
@@ -81,7 +80,7 @@ Gui.element(function(_definition, parent, i)
 
     local data_3s = disp.add{
         type = 'label',
-        name = Gui.unique_static_name,
+        name = 'production_' .. i .. '_3s',
         caption = '=',
         style = 'heading_1_label',
     }
@@ -89,7 +88,7 @@ Gui.element(function(_definition, parent, i)
 
     local data_3c = disp.add{
         type = 'label',
-        name = 'production_' .. i .. '_3_count',
+        name = 'production_' .. i .. '_3c',
         caption = '0',
         style = 'heading_1_label',
     }
