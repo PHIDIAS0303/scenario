@@ -43,7 +43,7 @@ Gui.element{
     items = {'5s', '1m', '10m', '1h', '10h'},
     selected_index = 3
 }:style{
-    width = 64
+    width = 80
 }
 
 local data_1s =
@@ -83,7 +83,7 @@ Gui.element{
 local production_control_set =
 Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 256, 4, 'disp')
+    local disp = Gui.scroll_table(production_set, 272, 4, 'disp')
 
     production_time_scale(disp)
     data_1s(disp)
@@ -104,7 +104,7 @@ Gui.element(function(_definition, parent, i)
         elem_filters = elem_filter,
         style = 'slot_button'
     }
-    item.style.width = 64
+    item.style.width = 80
 
     local data_set = parent.add{type='flow', direction='vertical', name='production_' .. i .. '_0s'}
     local disp = Gui.scroll_table(data_set, 192, 3, 'disp')
@@ -146,7 +146,7 @@ end)
 local production_data_set =
 Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 256, 2, 'disp')
+    local disp = Gui.scroll_table(production_set, 272, 2, 'disp')
 
     for i=1, config.row do
         production_data_group(disp, i)
@@ -157,7 +157,7 @@ end)
 
 local production_container =
 Gui.element(function(definition, parent)
-    local container = Gui.container(parent, definition.name, 256)
+    local container = Gui.container(parent, definition.name, 272)
     Gui.header(container, {'production.main-tooltip'}, '', true)
 
     production_control_set(container, 'production_st_1')
