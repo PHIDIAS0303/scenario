@@ -17,6 +17,19 @@ local precision = {
     [5] = defines.flow_precision_index.ten_hours
 }
 
+local font_color = {
+    [1] = {
+        r = 0.3,
+        g = 1,
+        b = 0.3
+    },
+    [2] = {
+        r = 1,
+        g = 0.3,
+        b = 0.3
+    }
+}
+
 local production_time_scale =
 Gui.element{
     type = 'drop-down',
@@ -72,6 +85,7 @@ Gui.element(function(_definition, parent, i)
     }
     data_1c.style.width = 128
     data_1c.style.horizontal_align = 'right'
+    data_1c.style.font_color = font_color[1]
 
     local data_2s = disp.add{
         type = 'label',
@@ -90,6 +104,7 @@ Gui.element(function(_definition, parent, i)
     }
     data_2c.style.width = 128
     data_2c.style.horizontal_align = 'right'
+    data_2c.style.font_color = font_color[2]
 
     local data_3s = disp.add{
         type = 'label',
@@ -154,8 +169,8 @@ Event.on_nth_tick(60, function()
             local item = table['production_' .. i .. '_e'].elem_value
 
             if item then
-                local add = stat.get_flow_count{name=item, input=true, precision_index=precision_value, count=true}
-                local minus = stat.get_flow_count{name=item, input=false, precision_index=precision_value, count=true}
+                local add = stat.get_flow_count{name=item, input=true, precision_index=precision_value, count=false}
+                local minus = stat.get_flow_count{name=item, input=false, precision_index=precision_value, count=false}
                 local table_row = table['production_' .. i .. '_0s'].disp.table
 
                 table_row['production_' .. i .. '_1c'].caption = format_number(add)
