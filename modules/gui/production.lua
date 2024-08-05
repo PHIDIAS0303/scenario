@@ -60,6 +60,7 @@ Gui.element(function(_definition, parent, i)
         style = 'heading_1_label',
     }
     data_1s.style.width = 48
+    data_1s.style.horizontal_align = 'left'
 
     local data_1c = disp.add{
         type = 'label',
@@ -68,6 +69,7 @@ Gui.element(function(_definition, parent, i)
         style = 'heading_1_label',
     }
     data_1c.style.width = 176
+    data_1c.style.horizontal_align = 'right'
 
     local data_2s = disp.add{
         type = 'label',
@@ -76,6 +78,7 @@ Gui.element(function(_definition, parent, i)
         style = 'heading_1_label',
     }
     data_2s.style.width = 48
+    data_2s.style.horizontal_align = 'left'
 
     local data_2c = disp.add{
         type = 'label',
@@ -84,6 +87,7 @@ Gui.element(function(_definition, parent, i)
         style = 'heading_1_label',
     }
     data_2c.style.width = 176
+    data_2c.style.horizontal_align = 'right'
 
     local data_3s = disp.add{
         type = 'label',
@@ -92,6 +96,7 @@ Gui.element(function(_definition, parent, i)
         style = 'heading_1_label',
     }
     data_3s.style.width = 48
+    data_3s.style.horizontal_align = 'left'
 
     local data_3c = disp.add{
         type = 'label',
@@ -100,6 +105,7 @@ Gui.element(function(_definition, parent, i)
         style = 'heading_1_label',
     }
     data_3c.style.width = 176
+    data_3c.style.horizontal_align = 'right'
 end)
 
 --- A vertical flow containing all the production data
