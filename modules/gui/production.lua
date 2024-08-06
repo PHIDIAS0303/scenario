@@ -147,7 +147,7 @@ Gui.element(function(_definition, parent, i)
 
     return item
 end)
-:on_gui_elem_changed(function(player, element, _event)
+:on_gui_value_changed(function(player, element, _event)
     local frame = Gui.get_left_element(player, production_container)
     local stat = player.force.item_production_statistics
     local precision_value = precision[frame.container['production_st_1'].disp.table[production_time_scale.name].selected_index]
