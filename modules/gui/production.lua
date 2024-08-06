@@ -147,37 +147,6 @@ Gui.element(function(_definition, parent, i)
 
     return item
 end)
-:on_gui_value_changed(function(player, element, _event)
-    local frame = Gui.get_left_element(player, production_container)
-    local stat = player.force.item_production_statistics
-    local precision_value = precision[frame.container['production_st_1'].disp.table[production_time_scale.name].selected_index]
-    local table = frame.container['production_st_2'].disp.table
-    local production_prefix = 'production_' .. element.parent[element.tags.n]
-    local item = element.elem_value
-
-    if item then
-        local add = math.floor(stat.get_flow_count{name=item, input=true, precision_index=precision_value, count=false} / 6) / 10
-        local minus = math.floor(stat.get_flow_count{name=item, input=false, precision_index=precision_value, count=false} / 6) / 10
-        local sum = add - minus
-
-        table[production_prefix .. '_1'].caption = format_n(add)
-        table[production_prefix .. '_2'].caption = format_n(minus)
-        table[production_prefix .. '_3'].caption = format_n(sum)
-
-        if sum < 0 then
-            table[production_prefix .. '_3'].font_color = font_color[2]
-
-        else
-            table[production_prefix .. '_3'].font_color = font_color[1]
-        end
-
-    else
-        table[production_prefix .. '_1'].caption = '0'
-        table[production_prefix .. '_2'].caption = '0'
-        table[production_prefix .. '_3'].caption = '0'
-        table[production_prefix .. '_3'].font_color = font_color[1]
-    end
-end)
 
 --- A vertical flow containing all the production data
 -- @element production_data_set
@@ -236,6 +205,12 @@ Event.on_nth_tick(60, function()
                 else
                     table[production_prefix .. '_3'].font_color = font_color[1]
                 end
+
+            else
+                table[production_prefix .. '_1'].caption = '0'
+                table[production_prefix .. '_2'].caption = '0'
+                table[production_prefix .. '_3'].caption = '0'
+                table[production_prefix .. '_3'].font_color = font_color[1]
             end
         end
     end
