@@ -170,6 +170,12 @@ end)
         else
             table[production_prefix .. '_3'].font_color = font_color[1]
         end
+
+    else
+        table[production_prefix .. '_1'].caption = '0'
+        table[production_prefix .. '_2'].caption = '0'
+        table[production_prefix .. '_3'].caption = '0'
+        table[production_prefix .. '_3'].font_color = font_color[1]
     end
 end)
 
