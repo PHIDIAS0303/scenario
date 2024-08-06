@@ -38,7 +38,7 @@ Event.add(defines.events.on_research_finished, function(event)
 end)
 
 Event.add(defines.events.on_player_joined_game, function(event)
-    add_log(game.players[event.player_index].name .. ' has joined the game')
+    add_log(game.players[event.player_index].name .. ' joined the game')
 end)
 
 Event.add(defines.events.on_player_left_game, function(event)

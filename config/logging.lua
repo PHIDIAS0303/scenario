@@ -28,7 +28,7 @@ return {
         [10000000] = true
     },
     disconnect_reason = {
-        [defines.disconnect_reason.quit] = ' has left the game',
+        [defines.disconnect_reason.quit] = ' left the game',
         [defines.disconnect_reason.dropped] = ' was dropped from the game',
         [defines.disconnect_reason.reconnect] = ' is reconnecting',
         [defines.disconnect_reason.wrong_input] = ' was having a wrong input',
