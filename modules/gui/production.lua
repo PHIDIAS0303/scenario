@@ -6,6 +6,8 @@ local Event = require 'utils.event' --- @dep utils.event
 local Roles = require 'expcore.roles' --- @dep expcore.roles
 local config = require 'config.production' --- @dep config.production
 
+local production_container
+
 local elem_filter = {{filter='type', type='item'}}
 
 local precision = {
@@ -106,6 +108,9 @@ Gui.element(function(_definition, parent, i)
         name = 'production_' .. i .. '_e',
         elem_type = 'item',
         elem_filters = elem_filter,
+        tags = {
+            n = i
+        },
         style = 'slot_button'
     }
     item.style.width = 80
@@ -139,6 +144,33 @@ Gui.element(function(_definition, parent, i)
     data_3.style.width = 96
     data_3.style.horizontal_align = 'right'
     data_3.style.font_color = font_color[1]
+
+    return item
+end)
+:on_value_changed(function(player, element, _event)
+    local frame = Gui.get_left_element(player, production_container)
+    local stat = player.force.item_production_statistics
+    local precision_value = precision[frame.container['production_st_1'].disp.table[production_time_scale.name].selected_index]
+    local table = frame.container['production_st_2'].disp.table
+    local production_prefix = 'production_' .. element.parent[element.tags.n]
+    local item = element.elem_value
+
+    if item then
+        local add = math.floor(stat.get_flow_count{name=item, input=true, precision_index=precision_value, count=false} / 6) / 10
+        local minus = math.floor(stat.get_flow_count{name=item, input=false, precision_index=precision_value, count=false} / 6) / 10
+        local sum = add - minus
+
+        table[production_prefix .. '_1'].caption = format_n(add)
+        table[production_prefix .. '_2'].caption = format_n(minus)
+        table[production_prefix .. '_3'].caption = format_n(sum)
+
+        if sum < 0 then
+            table[production_prefix .. '_3'].font_color = font_color[2]
+
+        else
+            table[production_prefix .. '_3'].font_color = font_color[1]
+        end
+    end
 end)
 
 --- A vertical flow containing all the production data
@@ -155,7 +187,7 @@ Gui.element(function(_, parent, name)
     return production_set
 end)
 
-local production_container =
+production_container =
 Gui.element(function(definition, parent)
     local container = Gui.container(parent, definition.name, 368)
     Gui.header(container, {'production.main-tooltip'}, '', true)
@@ -180,22 +212,23 @@ Event.on_nth_tick(60, function()
         local table = frame.container['production_st_2'].disp.table
 
         for i=1, config.row do
-            local item = table['production_' .. i .. '_e'].elem_value
+            local production_prefix = 'production_' .. table['production_' .. i .. '_e'].tags.n
+            local item = table[production_prefix .. '_e'].elem_value
 
             if item then
                 local add = math.floor(stat.get_flow_count{name=item, input=true, precision_index=precision_value, count=false} / 6) / 10
                 local minus = math.floor(stat.get_flow_count{name=item, input=false, precision_index=precision_value, count=false} / 6) / 10
                 local sum = add - minus
 
-                table['production_' .. i .. '_1'].caption = format_n(add)
-                table['production_' .. i .. '_2'].caption = format_n(minus)
-                table['production_' .. i .. '_3'].caption = format_n(sum)
+                table[production_prefix .. '_1'].caption = format_n(add)
+                table[production_prefix .. '_2'].caption = format_n(minus)
+                table[production_prefix .. '_3'].caption = format_n(sum)
 
                 if sum < 0 then
-                    table['production_' .. i .. '_3'].font_color = font_color[2]
+                    table[production_prefix .. '_3'].font_color = font_color[2]
 
                 else
-                    table['production_' .. i .. '_3'].font_color = font_color[1]
+                    table[production_prefix .. '_3'].font_color = font_color[1]
                 end
             end
         end
