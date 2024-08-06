@@ -189,7 +189,6 @@ Event.on_nth_tick(60, function()
         for i=1, 8 do
             local production_prefix = 'production_' .. i
             local item = table[production_prefix .. '_e'].elem_value
-            game.print(item)
 
             if item then
                 local add = math.floor(stat.get_flow_count{name=item, input=true, precision_index=precision_value, count=false} / 6) / 10
