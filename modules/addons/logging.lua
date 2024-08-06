@@ -4,7 +4,6 @@
 
 local Event = require 'utils.event' --- @dep utils.event
 local config = require 'config.logging' --- @dep config.logging
-local write_json = _C.write_json
 
 local function add_log(data)
 	game.write_file(config.file_name, data .. '\n', true, 0)
