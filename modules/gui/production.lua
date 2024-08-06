@@ -4,7 +4,6 @@
 local Gui = require 'expcore.gui' --- @dep expcore.gui
 local Event = require 'utils.event' --- @dep utils.event
 local Roles = require 'expcore.roles' --- @dep expcore.roles
-local config = require 'config.production' --- @dep config.production
 
 local production_container
 
@@ -156,7 +155,7 @@ Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(production_set, 368, 4, 'disp')
 
-    for i=1, config.row do
+    for i=1, 8, 1 do
         production_data_group(disp, i)
     end
 
@@ -187,9 +186,10 @@ Event.on_nth_tick(60, function()
         local precision_value = precision[frame.container['production_st_1'].disp.table[production_time_scale.name].selected_index]
         local table = frame.container['production_st_2'].disp.table
 
-        for i=1, config.row do
+        for i=1, 8, 1 do
             local production_prefix = 'production_' .. i
             local item = table[production_prefix .. '_e'].elem_value
+            game.print(item)
 
             if item then
                 local add = math.floor(stat.get_flow_count{name=item, input=true, precision_index=precision_value, count=false} / 6) / 10
