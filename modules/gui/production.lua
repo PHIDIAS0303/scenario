@@ -200,17 +200,17 @@ Event.on_nth_tick(60, function()
                 table[production_prefix .. '_3'].caption = format_n(sum)
 
                 if sum < 0 then
-                    table[production_prefix .. '_3'].font_color = font_color[2]
+                    table[production_prefix .. '_3'].style.font_color = font_color[2]
 
                 else
-                    table[production_prefix .. '_3'].font_color = font_color[1]
+                    table[production_prefix .. '_3'].style.font_color = font_color[1]
                 end
 
             else
                 table[production_prefix .. '_1'].caption = '0.0'
                 table[production_prefix .. '_2'].caption = '0.0'
                 table[production_prefix .. '_3'].caption = '0.0'
-                table[production_prefix .. '_3'].font_color = font_color[1]
+                table[production_prefix .. '_3'].style.font_color = font_color[1]
             end
         end
     end
