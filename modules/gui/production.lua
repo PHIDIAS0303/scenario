@@ -34,7 +34,7 @@ local font_color = {
 local function format_n(n)
     local _i, _j, m, i, f = tostring(n):find('([-]?)(%d+)([.]?%d*)')
     i = i:reverse():gsub('(%d%d%d)', '%1,')
-
+    game.print(f)
     if f then
         return m .. i:reverse():gsub('^,', '') .. f
     else
@@ -122,7 +122,7 @@ Gui.element(function(_definition, parent, i)
     local data_1 = parent.add{
         type = 'label',
         name = 'production_' .. i .. '_1',
-        caption = '0',
+        caption = '0.0',
         style = 'heading_1_label'
     }
     data_1.style.width = 96
@@ -132,7 +132,7 @@ Gui.element(function(_definition, parent, i)
     local data_2 = parent.add{
         type = 'label',
         name = 'production_' .. i .. '_2',
-        caption = '0',
+        caption = '0.0',
         style = 'heading_1_label'
     }
     data_2.style.width = 96
@@ -142,7 +142,7 @@ Gui.element(function(_definition, parent, i)
     local data_3 = parent.add{
         type = 'label',
         name = 'production_' .. i .. '_3',
-        caption = '0',
+        caption = '0.0',
         style = 'heading_1_label'
     }
     data_3.style.width = 96
@@ -211,9 +211,9 @@ Event.on_nth_tick(60, function()
                 end
 
             else
-                table[production_prefix .. '_1'].caption = '0'
-                table[production_prefix .. '_2'].caption = '0'
-                table[production_prefix .. '_3'].caption = '0'
+                table[production_prefix .. '_1'].caption = '0.0'
+                table[production_prefix .. '_2'].caption = '0.0'
+                table[production_prefix .. '_3'].caption = '0.0'
                 table[production_prefix .. '_3'].font_color = font_color[1]
             end
         end
