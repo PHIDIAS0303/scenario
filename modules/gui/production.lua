@@ -35,7 +35,11 @@ local function format_n(n)
     local _i, _j, m, i, f = tostring(n):find('([-]?)(%d+)([.]?%d*)')
     i = i:reverse():gsub('(%d%d%d)', '%1,')
 
-    return m .. i:reverse():gsub('^,', '') .. f
+    if f then
+        return m .. i:reverse():gsub('^,', '') .. f
+    else
+        return m .. i:reverse():gsub('^,', '') .. '.0'
+    end
 end
 
 local production_time_scale =
