@@ -34,8 +34,8 @@ local font_color = {
 local function format_n(n)
     local _i, _j, m, i, f = tostring(n):find('([-]?)(%d+)([.]?%d*)')
     i = i:reverse():gsub('(%d%d%d)', '%1,')
-    game.print(f)
-    if f then
+
+    if f ~= '' then
         return m .. i:reverse():gsub('^,', '') .. f
     else
         return m .. i:reverse():gsub('^,', '') .. '.0'
