@@ -3,7 +3,7 @@
 ]]
 
 local Event = require 'utils.event' --- @dep utils.event
-local config = require 'config.logging' --- @dep config.vlayer
+local config = require 'config.logging' --- @dep config.logging
 local write_json = _C.write_json
 
 Event.add(defines.events.on_rocket_launched, function(event)
