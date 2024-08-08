@@ -52,9 +52,9 @@ return {
     'modules.addons.death-logger',
     'modules.addons.advanced-start',
     -- mod change
-    -- 'modules.addons.spawn-area',
+    'modules.addons.spawn-area',
     -- mod change
-    -- 'modules.addons.compilatron',
+    'modules.addons.compilatron',
     -- 'modules.addons.scorched-earth',
     -- 'modules.addons.pollution-grading',
     -- 'modules.addons.station-auto-name',
@@ -91,7 +91,7 @@ return {
     -- 'modules.gui.science-info',
     'modules.gui.autofill',
     -- mod change
-    -- 'modules.gui.warp-list',
+    'modules.gui.warp-list',
     'modules.gui.task-list',
     'modules.gui.player-list',
     'modules.gui.server-ups',
