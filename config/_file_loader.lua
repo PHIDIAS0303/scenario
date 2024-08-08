@@ -51,8 +51,10 @@ return {
     'modules.addons.damage-popups',
     'modules.addons.death-logger',
     'modules.addons.advanced-start',
-    'modules.addons.spawn-area',
-    'modules.addons.compilatron',
+    -- mod change
+    -- 'modules.addons.spawn-area',
+    -- mod change
+    -- 'modules.addons.compilatron',
     -- 'modules.addons.scorched-earth',
     -- 'modules.addons.pollution-grading',
     -- 'modules.addons.station-auto-name',
@@ -88,7 +90,8 @@ return {
     -- 'modules.gui.rocket-info',
     -- 'modules.gui.science-info',
     'modules.gui.autofill',
-    'modules.gui.warp-list',
+    -- mod change
+    -- 'modules.gui.warp-list',
     'modules.gui.task-list',
     'modules.gui.player-list',
     'modules.gui.server-ups',
