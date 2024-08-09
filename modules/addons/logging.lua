@@ -30,6 +30,10 @@ Event.add(defines.events.on_pre_player_died, function(event)
 end)
 
 Event.add(defines.events.on_research_finished, function(event)
+    if not (event and event.research) then
+        return
+    end
+
     if event.by_script then
         return
     end
@@ -39,11 +43,11 @@ Event.add(defines.events.on_research_finished, function(event)
         return
     end
 
-    if (event.research.level - 1) == 0 then
-        add_log('[RES] ' .. string.match(event.research.name, '^(.-)%-%d+$'):gsub('-', ' ') .. ' has been researched')
+    if event.research.level and event.research.level > 1 then
+        add_log('[RES] ' .. string.match(event.research.name, '^(.-)%-%d+$'):gsub('-', ' ') .. ' at level ' .. (event.research.level - 1) .. ' has been researched')
 
     else
-        add_log('[RES] ' .. string.match(event.research.name, '^(.-)%-%d+$'):gsub('-', ' ') .. ' at level ' .. (event.research.level - 1) .. ' has been researched')
+        add_log('[RES] ' .. string.match(event.research.name, '^(.-)%-%d+$'):gsub('-', ' ') .. ' has been researched')
     end
 end)
 
