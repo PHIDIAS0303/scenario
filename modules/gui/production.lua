@@ -7,7 +7,7 @@ local Roles = require 'expcore.roles' --- @dep expcore.roles
 
 local production_container
 
-local elem_filter = {{filter='type', type='item'}}
+local elem_filter = {}
 
 local precision = {
     [1] = defines.flow_precision_index.five_seconds,
