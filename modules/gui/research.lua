@@ -33,19 +33,6 @@ local empty_time = format_time(0, {
 	null=true
 })
 
-local font_color = {
-    [1] = {
-        r = 0.3,
-        g = 1,
-        b = 0.3
-    },
-    [2] = {
-        r = 1,
-        g = 0.3,
-        b = 0.3
-    }
-}
-
 local res = {
 	['lookup_name'] = {},
 	['disp'] = {}
@@ -225,11 +212,9 @@ Gui.element(function(_, parent, name)
 			else
 				if research.time[res_j] < res['disp'][res_j].prev then
 					disp['research_display_d_' .. j].caption = '-' .. format_time(res['disp'][res_j].prev - research.time[res_j], research_time_format)
-					disp['research_display_d_' .. j].style.font_color = font_color[2]
 
 				else
 					disp['research_display_d_' .. j].caption = format_time(research.time[res_j] - res['disp'][res_j].prev, research_time_format)
-					disp['research_display_d_' .. j].style.font_color = font_color[1]
 				end
 
 				disp['research_display_p_' .. j].caption = res_r.prev_disp
@@ -318,13 +303,6 @@ Event.add(defines.events.on_research_finished, function(event)
 			disp['research_display_d_' .. j].caption = res_disp[j]['d']
 			disp['research_display_p_' .. j].caption = res_disp[j]['p']
 			disp['research_display_t_' .. j].caption = res_disp[j]['t']
-
-			if res_disp[j]['d'] < 0 then
-				disp['research_display_d_' .. j].style.font_color = font_color[2]
-
-			else
-				disp['research_display_d_' .. j].style.font_color = font_color[1]
-			end
 		end
     end
 end)
