@@ -33,7 +33,6 @@ local empty_time = format_time(0, {
 	null=true
 })
 
---[[
 local res = {
 	['lookup_name'] = {},
 	['disp'] = {}
@@ -61,7 +60,7 @@ local function add_log()
 	local result_data = {}
 
 	for i=1, #research.time, 1 do
-		result_data[res['disp'][i]['raw_name'] ] = research.time[i]
+		result_data[res['disp'][i]['raw_name']] = research.time[i]
 	end
 
 	game.write_file(config.file_name, game.table_to_json(result_data) .. '\n', true, 0)
@@ -317,4 +316,3 @@ Event.on_nth_tick(60, function()
 		disp[research_gui_clock.name].caption = current_time
     end
 end)
-]]
