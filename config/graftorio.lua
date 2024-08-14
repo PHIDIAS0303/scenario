@@ -1,7 +1,7 @@
 return {
 	modules = {
-		["forcestats"] = true,
-		["logistorage"] = false,
-		["other"] = true,
+		['forcestats'] = true,
+		['logistorage'] = false,
+		['other'] = true,
 	}
 }
