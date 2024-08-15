@@ -170,8 +170,8 @@ local function research_gui_update()
 		else
 			res_disp[i]['name'] = ''
 			res_disp[i]['target'] = ''
-			res_disp[i]['attempt'] = empty_time
-			res_disp[i]['difference'] = empty_time
+			res_disp[i]['attempt'] = ''
+			res_disp[i]['difference'] = ''
 			res_disp[i]['difference_color'] = font_color[1]
 		end
 	end
