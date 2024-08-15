@@ -55,8 +55,8 @@ local function research_init()
 		res['disp'][mi] = {
 			name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
 			raw_name = k,
-			prev = res_total,
-			prev_disp = format_time(res_total, research_time_format),
+			target = res_total,
+			target_disp = format_time(res_total, research_time_format),
 		}
 
 		mi = mi + 1
@@ -136,6 +136,46 @@ local function research_notification(event)
     end
 end
 
+local function research_gui_update()
+	local res_disp = {}
+	local res_n = research_res_n(res['disp'])
+
+	for i=1, 8, 1 do
+		local res_i = res_n + i - 3
+
+		if res['disp'][res_i] then
+			local res_r = res['disp'][res_i]
+			disp['research_display_n_' .. i].caption = res_r.name
+
+			if research.time[res_i] == 0 then
+				disp['research_display_d_' .. i].caption = empty_time
+				disp['research_display_p_' .. i].caption = res_r.prev_disp
+				disp['research_display_t_' .. i].caption = empty_time
+
+			else
+				if research.time[res_i] < res['disp'][res_i].target then
+					disp['research_display_d_' .. i].caption = '-' .. format_time(res['disp'][res_i].target - research.time[res_i], research_time_format)
+
+				else
+					disp['research_display_d_' .. i].caption = format_time(research.time[res_i] - res['disp'][res_i].target, research_time_format)
+				end
+
+				disp['research_display_p_' .. i].caption = res_r.prev_disp
+				disp['research_display_t_' .. i].caption = format_time(research.time[res_i], research_time_format)
+			end
+
+		else
+			res_disp[i]['name'] = ''
+			res_disp[i]['target'] = ''
+			res_disp[i]['attempt'] = empty_time
+			res_disp[i]['difference'] = empty_time
+			res_disp[i]['difference_color'] = font_color[2]
+		end
+	end
+
+	return res_disp
+end
+
 --- Display label for the clock display
 -- @element research_gui_clock_display
 local research_gui_clock =
@@ -162,44 +202,42 @@ end)
 -- @element research_data_group
 local research_data_group =
 Gui.element(function(_definition, parent, i)
-	local data_1 = parent.add{
+	local name = parent.add{
         type = 'label',
-        name = 'research_' .. i .. '_1',
-        caption = '0.0',
+        name = 'research_' .. i .. '_name',
+        caption = '',
         style = 'heading_1_label'
     }
-    data_1.style.width = 120
-    data_1.style.horizontal_align = 'left'
+    name.style.width = 120
+    name.style.horizontal_align = 'left'
 
-    local data_1 = parent.add{
+	local target = parent.add{
         type = 'label',
-        name = 'research_' .. i .. '_1',
-        caption = '0.0',
+        name = 'research_' .. i .. '_target',
+        caption = '',
         style = 'heading_1_label'
     }
-    data_1.style.width = 80
-    data_1.style.horizontal_align = 'right'
-    data_1.style.font_color = font_color[1]
+    target.style.width = 80
+    target.style.horizontal_align = 'right'
 
-    local data_2 = parent.add{
+	local attempt = parent.add{
         type = 'label',
-        name = 'production_' .. i .. '_2',
-        caption = '0.0',
+        name = 'research_' .. i .. '_attempt',
+        caption = empty_time,
         style = 'heading_1_label'
     }
-    data_2.style.width = 80
-    data_2.style.horizontal_align = 'right'
-    data_2.style.font_color = font_color[2]
+    attempt.style.width = 80
+    attempt.style.horizontal_align = 'right'
 
-    local data_3 = parent.add{
+    local difference = parent.add{
         type = 'label',
-        name = 'production_' .. i .. '_3',
-        caption = '0.0',
+        name = 'research_' .. i .. '_difference',
+        caption = empty_time,
         style = 'heading_1_label'
     }
-    data_3.style.width = 80
-    data_3.style.horizontal_align = 'right'
-    data_3.style.font_color = font_color[1]
+    difference.style.width = 80
+    difference.style.horizontal_align = 'right'
+	difference.style.font_color = font_color[2]
 end)
 
 --- A vertical flow containing the data
@@ -208,69 +246,18 @@ local research_data_set =
 Gui.element(function(_, parent, name)
     local research_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(research_set, 360, 4, 'disp')
+	local res_disp = research_gui_update()
 
 	for i=1, 8, 1 do
-        disp.add{
-			type = 'label',
-            name = 'research_display_n_' .. i,
-            caption = '',
-            style = 'heading_1_label'
-        }
+		research_data_group(disp, i)
 
-		disp.add{
-			type = 'label',
-            name = 'research_display_d_' .. i,
-            caption = empty_time,
-            style = 'heading_1_label'
-        }
+		local research_name_i = 'research_' .. i
 
-		disp.add{
-			type = 'label',
-            name = 'research_display_p_' .. i,
-			caption = '',
-            style = 'heading_1_label'
-        }
-
-		disp.add{
-			type = 'label',
-            name = 'research_display_t_' .. i,
-            caption = empty_time,
-            style = 'heading_1_label'
-        }
-	end
-
-	local res_n = research_res_n(res['disp'])
-
-	for j=1, 8, 1 do
-		local res_j = res_n + j - 3
-
-		if res['disp'][res_j] then
-			local res_r = res['disp'][res_j]
-			disp['research_display_n_' .. j].caption = res_r.name
-
-			if research.time[res_j] == 0 then
-				disp['research_display_d_' .. j].caption = empty_time
-				disp['research_display_p_' .. j].caption = res_r.prev_disp
-				disp['research_display_t_' .. j].caption = empty_time
-
-			else
-				if research.time[res_j] < res['disp'][res_j].prev then
-					disp['research_display_d_' .. j].caption = '-' .. format_time(res['disp'][res_j].prev - research.time[res_j], research_time_format)
-
-				else
-					disp['research_display_d_' .. j].caption = format_time(research.time[res_j] - res['disp'][res_j].prev, research_time_format)
-				end
-
-				disp['research_display_p_' .. j].caption = res_r.prev_disp
-				disp['research_display_t_' .. j].caption = format_time(research.time[res_j], research_time_format)
-			end
-
-		else
-			disp['research_display_n_' .. j].caption = ''
-			disp['research_display_d_' .. j].caption = ''
-			disp['research_display_p_' .. j].caption = ''
-			disp['research_display_t_' .. j].caption = ''
-		end
+		disp[research_name_i .. '_name'].caption = res_disp[i]['name']
+		disp[research_name_i .. '_target'].caption = res_disp[i]['target']
+		disp[research_name_i .. '_attempt'].caption = res_disp[i]['attempt']
+		disp[research_name_i .. '_difference'].caption = res_disp[i]['difference']
+		disp[research_name_i .. '_difference'].style.font_color = res_disp[i]['difference_color']
 	end
 
     return research_set
@@ -304,53 +291,22 @@ Event.add(defines.events.on_research_finished, function(event)
 	local n_i = res['lookup_name'][event.research.name]
 	research.time[n_i] = game.tick
 
-	local res_n = research_res_n(res['disp'])
-	local res_disp = {}
-
-	for j=1, 8, 1 do
-		local res_j = res_n + j - 3
-		res_disp[j] = {}
-
-		if res['disp'][res_j] then
-			local res_r = res['disp'][res_j]
-			res_disp[j]['n'] = res_r.name
-
-			if research.time[res_j] == 0 then
-				res_disp[j]['d'] = empty_time
-				res_disp[j]['p']= res_r.prev_disp
-				res_disp[j]['t'] = empty_time
-
-			else
-				if research.time[res_j] < res['disp'][res_j].prev then
-					res_disp[j]['d'] = '-' .. format_time(res['disp'][res_j].prev - research.time[res_j], research_time_format)
-
-				else
-					res_disp[j]['d'] = format_time(research.time[res_j] - res['disp'][res_j].prev, research_time_format)
-				end
-
-				res_disp[j]['p'] = res_r.prev_disp
-				res_disp[j]['t'] = format_time(research.time[res_j], research_time_format)
-			end
-
-		else
-			res_disp[j]['n'] = ''
-			res_disp[j]['d'] = ''
-			res_disp[j]['p'] = ''
-			res_disp[j]['t'] = ''
-		end
-	end
+	local res_disp = research_gui_update()
 
 	for _, player in pairs(game.connected_players) do
-        local frame = Gui.get_left_element(player, research_container)
+		local frame = Gui.get_left_element(player, research_container)
 		local disp = frame.container['research_st_2'].disp.table
 
-		for j=1, 8, 1 do
-			disp['research_display_n_' .. j].caption = res_disp[j]['n']
-			disp['research_display_d_' .. j].caption = res_disp[j]['d']
-			disp['research_display_p_' .. j].caption = res_disp[j]['p']
-			disp['research_display_t_' .. j].caption = res_disp[j]['t']
+		for i=1, 8, 1 do
+			local research_name_i = 'research_' .. i
+
+			disp[research_name_i .. '_name'].caption = res_disp[i]['name']
+			disp[research_name_i .. '_target'].caption = res_disp[i]['target']
+			disp[research_name_i .. '_attempt'].caption = res_disp[i]['attempt']
+			disp[research_name_i .. '_difference'].caption = res_disp[i]['difference']
+			disp[research_name_i .. '_difference'].style.font_color = res_disp[i]['difference_color']
 		end
-    end
+	end
 end)
 
 Event.on_nth_tick(60, function()
