@@ -96,24 +96,23 @@ end
 
 local function research_notification(event)
     if config.inf_res[event.research.name] then
-		if event.research.name == 'mining-productivity-4' and event.research.level == 5 then
-			-- Add run result to log
-			research_add_log()
-		end
+		if event.research.name == 'mining-productivity-4' then
+			if event.research.level == 5 then
+				-- Add run result to log
+				research_add_log()
+			end
 
-		if event.research.level >= config.inf_res[event.research.name] then
-			if event.research.name == 'mining-productivity-4' then
-				if config.bonus_inventory.enabled then
-					if (event.research.level - 1) <= math.ceil(config.bonus_inventory.limit / config.bonus_inventory.rate) then
-						event.research.force[config.bonus_inventory.name] = math.max((event.research.level - 1) * config.bonus_inventory.rate, config.bonus_inventory.limit)
-					end
-				end
-
-				if config.pollution_ageing_by_research then
-					game.map_settings.pollution.ageing = math.min(10, event.research.level / 5)
+			if config.bonus_inventory.enabled then
+				if (event.research.level - 1) <= math.ceil(config.bonus_inventory.limit / config.bonus_inventory.rate) then
+					event.research.force[config.bonus_inventory.name] = math.max((event.research.level - 1) * config.bonus_inventory.rate, config.bonus_inventory.limit)
 				end
 			end
 
+			if config.pollution_ageing_by_research then
+				game.map_settings.pollution.ageing = math.min(10, event.research.level / 5)
+			end
+
+		else
 			if not (event.by_script) then
 				game.print{'expcom-res.inf', format_time(game.tick, research_time_format), event.research.name, event.research.level - 1}
 			end
