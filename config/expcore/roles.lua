@@ -157,7 +157,7 @@ Roles.new_role('Supporter','Sup')
 
 Roles.new_role('Partner','Part')
 :set_permission_group('Trusted')
-:set_custom_color{r=140,g=120,b=200}
+:set_custom_color{r=24,g=172,b=188}
 :set_flag('is_spectator')
 :set_flag('report-immune')
 :set_flag('instant-respawn')
@@ -168,7 +168,7 @@ Roles.new_role('Partner','Part')
 
 Roles.new_role('Senior Member','SMem')
 :set_permission_group('Trusted')
-:set_custom_color{r=140,g=120,b=200}
+:set_custom_color{r=24,g=172,b=188}
 :set_flag('is_spectator')
 :set_flag('report-immune')
 :set_flag('instant-respawn')
