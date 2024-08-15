@@ -33,6 +33,11 @@ local empty_time = format_time(0, {
 	null=true
 })
 
+local font_color = {
+    [1] = {r = 0.3, g = 1, b = 0.3},
+    [2] = {r = 1, g = 0.3, b = 0.3}
+}
+
 local res = {
 	['lookup_name'] = {},
 	['disp'] = {}
@@ -195,8 +200,6 @@ Gui.element(function(_definition, parent, i)
     data_3.style.width = 80
     data_3.style.horizontal_align = 'right'
     data_3.style.font_color = font_color[1]
-
-    return item
 end)
 
 --- A vertical flow containing the data
