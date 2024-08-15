@@ -249,6 +249,7 @@ local research_data_set =
 Gui.element(function(_, parent, name)
     local research_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(research_set, 360, 4, 'disp')
+	research_init()
 	local res_disp = research_gui_update()
 
 	for i=1, 8, 1 do
@@ -281,8 +282,6 @@ end)
 Gui.left_toolbar_button('item/space-science-pack', {'expcom-res.main-tooltip'}, research_container, function(player)
 	return Roles.player_allowed(player, 'gui/research')
 end)
-
-Event.add(defines.events.on_player_joined_game, research_init)
 
 Event.add(defines.events.on_research_finished, function(event)
 	research_notification(event)
