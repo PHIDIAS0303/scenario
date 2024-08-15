@@ -16,16 +16,8 @@ local precision = {
 }
 
 local font_color = {
-    [1] = {
-        r = 0.3,
-        g = 1,
-        b = 0.3
-    },
-    [2] = {
-        r = 1,
-        g = 0.3,
-        b = 0.3
-    }
+    [1] = {r = 0.3, g = 1, b = 0.3},
+    [2] = {r = 1, g = 0.3, b = 0.3}
 }
 
 local function format_n(n)

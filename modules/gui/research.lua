@@ -153,6 +153,52 @@ Gui.element(function(_, parent, name)
     return research_set
 end)
 
+--- Display group
+-- @element research_data_group
+local research_data_group =
+Gui.element(function(_definition, parent, i)
+	local data_1 = parent.add{
+        type = 'label',
+        name = 'research_' .. i .. '_1',
+        caption = '0.0',
+        style = 'heading_1_label'
+    }
+    data_1.style.width = 120
+    data_1.style.horizontal_align = 'left'
+
+    local data_1 = parent.add{
+        type = 'label',
+        name = 'research_' .. i .. '_1',
+        caption = '0.0',
+        style = 'heading_1_label'
+    }
+    data_1.style.width = 80
+    data_1.style.horizontal_align = 'right'
+    data_1.style.font_color = font_color[1]
+
+    local data_2 = parent.add{
+        type = 'label',
+        name = 'production_' .. i .. '_2',
+        caption = '0.0',
+        style = 'heading_1_label'
+    }
+    data_2.style.width = 80
+    data_2.style.horizontal_align = 'right'
+    data_2.style.font_color = font_color[2]
+
+    local data_3 = parent.add{
+        type = 'label',
+        name = 'production_' .. i .. '_3',
+        caption = '0.0',
+        style = 'heading_1_label'
+    }
+    data_3.style.width = 80
+    data_3.style.horizontal_align = 'right'
+    data_3.style.font_color = font_color[1]
+
+    return item
+end)
+
 --- A vertical flow containing the data
 -- @element research_data_set
 local research_data_set =
