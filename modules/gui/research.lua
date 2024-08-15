@@ -144,24 +144,26 @@ local function research_gui_update()
 		local res_i = res_n + i - 3
 
 		if res['disp'][res_i] then
-			local res_r = res['disp'][res_i]
-			disp['research_display_n_' .. i].caption = res_r.name
+			res_disp[i]['name'] = res['disp'][res_i].name
 
 			if research.time[res_i] == 0 then
-				disp['research_display_d_' .. i].caption = empty_time
-				disp['research_display_p_' .. i].caption = res_r.prev_disp
-				disp['research_display_t_' .. i].caption = empty_time
+				res_disp[i]['target'] = res['disp'][res_i].target_disp
+				res_disp[i]['attempt'] = empty_time
+				res_disp[i]['difference'] = empty_time
+				res_disp[i]['difference_color'] = font_color[1]
 
 			else
 				if research.time[res_i] < res['disp'][res_i].target then
-					disp['research_display_d_' .. i].caption = '-' .. format_time(res['disp'][res_i].target - research.time[res_i], research_time_format)
+					res_disp[i]['difference'] = '-' .. format_time(res['disp'][res_i].target - research.time[res_i], research_time_format)
+					res_disp[i]['difference_color'] = font_color[1]
 
 				else
-					disp['research_display_d_' .. i].caption = format_time(research.time[res_i] - res['disp'][res_i].target, research_time_format)
+					res_disp[i]['difference'] = format_time(research.time[res_i] - res['disp'][res_i].target, research_time_format)
+					res_disp[i]['difference_color'] = font_color[2]
 				end
 
-				disp['research_display_p_' .. i].caption = res_r.prev_disp
-				disp['research_display_t_' .. i].caption = format_time(research.time[res_i], research_time_format)
+				res_disp[i]['target'] = res['disp'][res_i].target_disp
+				res_disp[i]['attempt'] = format_time(research.time[res_i], research_time_format)
 			end
 
 		else
@@ -169,7 +171,7 @@ local function research_gui_update()
 			res_disp[i]['target'] = ''
 			res_disp[i]['attempt'] = empty_time
 			res_disp[i]['difference'] = empty_time
-			res_disp[i]['difference_color'] = font_color[2]
+			res_disp[i]['difference_color'] = font_color[1]
 		end
 	end
 
@@ -237,7 +239,7 @@ Gui.element(function(_definition, parent, i)
     }
     difference.style.width = 80
     difference.style.horizontal_align = 'right'
-	difference.style.font_color = font_color[2]
+	difference.style.font_color = font_color[1]
 end)
 
 --- A vertical flow containing the data
