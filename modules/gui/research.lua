@@ -45,21 +45,21 @@ local res = {
 
 local function research_init()
 	local res_total = 0
-	local mi = 1
+	local i = 1
 
 	for k, v in pairs(config.milestone) do
-		research.time[mi] = 0
-		res['lookup_name'][k] = mi
+		research.time[i] = 0
+		res['lookup_name'][k] = i
 		res_total = res_total + v * 60
 
-		res['disp'][mi] = {
+		res['disp'][i] = {
 			name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
 			raw_name = k,
 			target = res_total,
 			target_disp = format_time(res_total, research_time_format),
 		}
 
-		mi = mi + 1
+		i = i + 1
 	end
 end
 
