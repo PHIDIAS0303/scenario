@@ -194,7 +194,7 @@ Gui.element{
 local research_clock_set =
 Gui.element(function(_, parent, name)
     local research_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(research_set, 360, 1, 'disp')
+    local disp = Gui.scroll_table(research_set, 400, 1, 'disp')
 
     research_gui_clock(disp)
 
@@ -211,7 +211,7 @@ Gui.element(function(_definition, parent, i)
         caption = '',
         style = 'heading_1_label'
     }
-    name.style.width = 120
+    name.style.width = 160
     name.style.horizontal_align = 'left'
 
 	local target = parent.add{
@@ -248,7 +248,7 @@ end)
 local research_data_set =
 Gui.element(function(_, parent, name)
     local research_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(research_set, 360, 4, 'disp')
+    local disp = Gui.scroll_table(research_set, 400, 4, 'disp')
 	research_init()
 	local res_disp = research_gui_update()
 
@@ -269,7 +269,7 @@ end)
 
 local research_container =
 Gui.element(function(definition, parent)
-	local container = Gui.container(parent, definition.name, 360)
+	local container = Gui.container(parent, definition.name, 400)
 
 	research_clock_set(container, 'research_st_1')
     research_data_set(container, 'research_st_2')
