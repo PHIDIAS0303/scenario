@@ -123,8 +123,8 @@ local function research_notification(event)
             game.print{'expcom-res.msg', format_time(game.tick, research_time_format), event.research.name}
         end
 
-		if event.research.name == 'mining-productivity-1' or event.research.name == 'mining-productivity-2' or event.research.name == 'mining-productivity-3' then
-			if config.bonus_inventory.enabled then
+		if config.bonus_inventory.enabled then
+			if event.research.name == 'mining-productivity-1' or event.research.name == 'mining-productivity-2' or event.research.name == 'mining-productivity-3' then
 				event.research.force[config.bonus_inventory.name] = event.research.level * config.bonus_inventory.rate
 			end
 		end
