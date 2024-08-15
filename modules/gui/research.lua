@@ -41,21 +41,19 @@ local res = {
 local res_total = 0
 local mi = 1
 
-local function research_init()
-	for k, v in pairs(config.milestone) do
-		research.time[mi] = 0
-		res['lookup_name'][k] = mi
-		res_total = res_total + v * 60
+for k, v in pairs(config.milestone) do
+	research.time[mi] = 0
+	res['lookup_name'][k] = mi
+	res_total = res_total + v * 60
 
-		res['disp'][mi] = {
-			name = '[technology=' .. k .. '] ' .. game.players[1].force.technologies[k].localised_name,
-			raw_name = k,
-			prev = res_total,
-			prev_disp = format_time(res_total, research_time_format),
-		}
+	res['disp'][mi] = {
+		name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
+		raw_name = k,
+		prev = res_total,
+		prev_disp = format_time(res_total, research_time_format),
+	}
 
-		mi = mi + 1
-	end
+	mi = mi + 1
 end
 
 local function add_log()
@@ -318,5 +316,3 @@ Event.on_nth_tick(60, function()
 		disp[research_gui_clock.name].caption = current_time
     end
 end)
-
-Event.add(defines.events.on_player_joined_game, research_init)
