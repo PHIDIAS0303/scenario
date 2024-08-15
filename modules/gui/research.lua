@@ -226,7 +226,7 @@ Gui.element(function(_definition, parent, i)
 	local attempt = parent.add{
         type = 'label',
         name = 'research_' .. i .. '_attempt',
-        caption = empty_time,
+        caption = '',
         style = 'heading_1_label'
     }
     attempt.style.width = 80
@@ -235,7 +235,7 @@ Gui.element(function(_definition, parent, i)
     local difference = parent.add{
         type = 'label',
         name = 'research_' .. i .. '_difference',
-        caption = empty_time,
+        caption = '',
         style = 'heading_1_label'
     }
     difference.style.width = 80
