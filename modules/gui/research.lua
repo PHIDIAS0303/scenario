@@ -38,25 +38,27 @@ local res = {
 	['disp'] = {}
 }
 
-local res_total = 0
-local mi = 1
+local function research_init()
+	local res_total = 0
+	local mi = 1
 
-for k, v in pairs(config.milestone) do
-	research.time[mi] = 0
-	res['lookup_name'][k] = mi
-	res_total = res_total + v * 60
+	for k, v in pairs(config.milestone) do
+		research.time[mi] = 0
+		res['lookup_name'][k] = mi
+		res_total = res_total + v * 60
 
-	res['disp'][mi] = {
-		name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
-		raw_name = k,
-		prev = res_total,
-		prev_disp = format_time(res_total, research_time_format),
-	}
+		res['disp'][mi] = {
+			name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
+			raw_name = k,
+			prev = res_total,
+			prev_disp = format_time(res_total, research_time_format),
+		}
 
-	mi = mi + 1
+		mi = mi + 1
+	end
 end
 
-local function add_log()
+local function research_add_log()
 	local result_data = {}
 
 	for i=1, #research.time, 1 do
@@ -96,12 +98,11 @@ local function research_notification(event)
     local is_inf_res = false
 
     if config.inf_res[event.research.name] then
-		if event.research.name == 'mining-productivity-4' and event.research.level == 5 then
-			-- Add run result to log
-			add_log()
-		end
-
 		if event.research.level >= config.inf_res[event.research.name] then
+			is_inf_res = true
+		elseif event.research.name == 'mining-productivity-4' and event.research.level == 5 then
+			-- Add run result to log
+			research_add_log()
 			is_inf_res = true
 		end
     end
@@ -247,6 +248,8 @@ end)
 Gui.left_toolbar_button('item/space-science-pack', {'expcom-res.main-tooltip'}, research_container, function(player)
 	return Roles.player_allowed(player, 'gui/research')
 end)
+
+Event.add(defines.events.on_player_joined_game, research_init)
 
 Event.add(defines.events.on_research_finished, function(event)
 	research_notification(event)
