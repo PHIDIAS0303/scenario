@@ -141,6 +141,7 @@ local function research_gui_update()
 	local res_n = research_res_n(res['disp'])
 
 	for i=1, 8, 1 do
+		res_disp[i] = {}
 		local res_i = res_n + i - 3
 
 		if res['disp'][res_i] then
