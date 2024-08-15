@@ -154,6 +154,9 @@ local function research_gui_update()
 				res_disp[i]['difference_color'] = font_color[1]
 
 			else
+				res_disp[i]['target'] = res['disp'][res_i].target_disp
+				res_disp[i]['attempt'] = format_time(research.time[res_i], research_time_format)
+
 				if research.time[res_i] < res['disp'][res_i].target then
 					res_disp[i]['difference'] = '-' .. format_time(res['disp'][res_i].target - research.time[res_i], research_time_format)
 					res_disp[i]['difference_color'] = font_color[1]
@@ -162,9 +165,6 @@ local function research_gui_update()
 					res_disp[i]['difference'] = format_time(research.time[res_i] - res['disp'][res_i].target, research_time_format)
 					res_disp[i]['difference_color'] = font_color[2]
 				end
-
-				res_disp[i]['target'] = res['disp'][res_i].target_disp
-				res_disp[i]['attempt'] = format_time(research.time[res_i], research_time_format)
 			end
 
 		else
