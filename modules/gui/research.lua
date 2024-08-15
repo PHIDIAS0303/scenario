@@ -100,10 +100,11 @@ local function research_notification(event)
     if config.inf_res[event.research.name] then
 		if event.research.level >= config.inf_res[event.research.name] then
 			is_inf_res = true
-		elseif event.research.name == 'mining-productivity-4' and event.research.level == 5 then
+		end
+
+		if event.research.name == 'mining-productivity-4' and event.research.level == 5 then
 			-- Add run result to log
 			research_add_log()
-			is_inf_res = true
 		end
     end
 
