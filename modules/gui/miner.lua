@@ -32,12 +32,20 @@ local blueprint_cache
 local mining_container
 
 local function mining_placement(player, position, direction_index)
-    blueprint_cache.build_blueprint{surface=player.surface, force=player.force, position=position, direction=direction[direction_index], skip_fog_of_war=true, by_player=player}
+    blueprint_cache.build_blueprint{surface=player.surface, force=player.force, position=position, force_build=true, direction=direction[direction_index], skip_fog_of_war=true, by_player=player}
 end
 
 local function mining_apply(area, direction_index, player)
     local grid = blueprint_cache.blueprint_snap_to_grid
     local entities = blueprint_cache.get_blueprint_entities()
+    local bp_dir
+
+    for _, ent in pairs(entities) do
+        if game.entity_prototypes[ent.name].type == 'transport-belt' or game.entity_prototypes[ent.name].type == 'underground-belt' then
+            bp_dir = ent.direction
+            break
+        end
+    end
 
     -- so the starting side is the opposite of the direction
 
