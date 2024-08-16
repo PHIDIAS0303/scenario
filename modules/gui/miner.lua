@@ -48,7 +48,6 @@ local function mining_apply(area, direction_index, player)
     end
 
     -- so the starting side is the opposite of the direction
-
     if direction_index == 1 then
         for y=area.right_bottom.y, area.left_top.y, grid.y do
             for x=area.left_top.x, area.right_bottom.x, grid.x do
