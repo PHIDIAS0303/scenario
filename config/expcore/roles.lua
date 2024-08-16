@@ -294,6 +294,7 @@ local default = Roles.new_role('Guest','')
     'gui/autofill',
     'gui/module',
     'gui/landfill',
+    'gui/mining',
     'gui/production'
 }
 
