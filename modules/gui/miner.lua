@@ -36,7 +36,6 @@ local function mining_placement(player, position, direction_index)
 end
 
 local function mining_apply(area, direction_index, player)
-    local grid = blueprint_cache.blueprint_snap_to_grid
     local entities = blueprint_cache.get_blueprint_entities()
     local bp_dir
 
@@ -49,29 +48,29 @@ local function mining_apply(area, direction_index, player)
 
     -- so the starting side is the opposite of the direction
     if direction_index == 1 then
-        for y=area.right_bottom.y, area.left_top.y, grid.y do
-            for x=area.left_top.x, area.right_bottom.x, grid.x do
+        for y=area.right_bottom.y, area.left_top.y, blueprint_cache.blueprint_snap_to_grid.y do
+            for x=area.left_top.x, area.right_bottom.x, blueprint_cache.blueprint_snap_to_grid.x do
                 mining_placement(player, {x=x, y=y}, direction_index)
             end
         end
 
     elseif direction_index == 2 then
-        for y=area.left_top.y, area.right_bottom.y, -grid.y do
-            for x=area.left_top.x, area.right_bottom.x, grid.x do
+        for y=area.left_top.y, area.right_bottom.y, -blueprint_cache.blueprint_snap_to_grid.y do
+            for x=area.left_top.x, area.right_bottom.x, blueprint_cache.blueprint_snap_to_grid.x do
                 mining_placement(player, {x=x, y=y}, direction_index)
             end
         end
 
     elseif direction_index == 3 then
-        for x=area.left_top.x, area.right_bottom.x, grid.x do
-            for y=area.left_top.y, area.right_bottom.y, -grid.y do
+        for x=area.left_top.x, area.right_bottom.x, blueprint_cache.blueprint_snap_to_grid.x do
+            for y=area.left_top.y, area.right_bottom.y, -blueprint_cache.blueprint_snap_to_grid.y do
                 mining_placement(player, {x=x, y=y}, direction_index)
             end
         end
 
     elseif direction_index == 4 then
-        for x=area.right_bottom.x, area.left_top.x, -grid.x do
-            for y=area.left_top.y, area.right_bottom.y, -grid.y do
+        for x=area.right_bottom.x, area.left_top.x, -blueprint_cache.blueprint_snap_to_grid.x do
+            for y=area.left_top.y, area.right_bottom.y, -blueprint_cache.blueprint_snap_to_grid.y do
                 mining_placement(player, {x=x, y=y}, direction_index)
             end
         end
