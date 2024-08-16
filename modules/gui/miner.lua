@@ -46,6 +46,9 @@ local function mining_apply(area, direction_index, player)
         end
     end
 
+    game.print(area)
+    game.print(direction_index)
+
     -- so the starting side is the opposite of the direction
     if direction_index == 1 then
         for y=area.right_bottom.y, area.left_top.y, blueprint_cache.blueprint_snap_to_grid.y do
