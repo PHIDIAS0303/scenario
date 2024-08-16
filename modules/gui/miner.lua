@@ -23,16 +23,9 @@ end
 
 local mining_container
 
-local function mining_apply(area, blueprint)
+local function mining_apply(area, direction_index, blueprint)
     local entities = blueprint.get_blueprint_entities()
 end
-
---- when an area is selected to add miner to the area
-Selection.on_selection(SelectionMiningArea, function(event)
-    local area = aabb_align_expand(event.area)
-    local player = game.get_player(event.player_index)
-    mining_apply(area, player.cursor_stack)
-end)
 
 local data_1 =
 Gui.element{
@@ -44,6 +37,15 @@ Gui.element{
     width = 160,
     horizontal_align = 'left'
 }
+
+--- when an area is selected to add miner to the area
+Selection.on_selection(SelectionMiningArea, function(event)
+    local area = aabb_align_expand(event.area)
+    local player = game.get_player(event.player_index)
+    local frame = Gui.get_left_element(player, mining_container)
+    local disp = frame.container['mining_st_1'].disp.table
+    mining_apply(area, disp[data_1.name].selected_index, player.cursor_stack)
+end)
 
 local data_2 =
 Gui.element{
