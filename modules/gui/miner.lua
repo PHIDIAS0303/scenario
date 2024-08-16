@@ -36,27 +36,18 @@ local function mining_placement(player, position, direction_index)
 end
 
 local function mining_apply(area, direction_index, player)
-    local bp_dir
-
-    for _, ent in pairs(blueprint_cache.get_blueprint_entities()) do
-        if game.entity_prototypes[ent.name].type == 'transport-belt' or game.entity_prototypes[ent.name].type == 'underground-belt' then
-            bp_dir = ent.direction
-            break
-        end
-    end
-
     -- so the starting side is the opposite of the direction
     if direction_index == 1 then
         for y=area.right_bottom.y, area.left_top.y, blueprint_cache.blueprint_snap_to_grid.y do
             for x=area.left_top.x, area.right_bottom.x, blueprint_cache.blueprint_snap_to_grid.x do
-                mining_placement(player, {x=x, y=y}, direction_index)
+                mining_placement(player, {x=x, y=y}, direction_index - 2)
             end
         end
 
     elseif direction_index == 2 then
         for y=area.left_top.y, area.right_bottom.y, -blueprint_cache.blueprint_snap_to_grid.y do
             for x=area.left_top.x, area.right_bottom.x, blueprint_cache.blueprint_snap_to_grid.x do
-                mining_placement(player, {x=x, y=y}, direction_index)
+                mining_placement(player, {x=x, y=y}, direction_index - 1)
             end
         end
 
@@ -70,7 +61,7 @@ local function mining_apply(area, direction_index, player)
     elseif direction_index == 4 then
         for x=area.right_bottom.x, area.left_top.x, -blueprint_cache.blueprint_snap_to_grid.x do
             for y=area.left_top.y, area.right_bottom.y, -blueprint_cache.blueprint_snap_to_grid.y do
-                mining_placement(player, {x=x, y=y}, direction_index)
+                mining_placement(player, {x=x, y=y}, direction_index + 1)
             end
         end
     end
