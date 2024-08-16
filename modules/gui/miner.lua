@@ -38,7 +38,10 @@ end
 local function mining_apply(area, direction_index, player)
     -- so the starting side is the opposite of the direction
     if direction_index == 1 then
+        game.print(area.right_bottom.y .. area.left_top.y)
+        game.print(game.table_to_json(blueprint_cache.blueprint_snap_to_grid))
         for y=area.right_bottom.y, area.left_top.y, blueprint_cache.blueprint_snap_to_grid.y do
+            game.print(y)
             for x=area.left_top.x, area.right_bottom.x, blueprint_cache.blueprint_snap_to_grid.x do
                 mining_placement(player, {x=x, y=y}, direction_index - 2)
             end

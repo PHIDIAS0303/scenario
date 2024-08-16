@@ -100,7 +100,7 @@ return {
     'modules.gui.research',
     'modules.gui.module',
     'modules.gui.landfill',
-    'modules.gui.miner',
+    -- 'modules.gui.miner',
     'modules.gui.production',
     'modules.gui.playerdata',
     'modules.gui.surveillance',
