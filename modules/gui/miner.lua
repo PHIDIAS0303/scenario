@@ -66,22 +66,24 @@ end
 local data_1 =
 Gui.element{
     type = 'drop-down',
-    name = 'mining_0_direction',
+    name = 'mining_direction',
     items = {'[img=utility/hint_arrow_up]', '[img=utility/hint_arrow_down]', '[img=utility/hint_arrow_right]', '[img=utility/hint_arrow_left]'},
     selected_index = 1
 }:style{
     width = 240
 }
 
+local data_3
+
 local data_2 =
 Gui.element{
     type = 'button',
-    name = 'mining_0_cache',
+    name = 'mining_cache',
     caption = {'mining.blueprint'},
     tooltip = {'mining.blueprint-tooltip'}
 }:style{
     width = 240
-}:on_click(function(player, _, _)
+}:on_click(function(player, element, _)
     if not player.cursor_stack then
         player.print({'mining.apply-error'})
         return
@@ -108,7 +110,18 @@ Gui.element{
     end
 
     blueprint_cache = player.cursor_stack
+    element.parent[data_3.name].caption = player.cursor_stack.label
 end)
+
+data_3 =
+Gui.element{
+    type = 'label',
+    name = 'mining_cache_name',
+    caption = '',
+    style = 'heading_1_label'
+}:style{
+    width = 240
+}
 
 --- when an area is selected to add miner to the area
 Selection.on_selection(SelectionMiningArea, function(event)
@@ -119,10 +132,10 @@ Selection.on_selection(SelectionMiningArea, function(event)
     mining_apply(area, disp[data_1.name].selected_index, player)
 end)
 
-local data_3 =
+local data_4 =
 Gui.element{
     type = 'button',
-    name = 'mining_0_apply',
+    name = 'mining_apply',
     caption = {'mining.apply'}
 }:style{
     width = 240
@@ -140,18 +153,30 @@ Gui.element{
     end
 end)
 
---- A vertical flow containing all the control
--- @element production_control_set
-local production_control_set =
+--- A vertical flow containing the blueprint
+-- @element mining_blueprint_set
+local mining_blueprint_set =
 Gui.element(function(_, parent, name)
-    local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 240, 1, 'disp')
+    local mining_set = parent.add{type='flow', direction='vertical', name=name}
+    local disp = Gui.scroll_table(mining_set, 240, 1, 'disp')
 
     data_1(disp)
     data_2(disp)
     data_3(disp)
 
-    return production_set
+    return mining_set
+end)
+
+--- A vertical flow containing the control
+-- @element mining_control_set
+local mining_control_set =
+Gui.element(function(_, parent, name)
+    local mining_set = parent.add{type='flow', direction='vertical', name=name}
+    local disp = Gui.scroll_table(mining_set, 240, 1, 'disp')
+
+    data_4(disp)
+
+    return mining_set
 end)
 
 mining_container =
@@ -159,7 +184,8 @@ Gui.element(function(definition, parent)
     local container = Gui.container(parent, definition.name, 240)
     Gui.header(container, {'mining.main-tooltip'}, '', true)
 
-    production_control_set(container, 'mining_st_1')
+    mining_blueprint_set(container, 'mining_st_1')
+    mining_control_set(container, 'mining_st_2')
 
     return container.parent
 end)
