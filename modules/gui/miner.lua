@@ -4,8 +4,32 @@
 local Gui = require 'expcore.gui' --- @dep expcore.gui
 local Event = require 'utils.event' --- @dep utils.event
 local Roles = require 'expcore.roles' --- @dep expcore.roles
+local Selection = require 'modules.control.selection' --- @dep modules.control.selection
+local SelectionMiningArea = 'MiningArea'
+
+--- align an aabb to the grid by expanding it
+local function aabb_align_expand(aabb)
+    return {
+        left_top = {
+            x = math.floor(aabb.left_top.x),
+            y = math.floor(aabb.left_top.y)
+        },
+        right_bottom = {
+            x = math.ceil(aabb.right_bottom.x),
+            y = math.ceil(aabb.right_bottom.y)
+        }
+    }
+end
 
 local mining_container
+
+--- when an area is selected to add protection to the area
+Selection.on_selection(SelectionMiningArea, function(event)
+    local area = aabb_align_expand(event.area)
+    local player = game.get_player(event.player_index)
+    local frame = Gui.get_left_element(player, mining_container)
+    local disp = frame.container['mining_st_1'].disp.table
+end)
 
 local data_1 =
 Gui.element{
@@ -51,6 +75,12 @@ Gui.element{
         player.print({'mining.apply-error'})
         return
     end
+
+    if Selection.is_selecting(player, SelectionMiningArea) then
+        Selection.stop(player)
+    else
+        Selection.start(player, SelectionMiningArea)
+    end
 end)
 
 --- A vertical flow containing all the control
@@ -71,7 +101,7 @@ Gui.element(function(definition, parent)
     local container = Gui.container(parent, definition.name, 320)
     Gui.header(container, {'mining.main-tooltip'}, '', true)
 
-    production_control_set(container, 'production_st_1')
+    production_control_set(container, 'mining_st_1')
 
     return container.parent
 end)
