@@ -28,15 +28,16 @@ local direction = {
     [4] = 'defines.direction.west'
 }
 
+local blueprint_cache
 local mining_container
 
 local function mining_placement(player, position, direction_index)
-    player.cursor_stack.build_blueprint{surface=player.surface, force=player.force, position=position, direction=direction[direction_index], skip_fog_of_war=true, by_player=player}
+    blueprint_cache.build_blueprint{surface=player.surface, force=player.force, position=position, direction=direction[direction_index], skip_fog_of_war=true, by_player=player}
 end
 
 local function mining_apply(area, direction_index, player)
-    local grid = player.cursor_stack.blueprint_snap_to_grid
-    local entities = player.cursor_stack.get_blueprint_entities()
+    local grid = blueprint_cache.blueprint_snap_to_grid
+    local entities = blueprint_cache.get_blueprint_entities()
 
     -- so the starting side is the opposite of the direction
 
@@ -69,27 +70,17 @@ Gui.element{
     items = {'[img=utility/hint_arrow_up]', '[img=utility/hint_arrow_down]', '[img=utility/hint_arrow_right]', '[img=utility/hint_arrow_left]'},
     selected_index = 1
 }:style{
-    width = 160,
-    horizontal_align = 'left'
+    width = 240
 }
-
---- when an area is selected to add miner to the area
-Selection.on_selection(SelectionMiningArea, function(event)
-    local area = aabb_align_expand(event.area)
-    local player = game.get_player(event.player_index)
-    local frame = Gui.get_left_element(player, mining_container)
-    local disp = frame.container['mining_st_1'].disp.table
-    mining_apply(area, disp[data_1.name].selected_index, player)
-end)
 
 local data_2 =
 Gui.element{
     type = 'button',
-    name = 'mining_0_apply',
-    caption = {'mining.apply'},
-    tooltip = {'mining.apply-tooltip'}
+    name = 'mining_0_cache',
+    caption = {'mining.blueprint'},
+    tooltip = {'mining.blueprint-tooltip'}
 }:style{
-    width = 160
+    width = 240
 }:on_click(function(player, _, _)
     if not player.cursor_stack then
         player.print({'mining.apply-error'})
@@ -116,6 +107,31 @@ Gui.element{
         return
     end
 
+    blueprint_cache = player.cursor_stack
+end)
+
+--- when an area is selected to add miner to the area
+Selection.on_selection(SelectionMiningArea, function(event)
+    local area = aabb_align_expand(event.area)
+    local player = game.get_player(event.player_index)
+    local frame = Gui.get_left_element(player, mining_container)
+    local disp = frame.container['mining_st_1'].disp.table
+    mining_apply(area, disp[data_1.name].selected_index, player)
+end)
+
+local data_3 =
+Gui.element{
+    type = 'button',
+    name = 'mining_0_apply',
+    caption = {'mining.apply'}
+}:style{
+    width = 240
+}:on_click(function(player, _, _)
+    if not blueprint_cache then
+        player.print({'mining.apply-error'})
+        return
+    end
+
     if Selection.is_selecting(player, SelectionMiningArea) then
         Selection.stop(player)
 
@@ -129,17 +145,18 @@ end)
 local production_control_set =
 Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 320, 2, 'disp')
+    local disp = Gui.scroll_table(production_set, 240, 1, 'disp')
 
     data_1(disp)
     data_2(disp)
+    data_3(disp)
 
     return production_set
 end)
 
 mining_container =
 Gui.element(function(definition, parent)
-    local container = Gui.container(parent, definition.name, 320)
+    local container = Gui.container(parent, definition.name, 240)
     Gui.header(container, {'mining.main-tooltip'}, '', true)
 
     production_control_set(container, 'mining_st_1')
