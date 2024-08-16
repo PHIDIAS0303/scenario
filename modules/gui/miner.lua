@@ -36,18 +36,18 @@ local function mining_placement(player, position, direction_index)
 end
 
 local function mining_apply(area, direction_index, player)
+    game.print(game.table_to_json(area))
+    game.print(direction_index)
+
     local entities = blueprint_cache.get_blueprint_entities()
     local bp_dir
 
     for _, ent in pairs(entities) do
-        if game.entity_prototypes[ent.name].type == 'transport-belt' or game.entity_prototypes[ent.name].type == 'underground-belt' then
+        if ent.type == 'transport-belt' or ent.type == 'underground-belt' then
             bp_dir = ent.direction
             break
         end
     end
-
-    game.print(area)
-    game.print(direction_index)
 
     -- so the starting side is the opposite of the direction
     if direction_index == 1 then
