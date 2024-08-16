@@ -11,7 +11,7 @@ local data_1 =
 Gui.element{
     type = 'drop-down',
     name = 'mining_0_direction',
-    items = {'img=hint_arrow_up', 'img=hint_arrow_down', 'img=hint_arrow_right', 'img=hint_arrow_left'},
+    items = {'[img=utility/hint_arrow_up]', '[img=utility/hint_arrow_down]', '[img=utility/hint_arrow_right]', '[img=utility/hint_arrow_left]'},
     selected_index = 1
 }:style{
     width = 160,
@@ -27,10 +27,29 @@ Gui.element{
 }:style{
     width = 160
 }:on_click(function(player, _, _)
-    if player.cursor_stack and player.cursor_stack.valid_for_read then
-        if player.cursor_stack.type == 'blueprint' and player.cursor_stack.is_blueprint_setup() then
-            -- do something
-        end
+    if not player.cursor_stack then
+        player.print({'mining.apply-error'})
+        return
+    end
+
+    if not player.cursor_stack.valid_for_read then
+        player.print({'mining.apply-error'})
+        return
+    end
+
+    if player.cursor_stack.type ~= 'blueprint' then
+        player.print({'mining.apply-error'})
+        return
+    end
+
+    if not player.cursor_stack.is_blueprint_setup() then
+        player.print({'mining.apply-error'})
+        return
+    end
+
+    if not player.cursor_stack.blueprint_snap_to_grid then
+        player.print({'mining.apply-error'})
+        return
     end
 end)
 
@@ -59,6 +78,6 @@ end)
 :static_name(Gui.unique_static_name)
 :add_to_left_flow()
 
-Gui.left_toolbar_button('entity/assembling-machine-3', {'mining.main-tooltip'}, mining_container, function(player)
+Gui.left_toolbar_button('entity/electric-mining-drill', {'mining.main-tooltip'}, mining_container, function(player)
 	return Roles.player_allowed(player, 'gui/mining')
 end)
