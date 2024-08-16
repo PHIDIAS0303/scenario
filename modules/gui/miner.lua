@@ -63,7 +63,7 @@ local function mining_apply(area, direction_index, player)
     end
 end
 
-local data_1 =
+local data_b1 =
 Gui.element{
     type = 'drop-down',
     name = 'mining_direction',
@@ -73,9 +73,9 @@ Gui.element{
     width = 240
 }
 
-local data_3
+local data_b3
 
-local data_2 =
+local data_b2 =
 Gui.element{
     type = 'button',
     name = 'mining_cache',
@@ -110,10 +110,10 @@ Gui.element{
     end
 
     blueprint_cache = player.cursor_stack
-    element.parent[data_3.name].caption = player.cursor_stack.label
+    element.parent[data_b3.name].caption = player.cursor_stack.label
 end)
 
-data_3 =
+data_b3 =
 Gui.element{
     type = 'label',
     name = 'mining_cache_name',
@@ -129,10 +129,10 @@ Selection.on_selection(SelectionMiningArea, function(event)
     local player = game.get_player(event.player_index)
     local frame = Gui.get_left_element(player, mining_container)
     local disp = frame.container['mining_st_1'].disp.table
-    mining_apply(area, disp[data_1.name].selected_index, player)
+    mining_apply(area, disp[data_b1.name].selected_index, player)
 end)
 
-local data_4 =
+local data_c1 =
 Gui.element{
     type = 'button',
     name = 'mining_apply',
@@ -160,9 +160,9 @@ Gui.element(function(_, parent, name)
     local mining_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(mining_set, 240, 1, 'disp')
 
-    data_1(disp)
-    data_2(disp)
-    data_3(disp)
+    data_b1(disp)
+    data_b2(disp)
+    data_b3(disp)
 
     return mining_set
 end)
@@ -174,7 +174,7 @@ Gui.element(function(_, parent, name)
     local mining_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(mining_set, 240, 1, 'disp')
 
-    data_4(disp)
+    data_c1(disp)
 
     return mining_set
 end)
