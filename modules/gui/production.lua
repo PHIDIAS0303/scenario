@@ -100,7 +100,6 @@ Gui.element(function(_definition, parent, i)
         type = 'choose-elem-button',
         name = 'production_' .. i .. '_e',
         elem_type = 'item',
-        elem_filters = {filter = 'hidden', invert = true},
         style = 'slot_button'
     }
     item.style.width = 80
