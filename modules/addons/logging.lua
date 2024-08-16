@@ -43,6 +43,7 @@ Event.add(defines.events.on_research_finished, function(event)
         if event.research.level and event.research.level > 1 then
             if config_res.inf_res[event.research.name] and (event.research.level >= config_res.inf_res[event.research.name]) then
                 add_log('[RES] ' .. string.match(event.research.name, '^(.-)%-%d+$'):gsub('-', ' ') .. ' at level ' .. (event.research.level - 1) .. ' has been researched')
+
             else
                 add_log('[RES] ' .. string.match(event.research.name, '^(.-)%-%d+$'):gsub('-', ' ') .. ' at level ' .. event.research.level .. ' has been researched')
             end
