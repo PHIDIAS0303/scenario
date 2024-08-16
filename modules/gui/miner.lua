@@ -21,10 +21,45 @@ local function aabb_align_expand(aabb)
     }
 end
 
+local direction = {
+    [1] = 'defines.direction.north',
+    [2] = 'defines.direction.south',
+    [3] = 'defines.direction.east',
+    [4] = 'defines.direction.west'
+}
+
 local mining_container
 
-local function mining_apply(area, direction_index, blueprint)
-    local entities = blueprint.get_blueprint_entities()
+local function mining_placement(player, position, direction_index)
+    player.cursor_stack.build_blueprint{surface=player.surface, force=player.force, position=position, direction=direction[direction_index], skip_fog_of_war=true, by_player=player}
+end
+
+local function mining_apply(area, direction_index, player)
+    local grid = player.cursor_stack.blueprint_snap_to_grid
+    local entities = player.cursor_stack.get_blueprint_entities()
+
+    -- so the starting side is the opposite of the direction
+
+    if direction_index == 1 then
+        -- area.right_bottom.y
+
+    elseif direction_index == 2 then
+        -- area.left_top.y
+
+    elseif direction_index == 3 then
+        for x=area.left_top.x, area.right_bottom.x, grid.x do
+            for y=area.left_top.y, area.right_bottom.y, -grid.y do
+                mining_placement(player, {x=x, y=y}, direction_index)
+            end
+        end
+
+    elseif direction_index == 4 then
+        for x=area.right_bottom.x, area.left_top.x, -grid.x do
+            for y=area.left_top.y, area.right_bottom.y, -grid.y do
+                mining_placement(player, {x=x, y=y}, direction_index)
+            end
+        end
+    end
 end
 
 local data_1 =
@@ -44,7 +79,7 @@ Selection.on_selection(SelectionMiningArea, function(event)
     local player = game.get_player(event.player_index)
     local frame = Gui.get_left_element(player, mining_container)
     local disp = frame.container['mining_st_1'].disp.table
-    mining_apply(area, disp[data_1.name].selected_index, player.cursor_stack)
+    mining_apply(area, disp[data_1.name].selected_index, player)
 end)
 
 local data_2 =
