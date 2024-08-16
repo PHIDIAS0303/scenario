@@ -23,12 +23,15 @@ end
 
 local mining_container
 
---- when an area is selected to add protection to the area
+local function mining_apply(area, blueprint)
+    local entities = blueprint.get_blueprint_entities()
+end
+
+--- when an area is selected to add miner to the area
 Selection.on_selection(SelectionMiningArea, function(event)
     local area = aabb_align_expand(event.area)
     local player = game.get_player(event.player_index)
-    local frame = Gui.get_left_element(player, mining_container)
-    local disp = frame.container['mining_st_1'].disp.table
+    mining_apply(area, player.cursor_stack)
 end)
 
 local data_1 =
@@ -78,6 +81,7 @@ Gui.element{
 
     if Selection.is_selecting(player, SelectionMiningArea) then
         Selection.stop(player)
+
     else
         Selection.start(player, SelectionMiningArea)
     end
