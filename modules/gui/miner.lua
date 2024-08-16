@@ -125,7 +125,7 @@ Gui.element{
     end
 
     blueprint_cache = player.cursor_stack
-    element.parent[data_b3.name].caption = player.cursor_stack.label
+    element.parent[data_b3.name].caption = blueprint_cache.label
 end)
 
 data_b3 =
