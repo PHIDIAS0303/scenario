@@ -633,11 +633,18 @@ function Common.move_items_stack(items, surface, position, radius, chest_type)
 	-- Function used to round robin the items into all chests
 	local function next_chest(item)
 			local chest = entities[current]
-			if count == 0 then return make_new_chest() end
+
+			if count == 0 then
+                return make_new_chest()
+            end
+
 			if chest.get_inventory(defines.inventory.chest).can_insert(item) then
 				-- If the item can be inserted then the chest is returned
 				current = current + 1
-				if current > count then current = 1 end
+				if current > count then
+                    current = 1
+                end
+
 				return chest
 			else
 				-- Other wise it is removed from the list
