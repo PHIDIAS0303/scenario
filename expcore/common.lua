@@ -660,15 +660,24 @@ function Common.move_items_stack(items, surface, position, radius, chest_type)
 	local last_chest
 
 	for i=1,#items do
-			local item = items[i]
-			if item.valid_for_read then
-				local chest = next_chest(item)
-				if not chest or not chest.valid then return error(string.format('Cant move item %s to %s{%s, %s} no valid chest in radius', item.name, surface.name, p.x, p.y)) end
-				local empty_stack = chest.get_inventory(defines.inventory.chest).find_empty_stack(item.name)
-				if not empty_stack then return error(string.format('Cant move item %s to %s{%s, %s} no valid chest in radius', item.name, surface.name, p.x, p.y)) end
-				empty_stack.transfer_stack(item)
-				last_chest = chest
-			end
+		local item = items[i]
+
+        if item.valid_for_read then
+			local chest = next_chest(item)
+
+			if not chest or not chest.valid then
+                return error(string.format('Cant move item %s to %s{%s, %s} no valid chest in radius', item.name, surface.name, p.x, p.y))
+            end
+
+			local empty_stack = chest.get_inventory(defines.inventory.chest).find_empty_stack(item.name)
+
+            if not empty_stack then
+                return error(string.format('Cant move item %s to %s{%s, %s} no valid chest in radius', item.name, surface.name, p.x, p.y))
+            end
+
+			empty_stack.transfer_stack(item)
+			last_chest = chest
+		end
 	end
 	return last_chest
 end
