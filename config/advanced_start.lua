@@ -92,13 +92,13 @@ return {
     chart_radius=10*32, --- @setting chart_radius the number of tiles that will be charted when the map starts
     items = { --- @setting items items and there condition for being given
         -- Starting Items
-        ['burner-mining-drill']=cutoff_time(20 * minutes, 6, 0),
-        ['stone-furnace']=cutoff_time(20 * minutes, 6, 0),
-        ['coal']=just_made(100),
+        ['iron-ore']=cutoff_time(20 * minutes, 100, 0),
+        ['stone']=cutoff_time(20 * minutes, 100, 0),
+        ['coal']=cutoff_time(20 * minutes, 200, 0),
+        -- ['burner-mining-drill']=cutoff_time(20 * minutes, 6, 0),
+        -- ['stone-furnace']=cutoff_time(20 * minutes, 6, 0),
         ['piercing-rounds-magazine']=just_made(20),
         ['construction-robot']=just_made(10)
-        -- ['iron-ore']=just_made(100),
-        -- ['stone']=just_made(100),
     },
     armor = {
         enable=true,
