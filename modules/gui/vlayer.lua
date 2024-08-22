@@ -10,8 +10,20 @@ local Event = require 'utils.event' --- @dep utils.event
 local format_number = require('util').format_number --- @dep util
 local config = require 'config.vlayer' --- @dep config.vlayer
 local vlayer = require 'modules.control.vlayer'
+local Selection = require 'modules.control.selection' --- @dep modules.control.selection
+local SelectionConvertArea = 'ConvertArea'
+
+--- Align an aabb to the grid by expanding it
+local function aabb_align_expand(aabb)
+    return {
+        left_top = {x = math.floor(aabb.left_top.x), y = math.floor(aabb.left_top.y)},
+        right_bottom = {x = math.ceil(aabb.right_bottom.x), y = math.ceil(aabb.right_bottom.y)}
+    }
+end
 
 local vlayer_container
+local vlayer_gui_control_type
+local vlayer_gui_control_list
 
 local vlayer_control_type_list = {
     [1] = 'energy',
@@ -59,26 +71,82 @@ local function format_energy(amount, unit)
     return formatted .. ' ' .. suffix .. unit
 end
 
-local function vlayer_convert_chest(player)
-    local entities = player.surface.find_entities_filtered{position=player.position, radius=8, name='steel-chest', force=player.force, limit=1}
+--- When an area is selected to add protection to the area
+Selection.on_selection(SelectionConvertArea, function(event)
+    local area = aabb_align_expand(event.area)
+    local player = game.get_player(event.player_index)
 
-    if (not entities or #entities == 0) then
-        player.print{'vlayer.steel-chest-detect'}
-        return
+    if not player then
+        return nil
     end
 
-    local entity = entities[1]
-    local pos = entity.position
-    local circuit = entity.circuit_connected_entities
+    local entities = player.surface.find_entities_filtered{area=area, name='steel-chest', force=player.force, limit=1}
 
-    if (not entity.get_inventory(defines.inventory.chest).is_empty()) then
+    if #entities == 0 then
+        player.print{'vlayer.steel-chest-detect'}
+        return nil
+    end
+
+    if not entities[1] then
+        return nil
+    end
+
+    local e = entities[1]
+    local e_pos = {x=string.format('%.1f', e.position.x), y=string.format('%.1f', e.position.y)}
+
+    if not e.get_inventory(defines.inventory.chest).is_empty() then
         player.print{'vlayer.steel-chest-empty'}
         return nil
     end
 
-    entity.destroy()
-    return {pos={x=string.format('%.1f', pos.x), y=string.format('%.1f', pos.y)}, circuit=circuit}
-end
+    e.destroy()
+    -- {circuit=e.circuit_connected_entities}
+
+    local frame = Gui.get_left_element(player, vlayer_container)
+    local disp = frame.container['vlayer_st_2'].disp.table
+    local target = vlayer_control_type_list[disp[vlayer_gui_control_type.name].selected_index]
+
+    if target == 'energy' then
+        if (vlayer.get_interface_counts().energy < config.interface_limit.energy) then
+            if vlayer.create_energy_interface(player.surface, e_pos, player) then
+                game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-energy'}}
+
+            else
+                player.print{'vlayer.result-unable', {'vlayer.control-type-energy'}}
+            end
+
+        else
+            player.print{'vlayer.result-unable', {'vlayer.control-type-energy'}}
+        end
+
+    elseif target == 'circuit' then
+        if (vlayer.get_interface_counts().circuit < config.interface_limit.circuit) then
+            vlayer.create_circuit_interface(player.surface, e_pos, e.circuit_connected_entities, player)
+            game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-circuit'}}
+
+        else
+            player.print{'vlayer.result-unable', {'vlayer.control-type-circuit'}}
+        end
+
+    elseif target == 'storage_input' then
+        if (vlayer.get_interface_counts().storage_input < config.interface_limit.storage_input) then
+            vlayer.create_input_interface(player.surface, e_pos, e.circuit_connected_entities, player)
+            game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-storage-input'}}
+
+        else
+            player.print{'vlayer.result-unable', {'vlayer.control-type-storage-input'}}
+        end
+
+    elseif target == 'storage_output' then
+        if (vlayer.get_interface_counts().storage_output < config.interface_limit.storage_output) then
+            vlayer.create_output_interface(player.surface, e_pos, e.circuit_connected_entities, player)
+            game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-storage-output'}}
+
+        else
+            player.print{'vlayer.result-unable', {'vlayer.control-type-storage-output'}}
+        end
+    end
+end)
 
 --- Display label for the number of solar panels
 -- @element vlayer_gui_display_item_solar_name
@@ -264,9 +332,6 @@ Gui.element(function(_, parent, name)
     return vlayer_set
 end)
 
-local vlayer_gui_control_type
-local vlayer_gui_control_list
-
 local function vlayer_gui_list_refresh(player)
     local frame = Gui.get_left_element(player, vlayer_container)
     local disp = frame.container['vlayer_st_2'].disp.table
@@ -349,64 +414,12 @@ Gui.element{
     caption = {'vlayer.control-build'}
 }:style{
     width = 160
-}:on_click(function(player, element, _)
-    local target = vlayer_control_type_list[element.parent[vlayer_gui_control_type.name].selected_index]
-
-    if target == 'energy' then
-        if (vlayer.get_interface_counts().energy < config.interface_limit.energy) then
-            local res = vlayer_convert_chest(player)
-
-            if res then
-                if vlayer.create_energy_interface(player.surface, res.pos, player) then
-                    game.print{'vlayer.interface-result', player.name, pos_to_gps_string(res.pos), {'vlayer.result-build'}, {'vlayer.control-type-energy'}}
-
-                else
-                    player.print{'vlayer.result-unable', {'vlayer.control-type-energy'}}
-                end
-            end
-
-        else
-            player.print{'vlayer.result-unable', {'vlayer.control-type-energy'}}
-        end
-
-    elseif target == 'circuit' then
-        if (vlayer.get_interface_counts().circuit < config.interface_limit.circuit) then
-            local res = vlayer_convert_chest(player)
-
-            if res then
-                vlayer.create_circuit_interface(player.surface, res.pos, res.circuit, player)
-                game.print{'vlayer.interface-result', player.name, pos_to_gps_string(res.pos), {'vlayer.result-build'}, {'vlayer.control-type-circuit'}}
-            end
-
-        else
-            player.print{'vlayer.result-unable', {'vlayer.control-type-circuit'}}
-        end
-
-    elseif target == 'storage_input' then
-        if (vlayer.get_interface_counts().storage_input < config.interface_limit.storage_input) then
-            local res = vlayer_convert_chest(player)
-
-            if res then
-                vlayer.create_input_interface(player.surface, res.pos, res.circuit, player)
-                game.print{'vlayer.interface-result', player.name, pos_to_gps_string(res.pos), {'vlayer.result-build'}, {'vlayer.control-type-storage-input'}}
-            end
-
-        else
-            player.print{'vlayer.result-unable', {'vlayer.control-type-storage-input'}}
-        end
-
-    elseif target == 'storage_output' then
-        if (vlayer.get_interface_counts().storage_output < config.interface_limit.storage_output) then
-            local res = vlayer_convert_chest(player)
-
-            if res then
-                vlayer.create_output_interface(player.surface, res.pos, res.circuit, player)
-                game.print{'vlayer.interface-result', player.name, pos_to_gps_string(res.pos), {'vlayer.result-build'}, {'vlayer.control-type-storage-output'}}
-            end
-
-        else
-            player.print{'vlayer.result-unable', {'vlayer.control-type-storage-output'}}
-        end
+}:on_click(function(player, _, _)
+    if Selection.is_selecting(player, SelectionConvertArea) then
+        Selection.stop(player)
+    else
+        Selection.start(player, SelectionConvertArea)
+        player.print{'expcom-waterfill.entered-area-selection'}
     end
 
     vlayer_gui_list_refresh(player)
