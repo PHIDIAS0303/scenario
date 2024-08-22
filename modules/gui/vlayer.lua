@@ -81,15 +81,16 @@ Selection.on_selection(SelectionConvertArea, function(event)
     end
 
     local entities = player.surface.find_entities_filtered{area=area, name='steel-chest', force=player.force}
+    local frame = Gui.get_left_element(player, vlayer_container)
+    local disp = frame.container['vlayer_st_2'].disp.table
+    local target = vlayer_control_type_list[disp[vlayer_gui_control_type.name].selected_index]
 
     if #entities == 0 then
         player.print{'vlayer.steel-chest-detect'}
         return nil
 
     elseif #entities > 1 then
-        local frame = Gui.get_left_element(player, vlayer_container)
-        local disp = frame.container['vlayer_st_2'].disp.table
-        player.print{'vlayer.result-unable', {'vlayer.control-type-' .. vlayer_control_type_list[disp[vlayer_gui_control_type.name].selected_index]:gsub('_', '-')}}
+        player.print{'vlayer.result-unable', {'vlayer.control-type-' .. target:gsub('_', '-')}}
         return nil
     end
 
@@ -105,10 +106,6 @@ Selection.on_selection(SelectionConvertArea, function(event)
         player.print{'vlayer.steel-chest-empty'}
         return nil
     end
-
-    local frame = Gui.get_left_element(player, vlayer_container)
-    local disp = frame.container['vlayer_st_2'].disp.table
-    local target = vlayer_control_type_list[disp[vlayer_gui_control_type.name].selected_index]
 
     if target == 'energy' then
         if (vlayer.get_interface_counts().energy >= config.interface_limit.energy) then
