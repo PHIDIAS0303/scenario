@@ -99,52 +99,52 @@ Selection.on_selection(SelectionConvertArea, function(event)
         return nil
     end
 
-    e.destroy()
-    -- {circuit=e.circuit_connected_entities}
-
     local frame = Gui.get_left_element(player, vlayer_container)
     local disp = frame.container['vlayer_st_2'].disp.table
     local target = vlayer_control_type_list[disp[vlayer_gui_control_type.name].selected_index]
 
     if target == 'energy' then
         if (vlayer.get_interface_counts().energy < config.interface_limit.energy) then
-            if vlayer.create_energy_interface(player.surface, e_pos, player) then
-                game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-energy'}}
+            player.print{'vlayer.result-unable', {'vlayer.control-type-energy'}}
+        end
 
-            else
-                player.print{'vlayer.result-unable', {'vlayer.control-type-energy'}}
-            end
+    elseif target == 'circuit' then
+        if (vlayer.get_interface_counts().circuit < config.interface_limit.circuit) then
+            player.print{'vlayer.result-unable', {'vlayer.control-type-circuit'}}
+        end
+
+    elseif target == 'storage_input' then
+        if (vlayer.get_interface_counts().storage_input < config.interface_limit.storage_input) then
+            player.print{'vlayer.result-unable', {'vlayer.control-type-storage-input'}}
+        end
+
+    elseif target == 'storage_output' then
+        if (vlayer.get_interface_counts().storage_output < config.interface_limit.storage_output) then
+            player.print{'vlayer.result-unable', {'vlayer.control-type-storage-output'}}
+        end
+    end
+
+    e.destroy()
+
+    if target == 'energy' then
+        if vlayer.create_energy_interface(player.surface, e_pos, player) then
+            game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-energy'}}
 
         else
             player.print{'vlayer.result-unable', {'vlayer.control-type-energy'}}
         end
 
     elseif target == 'circuit' then
-        if (vlayer.get_interface_counts().circuit < config.interface_limit.circuit) then
-            vlayer.create_circuit_interface(player.surface, e_pos, e.circuit_connected_entities, player)
-            game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-circuit'}}
-
-        else
-            player.print{'vlayer.result-unable', {'vlayer.control-type-circuit'}}
-        end
+        vlayer.create_circuit_interface(player.surface, e_pos, e.circuit_connected_entities, player)
+        game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-circuit'}}
 
     elseif target == 'storage_input' then
-        if (vlayer.get_interface_counts().storage_input < config.interface_limit.storage_input) then
-            vlayer.create_input_interface(player.surface, e_pos, e.circuit_connected_entities, player)
-            game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-storage-input'}}
-
-        else
-            player.print{'vlayer.result-unable', {'vlayer.control-type-storage-input'}}
-        end
+        vlayer.create_input_interface(player.surface, e_pos, e.circuit_connected_entities, player)
+        game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-storage-input'}}
 
     elseif target == 'storage_output' then
-        if (vlayer.get_interface_counts().storage_output < config.interface_limit.storage_output) then
-            vlayer.create_output_interface(player.surface, e_pos, e.circuit_connected_entities, player)
-            game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-storage-output'}}
-
-        else
-            player.print{'vlayer.result-unable', {'vlayer.control-type-storage-output'}}
-        end
+        vlayer.create_output_interface(player.surface, e_pos, e.circuit_connected_entities, player)
+        game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-storage-output'}}
     end
 end)
 
