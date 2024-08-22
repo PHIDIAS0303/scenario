@@ -11,7 +11,7 @@ local format_number = require('util').format_number --- @dep util
 local config = require 'config.vlayer' --- @dep config.vlayer
 local vlayer = require 'modules.control.vlayer'
 local Selection = require 'modules.control.selection' --- @dep modules.control.selection
-local SelectionConvertArea = 'ConvertArea'
+local SelectionBuildArea = 'BuildArea'
 
 --- Align an aabb to the grid by expanding it
 local function aabb_align_expand(aabb)
@@ -419,10 +419,10 @@ Gui.element{
 }:style{
     width = 160
 }:on_click(function(player, _, _)
-    if Selection.is_selecting(player, SelectionConvertArea) then
+    if Selection.is_selecting(player, SelectionBuildArea) then
         Selection.stop(player)
     else
-        Selection.start(player, SelectionConvertArea)
+        Selection.start(player, SelectionBuildArea)
         player.print{'expcom-waterfill.entered-area-selection'}
     end
 
