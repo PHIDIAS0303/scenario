@@ -104,6 +104,7 @@ return {
     'modules.gui.production',
     'modules.gui.playerdata',
     'modules.gui.surveillance',
+    'modules.gui.debug',
 		'modules.graftorio.require', -- graftorio
     'modules.gui.toolbar', -- must be loaded last to register toolbar handlers
 
