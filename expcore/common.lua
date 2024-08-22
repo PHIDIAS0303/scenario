@@ -648,6 +648,7 @@ function Common.move_items_stack(items, surface, position, radius, chest_type)
             end
 
 			return chest
+
 		else
 			-- Other wise it is removed from the list
 			table.remove(entities, current)
