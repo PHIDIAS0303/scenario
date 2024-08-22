@@ -104,7 +104,7 @@ Selection.on_selection(SelectionConvertArea, function(event)
     local target = vlayer_control_type_list[disp[vlayer_gui_control_type.name].selected_index]
 
     if target == 'energy' then
-        if (vlayer.get_interface_counts().energy < config.interface_limit.energy) then
+        if (vlayer.get_interface_counts().energy >= config.interface_limit.energy) then
             player.print{'vlayer.result-unable', {'vlayer.control-type-energy'}}
             return nil
         end
@@ -118,7 +118,7 @@ Selection.on_selection(SelectionConvertArea, function(event)
             player.print{'vlayer.result-unable', {'vlayer.control-type-energy'}}
         end
     elseif target == 'circuit' then
-        if (vlayer.get_interface_counts().circuit < config.interface_limit.circuit) then
+        if (vlayer.get_interface_counts().circuit >= config.interface_limit.circuit) then
             player.print{'vlayer.result-unable', {'vlayer.control-type-circuit'}}
             return nil
         end
@@ -129,7 +129,7 @@ Selection.on_selection(SelectionConvertArea, function(event)
         game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-circuit'}}
 
     elseif target == 'storage_input' then
-        if (vlayer.get_interface_counts().storage_input < config.interface_limit.storage_input) then
+        if (vlayer.get_interface_counts().storage_input >= config.interface_limit.storage_input) then
             player.print{'vlayer.result-unable', {'vlayer.control-type-storage-input'}}
             return nil
         end
@@ -140,7 +140,7 @@ Selection.on_selection(SelectionConvertArea, function(event)
         game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-storage-input'}}
 
     elseif target == 'storage_output' then
-        if (vlayer.get_interface_counts().storage_output < config.interface_limit.storage_output) then
+        if (vlayer.get_interface_counts().storage_output >= config.interface_limit.storage_output) then
             player.print{'vlayer.result-unable', {'vlayer.control-type-storage-output'}}
             return nil
         end
