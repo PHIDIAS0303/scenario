@@ -635,14 +635,14 @@ function Common.move_items_stack(items, surface, position, radius, chest_type)
 			local chest = entities[current]
 			if count == 0 then return make_new_chest() end
 			if chest.get_inventory(defines.inventory.chest).can_insert(item) then
-					-- If the item can be inserted then the chest is returned
-					current = current+1
-					if current > count then current = 1 end
-					return chest
+				-- If the item can be inserted then the chest is returned
+				current = current + 1
+				if current > count then current = 1 end
+				return chest
 			else
-					-- Other wise it is removed from the list
-					table.remove(entities, current)
-					count = count - 1
+				-- Other wise it is removed from the list
+				table.remove(entities, current)
+				count = count - 1
 			end
 	end
 	-- Inserts the items into the chests
