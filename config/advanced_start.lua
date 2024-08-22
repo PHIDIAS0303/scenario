@@ -104,22 +104,10 @@ return {
         enable=true,
         main = 'modular-armor',
         item = {
-            {
-                equipment='solar-panel-equipment',
-                count=16
-            },
-            {
-                equipment='belt-immunity-equipment',
-                count=1
-            },
-            {
-                equipment='battery-equipment',
-                count=2
-            },
-            {
-                equipment='personal-roboport-equipment',
-                count=1
-            },
+            ['solar-panel-equipment'] = 16,
+            ['belt-immunity-equipment'] = 1,
+            ['battery-equipment'] = 2,
+            ['personal-roboport-equipment'] = 1
         }
     }
 }
