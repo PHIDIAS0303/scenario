@@ -23,7 +23,7 @@ return {
     },
     afk_belts = { --- @setting afk_belts Settings relating to adding afk belts to spawn
         enabled = true, --- @setting enabled Whether afk belts will be added to spawn
-        belt_type = 'fast-transport-belt', --- @setting belt_type The belt to be used as afk belts
+        belt_type = 'transport-belt', --- @setting belt_type The belt to be used as afk belts
         protected = true, --- @setting protected Whether belts will be protected from player interaction
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to afk belts
         locations={ --- @setting locations The locations to spawn afk belts at, given as the top left position
