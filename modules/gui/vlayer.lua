@@ -93,6 +93,7 @@ Selection.on_selection(SelectionConvertArea, function(event)
 
     local e = entities[1]
     local e_pos = {x=string.format('%.1f', e.position.x), y=string.format('%.1f', e.position.y)}
+    local e_circ = e.circuit_connected_entities
 
     if not e.get_inventory(defines.inventory.chest).is_empty() then
         player.print{'vlayer.steel-chest-empty'}
@@ -117,6 +118,7 @@ Selection.on_selection(SelectionConvertArea, function(event)
         else
             player.print{'vlayer.result-unable', {'vlayer.control-type-energy'}}
         end
+
     elseif target == 'circuit' then
         if (vlayer.get_interface_counts().circuit >= config.interface_limit.circuit) then
             player.print{'vlayer.result-unable', {'vlayer.control-type-circuit'}}
@@ -125,7 +127,7 @@ Selection.on_selection(SelectionConvertArea, function(event)
 
         e.destroy()
 
-        vlayer.create_circuit_interface(player.surface, e_pos, e.circuit_connected_entities, player)
+        vlayer.create_circuit_interface(player.surface, e_pos, e_circ, player)
         game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-circuit'}}
 
     elseif target == 'storage_input' then
@@ -136,7 +138,7 @@ Selection.on_selection(SelectionConvertArea, function(event)
 
         e.destroy()
 
-        vlayer.create_input_interface(player.surface, e_pos, e.circuit_connected_entities, player)
+        vlayer.create_input_interface(player.surface, e_pos, e_circ, player)
         game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-storage-input'}}
 
     elseif target == 'storage_output' then
@@ -147,7 +149,7 @@ Selection.on_selection(SelectionConvertArea, function(event)
 
         e.destroy()
 
-        vlayer.create_output_interface(player.surface, e_pos, e.circuit_connected_entities, player)
+        vlayer.create_output_interface(player.surface, e_pos, e_circ, player)
         game.print{'vlayer.interface-result', player.name, pos_to_gps_string(e_pos), {'vlayer.result-build'}, {'vlayer.control-type-storage-output'}}
     end
 end)
