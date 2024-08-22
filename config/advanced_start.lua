@@ -92,7 +92,7 @@ return {
     chart_radius=10*32, --- @setting chart_radius the number of tiles that will be charted when the map starts
     items = { --- @setting items items and there condition for being given
         -- Starting Items
-        ['iron-ore']=cutoff_time(20 * minutes, 80, 0),
+        ['iron-ore']=cutoff_time(20 * minutes, 60, 0),
         ['stone']=cutoff_time(20 * minutes, 20, 0),
         ['coal']=cutoff_time(20 * minutes, 20, 0),
         -- ['burner-mining-drill']=cutoff_time(20 * minutes, 6, 0),
