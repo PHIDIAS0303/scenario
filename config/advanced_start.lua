@@ -93,8 +93,8 @@ return {
     items = { --- @setting items items and there condition for being given
         -- Starting Items
         ['iron-ore']=cutoff_time(20 * minutes, 80, 0),
-        ['stone']=cutoff_time(20 * minutes, 40, 0),
-        ['coal']=cutoff_time(20 * minutes, 40, 0),
+        ['stone']=cutoff_time(20 * minutes, 20, 0),
+        ['coal']=cutoff_time(20 * minutes, 20, 0),
         -- ['burner-mining-drill']=cutoff_time(20 * minutes, 6, 0),
         -- ['stone-furnace']=cutoff_time(20 * minutes, 6, 0),
         ['piercing-rounds-magazine']=just_made(20),
