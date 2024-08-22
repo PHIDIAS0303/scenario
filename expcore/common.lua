@@ -625,11 +625,12 @@ function Common.move_items_stack(items, surface, position, radius, chest_type)
 
 	-- Makes a new empty chest when it is needed
 	local function make_new_chest()
-			local pos = surface.find_non_colliding_position(chest_type, position, 32, 1)
-			local chest = surface.create_entity{name=chest_type, position=pos, force='neutral'}
-			table.insert(entities, chest)
-			count = count + 1
-			return chest
+		local pos = surface.find_non_colliding_position(chest_type, position, 32, 1)
+		local chest = surface.create_entity{name=chest_type, position=pos, force='neutral'}
+		table.insert(entities, chest)
+		count = count + 1
+
+		return chest
 	end
 
 	-- Function used to round robin the items into all chests
