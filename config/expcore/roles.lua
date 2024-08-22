@@ -51,7 +51,6 @@ Roles.new_role('Administrator','Admin')
 :allow{
     'command/interface',
     'command/debug',
-    'gui/debug',
     'command/toggle-cheat-mode',
     'command/research-all',
     'command/connect-all',

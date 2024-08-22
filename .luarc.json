@@ -1,5 +1,8 @@
 {
     "Lua.diagnostics.disable": [
         "luadoc-miss-type-name"
+    ],
+    "diagnostics.globals": [
+        "left_panel"
     ]
 }
