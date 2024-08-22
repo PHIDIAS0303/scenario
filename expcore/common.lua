@@ -626,10 +626,61 @@ function Common.move_items_stack(items, surface, position, radius, chest_type)
 	-- Finds all entities of the given type
 	local p = position or {x=0, y=0}
 	local r = radius or 32
-	local entities = surface.find_entities_filtered{area={{p.x-r, p.y-r}, {p.x+r, p.y+r}}, name=chest_type} or {}
+	local entities = surface.find_entities_filtered{area={{p.x - r, p.y - r}, {p.x + r, p.y + r}}, name=chest_type} or {}
 	local count = #entities
-	local current = 1
+	local current = 0
+    local last_entity = nil
 
+    for _, item in ipairs(items) do
+        if item.valid_for_read then
+            local inserted = false
+
+            -- Attempt to insert the items
+            for i = 1, count do
+                local entity = entities[((current + i - 1) % count) + 1]
+
+                if entity.can_insert(item) then
+                    last_entity = entity
+                    current = current + 1
+                    entity.insert(item)
+                    inserted = true
+                end
+            end
+
+            -- If it was not inserted then a new entity is needed
+            if not inserted then
+                --[[
+                if not options.allow_creation then
+                    error('Unable to insert items into a valid entity, consider enabling allow_creation')
+                end
+                
+                if options.name == nil then
+                    error('Name must be provided to allow creation of new entities')
+                end
+
+                if options.position then
+                    pos = surface.find_non_colliding_position(chest_type, p, r, 1, true)
+
+                elseif options.area then
+                    pos = surface.find_non_colliding_position_in_box(chest_type, options.area, 1, true)
+
+                else
+                    pos = surface.find_non_colliding_position(chest_type, {0,0}, 0, 1, true)
+                end
+                ]]
+
+                local pos = surface.find_non_colliding_position(chest_type, p, r, 1, true)
+                last_entity = surface.create_entity{name=chest_type, position=pos, force='neutral'}
+
+                count = count + 1
+                entities[count] = last_entity
+
+                last_entity.insert(item)
+            end
+        end
+    end
+
+    --[[
 	-- Makes a new empty chest when it is needed
 	local function make_new_chest()
 		local pos = surface.find_non_colliding_position(chest_type, position, 32, 1)
@@ -687,7 +738,10 @@ function Common.move_items_stack(items, surface, position, radius, chest_type)
 			last_chest = chest
 		end
 	end
-	return last_chest
+    return last_chest
+    ]]
+
+    return last_entity
 end
 
 --[[-- Prints a colored value on a location, color is based on the value.
