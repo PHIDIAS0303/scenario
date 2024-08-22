@@ -655,8 +655,10 @@ function Common.move_items_stack(items, surface, position, radius, chest_type)
 		    count = count - 1
 		end
 	end
+
 	-- Inserts the items into the chests
 	local last_chest
+
 	for i=1,#items do
 			local item = items[i]
 			if item.valid_for_read then
