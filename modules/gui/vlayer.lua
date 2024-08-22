@@ -80,10 +80,16 @@ Selection.on_selection(SelectionConvertArea, function(event)
         return nil
     end
 
-    local entities = player.surface.find_entities_filtered{area=area, name='steel-chest', force=player.force, limit=1}
+    local entities = player.surface.find_entities_filtered{area=area, name='steel-chest', force=player.force}
 
     if #entities == 0 then
         player.print{'vlayer.steel-chest-detect'}
+        return nil
+
+    elseif #entities > 1 then
+        local frame = Gui.get_left_element(player, vlayer_container)
+        local disp = frame.container['vlayer_st_2'].disp.table
+        player.print{'vlayer.result-unable', {'vlayer.control-type-' .. vlayer_control_type_list[disp[vlayer_gui_control_type.name].selected_index]:gsub('_', '-')}}
         return nil
     end
 
