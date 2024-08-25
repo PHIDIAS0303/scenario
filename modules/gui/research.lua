@@ -283,6 +283,16 @@ Gui.element(function(definition, parent)
 	research_clock_set(container, 'research_st_1')
     research_data_set(container, 'research_st_2')
 
+    return research_set
+end)
+
+local research_container =
+Gui.element(function(definition, parent)
+	local container = Gui.container(parent, definition.name, 320)
+
+	research_clock_set(container, 'research_st_1')
+    research_data_set(container, 'research_st_2')
+
     return container.parent
 end)
 :static_name(Gui.unique_static_name)

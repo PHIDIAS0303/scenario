@@ -64,9 +64,9 @@ return {
     'modules.addons.afk-kick',
     'modules.addons.report-jail',
     'modules.addons.protection-jail',
-		'modules.addons.deconlog',
-		'modules.addons.nukeprotect',
-		'modules.addons.inserter',
+    'modules.addons.deconlog',
+    'modules.addons.nukeprotect',
+    'modules.addons.inserter',
     'modules.addons.miner',
     'modules.addons.lawnmower',
     'modules.addons.logging',
@@ -104,7 +104,7 @@ return {
     'modules.gui.production',
     'modules.gui.playerdata',
     'modules.gui.surveillance',
-		'modules.graftorio.require', -- graftorio
+    'modules.graftorio.require', -- graftorio
     'modules.gui.toolbar', -- must be loaded last to register toolbar handlers
 
     --- Config Files
