@@ -181,7 +181,8 @@ local visible = Gui.update_left_flow(player)
 function Gui.update_left_flow(player)
     local left_flow = Gui.get_left_flow(player)
     local hide_button = left_flow.gui_core_buttons[hide_left_flow]
-    for _, element_define in ipairs(Gui.left_elements) do
+
+  for _, element_define in ipairs(Gui.left_elements) do
         local left_element = left_flow[element_define.name]
         if left_element.visible then
             hide_button.visible = true
@@ -206,6 +207,7 @@ function Gui.hide_left_flow(player)
 
     -- Set the visible state of all elements in the flow
     hide_button.visible = false
+
     for _, element_define in ipairs(Gui.left_elements) do
         left_flow[element_define.name].visible = false
 

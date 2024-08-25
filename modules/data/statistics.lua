@@ -48,11 +48,13 @@ Statistics:on_load(function(player_name, player_statistics)
 end)
 
 --- Used to format time in minute format
-local function format_minutes(value)
+local function format_clock(value)
     return format_time(value*3600, {
-        long = true,
-        hours = true,
-        minutes = true
+        hours=true,
+        minutes=true,
+        seconds=false,
+        time=false,
+        string=true
     })
 end
 

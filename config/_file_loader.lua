@@ -39,7 +39,6 @@ return {
     'modules.commands.pollution',
     'modules.commands.train',
     'modules.commands.friendly-fire',
-    'modules.commands.lawnmower',
     'modules.commands.research',
     'modules.commands.vlayer',
     'modules.commands.enemy',
@@ -52,11 +51,13 @@ return {
     'modules.addons.damage-popups',
     'modules.addons.death-logger',
     'modules.addons.advanced-start',
+    -- mod change
     'modules.addons.spawn-area',
+    -- mod change
     'modules.addons.compilatron',
-    'modules.addons.scorched-earth',
-    'modules.addons.pollution-grading',
-    'modules.addons.station-auto-name',
+    -- 'modules.addons.scorched-earth',
+    -- 'modules.addons.pollution-grading',
+    -- 'modules.addons.station-auto-name',
     'modules.addons.discord-alerts',
     'modules.addons.chat-reply',
     'modules.addons.tree-decon',
@@ -67,6 +68,8 @@ return {
     'modules.addons.nukeprotect',
     'modules.addons.inserter',
     'modules.addons.miner',
+    'modules.addons.lawnmower',
+    'modules.addons.logging',
 
     -- Control
     'modules.control.vlayer',
@@ -84,9 +87,10 @@ return {
 
     --- GUI
     'modules.gui.readme',
-    'modules.gui.rocket-info',
-    'modules.gui.science-info',
+    -- 'modules.gui.rocket-info',
+    -- 'modules.gui.science-info',
     'modules.gui.autofill',
+    -- mod change
     'modules.gui.warp-list',
     'modules.gui.task-list',
     'modules.gui.player-list',
@@ -95,6 +99,9 @@ return {
     'modules.gui.vlayer',
     'modules.gui.research',
     'modules.gui.module',
+    'modules.gui.landfill',
+    -- 'modules.gui.miner',
+    'modules.gui.production',
     'modules.gui.playerdata',
     'modules.gui.surveillance',
     'modules.graftorio.require', -- graftorio

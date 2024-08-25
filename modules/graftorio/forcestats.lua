@@ -1,6 +1,6 @@
-local Event = require("utils.event")
-local general = require("modules.graftorio.general")
-local config = require("config.graftorio")
+local Event = require('utils.event')
+local general = require('modules.graftorio.general')
+local config = require('config.graftorio')
 
 local lib = {}
 
@@ -34,6 +34,7 @@ lib.collect_production = function()
 			itemstats.count = count
 			stats.item_input[name] = itemstats
 		end
+
 		for name, count in pairs(force.item_production_statistics.output_counts) do
 			local itemstats = stats.item_output[name] or {}
 			itemstats.count = count
@@ -45,6 +46,7 @@ lib.collect_production = function()
 			fluidstats.count = count
 			stats.fluid_input[name] = fluidstats
 		end
+
 		for name, count in pairs(force.fluid_production_statistics.output_counts) do
 			local fluidstats = stats.fluid_output[name] or {}
 			fluidstats.count = count
@@ -56,6 +58,7 @@ lib.collect_production = function()
 			killstats.count = count
 			stats.kill_input[name] = killstats
 		end
+
 		for name, count in pairs(force.kill_count_statistics.output_counts) do
 			local killstats = stats.kill_output[name] or {}
 			killstats.count = count
@@ -67,6 +70,7 @@ lib.collect_production = function()
 			buildstats.count = count
 			stats.build_input[name] = buildstats
 		end
+
 		for name, count in pairs(force.entity_build_count_statistics.output_counts) do
 			local buildstats = stats.build_output[name] or {}
 			buildstats.count = count
