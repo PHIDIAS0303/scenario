@@ -631,7 +631,8 @@ function Common.move_items_stack(items, surface, position, radius, chest_type)
 	local current = 0
     local last_entity = nil
 
-    for _, item in ipairs(items) do
+    for i = 1, #items do
+        local item = items[i]
         if item.valid_for_read then
             local inserted = false
 
@@ -644,6 +645,7 @@ function Common.move_items_stack(items, surface, position, radius, chest_type)
                     current = current + 1
                     entity.insert(item)
                     inserted = true
+                    break
                 end
             end
 
