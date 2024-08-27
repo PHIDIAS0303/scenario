@@ -138,7 +138,9 @@ Event.add(defines.events.on_player_left_game, function(event)
     local player_data = PlayerData:get(player)
     if player_data and player_data.valid == true then
         PlayerData:unload(player)
-    else PlayerData:raw_set(player.name) end
+    else
+        PlayerData:raw_set(player.name)
+    end
 end)
 
 ----- Module Return -----
