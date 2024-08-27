@@ -283,7 +283,7 @@ Gui.element(function(definition, parent)
 	research_clock_set(container, 'research_st_1')
     research_data_set(container, 'research_st_2')
 
-    return research_set
+    return container
 end)
 
 local research_container =
