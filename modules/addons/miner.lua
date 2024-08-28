@@ -81,7 +81,6 @@ local function chest_check(entity)
 end
 
 local function miner_check(entity)
-    -- if any tile in the radius have resources
     if entity.status ~= defines.entity_status.no_minable_resources then
         return
     end
