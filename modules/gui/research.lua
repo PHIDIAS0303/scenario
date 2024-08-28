@@ -260,7 +260,6 @@ Gui.element(function(_, parent, name)
 	disp['research_0_attempt'].style.horizontal_align = 'left'
 	disp['research_0_difference'].caption = {'expcom-res.difference'}
 	disp['research_0_difference'].style.horizontal_align = 'left'
-	disp['research_0_difference'].style.font_color = nil
 
 	for i=1, 8, 1 do
 		research_data_group(disp, i)
