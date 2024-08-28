@@ -70,7 +70,7 @@ end
 ]]
 
 local function just_made(amount)
-    return function(amount) return amount end
+    return function(a) return a end
 end
 
 --[[
