@@ -56,7 +56,7 @@ if config.decon_area then
 			print_to_players(true, player.name .. ' tried to deconstruct the area ' .. pos_to_gps_string(e.area.left_top) .. ' to ' .. pos_to_gps_string(e.area.right_bottom) .. ' that have ' .. format_number(#items) .. ' items, but were not allowed.')
 		end
 
-		add_log(get_secs() .. "," .. player.name .. ",decon_area," .. pos_to_string(e.area.left_top) .. "," .. pos_to_string(e.area.right_bottom))
+		add_log(get_secs() .. ',' .. player.name .. ',decon_area,' .. pos_to_string(e.area.left_top) .. ',' .. pos_to_string(e.area.right_bottom))
 	end)
 end
 
