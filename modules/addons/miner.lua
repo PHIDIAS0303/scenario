@@ -1,14 +1,5 @@
 local Event = require 'utils.event_core' --- @dep utils.event_core
-local Global = require 'utils.global' --- @dep utils.global
 local config = require 'config.miner' --- @dep config.miner
-
-local miner_data = {}
-
-Global.register(miner_data, function(tbl)
-    miner_data = tbl
-end)
-
-miner_data.queue = {}
 
 local function drop_target(entity)
     if entity.drop_target then
@@ -127,7 +118,7 @@ local function miner_check(entity)
         end
     end
 
-    table.insert(miner_data.queue, {t=game.tick + 5, e=entity})
+    entity.order_deconstruction(entity.force)
 
     if config.chest then
         chest_check(entity)
@@ -152,19 +143,6 @@ Event.add(defines.events.on_resource_depleted, function(event)
     for _, entity in pairs(entities) do
         if ((math.abs(entity.position.x - event.entity.position.x) <= entity.prototype.mining_drill_radius) and (math.abs(entity.position.y - event.entity.position.y) <= entity.prototype.mining_drill_radius)) then
             miner_check(entity)
-        end
-    end
-end)
-
-Event.on_nth_tick(10, function(event)
-    for k, q in pairs(miner_data.queue) do
-        if not q.e or not q.e.valid then
-            table.remove(miner_data.queue, k)
-            break
-
-        elseif event.tick >= q.t then
-            q.e.order_deconstruction(q.e.force)
-            table.remove(miner_data.queue, k)
         end
     end
 end)
