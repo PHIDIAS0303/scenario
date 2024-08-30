@@ -134,7 +134,7 @@ Event.add(defines.events.on_resource_depleted, function(event)
         return
     end
 
-    local entities = event.entity.surface.find_entities_filtered{area={{event.entity.position.x - 3, event.entity.position.y - 3}, {event.entity.position.x + 3, event.entity.position.y + 3}}, type='mining-drill'}
+    local entities = event.entity.surface.find_entities_filtered{area={{event.entity.position.x - 1, event.entity.position.y - 1}, {event.entity.position.x + 1, event.entity.position.y + 1}}, type='mining-drill'}
 
     if #entities == 0 then
         return
