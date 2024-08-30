@@ -69,10 +69,6 @@ local function scale_amount_made(amount, before, scalar)
 end
 ]]
 
-local function just_made(amount)
-    return function(a) return a end
-end
-
 --[[
     Common values
     game.tick is the amount of time the game has been on for
@@ -96,8 +92,8 @@ return {
         ['coal']=cutoff_time(20 * minutes, 20, 0),
         -- ['burner-mining-drill']=cutoff_time(20 * minutes, 8, 0),
         -- ['stone-furnace']=cutoff_time(20 * minutes, 8, 0),
-        ['piercing-rounds-magazine']=just_made(20),
-        ['construction-robot']=just_made(10)
+        ['piercing-rounds-magazine']=20,
+        ['construction-robot']=10
     },
     armor = {
         enable=true,

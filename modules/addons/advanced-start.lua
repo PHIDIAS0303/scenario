@@ -25,6 +25,9 @@ Event.add(defines.events.on_player_created, function(event)
             if success and count > 0 then
                 player.insert{name=item, count=count}
             end
+
+        else
+            player.insert{name=item, count=count}
         end
     end
 
