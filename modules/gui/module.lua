@@ -205,8 +205,6 @@ end)
 module_container =
 Gui.element(function(definition, parent)
     local container = Gui.container(parent, definition.name, (config.module_slot_max + 2) * 36)
-    Gui.header(container, 'Module Inserter', '', true)
-
     local scroll_table = Gui.scroll_table(container, (config.module_slot_max + 2) * 36, config.module_slot_max + 1)
 
     for i=1, config.default_module_row_count do
