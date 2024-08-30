@@ -104,8 +104,8 @@ Gui.element(function(_, parent, name, player_list)
     }
 
     camera.visible = false
-    camera.style.minimal_width = 400
-    camera.style.minimal_height = 300
+    camera.style.minimal_width = 480
+    camera.style.minimal_height = 290
     return camera_set
 end)
 
