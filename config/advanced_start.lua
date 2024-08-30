@@ -92,6 +92,7 @@ return {
         ['coal']=cutoff_time(20 * minutes, 20, 0),
         -- ['burner-mining-drill']=cutoff_time(20 * minutes, 8, 0),
         -- ['stone-furnace']=cutoff_time(20 * minutes, 8, 0),
+        ['submachine-gun']=1,
         ['piercing-rounds-magazine']=20,
         ['construction-robot']=10
     },
