@@ -18,6 +18,18 @@ return {
     =       400
     ]]
     pts = {
+        rate = {
+            ['Senior Administrator'] = 1.5,
+            ['Administrator'] = 1.4,
+            ['Senior Moderator'] = 1.3,
+            ['Moderator'] = 1.2,
+            ['Trainee Moderator'] = 1.2,
+            ['Board Member'] = 1.1,
+            ['Supporter'] = 1.1,
+            ['Partner'] = 1.1,
+            ['Senior Member'] = 1.1,
+            ['Member'] = 1
+        },
         base = 200
     },
     gui_display_width = {

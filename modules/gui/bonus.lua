@@ -71,7 +71,7 @@ local bonus_gui_control_pts_a_count =
 Gui.element{
     type = 'label',
     name = 'bonus_control_pts_a_count',
-    caption = config.pts.base,
+    caption = math.floor(config.pts.base * config.pts.rate[Roles.get_player_highest_role(player).name]),
     style = 'heading_1_label'
 }:style{
     width = config.gui_display_width['half']
