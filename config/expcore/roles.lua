@@ -98,7 +98,7 @@ Roles.new_role('Moderator','Mod')
     'command/toggle-always-day',
 }
 
-Roles.new_role('Trainee','TrMod')
+Roles.new_role('Trainee Moderator','Trainee')
 :set_permission_group('Mod')
 :set_custom_color{r=0,g=170,b=0}
 :set_flag('is_admin')
