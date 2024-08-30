@@ -93,9 +93,7 @@ Roles.new_role('Moderator','Mod')
     'command/clear-inventory',
     'gui/warp-list/bypass-proximity',
     'gui/warp-list/bypass-cooldown',
-    'command/connect-player',
-    'command/toggle-friendly-fire',
-    'command/toggle-always-day',
+    'command/connect-player'
 }
 
 Roles.new_role('Trainee Moderator','Trainee')
@@ -129,6 +127,8 @@ Roles.new_role('Trainee Moderator','Trainee')
     'command/game-speed',
     'command/kill-biters',
     'command/remove-biters',
+    'command/toggle-friendly-fire',
+    'command/toggle-always-day',
     'gui/playerdata'
 }
 
