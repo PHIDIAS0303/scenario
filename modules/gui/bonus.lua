@@ -71,7 +71,7 @@ local bonus_gui_control_pts_a_count =
 Gui.element{
     type = 'label',
     name = 'bonus_control_pts_a_count',
-    caption = math.floor(config.pts.base * config.pts.rate[Roles.get_player_highest_role(player).name]),
+    caption = config.pts.base,
     style = 'heading_1_label'
 }:style{
     width = config.gui_display_width['half']
@@ -174,7 +174,7 @@ end)
 --- A vertical flow containing all the bonus control
 -- @element bonus_control_set
 local bonus_control_set =
-Gui.element(function(_, parent, name)
+Gui.element(function(player, parent, name)
     local bonus_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(bonus_set, 360, 2, 'disp')
 
