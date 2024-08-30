@@ -72,17 +72,25 @@ local function chest_check(entity)
 end
 
 local function miner_check(entity)
-    if entity.status ~= defines.entity_status.no_minable_resources then
-        return
+    local ep = entity.position
+    local es = entity.surface
+    local ef = entity.force
+    local er = entity.prototype.mining_drill_radius
+
+    for _, r in pairs(entity.surface.find_entities_filtered{area={{x=ep.x - er, y=ep.y - er}, {x=ep.x + er, y=ep.y + er}}, type='resource'}) do
+        if r.amount > 0 then
+            return
+        end
     end
+
+    --[[
+        entity.status ~= defines.entity_status.no_minable_resources
+    ]]
 
     if check_entity(entity) then
         return
     end
 
-    local entity_surface = entity.surface
-    local entity_position = entity.position
-    local entity_force = entity.force
     local pipe_build = {}
 
     if config.fluid and entity.fluidbox and #entity.fluidbox > 0 then
@@ -90,30 +98,30 @@ local function miner_check(entity)
         table.insert(pipe_build, {x=0, y=0})
 
         local half = math.floor(entity.get_radius())
-        local radius = 1 + entity.prototype.mining_drill_radius
+        local r = 1 + er
 
-        local entities = entity_surface.find_entities_filtered{area={{entity_position.x - radius, entity_position.y - radius}, {entity_position.x + radius, entity_position.y + radius}}, type={'mining-drill', 'pipe', 'pipe-to-ground'}}
-        local entities_t = entity_surface.find_entities_filtered{area={{entity_position.x - radius, entity_position.y - radius}, {entity_position.x + radius, entity_position.y + radius}}, ghost_type={'pipe', 'pipe-to-ground'}}
+        local entities = es.find_entities_filtered{area={{ep.x - r, ep.y - r}, {ep.x + r, ep.y + r}}, type={'mining-drill', 'pipe', 'pipe-to-ground'}}
+        local entities_t = es.find_entities_filtered{area={{ep.x - r, ep.y - r}, {ep.x + r, ep.y + r}}, ghost_type={'pipe', 'pipe-to-ground'}}
 
         table.array_insert(entities, entities_t)
 
         for _, e in pairs(entities) do
-            if (e.position.x > entity_position.x) and (e.position.y == entity_position.y) then
+            if (e.position.x > ep.x) and (e.position.y == ep.y) then
                 for h=1, half do
                     table.insert(pipe_build, {x=h, y=0})
                 end
 
-            elseif (e.position.x < entity_position.x) and (e.position.y == entity_position.y) then
+            elseif (e.position.x < ep.x) and (e.position.y == ep.y) then
                 for h=1, half do
                     table.insert(pipe_build, {x=-h, y=0})
                 end
 
-            elseif (e.position.x == entity_position.x) and (e.position.y > entity_position.y) then
+            elseif (e.position.x == ep.x) and (e.position.y > ep.y) then
                 for h=1, half do
                     table.insert(pipe_build, {x=0, y=h})
                 end
 
-            elseif (e.position.x == entity_position.x) and (e.position.y < entity_position.y) then
+            elseif (e.position.x == ep.x) and (e.position.y < ep.y) then
                 for h=1, half do
                     table.insert(pipe_build, {x=0, y=-h})
                 end
@@ -125,10 +133,10 @@ local function miner_check(entity)
         chest_check(entity)
     end
 
-    entity.order_deconstruction(entity_force)
+    entity.order_deconstruction(ef)
 
     for _, pos in ipairs(pipe_build) do
-        entity_surface.create_entity{name='entity-ghost', position={x=entity_position.x + pos.x, y=entity_position.y + pos.y}, force=entity_force, inner_name='pipe', raise_built=true}
+        es.create_entity{name='entity-ghost', position={x=ep.x + pos.x, y=ep.y + pos.y}, force=ef, inner_name='pipe', raise_built=true}
     end
 end
 
