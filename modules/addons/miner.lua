@@ -67,7 +67,7 @@ local function chest_check(entity)
     end
 
     if check_entity(target) then
-        table.insert(miner_data.queue, {t=game.tick + 10, e=target})
+        target.order_deconstruction(target.force)
     end
 end
 
