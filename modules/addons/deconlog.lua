@@ -56,7 +56,7 @@ if config.decon_area then
 			print_to_players(true, {'deconlog.decon', player.name, player.surface, pos_to_gps_string(e.area.left_top), pos_to_gps_string(e.area.right_bottom), format_number(#items)})
 		end
 
-		add_log(get_secs() .. ',' .. player.name .. ',decon_area,' .. pos_to_string(e.area.left_top) .. ',' .. pos_to_string(e.area.right_bottom) .. ' (' .. player.surface .. ')')
+		add_log(get_secs() .. ',' .. player.name .. ',decon_area,' .. '(' .. player.surface .. ') ' .. pos_to_string(e.area.left_top) .. ',' .. pos_to_string(e.area.right_bottom))
 	end)
 end
 
