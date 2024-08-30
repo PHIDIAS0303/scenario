@@ -329,7 +329,7 @@ Roles.define_role_order{
 }
 
 Roles.override_player_roles{
-    ['PHIDIAS0303']={'Senior Administrator', 'Moderator', 'Board Member', 'Senior Member', 'Member'},
+    ['PHIDIAS0303']={'Senior Administrator', 'Moderator', 'Senior Member', 'Member'},
     ['aldldl']={'Moderator', 'Senior Member', 'Member'},
     ['arty714']={'Moderator', 'Senior Member', 'Member'},
     ['Cooldude2606']={'Moderator', 'Senior Member', 'Member'},
