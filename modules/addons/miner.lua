@@ -141,8 +141,6 @@ Event.add(defines.events.on_resource_depleted, function(event)
     end
 
     for _, entity in pairs(entities) do
-        if ((math.abs(entity.position.x - event.entity.position.x) <= entity.prototype.mining_drill_radius) and (math.abs(entity.position.y - event.entity.position.y) <= entity.prototype.mining_drill_radius)) then
-            miner_check(entity)
-        end
+        miner_check(entity)
     end
 end)
