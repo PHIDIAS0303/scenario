@@ -180,12 +180,10 @@ Event.on_nth_tick(600, function(_)
         local frame = Gui.get_left_element(player, cctv_container)
 
         for i=1, 2 do
-            local scroll_table_name = 'cctv_st_' .. i
-            local current_camera_set = frame.container.scroll[scroll_table_name]
-            local switch_index = current_camera_set.buttons.table[cctv_type.name].selected_index
+            local current_camera_set = frame.container.scroll['cctv_st_' .. i]
 
-            if switch_index == 3 then
-                local item_n = #frame.container.scroll['cctv_st_1'].buttons.table[cctv_player.name].items
+            if current_camera_set.buttons.table[cctv_type.name].selected_index == 3 then
+                local item_n = #current_camera_set.buttons.table[cctv_player.name].items
 
                 if item_n ~= 0 then
                     if current_camera_set.buttons.table[cctv_player.name].selected_index < item_n then
