@@ -316,7 +316,7 @@ Roles.define_role_order{
     'Administrator',
     'Senior Moderator',
     'Moderator',
-    'Trainee',
+    'Trainee Moderator',
     'Board Member',
     'Supporter',
     'Partner',
