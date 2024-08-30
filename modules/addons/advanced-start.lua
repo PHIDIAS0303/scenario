@@ -27,7 +27,7 @@ Event.add(defines.events.on_player_created, function(event)
             end
 
         else
-            player.insert{name=item, count=count}
+            player.insert{name=item, count=callback}
         end
     end
 
