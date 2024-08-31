@@ -17,7 +17,7 @@ local function AmountOfMachines(itemsPerSecond, output)
       end
 end
 
-Commands.new_command('ratio', 'This command will give the input and output ratios of the selected machine. Use the parameter for calculating the machines needed for that amount of items per second.')
+Commands.new_command('ratio', {'expcom-ratio.descr'})
 :add_param('itemsPerSecond', true, 'number')
 :register(function(player, itemsPerSecond)
       local machine = player.selected -- selected machine
@@ -29,7 +29,7 @@ Commands.new_command('ratio', 'This command will give the input and output ratio
       if  machine.type ~= "assembling-machine" and machine.type ~= "furnace" then
             return Commands.error{'expcom-ratio.notSelecting'}
       end
-            
+
       local recipe =  machine.get_recipe() -- recipe
 
       if not recipe then --nil check
