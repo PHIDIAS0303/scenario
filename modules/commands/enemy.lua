@@ -27,4 +27,3 @@ end}
     surface.map_gen_settings.autoplace_controls['enemy-base'].size = 'none'
     return Commands.success
 end)
-
