@@ -43,7 +43,7 @@ local res = {
 	['disp'] = {}
 }
 
-local function research_init()
+do
 	local res_total = 0
 	local i = 1
 
@@ -249,7 +249,6 @@ local research_data_set =
 Gui.element(function(_, parent, name)
     local research_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(research_set, 480, 4, 'disp')
-	research_init()
 	local res_disp = research_gui_update()
 
 	research_data_group(disp, 0)
