@@ -68,6 +68,7 @@ curves[8] = curve_flip_d(curves[7])
 local curve_n = {}
 
 for i, map in ipairs(curves) do
+    curve_n[i] = {}
     local index = 1
 
     for r=1, 8 do
