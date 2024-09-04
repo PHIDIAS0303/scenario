@@ -68,7 +68,7 @@ curves[8] = curve_flip_d(curves[7])
 local curve_n = {}
 
 do
-    for i, map in ipairs(curves) do
+    for _, map in ipairs(curves) do
         local index = 1
 
         for r=1, 8 do
@@ -126,8 +126,7 @@ local function landfill_gui_add_landfill(blueprint)
 
             -- curved rail
             else
-                local dir = ent.direction or 8
-                local curve_mask = curve_n[dir]
+                local curve_mask = curve_n[ent.direction or 8]
 
                 for m=1, #curve_mask do
                     new_tiles[tile_index + 1] = {
