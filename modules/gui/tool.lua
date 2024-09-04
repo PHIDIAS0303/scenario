@@ -220,6 +220,8 @@ Gui.element(function(_, parent, name)
 
     tool_gui_arty_l(disp)
     tool_gui_arty_b(disp)
+    tool_gui_waterfill_l(disp)
+    tool_gui_waterfill_b(disp)
 
     return bonus_set
 end)
