@@ -47,7 +47,7 @@ local data_1s =
 Gui.element{
     type = 'label',
     name = 'production_0_1',
-    caption = '+',
+    caption = {'production.label-prod'},
     style = 'heading_1_label'
 }:style{
     width = 96,
@@ -59,7 +59,7 @@ local data_2s =
 Gui.element{
     type = 'label',
     name = 'production_0_2',
-    caption = '-',
+    caption = {'production.label-con'},
     style = 'heading_1_label'
 }:style{
     width = 96,
@@ -71,7 +71,7 @@ local data_3s =
 Gui.element{
     type = 'label',
     name = 'production_0_3',
-    caption = '=',
+    caption = {'production.label-bal'},
     style = 'heading_1_label'
 }:style{
     width = 96,
