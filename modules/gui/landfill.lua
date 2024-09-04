@@ -11,7 +11,7 @@ local config = require 'config.landfill' --- @dep config.landfill
 
 local rolling_stocks = {}
 
-do
+local function landfill_init()
     for name, _ in pairs(game.get_filtered_entity_prototypes({{filter = 'rolling-stock'}})) do
         rolling_stocks[name] = true
     end
@@ -55,6 +55,7 @@ local function curve_flip_d(oc)
 end
 
 local curves = {}
+
 curves[1] = config.default_curve
 curves[6] = curve_flip_d(curves[1])
 curves[3] = curve_flip_lr(curves[6])
@@ -66,21 +67,23 @@ curves[8] = curve_flip_d(curves[7])
 
 local curve_n = {}
 
-for i, map in ipairs(curves) do
-    local index = 1
+do
+    for i, map in ipairs(curves) do
+        local index = 1
 
-    for r=1, 8 do
-		for c=1, 8 do
-			if map[r][c] == 1 then
-				curve_n[index] = {
-                    ['x'] = c - 5,
-                    ['y'] = r - 5
-                }
+        for r=1, 8 do
+            for c=1, 8 do
+                if map[r][c] == 1 then
+                    curve_n[index] = {
+                        ['x'] = c - 5,
+                        ['y'] = r - 5
+                    }
 
-				index = index + 1
-			end
-		end
-	end
+                    index = index + 1
+                end
+            end
+        end
+    end
 end
 
 local function landfill_gui_add_landfill(blueprint)
@@ -181,3 +184,5 @@ end)
 Gui.left_toolbar_button('item/landfill', {'landfill.main-tooltip'}, landfill_gui_tile, function(player)
 	return Roles.player_allowed(player, 'gui/landfill')
 end)
+
+Event.add(defines.events.on_player_joined_game, landfill_init)
