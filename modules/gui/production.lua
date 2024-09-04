@@ -16,7 +16,9 @@ local precision = {
 }
 
 local font_color = {
+    -- positive
     [1] = {r = 0.3, g = 1, b = 0.3},
+    -- negative
     [2] = {r = 1, g = 0.3, b = 0.3}
 }
 
@@ -102,6 +104,7 @@ Gui.element(function(_definition, parent, i)
         elem_type = 'item',
         style = 'slot_button'
     }
+    item.style.height = 80
     item.style.width = 80
 
     local data_1 = parent.add{
