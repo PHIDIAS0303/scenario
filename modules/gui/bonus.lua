@@ -292,7 +292,7 @@ end)
 :static_name(Gui.unique_static_name)
 :add_to_left_flow()
 
---- Button on the top flow used to toggle the task list container
+--- Button on the top flow used to toggle the bonus container
 -- @element toggle_left_element
 Gui.left_toolbar_button('item/exoskeleton-equipment', {'bonus.main-tooltip'}, bonus_container, function(player)
 	return Roles.player_allowed(player, 'gui/bonus')

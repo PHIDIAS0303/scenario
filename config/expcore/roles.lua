@@ -220,6 +220,7 @@ Roles.new_role('Veteran','Vet')
 :allow{
     'gui/warp-list/add',
     'gui/warp-list/edit',
+    'gui/tool',
     'command/auto-research',
     'command/artillery-target-remote',
     'command/save-quickbar',
