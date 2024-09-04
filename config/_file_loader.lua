@@ -43,7 +43,7 @@ return {
     'modules.commands.vlayer',
     'modules.commands.enemy',
     'modules.commands.waterfill',
-    'modules.commands.artillery',
+    -- 'modules.commands.artillery',
     'modules.commands.surface-clearing',
 
     --- Addons

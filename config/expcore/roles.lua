@@ -221,8 +221,8 @@ Roles.new_role('Veteran','Vet')
     'gui/warp-list/add',
     'gui/warp-list/edit',
     'gui/tool',
+    'gui/tool/artillery-target-remote',
     'command/auto-research',
-    'command/artillery-target-remote',
     'command/save-quickbar',
     'command/waterfill',
     'gui/surveillance'
