@@ -10,7 +10,8 @@ local Selection = require 'modules.control.selection' --- @dep modules.control.s
 
 local tool_container
 
-local SelectionArtyArea = 'ArtyArea'
+local SelectionArtyArea = 'ToolArtyArea'
+local SelectionWaterfillArea = 'ToolWaterfillArea'
 
 --- align an aabb to the grid by expanding it
 local function aabb_align_expand(aabb)
@@ -48,7 +49,7 @@ Selection.on_selection(SelectionArtyArea, function(event)
     end
 
     if not (game.players[event.player_index].cheat_mode or location_break(player, event.area)) then
-        return Commands.error
+        return
     end
 
     local count = 0
@@ -76,13 +77,59 @@ Selection.on_selection(SelectionArtyArea, function(event)
     end
 end)
 
+--- When an area is selected to add protection to the area
+Selection.on_selection(SelectionWaterfillArea, function(event)
+    local area = aabb_align_expand(event.area)
+    local player = game.get_player(event.player_index)
+
+    if not player then
+        return
+    end
+
+    local entities = player.surface.find_entities_filtered{area=area, name='steel-chest'}
+
+    if #entities == 0 then
+        player.print{'tool.waterfill-chest'}
+        return
+    end
+
+    local tiles_to_make = {}
+    local inv = player.get_main_inventory()
+
+    if not inv then
+        return
+    end
+
+    local clf_exp = inv.get_item_count('cliff-explosives')
+
+    for _, entity in pairs(entities) do
+        if clf_exp >= 1 then
+            if entity.get_inventory(defines.inventory.chest).is_empty() then
+                if (math.floor(player.position.x) ~= math.floor(entity.position.x)) or (math.floor(player.position.y) ~= math.floor(entity.position.y)) then
+                    table.insert(tiles_to_make, {name='water-mud', position=entity.position})
+                    entity.destroy()
+                else
+                    player.print{'tool.waterfill-distance'}
+                end
+            end
+
+            clf_exp = clf_exp - 1
+            inv.remove({name='cliff-explosives', count=1})
+        else
+            break
+        end
+    end
+
+    event.surface.set_tiles(tiles_to_make)
+end)
+
 --- Arty label
 -- @element tool_gui_arty_l
 local tool_gui_arty_l =
 Gui.element{
     type = 'label',
     name = 'tool_arty_l',
-    caption = {'tool.arty'},
+    caption = {'tool.artillery'},
     style = 'heading_1_label'
 }:style{
     width = 360
@@ -106,6 +153,41 @@ Gui.element{
     end
 end)
 
+--- Waterfill label
+-- @element tool_gui_waterfill_l
+local tool_gui_waterfill_l =
+Gui.element{
+    type = 'label',
+    name = 'tool_waterfill_l',
+    caption = {'tool.waterfill'},
+    style = 'heading_1_label'
+}:style{
+    width = 360
+}
+
+--- Waterfill button
+-- @element tool_gui_waterfill_b
+local tool_gui_waterfill_b =
+Gui.element{
+    type = 'button',
+    name = 'tool_waterfill_b',
+    caption = {'tool.apply'}
+}:style{
+    width = 120
+}:on_click(function(player, _, _)
+    local inv = player.get_main_inventory()
+
+    if (inv.get_item_count('cliff-explosives')) == 0 then
+        return player.print{'tool.waterfill-cliff'}
+    end
+
+    if Selection.is_selecting(player, SelectionWaterfillArea) then
+        Selection.stop(player)
+    else
+        Selection.start(player, SelectionWaterfillArea)
+    end
+end)
+
 local function tool_perm(player)
     local frame = Gui.get_left_element(player, tool_container)
     local disp = frame.container['disp'].disp.table
@@ -117,6 +199,15 @@ local function tool_perm(player)
     else
         disp[tool_gui_arty_l.name].visible = false
         disp[tool_gui_arty_b.name].visible = false
+    end
+
+    if Roles.player_allowed(player, 'gui/tool/waterfill') then
+        disp[tool_gui_waterfill_l.name].visible = true
+        disp[tool_gui_waterfill_b.name].visible = true
+
+    else
+        disp[tool_gui_waterfill_l.name].visible = false
+        disp[tool_gui_waterfill_b.name].visible = false
     end
 end
 

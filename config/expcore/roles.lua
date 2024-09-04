@@ -222,9 +222,9 @@ Roles.new_role('Veteran','Vet')
     'gui/warp-list/edit',
     'gui/tool',
     'gui/tool/artillery-target-remote',
+    'gui/tool/waterfill',
     'command/auto-research',
     'command/save-quickbar',
-    'command/waterfill',
     'gui/surveillance'
 }
 :set_auto_assign_condition(function(player)

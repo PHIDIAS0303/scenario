@@ -42,7 +42,7 @@ return {
     'modules.commands.research',
     'modules.commands.vlayer',
     'modules.commands.enemy',
-    'modules.commands.waterfill',
+    -- 'modules.commands.waterfill',
     -- 'modules.commands.artillery',
     'modules.commands.surface-clearing',
 
