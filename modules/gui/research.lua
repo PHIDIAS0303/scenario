@@ -82,7 +82,7 @@ local function research_res_n(res_)
 		end
 	end
 
-	if research.time[#res_] > 0 then
+	if research.time[#res_] and research.time[#res_] > 0 then
 		if res_n == 1 then
 			res_n = #res_
 		end
