@@ -197,7 +197,7 @@ Roles.new_role('Member','Mem')
     'gui/rocket-info/toggle-active',
     'gui/rocket-info/remote_launch',
     -- 'command/tag-color',
-    'command/set-trains-to-automatic',
+    'gui/tool/set-trains-to-automatic',
     'command/clear-item-on-ground',
     'command/clear-blueprint',
     'command/last-location',

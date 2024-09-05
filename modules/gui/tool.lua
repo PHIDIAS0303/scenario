@@ -7,6 +7,7 @@ local Gui = require 'expcore.gui' --- @dep expcore.gui
 local Roles = require 'expcore.roles' --- @dep expcore.roles
 local Event = require 'utils.event' --- @dep utils.event
 local Selection = require 'modules.control.selection' --- @dep modules.control.selection
+local format_number = require('util').format_number
 
 local tool_container
 
@@ -191,6 +192,40 @@ Gui.element{
     end
 end)
 
+--- Train label
+-- @element tool_gui_train_l
+local tool_gui_train_l =
+Gui.element{
+    type = 'label',
+    name = 'tool_train_l',
+    caption = {'tool.train'},
+    style = 'heading_1_label'
+}:style{
+    width = 160
+}
+
+--- Train button
+-- @element tool_gui_train_b
+local tool_gui_train_b =
+Gui.element{
+    type = 'button',
+    name = 'tool_train_b',
+    caption = {'tool.apply'}
+}:style{
+    width = 80
+}:on_click(function(player, _, _)
+    local count = 0
+
+    for _, v in pairs(player.force.get_trains()) do
+        if v.manual_mode then
+            count = count + 1
+            v.manual_mode = false
+        end
+    end
+
+    game.print{'tool.train-manual-result', player.name, format_number(count)}
+end)
+
 local function tool_perm(player)
     local frame = Gui.get_left_element(player, tool_container)
     local disp = frame.container['disp'].disp.table
@@ -212,6 +247,15 @@ local function tool_perm(player)
         disp[tool_gui_waterfill_l.name].visible = false
         disp[tool_gui_waterfill_b.name].visible = false
     end
+
+    if Roles.player_allowed(player, 'gui/tool/set-trains-to-automatic') then
+        disp[tool_gui_train_l.name].visible = true
+        disp[tool_gui_train_b.name].visible = true
+
+    else
+        disp[tool_gui_train_l.name].visible = false
+        disp[tool_gui_train_b.name].visible = false
+    end
 end
 
 --- A vertical flow containing all the tool
@@ -225,6 +269,8 @@ Gui.element(function(_, parent, name)
     tool_gui_arty_b(disp)
     tool_gui_waterfill_l(disp)
     tool_gui_waterfill_b(disp)
+    tool_gui_train_l(disp)
+    tool_gui_train_b(disp)
 
     return tool_set
 end)
