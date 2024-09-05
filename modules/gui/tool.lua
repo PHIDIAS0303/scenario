@@ -151,6 +151,7 @@ Gui.element{
 
     else
         Selection.start(player, SelectionArtyArea)
+        player.print{'tool.entered-area-selection'}
     end
 end)
 
@@ -186,6 +187,7 @@ Gui.element{
         Selection.stop(player)
     else
         Selection.start(player, SelectionWaterfillArea)
+        player.print{'tool.entered-area-selection'}
     end
 end)
 
