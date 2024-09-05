@@ -491,11 +491,11 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
         },
         [vlayer_gui_display_signal_production_count.name] = {
             val = (stats.energy_production / stats.energy_max) or 0,
-            cap = stats.energy_production .. ' / ' .. stats.energy_max
+            cap = format_energy(stats.energy_production, '') .. ' / ' .. format_energy(stats.energy_max, '')
         },
         [vlayer_gui_display_signal_capacity_count.name] = {
             val = (stats.energy_storage / stats.energy_capacity) or 0,
-            cap = stats.energy_storage .. ' / ' .. stats.energy_capacity
+            cap = format_energy(stats.energy_storage, '') .. ' / ' .. format_energy(stats.energy_capacity, '')
         }
     }
 
