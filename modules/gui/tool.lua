@@ -230,7 +230,7 @@ end)
 
 local function tool_perm(player)
     local frame = Gui.get_left_element(player, tool_container)
-    local disp = frame.container['tool_st']['disp'].disp.table
+    local disp = frame.container['tool_st'].disp.table
 
     if Roles.player_allowed(player, 'gui/tool/artillery-target-remote') then
         disp[tool_gui_arty_l.name].visible = true
