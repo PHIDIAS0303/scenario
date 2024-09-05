@@ -152,7 +152,7 @@ Gui.element{
     caption = '0',
     style = 'heading_1_label'
 }:style{
-    width = 120
+    width = 200
 }
 
 --- Display label for the number of accumulators
@@ -174,7 +174,7 @@ Gui.element{
     caption = '0',
     style = 'heading_1_label'
 }:style{
-    width = 120
+    width = 200
 }
 
 --- Display label for the remaining surface area
@@ -197,7 +197,7 @@ Gui.element{
     caption = '0',
     style = 'heading_1_label'
 }:style{
-    width = 120
+    width = 200
 }
 
 --- Display label for the sustained energy production
@@ -220,7 +220,7 @@ Gui.element{
     caption = '0',
     style = 'heading_1_label'
 }:style{
-    width = 120
+    width = 200
 }
 
 --- Display label for the current energy production
@@ -244,7 +244,7 @@ Gui.element{
     value = 0,
     style = 'electric_satisfaction_statistics_progressbar'
 }:style{
-    width = 120
+    width = 200
 }
 
 --- Display label for the sustained energy capacity
@@ -268,7 +268,7 @@ Gui.element{
     value = 0,
     style = 'electric_satisfaction_statistics_progressbar'
 }:style{
-    width = 120
+    width = 200
 }
 
 --- A vertical flow containing all the displays labels and their counts
@@ -276,7 +276,7 @@ Gui.element{
 local vlayer_display_set =
 Gui.element(function(_, parent, name)
     local vlayer_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(vlayer_set, 320, 2, 'disp')
+    local disp = Gui.scroll_table(vlayer_set, 400, 2, 'disp')
 
     vlayer_gui_display_item_solar_name(disp)
     vlayer_gui_display_item_solar_count(disp)
@@ -320,7 +320,7 @@ Gui.element{
     items = {{'vlayer.control-type-energy'}, {'vlayer.control-type-circuit'}, {'vlayer.control-type-storage-input'}, {'vlayer.control-type-storage-output'}},
     selected_index = 1
 }:style{
-    width = 160
+    width = 200
 }:on_selection_changed(function(player, _, _)
     vlayer_gui_list_refresh(player)
 end)
@@ -332,7 +332,7 @@ Gui.element{
     type = 'drop-down',
     name = Gui.unique_static_name
 }:style{
-    width = 160
+    width = 200
 }
 
 --- A button to refresh the remove list
@@ -343,7 +343,7 @@ Gui.element{
     name = Gui.unique_static_name,
     caption = {'vlayer.control-refresh'}
 }:style{
-    width = 160
+    width = 200
 }:on_click(function(player, _, _)
     vlayer_gui_list_refresh(player)
 end)
@@ -356,7 +356,7 @@ Gui.element{
     name = Gui.unique_static_name,
     caption = {'vlayer.control-see'}
 }:style{
-    width = 160
+    width = 200
 }:on_click(function(player, element, _)
     local target = element.parent[vlayer_gui_control_type.name].selected_index
     local n = element.parent[vlayer_gui_control_list.name].selected_index
@@ -383,7 +383,7 @@ Gui.element{
     name = Gui.unique_static_name,
     caption = {'vlayer.control-build'}
 }:style{
-    width = 160
+    width = 200
 }:on_click(function(player, _, _)
     if Selection.is_selecting(player, SelectionConvertArea) then
         Selection.stop(player)
@@ -403,7 +403,7 @@ Gui.element{
     name = Gui.unique_static_name,
     caption = {'vlayer.control-remove'}
 }:style{
-    width = 160
+    width = 200
 }:on_click(function(player, element, _)
     local target = element.parent[vlayer_gui_control_type.name].selected_index
     local n = element.parent[vlayer_gui_control_list.name].selected_index
@@ -428,7 +428,7 @@ end)
 local vlayer_control_set =
 Gui.element(function(_, parent, name)
     local vlayer_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(vlayer_set, 320, 2, 'disp')
+    local disp = Gui.scroll_table(vlayer_set, 400, 2, 'disp')
 
     vlayer_gui_control_type(disp)
     vlayer_gui_control_list(disp)
@@ -445,7 +445,7 @@ end)
 vlayer_container =
 Gui.element(function(definition, parent)
     local player = Gui.get_player_from_element(parent)
-    local container = Gui.container(parent, definition.name, 320)
+    local container = Gui.container(parent, definition.name, 400)
 
     vlayer_display_set(container, 'vlayer_st_1')
     local control_set = vlayer_control_set(container, 'vlayer_st_2')
