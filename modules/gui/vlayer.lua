@@ -158,7 +158,7 @@ Gui.element{
 --- Display label for the number of accumulators
 -- @element vlayer_gui_display_item_accumulator_name
 local vlayer_gui_display_item_accumulator_name =
-Gui.element{
+Gui.element{    
     type = 'label',
     name = 'vlayer_display_item_accumulator_name',
     caption = {'vlayer.display-item-accumulator'},

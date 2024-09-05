@@ -62,7 +62,7 @@ Gui.element{
     type = 'label',
     name = 'bonus_control_pts_a',
     caption = {'bonus.control-pts-a'},
-    style = 'heading_1_label'
+    style = 'heading_2_label'
 }:style{
     width = config.gui_display_width['half']
 }
@@ -72,7 +72,7 @@ Gui.element{
     type = 'label',
     name = 'bonus_control_pts_a_count',
     caption = config.pts.base,
-    style = 'heading_1_label'
+    style = 'heading_2_label'
 }:style{
     width = config.gui_display_width['half']
 }
@@ -84,7 +84,7 @@ Gui.element{
     type = 'label',
     name = 'bonus_control_pts_n',
     caption = {'bonus.control-pts-n'},
-    style = 'heading_1_label'
+    style = 'heading_2_label'
 }:style{
     width = config.gui_display_width['half']
 }
@@ -94,7 +94,7 @@ Gui.element{
     type = 'label',
     name = 'bonus_control_pts_n_count',
     caption = '0',
-    style = 'heading_1_label'
+    style = 'heading_2_label'
 }:style{
     width =config.gui_display_width['half']
 }
@@ -106,7 +106,7 @@ Gui.element{
     type = 'label',
     name = 'bonus_control_pts_r',
     caption = {'bonus.control-pts-r'},
-    style = 'heading_1_label'
+    style = 'heading_2_label'
 }:style{
     width = config.gui_display_width['half']
 }
@@ -116,7 +116,7 @@ Gui.element{
     type = 'label',
     name = 'bonus_control_pts_r_count',
     caption = '0',
-    style = 'heading_1_label'
+    style = 'heading_2_label'
 }:style{
     width = config.gui_display_width['half']
 }
@@ -201,7 +201,7 @@ Gui.element(function(_definition, parent, name, caption, tooltip, bonus)
         type = 'label',
         caption = caption,
         tooltip = tooltip,
-        style = 'heading_1_label'
+        style = 'heading_2_label'
     }
     label.style.width = config.gui_display_width['label']
 
@@ -234,7 +234,7 @@ Gui.element(function(_definition, parent, name, caption, tooltip, bonus)
         type = 'label',
         name = name .. '_count',
         caption = value,
-        style = 'heading_1_label',
+        style = 'heading_2_label',
     }
     count.style.width = config.gui_display_width['count']
 
