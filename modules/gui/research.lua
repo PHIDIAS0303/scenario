@@ -53,7 +53,7 @@ do
 		res_total = res_total + v * 60
 
 		res['disp'][i] = {
-			name = '[technology=' .. k .. '] ' .. k:gsub('-', ' '),
+			name = {'expcom.res.res_name', k, game.players[1].force.technologies[k].prototype.localised_name},
 			raw_name = k,
 			target = res_total,
 			target_disp = format_time(res_total, research_time_format),
