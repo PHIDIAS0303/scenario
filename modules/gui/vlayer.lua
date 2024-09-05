@@ -140,7 +140,7 @@ Gui.element{
     type = 'label',
     name = 'vlayer_display_item_solar_name',
     caption = {'vlayer.display-item-solar'},
-    style = 'heading_3_label'
+    style = 'heading_2_label'
 }:style{
     width = 200
 }
@@ -150,7 +150,7 @@ Gui.element{
     type = 'label',
     name = 'vlayer_display_item_solar_count',
     caption = '0',
-    style = 'heading_3_label'
+    style = 'heading_2_label'
 }:style{
     width = 200
 }
@@ -162,7 +162,7 @@ Gui.element{
     type = 'label',
     name = 'vlayer_display_item_accumulator_name',
     caption = {'vlayer.display-item-accumulator'},
-    style = 'heading_3_label'
+    style = 'heading_2_label'
 }:style{
     width = 200
 }
@@ -172,7 +172,7 @@ Gui.element{
     type = 'label',
     name = 'vlayer_display_item_accumulator_count',
     caption = '0',
-    style = 'heading_3_label'
+    style = 'heading_2_label'
 }:style{
     width = 200
 }
@@ -185,7 +185,7 @@ Gui.element{
     name = 'vlayer_display_signal_remaining_surface_area_name',
     caption = {'vlayer.display-remaining-surface-area'},
     tooltip = {'vlayer.display-remaining-surface-area-tooltip'},
-    style = 'heading_3_label'
+    style = 'heading_2_label'
 }:style{
     width = 200
 }
@@ -195,7 +195,7 @@ Gui.element{
     type = 'label',
     name = 'vlayer_display_signal_remaining_surface_area_count',
     caption = '0',
-    style = 'heading_3_label'
+    style = 'heading_2_label'
 }:style{
     width = 200
 }
@@ -208,7 +208,7 @@ Gui.element{
     name = 'vlayer_display_signal_sustained_name',
     caption = {'vlayer.display-sustained-production'},
     tooltip = {'vlayer.display-sustained-production-tooltip'},
-    style = 'heading_3_label'
+    style = 'heading_2_label'
 }:style{
     width = 200
 }
@@ -218,7 +218,7 @@ Gui.element{
     type = 'label',
     name = 'vlayer_display_signal_sustained_count',
     caption = '0',
-    style = 'heading_3_label'
+    style = 'heading_2_label'
 }:style{
     width = 200
 }
@@ -231,7 +231,7 @@ Gui.element{
     name = 'vlayer_display_signal_production_name',
     caption = {'vlayer.display-current-production'},
     tooltip = {'vlayer.display-current-production-tooltip'},
-    style = 'heading_3_label'
+    style = 'heading_2_label'
 }:style{
     width = 200
 }
@@ -256,7 +256,7 @@ Gui.element{
     name = 'vlayer_display_signal_capacity_name',
     caption = {'vlayer.display-current-capacity'},
     tooltip = {'vlayer.display-current-capacity-tooltip'},
-    style = 'heading_3_label'
+    style = 'heading_2_label'
 }:style{
     width = 200
 }
