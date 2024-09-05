@@ -163,6 +163,7 @@ Gui.element{
     type = 'label',
     name = 'tool_waterfill_l',
     caption = {'tool.waterfill'},
+    tooltip = {'tool.waterfill-tooltip'},
     style = 'heading_1_label'
 }:style{
     width = 160
