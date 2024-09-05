@@ -464,7 +464,6 @@ function vlayer.get_circuits()
         used_surface_area = 'signal-U',
         remaining_surface_area = 'signal-R',
         production_multiplier = 'signal-M',
-        energy_max = 'signal-X',
         energy_production = 'signal-P',
         energy_sustained = 'signal-S',
         energy_capacity = 'signal-C',
