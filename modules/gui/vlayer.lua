@@ -475,13 +475,30 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
     local stats = vlayer.get_statistics()
     local items = vlayer.get_items()
     local vlayer_display = {
-        [vlayer_gui_display_item_solar_count.name] = format_number(items['solar-panel']),
-        [vlayer_gui_display_item_accumulator_count.name] = format_number(items['accumulator']),
-        [vlayer_gui_display_signal_remaining_surface_area_count.name] = format_number(stats.remaining_surface_area),
-        [vlayer_gui_display_signal_sustained_count.name] = format_energy(stats.energy_sustained, 'W'),
-        [vlayer_gui_display_signal_production_count.name] = stats.energy_production / stats.energy_max,
-        [vlayer_gui_display_signal_capacity_count.name] = format_energy(stats.energy_capacity, 'J'),
-        [vlayer_gui_display_signal_current_count.name] = format_energy(stats.energy_storage, 'J'),
+        [vlayer_gui_display_item_solar_count.name] = {
+            typ = 'label',
+            val = format_number(items['solar-panel'])
+        },
+        [vlayer_gui_display_item_accumulator_count.name] = {
+            typ = 'label',
+            val = format_number(items['accumulator'])
+        },
+        [vlayer_gui_display_signal_remaining_surface_area_count.name] = {
+            typ = 'label',
+            val = format_number(stats.remaining_surface_area)
+        },
+        [vlayer_gui_display_signal_sustained_count.name] = {
+            typ = 'label',
+            val = format_energy(stats.energy_sustained, 'W')
+        },
+        [vlayer_gui_display_signal_production_count.name] = {
+            typ = 'progress_bar',
+            val = stats.energy_production / stats.energy_max
+        },
+        [vlayer_gui_display_signal_capacity_count.name] = {
+            typ = 'progress_bar',
+            val = stats.energy_storage / stats.energy_capacity
+        },
     }
 
     for _, player in pairs(game.connected_players) do
@@ -489,7 +506,12 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
         local disp = frame.container['vlayer_st_1'].disp.table
 
         for k, v in pairs(vlayer_display) do
-            disp[k].caption = v
+            if v.typ == 'label' then
+                disp[k].caption = v.val
+
+            else
+                disp[k].value = v.val
+            end
         end
     end
 end)
