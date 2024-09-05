@@ -53,7 +53,6 @@ local function res_init()
 		res_total = res_total + v * 60
 
 		res['disp'][i] = {
-			name = {'expcom-res.res-name', k, game.technology_prototypes[k].localised_name},
 			raw_name = k,
 			target = res_total,
 			target_disp = format_time(res_total, research_time_format),
@@ -142,7 +141,7 @@ local function research_gui_update()
 
 	for i=1, 8, 1 do
 		res_disp[i] = {
-			['name'] = '',
+			['name'] = ''
 			['target'] = '',
 			['attempt'] = '',
 			['difference'] = '',
@@ -152,8 +151,7 @@ local function research_gui_update()
 		local res_i = res_n + i - 3
 
 		if res['disp'][res_i] then
-			res_disp[i]['name'] = res['disp'][res_i].name
-
+			res_disp[i]['name'] = {'expcom-res.res-name', res_disp[i]['raw_name'], game.technology_prototypes[res_disp[i]['raw_name']].localised_name}
 			if research.time[res_i] == 0 then
 				res_disp[i]['target'] = res['disp'][res_i].target_disp
 				res_disp[i]['attempt'] = empty_time
