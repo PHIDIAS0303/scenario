@@ -238,7 +238,7 @@ Gui.element{
 
 local vlayer_gui_display_signal_production_count =
 Gui.element{
-    type = 'progress_bar',
+    type = 'progressbar',
     name = 'vlayer_display_signal_production_count',
     caption = '0 / 0',
     value = 0,
@@ -262,7 +262,7 @@ Gui.element{
 
 local vlayer_gui_display_signal_capacity_count =
 Gui.element{
-    type = 'progress_bar',
+    type = 'progressbar',
     name = 'vlayer_display_signal_capacity_count',
     caption = '0 / 0',
     value = 0,
