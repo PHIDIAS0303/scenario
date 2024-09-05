@@ -53,7 +53,7 @@ local function res_init()
 		res_total = res_total + v * 60
 
 		res['disp'][i] = {
-			name = {'expcom.res.res_name', k, game.technology_prototypes[k].localised_name},
+			name = {'expcom-res.res-name', k, game.technology_prototypes[k].localised_name},
 			raw_name = k,
 			target = res_total,
 			target_disp = format_time(res_total, research_time_format),
