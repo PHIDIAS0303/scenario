@@ -87,7 +87,7 @@ Gui.element(function(_, parent, width, caption, tooltip, name)
         caption = caption,
         tooltip = tooltip,
         name = name,
-        style = 'heading_3_label'
+        style = 'heading_2_label'
     }
 
     new_label.style.width = width
