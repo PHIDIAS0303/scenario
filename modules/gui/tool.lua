@@ -130,6 +130,7 @@ Gui.element{
     type = 'label',
     name = 'tool_arty_l',
     caption = {'tool.artillery'},
+    tooltip = {'tool.artillery-tooltip'},
     style = 'heading_1_label'
 }:style{
     width = 360
@@ -215,15 +216,15 @@ end
 -- @element tool_set
 local tool_set =
 Gui.element(function(_, parent, name)
-    local bonus_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(bonus_set, 480, 2, 'disp')
+    local tool_set = parent.add{type='flow', direction='vertical', name=name}
+    local disp = Gui.scroll_table(tool_set, 480, 2, 'disp')
 
     tool_gui_arty_l(disp)
     tool_gui_arty_b(disp)
     tool_gui_waterfill_l(disp)
     tool_gui_waterfill_b(disp)
 
-    return bonus_set
+    return tool_set
 end)
 
 --- The main container for the tool gui
@@ -244,7 +245,7 @@ end)
 
 --- Button on the top flow used to toggle the tool container
 -- @element toggle_left_element
-Gui.left_toolbar_button('item/repair-pack', {'bonus.main-tooltip'}, tool_container, function(player)
+Gui.left_toolbar_button('item/repair-pack', {'tool.main-tooltip'}, tool_container, function(player)
 	return Roles.player_allowed(player, 'gui/tool')
 end)
 
