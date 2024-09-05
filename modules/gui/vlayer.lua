@@ -478,28 +478,24 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
     local items = vlayer.get_items()
     local vlayer_display = {
         [vlayer_gui_display_item_solar_count.name] = {
-            typ = 'label',
-            val = format_number(items['solar-panel'])
+            cap = format_number(items['solar-panel'])
         },
         [vlayer_gui_display_item_accumulator_count.name] = {
-            typ = 'label',
-            val = format_number(items['accumulator'])
+            cap = format_number(items['accumulator'])
         },
         [vlayer_gui_display_signal_remaining_surface_area_count.name] = {
-            typ = 'label',
-            val = format_number(stats.remaining_surface_area)
+            cap = format_number(stats.remaining_surface_area)
         },
         [vlayer_gui_display_signal_sustained_count.name] = {
-            typ = 'label',
-            val = format_energy(stats.energy_sustained, 'W')
+            cap = format_energy(stats.energy_sustained, 'W')
         },
         [vlayer_gui_display_signal_production_count.name] = {
-            typ = 'progress_bar',
-            val = 0 --(stats.energy_production / stats.energy_max) or 0
+            val = (stats.energy_production / stats.energy_max) or 0,
+            cap = stats.energy_production .. ' / ' .. stats.energy_max
         },
         [vlayer_gui_display_signal_capacity_count.name] = {
-            typ = 'progress_bar',
-            val = 0 --(stats.energy_storage / stats.energy_capacity) or 0
+            val = (stats.energy_storage / stats.energy_capacity) or 0,
+            cap = stats.energy_storage .. ' / ' .. stats.energy_capacity
         }
     }
 
@@ -508,10 +504,9 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
         local disp = frame.container['vlayer_st_1'].disp.table
 
         for k, v in pairs(vlayer_display) do
-            if v.typ == 'label' then
-                disp[k].caption = v.val
+            disp[k].caption = v.cap
 
-            else
+            if v.val then
                 disp[k].value = v.val
             end
         end
