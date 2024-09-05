@@ -200,7 +200,7 @@ Gui.element{
     type = 'label',
     name = 'tool_train_l',
     caption = {'tool.train'},
-    tooltip = {'tool.tooltip'},
+    tooltip = {'tool.train-tooltip'},
     style = 'heading_2_label'
 }:style{
     width = 160
