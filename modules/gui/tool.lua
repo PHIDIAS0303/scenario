@@ -295,7 +295,7 @@ end)
 
 --- Button on the top flow used to toggle the tool container
 -- @element toggle_left_element
-Gui.left_toolbar_button('item/repair-pack', {'tool.main-caption'}, tool_container, function(player)
+Gui.left_toolbar_button('item/repair-pack', {'tool.main-tooltip'}, tool_container, function(player)
 	return Roles.player_allowed(player, 'gui/tool')
 end)
 
