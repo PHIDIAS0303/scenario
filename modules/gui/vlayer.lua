@@ -244,7 +244,8 @@ Gui.element{
     value = 0,
     style = 'electric_satisfaction_statistics_progressbar'
 }:style{
-    width = 200
+    width = 200,
+    font = 'default-large'
 }
 
 --- Display label for the sustained energy capacity
@@ -253,8 +254,8 @@ local vlayer_gui_display_signal_capacity_name =
 Gui.element{
     type = 'label',
     name = 'vlayer_display_signal_capacity_name',
-    caption = {'vlayer.display-max-capacity'},
-    tooltip = {'vlayer.display-max-capacity-tooltip'},
+    caption = {'vlayer.display-current-capacity'},
+    tooltip = {'vlayer.display-current-capacity-tooltip'},
     style = 'heading_1_label'
 }:style{
     width = 200
@@ -268,7 +269,8 @@ Gui.element{
     value = 0,
     style = 'electric_satisfaction_statistics_progressbar'
 }:style{
-    width = 200
+    width = 200,
+    font = 'default-large'
 }
 
 --- A vertical flow containing all the displays labels and their counts
