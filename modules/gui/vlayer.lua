@@ -240,7 +240,7 @@ local vlayer_gui_display_signal_production_count =
 Gui.element{
     type = 'progressbar',
     name = 'vlayer_display_signal_production_count',
-    caption = '0 / 0',
+    caption = '',
     value = 0,
     style = 'electric_satisfaction_statistics_progressbar'
 }:style{
@@ -264,7 +264,7 @@ local vlayer_gui_display_signal_capacity_count =
 Gui.element{
     type = 'progressbar',
     name = 'vlayer_display_signal_capacity_count',
-    caption = '0 / 0',
+    caption = '',
     value = 0,
     style = 'electric_satisfaction_statistics_progressbar'
 }:style{
