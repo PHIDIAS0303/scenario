@@ -238,7 +238,7 @@ Gui.element{
 
 local vlayer_gui_display_signal_production_count =
 Gui.element{
-    type = 'electric_statistics_progressbar',
+    type = 'progressbar',
     name = 'vlayer_display_signal_peak_solar_count',
     value = 0
 }:style{
@@ -261,7 +261,7 @@ Gui.element{
 
 local vlayer_gui_display_signal_capacity_count =
 Gui.element{
-    type = 'electric_statistics_progressbar',
+    type = 'progressbar',
     name = 'vlayer_display_signal_max_count',
     value = 0
 }:style{
