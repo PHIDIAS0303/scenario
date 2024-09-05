@@ -104,8 +104,8 @@ Gui.element(function(_definition, parent, i)
         elem_type = 'item',
         style = 'slot_button'
     }
-    item.style.height = 80
-    item.style.width = 80
+    item.style.height = 64
+    item.style.width = 64
 
     local data_1 = parent.add{
         type = 'label',
