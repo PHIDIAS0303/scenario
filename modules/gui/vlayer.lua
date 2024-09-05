@@ -177,23 +177,23 @@ Gui.element{
     width = 120
 }
 
---- Display label for the current energy production
--- @element vlayer_gui_display_signal_production_name
-local vlayer_gui_display_signal_production_name =
+--- Display label for the remaining surface area
+-- @element vlayer_gui_display_signal_remaining_surface_area_name
+local vlayer_gui_display_signal_remaining_surface_area_name =
 Gui.element{
     type = 'label',
-    name = 'vlayer_display_signal_peak_name',
-    caption = {'vlayer.display-current-production'},
-    tooltip = {'vlayer.display-current-production-tooltip'},
+    name = 'vlayer_display_signal_remaining_surface_area_name',
+    caption = {'vlayer.display-remaining-surface-area'},
+    tooltip = {'vlayer.display-remaining-surface-area-tooltip'},
     style = 'heading_1_label'
 }:style{
     width = 200
 }
 
-local vlayer_gui_display_signal_production_count =
+local vlayer_gui_display_signal_remaining_surface_area_count =
 Gui.element{
     type = 'label',
-    name = 'vlayer_display_signal_peak_solar_count',
+    name = 'vlayer_display_signal_remaining_surface_area_count',
     caption = '0',
     style = 'heading_1_label'
 }:style{
@@ -223,6 +223,29 @@ Gui.element{
     width = 120
 }
 
+--- Display label for the current energy production
+-- @element vlayer_gui_display_signal_production_name
+local vlayer_gui_display_signal_production_name =
+Gui.element{
+    type = 'label',
+    name = 'vlayer_display_signal_peak_name',
+    caption = {'vlayer.display-current-production'},
+    tooltip = {'vlayer.display-current-production-tooltip'},
+    style = 'heading_1_label'
+}:style{
+    width = 200
+}
+
+local vlayer_gui_display_signal_production_count =
+Gui.element{
+    type = 'progress_bar',
+    name = 'vlayer_display_signal_peak_solar_count',
+    value = 0
+}:style{
+    width = 120,
+    maximal_width = 120
+}
+
 --- Display label for the sustained energy capacity
 -- @element vlayer_gui_display_signal_capacity_name
 local vlayer_gui_display_signal_capacity_name =
@@ -238,58 +261,12 @@ Gui.element{
 
 local vlayer_gui_display_signal_capacity_count =
 Gui.element{
-    type = 'label',
+    type = 'progress_bar',
     name = 'vlayer_display_signal_max_count',
-    caption = '0',
-    style = 'heading_1_label'
+    value = 0
 }:style{
-    width = 120
-}
-
---- Display label for the current energy in storage
--- @element vlayer_gui_display_signal_current_name
-local vlayer_gui_display_signal_current_name =
-Gui.element{
-    type = 'label',
-    name = 'vlayer_display_signal_current_name',
-    caption = {'vlayer.display-current-capacity'},
-    tooltip = {'vlayer.display-current-capacity-tooltip'},
-    style = 'heading_1_label'
-}:style{
-    width = 200
-}
-
-local vlayer_gui_display_signal_current_count =
-Gui.element{
-    type = 'label',
-    name = 'vlayer_display_signal_current_count',
-    caption = '0',
-    style = 'heading_1_label'
-}:style{
-    width = 120
-}
-
---- Display label for the remaining surface area
--- @element vlayer_gui_display_signal_remaining_surface_area_name
-local vlayer_gui_display_signal_remaining_surface_area_name =
-Gui.element{
-    type = 'label',
-    name = 'vlayer_display_signal_remaining_surface_area_name',
-    caption = {'vlayer.display-remaining-surface-area'},
-    tooltip = {'vlayer.display-remaining-surface-area-tooltip'},
-    style = 'heading_1_label'
-}:style{
-    width = 200
-}
-
-local vlayer_gui_display_signal_remaining_surface_area_count =
-Gui.element{
-    type = 'label',
-    name = 'vlayer_display_signal_remaining_surface_area_count',
-    caption = '0',
-    style = 'heading_1_label'
-}:style{
-    width = 120
+    width = 120,
+    maximal_width = 120
 }
 
 --- A vertical flow containing all the displays labels and their counts
@@ -305,14 +282,12 @@ Gui.element(function(_, parent, name)
     vlayer_gui_display_item_accumulator_count(disp)
     vlayer_gui_display_signal_remaining_surface_area_name(disp)
     vlayer_gui_display_signal_remaining_surface_area_count(disp)
-    vlayer_gui_display_signal_production_name(disp)
-    vlayer_gui_display_signal_production_count(disp)
     vlayer_gui_display_signal_sustained_name(disp)
     vlayer_gui_display_signal_sustained_count(disp)
+    vlayer_gui_display_signal_production_name(disp)
+    vlayer_gui_display_signal_production_count(disp)
     vlayer_gui_display_signal_capacity_name(disp)
     vlayer_gui_display_signal_capacity_count(disp)
-    vlayer_gui_display_signal_current_name(disp)
-    vlayer_gui_display_signal_current_count(disp)
 
     return vlayer_set
 end)
@@ -503,8 +478,8 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
         [vlayer_gui_display_item_solar_count.name] = format_number(items['solar-panel']),
         [vlayer_gui_display_item_accumulator_count.name] = format_number(items['accumulator']),
         [vlayer_gui_display_signal_remaining_surface_area_count.name] = format_number(stats.remaining_surface_area),
-        [vlayer_gui_display_signal_production_count.name] = format_energy(stats.energy_production, 'W'),
         [vlayer_gui_display_signal_sustained_count.name] = format_energy(stats.energy_sustained, 'W'),
+        [vlayer_gui_display_signal_production_count.name] = stats.energy_production / stats.energy_max,
         [vlayer_gui_display_signal_capacity_count.name] = format_energy(stats.energy_capacity, 'J'),
         [vlayer_gui_display_signal_current_count.name] = format_energy(stats.energy_storage, 'J'),
     }
