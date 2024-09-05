@@ -141,7 +141,7 @@ local function research_gui_update()
 
 	for i=1, 8, 1 do
 		res_disp[i] = {
-			['name'] = ''
+			['name'] = '',
 			['target'] = '',
 			['attempt'] = '',
 			['difference'] = '',
