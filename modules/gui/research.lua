@@ -61,8 +61,6 @@ local function res_init()
 
 		i = i + 1
 	end
-
-	game.print(res['disp'][1]['name'])
 end
 
 local function research_add_log()
