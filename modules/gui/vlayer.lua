@@ -238,7 +238,7 @@ Gui.element{
 
 local vlayer_gui_display_signal_production_count =
 Gui.element{
-    type = 'progress_bar',
+    type = 'electric_statistics_progressbar',
     name = 'vlayer_display_signal_peak_solar_count',
     value = 0
 }:style{
@@ -261,7 +261,7 @@ Gui.element{
 
 local vlayer_gui_display_signal_capacity_count =
 Gui.element{
-    type = 'progress_bar',
+    type = 'electric_statistics_progressbar',
     name = 'vlayer_display_signal_max_count',
     value = 0
 }:style{
@@ -493,12 +493,12 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
         },
         [vlayer_gui_display_signal_production_count.name] = {
             typ = 'progress_bar',
-            val = stats.energy_production / stats.energy_max
+            val = 0 --(stats.energy_production / stats.energy_max) or 0
         },
         [vlayer_gui_display_signal_capacity_count.name] = {
             typ = 'progress_bar',
-            val = stats.energy_storage / stats.energy_capacity
-        },
+            val = 0 --(stats.energy_storage / stats.energy_capacity) or 0
+        }
     }
 
     for _, player in pairs(game.connected_players) do
