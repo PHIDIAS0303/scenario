@@ -37,7 +37,7 @@ return {
     'modules.commands.bot-queue',
     'modules.commands.speed',
     'modules.commands.pollution',
-    'modules.commands.train',
+    -- 'modules.commands.train',
     'modules.commands.friendly-fire',
     'modules.commands.research',
     'modules.commands.vlayer',
