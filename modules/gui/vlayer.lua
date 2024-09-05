@@ -228,7 +228,7 @@ Gui.element{
 local vlayer_gui_display_signal_production_name =
 Gui.element{
     type = 'label',
-    name = 'vlayer_display_signal_peak_name',
+    name = 'vlayer_display_signal_production_name',
     caption = {'vlayer.display-current-production'},
     tooltip = {'vlayer.display-current-production-tooltip'},
     style = 'heading_1_label'
@@ -238,12 +238,13 @@ Gui.element{
 
 local vlayer_gui_display_signal_production_count =
 Gui.element{
-    type = 'progressbar',
-    name = 'vlayer_display_signal_peak_solar_count',
-    value = 0
+    type = 'progress_bar',
+    name = 'vlayer_display_signal_production_count',
+    caption = '0 / 0',
+    value = 0,
+    style = 'electric_satisfaction_statistics_progressbar'
 }:style{
-    width = 120,
-    maximal_width = 120
+    width = 120
 }
 
 --- Display label for the sustained energy capacity
@@ -251,7 +252,7 @@ Gui.element{
 local vlayer_gui_display_signal_capacity_name =
 Gui.element{
     type = 'label',
-    name = 'vlayer_display_signal_max_name',
+    name = 'vlayer_display_signal_capacity_name',
     caption = {'vlayer.display-max-capacity'},
     tooltip = {'vlayer.display-max-capacity-tooltip'},
     style = 'heading_1_label'
@@ -261,12 +262,13 @@ Gui.element{
 
 local vlayer_gui_display_signal_capacity_count =
 Gui.element{
-    type = 'progressbar',
-    name = 'vlayer_display_signal_max_count',
-    value = 0
+    type = 'progress_bar',
+    name = 'vlayer_display_signal_capacity_count',
+    caption = '0 / 0',
+    value = 0,
+    style = 'electric_satisfaction_statistics_progressbar'
 }:style{
-    width = 120,
-    maximal_width = 120
+    width = 120
 }
 
 --- A vertical flow containing all the displays labels and their counts
