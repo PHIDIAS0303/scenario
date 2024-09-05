@@ -132,7 +132,7 @@ Gui.element{
     name = 'tool_arty_l',
     caption = {'tool.artillery'},
     tooltip = {'tool.artillery-tooltip'},
-    style = 'heading_1_label'
+    style = 'heading_3_label'
 }:style{
     width = 160
 }
@@ -164,7 +164,7 @@ Gui.element{
     name = 'tool_waterfill_l',
     caption = {'tool.waterfill'},
     tooltip = {'tool.waterfill-tooltip'},
-    style = 'heading_1_label'
+    style = 'heading_3_label'
 }:style{
     width = 160
 }
@@ -201,7 +201,7 @@ Gui.element{
     name = 'tool_train_l',
     caption = {'tool.train'},
     tooltip = {'tool.tooltip'},
-    style = 'heading_1_label'
+    style = 'heading_3_label'
 }:style{
     width = 160
 }
