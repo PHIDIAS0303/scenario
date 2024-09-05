@@ -133,7 +133,7 @@ Gui.element{
     tooltip = {'tool.artillery-tooltip'},
     style = 'heading_1_label'
 }:style{
-    width = 360
+    width = 160
 }
 
 --- Arty button
@@ -144,7 +144,7 @@ Gui.element{
     name = 'tool_arty_b',
     caption = {'tool.apply'}
 }:style{
-    width = 120
+    width = 80
 }:on_click(function(player, _, _)
     if Selection.is_selecting(player, SelectionArtyArea) then
         Selection.stop(player)
@@ -163,7 +163,7 @@ Gui.element{
     caption = {'tool.waterfill'},
     style = 'heading_1_label'
 }:style{
-    width = 360
+    width = 160
 }
 
 --- Waterfill button
@@ -174,7 +174,7 @@ Gui.element{
     name = 'tool_waterfill_b',
     caption = {'tool.apply'}
 }:style{
-    width = 120
+    width = 80
 }:on_click(function(player, _, _)
     local inv = player.get_main_inventory()
 
@@ -217,7 +217,7 @@ end
 local tool_set =
 Gui.element(function(_, parent, name)
     local tool_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(tool_set, 480, 2, 'disp')
+    local disp = Gui.scroll_table(tool_set, 240, 2, 'disp')
 
     tool_gui_arty_l(disp)
     tool_gui_arty_b(disp)
@@ -232,7 +232,7 @@ end)
 tool_container =
 Gui.element(function(definition, parent)
     local player = Gui.get_player_from_element(parent)
-    local container = Gui.container(parent, definition.name, 480)
+    local container = Gui.container(parent, definition.name, 240)
 
     tool_set(container, 'tool_st')
 
