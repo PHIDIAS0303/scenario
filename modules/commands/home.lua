@@ -35,9 +35,11 @@ end
 Commands.new_command('home', {'expcom-home.description-home'})
 :register(function(player)
     local h = homes[player.index]
+
     if not h or not h[1] then
         return Commands.error{'expcom-home.no-home'}
     end
+
     local rtn = floor_pos(player.position)
     teleport(player, h[1])
     h[2] = rtn
