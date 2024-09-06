@@ -83,17 +83,6 @@ Roles.new_role('Moderator','Mod')
 :set_flag('deconlog-bypass')
 :set_parent('Trainee')
 :allow{
-    'command/assign-role',
-    'command/unassign-role',
-    'command/kill/always',
-    -- 'command/clear-tag/always',
-    'command/go-to-spawn/always',
-    'command/clear-reports',
-    'command/clear-warnings',
-    'command/clear-inventory',
-    'gui/warp-list/bypass-proximity',
-    'gui/warp-list/bypass-cooldown',
-    'command/connect-player'
 }
 
 Roles.new_role('Trainee Moderator','Trainee')
@@ -105,6 +94,8 @@ Roles.new_role('Trainee Moderator','Trainee')
 :set_flag('deconlog-bypass')
 :set_parent('Board Member')
 :allow{
+    'command/assign-role',
+    'command/unassign-role',
     'command/admin-chat',
     'command/admin-marker',
     'command/teleport',
@@ -129,7 +120,14 @@ Roles.new_role('Trainee Moderator','Trainee')
     'command/remove-biters',
     'command/toggle-friendly-fire',
     'command/toggle-always-day',
-    'gui/playerdata'
+    'gui/playerdata',
+    'command/kill/always',
+    -- 'command/clear-tag/always',
+    'command/go-to-spawn/always',
+    'command/clear-reports',
+    'command/clear-warnings',
+    'command/clear-inventory',
+    'command/connect-player'
 }
 
 --- Trusted Roles
