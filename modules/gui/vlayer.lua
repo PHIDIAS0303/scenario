@@ -154,7 +154,7 @@ Gui.element{
     style = 'electric_satisfaction_statistics_progressbar'
 }:style{
     width = 200,
-    font = 'heading-3'
+    font = 'heading-2'
 }
 
 --- Display label for the number of accumulators
@@ -178,7 +178,7 @@ Gui.element{
     style = 'electric_satisfaction_statistics_progressbar'
 }:style{
     width = 200,
-    font = 'heading-3'
+    font = 'heading-2'
 }
 
 --- Display label for the remaining surface area
@@ -251,7 +251,7 @@ Gui.element{
     style = 'electric_satisfaction_statistics_progressbar'
 }:style{
     width = 200,
-    font = 'heading-3'
+    font = 'heading-2'
 }
 
 --- Display label for the sustained energy capacity
@@ -276,7 +276,7 @@ Gui.element{
     style = 'electric_satisfaction_statistics_progressbar'
 }:style{
     width = 200,
-    font = 'heading-3'
+    font = 'heading-2'
 }
 
 --- A vertical flow containing all the displays labels and their counts
