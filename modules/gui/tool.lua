@@ -117,6 +117,7 @@ Gui.element{
     type = 'label',
     name = 'tool_home_home_h',
     caption = {'tool.home'},
+    tooltip = {'tool.home-tooltip'},
     style = 'heading_2_label'
 }:style{
     width = 160
@@ -142,6 +143,7 @@ Gui.element{
     type = 'label',
     name = 'tool_home_home_set_h',
     caption = {'tool.home-set'},
+    tooltip = {'tool.home-set-tooltip'},
     style = 'heading_2_label'
 }:style{
     width = 160
@@ -167,6 +169,7 @@ Gui.element{
     type = 'label',
     name = 'tool_home_home_get_h',
     caption = {'tool.home-get'},
+    tooltip = {'tool.home-get-tooltip'},
     style = 'heading_2_label'
 }:style{
     width = 160
@@ -192,6 +195,7 @@ Gui.element{
     type = 'label',
     name = 'tool_home_return_h',
     caption = {'tool.return'},
+    tooltip = {'tool.return-tooltip'},
     style = 'heading_2_label'
 }:style{
     width = 160
