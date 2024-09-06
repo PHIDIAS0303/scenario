@@ -7,8 +7,9 @@ local Commands = require 'expcore.commands' --- @dep expcore.commands
 require 'config.expcore.command_general_parse'
 local format_number = require('util').format_number
 
-Commands.new_command('set-trains-to-automatic', {'expcom-train.description'})
-:register(function(player)
+local train = {}
+
+function train.manual(player)
     local count = 0
 
     for _, v in pairs(player.force.get_trains()) do
@@ -19,5 +20,13 @@ Commands.new_command('set-trains-to-automatic', {'expcom-train.description'})
     end
 
     game.print{'expcom-train.manual-result', player.name, format_number(count)}
+end
+
+Commands.new_command('set-trains-to-automatic', {'expcom-train.description'})
+:register(function(player)
+    train.manual(player)
+
     return Commands.success
 end)
+
+return train

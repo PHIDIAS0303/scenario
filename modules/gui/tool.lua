@@ -7,6 +7,7 @@ local Gui = require 'expcore.gui' --- @dep expcore.gui
 local Roles = require 'expcore.roles' --- @dep expcore.roles
 local Event = require 'utils.event' --- @dep utils.event
 local Selection = require 'modules.control.selection' --- @dep modules.control.selection
+local addon_train = require 'modules.addons.train'
 local format_number = require('util').format_number
 
 local tool_container
@@ -106,16 +107,7 @@ Gui.element{
 }:style{
     width = 80
 }:on_click(function(player, _, _)
-    local count = 0
-
-    for _, v in pairs(player.force.get_trains()) do
-        if v.manual_mode then
-            count = count + 1
-            v.manual_mode = false
-        end
-    end
-
-    game.print{'tool.train-manual-result', player.name, format_number(count)}
+    addon_train.manual(player)
 end)
 
 local function tool_perm(player)
