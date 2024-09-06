@@ -288,6 +288,7 @@ function vlayer.remove_item(item_name, count)
     -- Remove the item from allocated storage
     vlayer_data.storage.items[item_name] = vlayer_data.storage.items[item_name] - remove_count
     vlayer.allocate_item(item_name, -remove_count)
+
     return remove_unallocated + remove_count
 end
 
@@ -315,6 +316,7 @@ function vlayer.create_input_interface(surface, position, circuit, last_user)
     interface.destructible = false
     interface.minable = false
     interface.operable = true
+
     return interface
 end
 
@@ -509,6 +511,7 @@ function vlayer.create_circuit_interface(surface, position, circuit, last_user)
     interface.destructible = false
     interface.minable = false
     interface.operable = true
+
     return interface
 end
 
@@ -588,6 +591,7 @@ function vlayer.create_energy_interface(surface, position, last_user)
     interface.power_production = 0
     interface.power_usage = 0
     interface.energy = 0
+
     return interface
 end
 
@@ -614,7 +618,7 @@ local function handle_energy_interfaces()
         local discharge_rate = 2 * (production + vlayer_data.properties.discharge * mega) / #vlayer_data.entity_interfaces.energy
         local fill_to = math.min(discharge_rate, math.floor(available_energy / #vlayer_data.entity_interfaces.energy))
 
-        for index, interface in pairs(vlayer_data.entity_interfaces.energy) do
+        for _, interface in pairs(vlayer_data.entity_interfaces.energy) do
             interface.electric_buffer_size = math.max(discharge_rate, interface.energy) -- prevent energy loss
             local delta = fill_to - interface.energy -- positive means storage to interface
             vlayer_data.storage.energy = vlayer_data.storage.energy - delta
@@ -668,23 +672,27 @@ function vlayer.remove_interface(surface, position)
         move_items_stack(interface.get_inventory(defines.inventory.chest).get_contents())
         table.remove_element(vlayer_data.entity_interfaces.storage_input, interface)
         interface.destroy()
+
         return 'storage input', pos
 
     elseif name == 'logistic-chest-requester' then
         move_items_stack(interface.get_inventory(defines.inventory.chest).get_contents())
         table.remove_element(vlayer_data.entity_interfaces.storage_output, interface)
         interface.destroy()
+
         return 'storage output', pos
 
     elseif name == 'constant-combinator' then
         table.remove_element(vlayer_data.entity_interfaces.circuit, interface)
         interface.destroy()
+
         return 'circuit', pos
 
     elseif name == 'electric-energy-interface' then
         vlayer_data.storage.energy = vlayer_data.storage.energy + interface.energy
         table.remove_element(vlayer_data.entity_interfaces.energy, interface)
         interface.destroy()
+
         return 'energy', pos
     end
 end
