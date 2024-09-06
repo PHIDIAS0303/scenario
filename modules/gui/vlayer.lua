@@ -482,16 +482,16 @@ Event.add(Roles.events.on_role_unassigned, role_update_event)
 Event.on_nth_tick(config.update_tick_gui, function(_)
     local stats = vlayer.get_statistics()
     local items = vlayer.get_items()
-    local all_items = vlayer.get_all_items()
+    local items_alloc = vlayer.get_allocated_items()
 
     local vlayer_display = {
         [vlayer_gui_display_item_solar_count.name] = {
-            val = (items['solar-panel'] / math.max(all_items['solar-panel'], 1)),
-            cap = format_number(items['solar-panel']) .. ' / ' .. format_number(all_items['solar-panel'])
+            val = (items_alloc['solar-panel'] / math.max(items['solar-panel'], 1)),
+            cap = format_number(items['solar-panel']) .. ' / ' .. format_number(items['solar-panel'])
         },
         [vlayer_gui_display_item_accumulator_count.name] = {
-            val = (items['accumulator'] / math.max(all_items['accumulator'], 1)),
-            cap = format_number(items['accumulator']) .. ' / ' .. format_number(all_items['accumulator'])
+            val = (items_alloc['accumulator'] / math.max(items['accumulator'], 1)),
+            cap = format_number(items_alloc['accumulator']) .. ' / ' .. format_number(items['accumulator'])
         },
         [vlayer_gui_display_signal_remaining_surface_area_count.name] = {
             cap = format_number(stats.remaining_surface_area)
