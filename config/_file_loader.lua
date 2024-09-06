@@ -28,7 +28,6 @@ return {
     'modules.commands.spawn',
     'modules.commands.warnings',
     'modules.commands.find',
-    'modules.commands.home',
     'modules.commands.connect',
     'modules.commands.last-location',
     'modules.commands.protection',
@@ -70,6 +69,7 @@ return {
     'modules.addons.waterfill',
     'modules.addons.artillery',
     'modules.addons.train',
+    'modules.addons.home',
 
     -- Control
     'modules.control.vlayer',
