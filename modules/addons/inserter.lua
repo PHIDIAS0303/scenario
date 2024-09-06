@@ -16,7 +16,7 @@ Event.add(defines.events.on_player_mined_entity, function(event)
 	if item_entity then
 		local player = game.get_player(event.player_index)
 
-		if controllers_with_inventory[player.controller_type] then
+		if player and controllers_with_inventory[player.controller_type] then
 			player.mine_entity(item_entity)
 		end
 	end
