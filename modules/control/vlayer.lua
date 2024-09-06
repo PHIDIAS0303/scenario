@@ -93,6 +93,17 @@ function vlayer.get_all_items()
     return r
 end
 
+--- Get the actual defecit of land
+function get_actual_land_defecit()
+    local n = vlayer_data.properties.total_surface_area - vlayer_data.properties.used_surface_area
+
+    for k, v in pairs(vlayer.get_unallocated_items()) do
+        n = n - (config.allowed_items[k].required_area * v)
+    end
+
+    return n
+end
+
 --- Get interface counts
 -- @treturn table a dictionary of the vlayer interface counts
 function vlayer.get_interface_counts()
@@ -468,7 +479,7 @@ function vlayer.get_statistics()
     return {
         total_surface_area = vlayer_data.properties.total_surface_area,
         used_surface_area = vlayer_data.properties.used_surface_area,
-        remaining_surface_area = vlayer_data.properties.total_surface_area - vlayer_data.properties.used_surface_area,
+        remaining_surface_area = get_actual_land_defecit(),
         production_multiplier = gdm,
         energy_max = vdp,
         energy_production = vdp * gdm,
