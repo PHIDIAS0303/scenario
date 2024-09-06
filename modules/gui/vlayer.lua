@@ -487,7 +487,7 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
     local vlayer_display = {
         [vlayer_gui_display_item_solar_count.name] = {
             val = (items_alloc['solar-panel'] / math.max(items['solar-panel'], 1)),
-            cap = format_number(items['solar-panel']) .. ' / ' .. format_number(items['solar-panel'])
+            cap = format_number(items_alloc['solar-panel']) .. ' / ' .. format_number(items['solar-panel'])
         },
         [vlayer_gui_display_item_accumulator_count.name] = {
             val = (items_alloc['accumulator'] / math.max(items['accumulator'], 1)),
