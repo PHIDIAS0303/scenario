@@ -147,12 +147,14 @@ Gui.element{
 
 local vlayer_gui_display_item_solar_count =
 Gui.element{
-    type = 'label',
+    type = 'progressbar',
     name = 'vlayer_display_item_solar_count',
-    caption = '0',
-    style = 'heading_2_label'
+    caption = '',
+    value = 0,
+    style = 'electric_satisfaction_statistics_progressbar'
 }:style{
-    width = 200
+    width = 200,
+    font = 'heading-3'
 }
 
 --- Display label for the number of accumulators
@@ -169,12 +171,14 @@ Gui.element{
 
 local vlayer_gui_display_item_accumulator_count =
 Gui.element{
-    type = 'label',
+    type = 'progressbar',
     name = 'vlayer_display_item_accumulator_count',
-    caption = '0',
-    style = 'heading_2_label'
+    caption = '',
+    value = 0,
+    style = 'electric_satisfaction_statistics_progressbar'
 }:style{
-    width = 200
+    width = 200,
+    font = 'heading-3'
 }
 
 --- Display label for the remaining surface area
@@ -478,12 +482,16 @@ Event.add(Roles.events.on_role_unassigned, role_update_event)
 Event.on_nth_tick(config.update_tick_gui, function(_)
     local stats = vlayer.get_statistics()
     local items = vlayer.get_items()
+    local all_items = vlayer.get_all_items()
+
     local vlayer_display = {
         [vlayer_gui_display_item_solar_count.name] = {
-            cap = format_number(items['solar-panel'])
+            val = (items['solar-panel'] / math.max(all_items['solar-panel'], 1)),
+            cap = format_number(items['solar-panel']) .. ' / ' .. format_number(all_items['solar-panel'])
         },
         [vlayer_gui_display_item_accumulator_count.name] = {
-            cap = format_number(items['accumulator'])
+            val = (items['accumulator'] / math.max(all_items['accumulator'], 1)),
+            cap = format_number(items['accumulator']) .. ' / ' .. format_number(all_items['accumulator'])
         },
         [vlayer_gui_display_signal_remaining_surface_area_count.name] = {
             cap = format_number(stats.remaining_surface_area)

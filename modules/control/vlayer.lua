@@ -71,10 +71,16 @@ function vlayer.get_items()
     return vlayer_data.storage.items
 end
 
---- Get all items in unallocated storage
--- @treturn table a dictionary of all items unallocated, stored in the vlayer
-function vlayer.get_unallocated_items()
-    return vlayer_data.storage.unallocated
+--- Get all items in all storage
+-- @treturn table a dictionary of all items in all storage stored in the vlayer
+function vlayer.get_all_items()
+    local r = {}
+
+    for k, v in pairs(vlayer_data.storage.items) do
+        r[k] = v + vlayer_data.storage.unallocated[k]
+    end
+
+    return r
 end
 
 --- Get interface counts
