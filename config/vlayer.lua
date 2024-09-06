@@ -85,13 +85,6 @@ return {
             power = true -- turn all rocket fuel to power to reduce trash
         }
         --[[
-        ['nuclear-fuel'] = {
-            starting_value = 0,
-            required_area = 0,
-            surface_area = 0,
-            fuel_value = 1210, -- MJ
-            power = true -- turn all nuclear fuel to power to reduce trash
-        }
         ['iron-ore'] = {
             starting_value = 0,
             required_area = 0,
