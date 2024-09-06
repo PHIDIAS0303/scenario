@@ -228,6 +228,41 @@ Gui.element{
     game.print{'tool.train-manual-result', player.name, format_number(count)}
 end)
 
+--- Train label
+-- @element tool_gui_train_l
+local tool_gui_train_l =
+Gui.element{
+    type = 'label',
+    name = 'tool_train_l',
+    caption = {'tool.train'},
+    tooltip = {'tool.train-tooltip'},
+    style = 'heading_2_label'
+}:style{
+    width = 160
+}
+
+--- Train button
+-- @element tool_gui_train_b
+local tool_gui_train_b =
+Gui.element{
+    type = 'button',
+    name = 'tool_train_b',
+    caption = {'tool.apply'}
+}:style{
+    width = 80
+}:on_click(function(player, _, _)
+    local count = 0
+
+    for _, v in pairs(player.force.get_trains()) do
+        if v.manual_mode then
+            count = count + 1
+            v.manual_mode = false
+        end
+    end
+
+    game.print{'tool.train-manual-result', player.name, format_number(count)}
+end)
+
 local function tool_perm(player)
     local frame = Gui.get_left_element(player, tool_container)
     local disp = frame.container['tool_st'].disp.table

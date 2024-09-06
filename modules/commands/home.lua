@@ -7,6 +7,8 @@ local Commands = require 'expcore.commands' --- @dep expcore.commands
 local Global = require 'utils.global' --- @dep utils.global
 require 'config.expcore.command_general_parse'
 
+local home = {}
+
 local homes = {}
 Global.register(homes, function(tbl)
     homes = tbl
@@ -32,13 +34,14 @@ end
 -- @command home
 Commands.new_command('home', {'expcom-home.description-home'})
 :register(function(player)
-    local home = homes[player.index]
-    if not home or not home[1] then
+    local h = homes[player.index]
+    if not h or not h[1] then
         return Commands.error{'expcom-home.no-home'}
     end
     local rtn = floor_pos(player.position)
-    teleport(player, home[1])
-    home[2] = rtn
+    teleport(player, h[1])
+    h[2] = rtn
+
     Commands.print{'expcom-home.return-set', rtn.x, rtn.y}
 end)
 
@@ -46,13 +49,16 @@ end)
 -- @command home-set
 Commands.new_command('home-set', {'expcom-home.description-home-set'})
 :register(function(player)
-    local home = homes[player.index]
-    if not home then
-        home = {}
-        homes[player.index] = home
+    local h = homes[player.index]
+
+    if not h then
+        h = {}
+        homes[player.index] = h
     end
+
     local pos = floor_pos(player.position)
-    home[1] = pos
+    h[1] = pos
+
     Commands.print{'expcom-home.home-set', pos.x, pos.y}
 end)
 
@@ -60,11 +66,14 @@ end)
 -- @command home-get
 Commands.new_command('home-get', {'expcom-home.description-home-get'})
 :register(function(player)
-    local home = homes[player.index]
-    if not home or not home[1] then
+    local h = homes[player.index]
+
+    if not h or not h[1] then
         return Commands.error{'expcom-home.no-home'}
     end
-    local pos = home[1]
+
+    local pos = h[1]
+
     Commands.print{'expcom-home.home-get', pos.x, pos.y}
 end)
 
@@ -72,12 +81,15 @@ end)
 -- @command return
 Commands.new_command('return', {'expcom-home.description-return'})
 :register(function(player)
-    local home = homes[player.index]
-    if not home or not home[2] then
+    local h = homes[player.index]
+
+    if not h or not h[2] then
         return Commands.error{'expcom-home.no-return'}
     end
+
     local rtn = floor_pos(player.position)
-    teleport(player, home[2])
-    home[2] = rtn
+    teleport(player, h[2])
+    h[2] = rtn
+
     Commands.print{'expcom-home.return-set', rtn.x, rtn.y}
 end)
