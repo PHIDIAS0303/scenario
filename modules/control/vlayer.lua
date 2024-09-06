@@ -673,14 +673,14 @@ function vlayer.remove_interface(surface, position)
         table.remove_element(vlayer_data.entity_interfaces.storage_input, interface)
         interface.destroy()
 
-        return 'storage input', pos
+        return 'storage-input', pos
 
     elseif name == 'logistic-chest-requester' then
         move_items_stack(interface.get_inventory(defines.inventory.chest).get_contents())
         table.remove_element(vlayer_data.entity_interfaces.storage_output, interface)
         interface.destroy()
 
-        return 'storage output', pos
+        return 'storage-output', pos
 
     elseif name == 'constant-combinator' then
         table.remove_element(vlayer_data.entity_interfaces.circuit, interface)
