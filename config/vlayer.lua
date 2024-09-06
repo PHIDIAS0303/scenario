@@ -68,9 +68,30 @@ return {
             required_area = 0,
             surface_area = 0,
             fuel_value = 4, -- MJ
-            power = false -- turn all coal to power to reduce trash
+            power = true -- turn all coal to power to reduce trash
+        },
+        ['solid-fuel'] = {
+            starting_value = 0,
+            required_area = 0,
+            surface_area = 0,
+            fuel_value = 12, -- MJ
+            power = true -- turn all solid fuel to power to reduce trash
+        },
+        ['rocket-fuel'] = {
+            starting_value = 0,
+            required_area = 0,
+            surface_area = 0,
+            fuel_value = 100, -- MJ
+            power = true -- turn all rocket fuel to power to reduce trash
         }
         --[[
+        ['nuclear-fuel'] = {
+            starting_value = 0,
+            required_area = 0,
+            surface_area = 0,
+            fuel_value = 1210, -- MJ
+            power = true -- turn all nuclear fuel to power to reduce trash
+        }
         ['iron-ore'] = {
             starting_value = 0,
             required_area = 0,
