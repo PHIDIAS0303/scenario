@@ -185,7 +185,7 @@ Gui.element{
 }:style{
     width = 80
 }:on_click(function(player, _, _)
-    addon_home.home_set(player)
+    addon_home.home_get(player)
 end)
 
 --- Home return label
