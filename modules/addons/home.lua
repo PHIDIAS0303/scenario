@@ -37,7 +37,7 @@ Commands.new_command('home', {'expcom-home.description-home'})
     local h = homes[player.index]
 
     if not h or not h[1] then
-        return Commands.error{'expcom-home.no-home'}
+        return player.print{'expcom-home.no-home'}
     end
 
     local rtn = floor_pos(player.position)
@@ -71,7 +71,7 @@ Commands.new_command('home-get', {'expcom-home.description-home-get'})
     local h = homes[player.index]
 
     if not h or not h[1] then
-        return Commands.error{'expcom-home.no-home'}
+        return player.print{'expcom-home.no-home'}
     end
 
     local pos = h[1]
@@ -86,7 +86,7 @@ Commands.new_command('return', {'expcom-home.description-return'})
     local h = homes[player.index]
 
     if not h or not h[2] then
-        return Commands.error{'expcom-home.no-return'}
+        return player.print{'expcom-home.no-return'}
     end
 
     local rtn = floor_pos(player.position)
