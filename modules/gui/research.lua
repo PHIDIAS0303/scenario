@@ -34,7 +34,9 @@ local empty_time = format_time(0, {
 })
 
 local font_color = {
+	-- positive
     [1] = {r = 0.3, g = 1, b = 0.3},
+	-- negative
     [2] = {r = 1, g = 0.3, b = 0.3}
 }
 
