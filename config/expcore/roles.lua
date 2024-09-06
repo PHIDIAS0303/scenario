@@ -198,6 +198,7 @@ Roles.new_role('Member','Mem')
     'gui/rocket-info/remote_launch',
     -- 'command/tag-color',
     'gui/tool/set-trains-to-automatic',
+    'command/set-trains-to-automatic',
     'command/clear-item-on-ground',
     'command/clear-blueprint',
     'command/last-location',
@@ -223,6 +224,8 @@ Roles.new_role('Veteran','Vet')
     'gui/tool',
     'gui/tool/artillery-target-remote',
     'gui/tool/waterfill',
+    'command/artillery-target-remote',
+    'command/waterfill',
     'command/auto-research',
     'command/save-quickbar',
     'gui/surveillance'
