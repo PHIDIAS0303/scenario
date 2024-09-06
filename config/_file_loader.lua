@@ -37,13 +37,10 @@ return {
     'modules.commands.bot-queue',
     'modules.commands.speed',
     'modules.commands.pollution',
-    -- 'modules.commands.train',
     'modules.commands.friendly-fire',
     'modules.commands.research',
     'modules.commands.vlayer',
     'modules.commands.enemy',
-    -- 'modules.commands.waterfill',
-    -- 'modules.commands.artillery',
     'modules.commands.surface-clearing',
 
     --- Addons
@@ -70,6 +67,9 @@ return {
     'modules.addons.miner',
     'modules.addons.lawnmower',
     'modules.addons.logging',
+    'modules.addons.waterfill',
+    'modules.addons.artillery',
+    'modules.addons.train',
 
     -- Control
     'modules.control.vlayer',
