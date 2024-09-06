@@ -4,7 +4,7 @@
 local Commands = require 'expcore.commands' --- @dep expcore.commands
 require 'config.expcore.command_general_parse'
 local Selection = require 'modules.control.selection' --- @dep modules.control.selection
-local SelectionConvertArea = 'WaterfillConvertArea'
+local SelectionConvertArea = 'WaterfillArea'
 
 --- Align an aabb to the grid by expanding it
 local function aabb_align_expand(aabb)

@@ -72,7 +72,7 @@ Gui.element{
     local inv = player.get_main_inventory()
 
     if (inv.get_item_count('cliff-explosives')) == 0 then
-        return player.print{'tool.waterfill-cliff'}
+        return player.print{'expcom-waterfill.waterfill-cliff'}
     end
 
     if Selection.is_selecting(player, SelectionWaterfillArea) then
