@@ -201,7 +201,8 @@ Gui.element{
     caption = '0',
     style = 'heading_2_label'
 }:style{
-    width = 200
+    width = 200,
+    horizontal_align = 'right'
 }
 
 --- Display label for the sustained energy production
@@ -224,7 +225,8 @@ Gui.element{
     caption = '0',
     style = 'heading_2_label'
 }:style{
-    width = 200
+    width = 200,
+    horizontal_align = 'right'
 }
 
 --- Display label for the current energy production
