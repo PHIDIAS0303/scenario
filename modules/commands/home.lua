@@ -95,3 +95,5 @@ Commands.new_command('return', {'expcom-home.description-return'})
 
     Commands.print{'expcom-home.return-set', rtn.x, rtn.y}
 end)
+
+return home
