@@ -8,7 +8,6 @@ local Roles = require 'expcore.roles' --- @dep expcore.roles
 local Event = require 'utils.event' --- @dep utils.event
 local Selection = require 'modules.control.selection' --- @dep modules.control.selection
 local addon_train = require 'modules.addons.train'
-local format_number = require('util').format_number
 
 local tool_container
 
