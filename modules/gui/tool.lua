@@ -110,6 +110,106 @@ Gui.element{
     addon_train.manual(player)
 end)
 
+--- Home home label
+-- @element tool_gui_home_home_h
+local tool_gui_home_home_h =
+Gui.element{
+    type = 'label',
+    name = 'tool_home_home_h',
+    caption = {'tool.home'},
+    style = 'heading_2_label'
+}:style{
+    width = 160
+}
+
+--- Home home button
+-- @element tool_gui_home_home_b
+local tool_gui_home_home_b =
+Gui.element{
+    type = 'button',
+    name = 'tool_home_home_b',
+    caption = {'tool.apply'}
+}:style{
+    width = 80
+}:on_click(function(player, _, _)
+    addon_home.home(player)
+end)
+
+--- Home home set label
+-- @element tool_gui_home_home_set_h
+local tool_gui_home_home_set_h =
+Gui.element{
+    type = 'label',
+    name = 'tool_home_home_set_h',
+    caption = {'tool.home-set'},
+    style = 'heading_2_label'
+}:style{
+    width = 160
+}
+
+--- Home home set button
+-- @element tool_gui_home_home_set_b
+local tool_gui_home_home_set_b =
+Gui.element{
+    type = 'button',
+    name = 'tool_home_home_set_b',
+    caption = {'tool.apply'}
+}:style{
+    width = 80
+}:on_click(function(player, _, _)
+    addon_home.home_set(player)
+end)
+
+--- Home home get label
+-- @element tool_gui_home_home_get_h
+local tool_gui_home_home_get_h =
+Gui.element{
+    type = 'label',
+    name = 'tool_home_home_get_h',
+    caption = {'tool.home-get'},
+    style = 'heading_2_label'
+}:style{
+    width = 160
+}
+
+--- Home home get button
+-- @element tool_gui_home_home_get_b
+local tool_gui_home_home_get_b =
+Gui.element{
+    type = 'button',
+    name = 'tool_home_home_get_b',
+    caption = {'tool.apply'}
+}:style{
+    width = 80
+}:on_click(function(player, _, _)
+    addon_home.home_set(player)
+end)
+
+--- Home return label
+-- @element tool_gui_home_return_h
+local tool_gui_home_return_h =
+Gui.element{
+    type = 'label',
+    name = 'tool_home_return_h',
+    caption = {'tool.return'},
+    style = 'heading_2_label'
+}:style{
+    width = 160
+}
+
+--- Home return button
+-- @element tool_gui_home_return_b
+local tool_gui_home_return_b =
+Gui.element{
+    type = 'button',
+    name = 'tool_home_return_b',
+    caption = {'tool.apply'}
+}:style{
+    width = 80
+}:on_click(function(player, _, _)
+    addon_home.home_return(player)
+end)
+
 local function tool_perm(player)
     local frame = Gui.get_left_element(player, tool_container)
     local disp = frame.container['tool_st'].disp.table
@@ -140,6 +240,27 @@ local function tool_perm(player)
         disp[tool_gui_train_l.name].visible = false
         disp[tool_gui_train_b.name].visible = false
     end
+
+    if Roles.player_allowed(player, 'gui/tool/home') then
+        disp[tool_gui_home_home_h.name].visible = true
+        disp[tool_gui_home_home_b.name].visible = true
+        disp[tool_gui_home_home_set_h.name].visible = true
+        disp[tool_gui_home_home_set_b.name].visible = true
+        disp[tool_gui_home_home_get_h.name].visible = true
+        disp[tool_gui_home_home_get_b.name].visible = true
+        disp[tool_gui_home_return_h.name].visible = true
+        disp[tool_gui_home_return_b.name].visible = true
+
+    else
+        disp[tool_gui_home_home_h.name].visible = false
+        disp[tool_gui_home_home_b.name].visible = false
+        disp[tool_gui_home_home_set_h.name].visible = false
+        disp[tool_gui_home_home_set_b.name].visible = false
+        disp[tool_gui_home_home_get_h.name].visible = false
+        disp[tool_gui_home_home_get_b.name].visible = false
+        disp[tool_gui_home_return_h.name].visible = false
+        disp[tool_gui_home_return_b.name].visible = false
+    end
 end
 
 --- A vertical flow containing all the tool
@@ -155,6 +276,14 @@ Gui.element(function(_, parent, name)
     tool_gui_waterfill_b(disp)
     tool_gui_train_l(disp)
     tool_gui_train_b(disp)
+    tool_gui_home_home_h(disp)
+    tool_gui_home_home_b(disp)
+    tool_gui_home_home_set_h(disp)
+    tool_gui_home_home_set_b(disp)
+    tool_gui_home_home_get_h(disp)
+    tool_gui_home_home_get_b(disp)
+    tool_gui_home_return_h(disp)
+    tool_gui_home_return_b(disp)
 
     return tool_set
 end)

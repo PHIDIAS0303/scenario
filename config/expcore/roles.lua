@@ -209,6 +209,7 @@ Roles.new_role('Member','Mem')
     'command/home-set',
     'command/home-get',
     'command/return',
+    'gui/tool/home',
     'fast-tree-decon'
 }
 
