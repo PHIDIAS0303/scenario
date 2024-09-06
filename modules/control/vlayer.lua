@@ -83,7 +83,11 @@ function vlayer.get_allocated_items()
     local r = {}
 
     for k, v in pairs(vlayer_data.storage.items) do
-        r[k] = v - vlayer_data.storage.unallocated[k]
+        r[k] = v
+
+        if vlayer_data.storage.unallocated[k] then
+            r[k] = r[k] - vlayer_data.storage.unallocated[k]
+        end
     end
 
     return r
