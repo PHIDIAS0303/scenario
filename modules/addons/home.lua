@@ -30,27 +30,22 @@ local function floor_pos(position)
     }
 end
 
---- Teleports you to your home location
--- @command home
-Commands.new_command('home', {'expcom-home.description-home'})
-:register(function(player)
+function home.home(player)
     local h = homes[player.index]
 
     if not h or not h[1] then
-        return player.print{'expcom-home.no-home'}
+        player.print{'expcom-home.no-home'}
+        return
     end
 
     local rtn = floor_pos(player.position)
     teleport(player, h[1])
     h[2] = rtn
 
-    Commands.print{'expcom-home.return-set', rtn.x, rtn.y}
-end)
+    player.print{'expcom-home.return-set', rtn.x, rtn.y}
+end
 
---- Sets your home location to your current position
--- @command home-set
-Commands.new_command('home-set', {'expcom-home.description-home-set'})
-:register(function(player)
+function home.home_set(player)
     local h = homes[player.index]
 
     if not h then
@@ -61,39 +56,63 @@ Commands.new_command('home-set', {'expcom-home.description-home-set'})
     local pos = floor_pos(player.position)
     h[1] = pos
 
-    Commands.print{'expcom-home.home-set', pos.x, pos.y}
-end)
+    player.print{'expcom-home.home-set', pos.x, pos.y}
+end
 
---- Returns your current home location
--- @command home-get
-Commands.new_command('home-get', {'expcom-home.description-home-get'})
-:register(function(player)
+function home.home_get(player)
     local h = homes[player.index]
 
     if not h or not h[1] then
-        return player.print{'expcom-home.no-home'}
+        player.print{'expcom-home.no-home'}
+        return
     end
 
     local pos = h[1]
 
-    Commands.print{'expcom-home.home-get', pos.x, pos.y}
-end)
+    player.print{'expcom-home.home-get', pos.x, pos.y}
+end
 
---- Teleports you to previous location
--- @command return
-Commands.new_command('return', {'expcom-home.description-return'})
-:register(function(player)
+function home.home_return(player)
     local h = homes[player.index]
 
     if not h or not h[2] then
-        return player.print{'expcom-home.no-return'}
+        player.print{'expcom-home.no-return'}
+        return
     end
 
     local rtn = floor_pos(player.position)
     teleport(player, h[2])
     h[2] = rtn
 
-    Commands.print{'expcom-home.return-set', rtn.x, rtn.y}
+    player.print{'expcom-home.return-set', rtn.x, rtn.y}
+end
+
+--- Teleports you to your home location
+-- @command home
+Commands.new_command('home', {'expcom-home.description-home'})
+:register(function(player)
+    home.home(player)
+end)
+
+--- Sets your home location to your current position
+-- @command home-set
+Commands.new_command('home-set', {'expcom-home.description-home-set'})
+:register(function(player)
+    home.home_set(player)
+end)
+
+--- Returns your current home location
+-- @command home-get
+Commands.new_command('home-get', {'expcom-home.description-home-get'})
+:register(function(player)
+    home.home_get(player)
+end)
+
+--- Teleports you to previous location
+-- @command return
+Commands.new_command('return', {'expcom-home.description-return'})
+:register(function(player)
+    home.home_return(player)
 end)
 
 return home
