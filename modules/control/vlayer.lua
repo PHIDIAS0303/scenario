@@ -71,6 +71,12 @@ function vlayer.get_items()
     return vlayer_data.storage.items
 end
 
+--- Get all unallocated items in storage, do not modify
+-- @treturn table a dictionary of all unallocated items stored in the vlayer
+function vlayer.get_unallocated_items()
+    return vlayer_data.storage.unallocated
+end
+
 --- Get all items in all storage
 -- @treturn table a dictionary of all items in all storage stored in the vlayer
 function vlayer.get_all_items()
