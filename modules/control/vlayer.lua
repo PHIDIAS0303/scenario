@@ -377,6 +377,7 @@ function vlayer.create_output_interface(surface, position, circuit, last_user)
     interface.destructible = false
     interface.minable = false
     interface.operable = true
+
     return interface
 end
 
@@ -430,6 +431,7 @@ local function handle_unallocated()
 
     -- Allocate items in an equal distribution
     local surplus_area = vlayer_data.properties.total_surface_area - vlayer_data.properties.used_surface_area
+
     for item_name, count in pairs(vlayer_data.storage.unallocated) do
         local allocation_count = math.min(count, math.floor(count * surplus_area / unallocated_area))
 
@@ -442,14 +444,17 @@ end
 
 --- Get the statistics for the vlayer
 function vlayer.get_statistics()
+    local vdp = vlayer_data.properties.production * mega
+    local gdm = get_production_multiplier()
+
     return {
         total_surface_area = vlayer_data.properties.total_surface_area,
         used_surface_area = vlayer_data.properties.used_surface_area,
         remaining_surface_area = vlayer_data.properties.total_surface_area - vlayer_data.properties.used_surface_area,
-        production_multiplier = get_production_multiplier(),
-        energy_max = vlayer_data.properties.production * mega,
-        energy_production = vlayer_data.properties.production * mega * get_production_multiplier(),
-        energy_sustained = vlayer_data.properties.production * mega * get_sustained_multiplier(),
+        production_multiplier = gdm,
+        energy_max = vdp,
+        energy_production = vdp * gdm,
+        energy_sustained = vdp * get_sustained_multiplier(),
         energy_capacity = vlayer_data.properties.capacity * mega,
         energy_storage = vlayer_data.storage.energy,
         day_time = math.floor(vlayer_data.surface.daytime * vlayer_data.surface.ticks_per_day),
