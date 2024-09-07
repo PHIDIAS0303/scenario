@@ -34,15 +34,15 @@ return {
         }
     },
     water = { --- @setting water Settings relating to adding water to spawn
-        enabled = false, --- @setting enabled Whether water tiles will be added to spawn
+        enabled = true, --- @setting enabled Whether water tiles will be added to spawn
         water_tile = 'water-mud', --- @setting water_tile The tile to be used as the water tile
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to water tiles
         locations = { --- @setting locations The location of the water tiles {x,y}
             -- Each is a 3x3 with the closest tile to 0,0 removed
-            {7,8}, {7,9}, {8,7}, {8,8}, {8,9}, {9,7}, {9,8}, {9,9}, -- Bottom Right
-            {7,-9}, {7,-10}, {8,-8}, {8,-9}, {8,-10}, {9,-8}, { 9,-9}, {9,-10}, -- Top Right
-            {-8,-9}, {-8,-10}, {-9,-8}, {-9,-9}, {-9,-10}, {-10,-8}, {-10,-9}, {-10,-10}, -- Top Left
-            {-8,8}, {-8,9}, {-9,7}, {-9,8}, {-9,9}, {-10,7}, {-10,8}, {-10,9}, -- Bottom Left
+            {7, 7}, {7, 8}, {7, 9}, {8, 7}, {8, 8}, {8, 9}, {9, 7}, {9, 8}, {9, 9},
+            {7, -7}, {7, -8}, {7, -9}, {8, -7}, {8, -8}, {8, -9}, {9, -7}, {9, -8}, {9, -9},
+            {-7, 7}, {-7, 8}, {-7, 9}, {-8, 7}, {-8, 8}, {-8, 9}, {-9, 7}, {-9, 8}, {-9, 9},
+            {-7, -7}, {-7, -8}, {-7, -9}, {-8, -7}, {-8, -8}, {-8, -9}, {-9, -7}, {-9, -8}, {-9, -9}
         }
     },
     entities = { --- @setting entities Settings relating to adding entities to spawn
@@ -63,14 +63,14 @@ return {
             {'medium-electric-pole', 6, 3}, {'medium-electric-pole', 6, -3}, {'medium-electric-pole', -6, 3}, {'medium-electric-pole', -6, -3},
             {'small-lamp', 3, 5}, {'small-lamp', 3, -5}, {'small-lamp', -3, 5}, {'small-lamp', -3, -5},
             {'small-lamp', 5, 3}, {'small-lamp', 5, -3}, {'small-lamp', -5, 3}, {'small-lamp', -5, -3},
-            {'stone-wall', 3, 8}, {'stone-wall', 4, 8}, {'stone-wall', 5, 8}, {'stone-wall', 6, 8},
-            {'stone-wall', 8, 3}, {'stone-wall', 8, 4}, {'stone-wall', 8, 5}, {'stone-wall', 8, 6},
-            {'stone-wall', 3, -8}, {'stone-wall', 4, -8}, {'stone-wall', 5, -8}, {'stone-wall', 6, -8},
-            {'stone-wall', 8, -3}, {'stone-wall', 8, -4}, {'stone-wall', 8, -5}, {'stone-wall', 8, -6},
-            {'stone-wall', -3, 8}, {'stone-wall', -4, 8}, {'stone-wall', -5, 8}, {'stone-wall', -6, 8},
-            {'stone-wall', -8, 3}, {'stone-wall', -8, 4}, {'stone-wall', -8, 5}, {'stone-wall', -8, 6},
-            {'stone-wall', -3, -8}, {'stone-wall', -4, -8}, {'stone-wall', -5, -8}, {'stone-wall', -6, -8},
-            {'stone-wall', -8, -3}, {'stone-wall', -8, -4}, {'stone-wall', -8, -5}, {'stone-wall', -8, -6}
+            {'stone-wall', 2, 8}, {'stone-wall', 3, 8}, {'stone-wall', 4, 8}, {'stone-wall', 5, 8},
+            {'stone-wall', 8, 2}, {'stone-wall', 8, 3}, {'stone-wall', 8, 4}, {'stone-wall', 8, 5},
+            {'stone-wall', 2, -8}, {'stone-wall', 3, -8}, {'stone-wall', 4, -8}, {'stone-wall', 5, -8},
+            {'stone-wall', 8, -2}, {'stone-wall', 8, -3}, {'stone-wall', 8, -4}, {'stone-wall', 8, -5},
+            {'stone-wall', -2, 8}, {'stone-wall', -3, 8}, {'stone-wall', -4, 8}, {'stone-wall', -5, 8},
+            {'stone-wall', -8, 2}, {'stone-wall', -8, 3}, {'stone-wall', -8, 4}, {'stone-wall', -8, 5},
+            {'stone-wall', -2, -8}, {'stone-wall', -3, -8}, {'stone-wall', -4, -8}, {'stone-wall', -5, -8},
+            {'stone-wall', -8, -2}, {'stone-wall', -8, -3}, {'stone-wall', -8, -4}, {'stone-wall', -8, -5},
         }
     },
     pattern = {
