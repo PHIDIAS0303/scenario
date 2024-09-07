@@ -21,7 +21,7 @@ local function bonus_gui_pts_needed(player)
         total = total + (disp['bonus_display_' .. k .. '_slider'].slider_value / config.player_bonus[v].cost_scale * config.player_bonus[v].cost)
     end
 
-    total = total + (disp['bonus_display_personal_battery_recharge'].slider_value / config.player_special_bonus['personal_battery_recharge'].cost_scale * config.player_special_bonus['personal_battery_recharge'].cost)
+    total = total + (disp['bonus_display_personal_battery_recharge_slider'].slider_value / config.player_special_bonus['personal_battery_recharge'].cost_scale * config.player_special_bonus['personal_battery_recharge'].cost)
 
     return total
 end
