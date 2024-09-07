@@ -378,3 +378,9 @@ Event.add(defines.events.on_player_died, function(event)
         player.ticks_to_respawn = 120
     end
 end)
+
+Event.on_nth_tick(config.player_special_bonus_rate, function(_)
+    for _, player in pairs(game.connected_players) do
+        apply_periodic_bonus(player)
+    end
+end)

@@ -49,6 +49,7 @@ return {
         ['cpdb'] = 'character_item_pickup_distance_bonus'
         ]]
     },
+    player_special_bonus_rate = 300,
     player_special_bonus = {
         ['personal_battery_recharge'] = {
             value = 10,
