@@ -26,8 +26,10 @@ end}
     end
     if player == action_player then
         action_player.character.die()
+
     elseif Roles.player_allowed(player, 'command/kill/always') then
         action_player.character.die()
+
     else
         return Commands.error{'expcore-commands.unauthorized'}
     end
