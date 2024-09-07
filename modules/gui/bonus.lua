@@ -299,6 +299,8 @@ Gui.element(function(_, parent, name)
         bonus_gui_slider(disp, 'bonus_display_' .. k, {'bonus.display-' .. k}, {'bonus.display-' .. k .. '-tooltip'}, config.player_bonus[v])
     end
 
+    bonus_gui_slider(disp, 'bonus_display_personal_battery_recharge', {'bonus.display-personal-battery-recharge'}, {'bonus.display-personal-battery-recharge-tooltip'}, config.player_special_bonus['personal_battery_recharge'])
+
     return bonus_set
 end)
 
