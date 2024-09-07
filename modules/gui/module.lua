@@ -298,9 +298,17 @@ Event.add(defines.events.on_entity_settings_pasted, function(event)
             return
         end
 
+        if source_inventory == {} then
+            return
+        end
+
         local source_inventory_content = source_inventory.get_contents()
 
         if not source_inventory_content then
+            return
+        end
+
+        if source_inventory_content == {} then
             return
         end
 
