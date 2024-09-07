@@ -51,14 +51,15 @@ return {
         operable = true, --- @setting operable Whether entities can be opened by players, must be true if chests are used
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to entities
         locations = { --- @setting locations The location and names of entities {name,x,y}
-            {'steel-chest', 2, 2}, {'steel-chest', 2, 3}, {'steel-chest', 2, 4}, {'steel-chest', 2, 5},
-            {'steel-chest', 2, -2}, {'steel-chest', 2, -3}, {'steel-chest', 2, -4}, {'steel-chest', 2, -5},
-            {'steel-chest', -2, 2}, {'steel-chest', -2, 3}, {'steel-chest', -2, 4}, {'steel-chest', -2, 5},
-            {'steel-chest', -2, -2}, {'steel-chest', -2, -3}, {'steel-chest', -2, -4}, {'steel-chest', -2, -5},
-            {'steel-chest', 3, 2}, {'steel-chest', 4, 2}, {'steel-chest', 5, 2},
-            {'steel-chest', 3, -2}, {'steel-chest', 4, -2}, {'steel-chest', 5, -2},
-            {'steel-chest', -3, 2}, {'steel-chest', -4, 2}, {'steel-chest', -5, 2},
-            {'steel-chest', -3, -2}, {'steel-chest', -4, -2}, {'steel-chest', -5, -2},
+            {'steel-chest', 2, 2}, {'steel-chest', 2, -2}, {'steel-chest', -2, 2}, {'steel-chest', -2, -2},
+            {'steel-chest', 2, 3}, {'steel-chest', 2, 4}, {'steel-chest', 2, 5}, {'steel-chest', 2, 6},
+            {'steel-chest', 2, -3}, {'steel-chest', 2, -4}, {'steel-chest', 2, -5}, {'steel-chest', 2, -6},
+            {'steel-chest', -2, 3}, {'steel-chest', -2, 4}, {'steel-chest', -2, 5}, {'steel-chest', -2, 6},
+            {'steel-chest', -2, -3}, {'steel-chest', -2, -4}, {'steel-chest', -2, -5}, {'steel-chest', -2, -6},
+            {'steel-chest', 3, 2}, {'steel-chest', 4, 2}, {'steel-chest', 5, 2}, {'steel-chest', 6, 2},
+            {'steel-chest', 3, -2}, {'steel-chest', 4, -2}, {'steel-chest', 5, -2}, {'steel-chest', 6, -2},
+            {'steel-chest', -3, 2}, {'steel-chest', -4, 2}, {'steel-chest', -5, 2}, {'steel-chest', -6, 2},
+            {'steel-chest', -3, -2}, {'steel-chest', -4, -2}, {'steel-chest', -5, -2}, {'steel-chest', -6, -2},
             {'medium-electric-pole', 3, 6}, {'medium-electric-pole', 3, -6}, {'medium-electric-pole', -3, 6}, {'medium-electric-pole', -3, -6},
             {'medium-electric-pole', 6, 3}, {'medium-electric-pole', 6, -3}, {'medium-electric-pole', -6, 3}, {'medium-electric-pole', -6, -3},
             {'small-lamp', 3, 5}, {'small-lamp', 3, -5}, {'small-lamp', -3, 5}, {'small-lamp', -3, -5},
