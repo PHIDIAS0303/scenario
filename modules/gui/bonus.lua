@@ -21,6 +21,8 @@ local function bonus_gui_pts_needed(player)
         total = total + (disp['bonus_display_' .. k .. '_slider'].slider_value / config.player_bonus[v].cost_scale * config.player_bonus[v].cost)
     end
 
+    total = total + (disp['bonus_display_personal_battery_recharge'].slider_value / config.player_special_bonus['personal_battery_recharge'].cost_scale * config.player_special_bonus['personal_battery_recharge'].cost)
+
     return total
 end
 
@@ -73,7 +75,7 @@ local function apply_periodic_bonus(player)
         local armor = player.get_inventory(defines.inventory.character_armor)[1].grid
 
         if armor then
-            local slider = disp['bonus_display_personal_battery_recharge_slider'].slider_value * config.player_special_bonus_rate / 60
+            local slider = disp['bonus_display_personal_battery_recharge_slider'].slider_value * 100000 * config.player_special_bonus_rate / 6
 
             for i=1, #armor.equipment do
                 local target = armor.equipment[i].max_energy
@@ -181,6 +183,8 @@ Gui.element{
             disp[disp[s].tags.counter].caption = format_number(disp[s].slider_value)
         end
     end
+
+    disp[disp['bonus_display_personal_battery_recharge'].tags.counter].caption = format_number(disp['bonus_display_personal_battery_recharge'].slider_value)
 
     local r = bonus_gui_pts_needed(player)
     element.parent[bonus_gui_control_pts_n_count.name].caption = r

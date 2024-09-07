@@ -52,11 +52,12 @@ return {
     player_special_bonus_rate = 300,
     player_special_bonus = {
         ['personal_battery_recharge'] = {
+            -- 1 MW
             value = 10,
             max = 20,
-            scale = 2,
-            cost_scale = 1,
-            cost = 1,
+            scale = 1,
+            cost_scale = 4,
+            cost = 30,
             is_percentage = false
         }
     },

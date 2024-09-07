@@ -40,6 +40,7 @@ return {
     'modules.commands.research',
     'modules.commands.enemy',
     'modules.commands.surface-clearing',
+    'modules.commands.vlayer',
 
     --- Addons
     'modules.addons.chat-popups',
@@ -69,7 +70,6 @@ return {
     'modules.addons.artillery',
     'modules.addons.train',
     'modules.addons.home',
-    'modules.addons.vlayer',
 
     -- Control
     'modules.control.vlayer',
