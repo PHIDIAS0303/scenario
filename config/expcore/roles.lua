@@ -180,8 +180,7 @@ Roles.new_role('Senior Member','SMem')
     'command/unjail',
     'command/spectate',
     'command/follow',
-    'command/repair',
-    'command/personal-battery-recharge'
+    'command/repair'
 }
 
 --- Standard User Roles
@@ -208,7 +207,9 @@ Roles.new_role('Member','Mem')
     'command/home-get',
     'command/return',
     'gui/tool/home',
-    'fast-tree-decon'
+    'fast-tree-decon',
+    'command/personal-battery-recharge',
+    'gui/tool/personal-battery-recharge'
 }
 
 local hours6, hours250 = 6*216000, 250*60
