@@ -9,6 +9,7 @@ local Event = require 'utils.event' --- @dep utils.event
 local Selection = require 'modules.control.selection' --- @dep modules.control.selection
 local addon_train = require 'modules.addons.train'
 local addon_home = require 'modules.addons.home'
+local addon_vlayer = require 'modules.addons.vlayer'
 
 local tool_container
 
@@ -213,6 +214,33 @@ Gui.element{
 }:on_click(function(player, _, _)
     addon_home.home_return(player)
 end)
+
+--- Personal Battery Recharge label
+-- @element tool_gui_personal_battery_recharge_h
+local tool_gui_personal_battery_recharge_h =
+Gui.element{
+    type = 'label',
+    name = 'tool_home_return_h',
+    caption = {'tool.return'},
+    tooltip = {'tool.return-tooltip'},
+    style = 'heading_2_label'
+}:style{
+    width = 160
+}
+
+--- Personal Battery Recharge button
+-- @element tool_gui_personal_battery_recharge_b
+local tool_gui_personal_battery_recharge_b =
+Gui.element{
+    type = 'button',
+    name = 'tool_home_return_b',
+    caption = {'tool.apply'}
+}:style{
+    width = 80
+}:on_click(function(player, _, _)
+    addon_home.home_return(player)
+end)
+
 
 local function tool_perm(player)
     local frame = Gui.get_left_element(player, tool_container)
