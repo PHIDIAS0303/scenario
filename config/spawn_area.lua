@@ -22,13 +22,15 @@ return {
         }
     },
     afk_belts = { --- @setting afk_belts Settings relating to adding afk belts to spawn
-        enabled = false, --- @setting enabled Whether afk belts will be added to spawn
+        enabled = true, --- @setting enabled Whether afk belts will be added to spawn
         belt_type = 'transport-belt', --- @setting belt_type The belt to be used as afk belts
         protected = true, --- @setting protected Whether belts will be protected from player interaction
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to afk belts
         locations={ --- @setting locations The locations to spawn afk belts at, given as the top left position
-            {-5,-5}, {5,-5},
-            {-5,5}, {5,5}
+            {6, 6},
+            {6, -6},
+            {-6, 6},
+            {-6, -6}
         }
     },
     water = { --- @setting water Settings relating to adding water to spawn
@@ -57,9 +59,10 @@ return {
             {'steel-chest', 3, -2}, {'steel-chest', 4, -2}, {'steel-chest', 5, -2},
             {'steel-chest', -3, 2}, {'steel-chest', -4, 2}, {'steel-chest', -5, 2},
             {'steel-chest', -3, -2}, {'steel-chest', -4, -2}, {'steel-chest', -5, -2},
-            {'medium-electric-pole', 3, 5}, {'medium-electric-pole', 3, -5}, {'medium-electric-pole', -3, 5}, {'medium-electric-pole', -3, -5},
-            {'medium-electric-pole', 5, 3}, {'medium-electric-pole', 5, -3}, {'medium-electric-pole', -5, 3}, {'medium-electric-pole', -5, -3},
-            {'small-lamp', 5, 5}, {'small-lamp', 5, -5}, {'small-lamp', -5, 5}, {'small-lamp', -5, -5},
+            {'medium-electric-pole', 4, 6}, {'medium-electric-pole', 4, -6}, {'medium-electric-pole', -4, 6}, {'medium-electric-pole', -4, -6},
+            {'medium-electric-pole', 6, 4}, {'medium-electric-pole', 6, -4}, {'medium-electric-pole', -6, 4}, {'medium-electric-pole', -6, -4},
+            {'small-lamp', 4, 5}, {'small-lamp', 4, -5}, {'small-lamp', -4, 5}, {'small-lamp', -4, -5},
+            {'small-lamp', 5, 4}, {'small-lamp', 5, -4}, {'small-lamp', -5, 4}, {'small-lamp', -5, -4},
             {'stone-wall', -10, -5}
         }
     },
