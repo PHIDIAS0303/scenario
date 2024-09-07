@@ -71,7 +71,7 @@ local function apply_periodic_bonus(player)
 
     if vlayer.get_statistics()['energy_sustained'] > 0 then
         local armor = player.get_inventory(defines.inventory.character_armor)[1].grid
-        local slider = disp['bonus_display_personal_battery_recharge_slider'].slider_value
+        local slider = disp['bonus_display_personal_battery_recharge_slider'].slider_value * config.player_special_bonus_rate / 60
 
         for i=1, #armor.equipment do
             local target = armor.equipment[i].max_energy
