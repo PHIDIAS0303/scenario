@@ -63,7 +63,14 @@ return {
             {'medium-electric-pole', 6, 3}, {'medium-electric-pole', 6, -3}, {'medium-electric-pole', -6, 3}, {'medium-electric-pole', -6, -3},
             {'small-lamp', 3, 5}, {'small-lamp', 3, -5}, {'small-lamp', -3, 5}, {'small-lamp', -3, -5},
             {'small-lamp', 5, 3}, {'small-lamp', 5, -3}, {'small-lamp', -5, 3}, {'small-lamp', -5, -3},
-            {'stone-wall', -10, -5}
+            {'stone-wall', 3, 8}, {'stone-wall', 4, 8}, {'stone-wall', 5, 8}, {'stone-wall', 6, 8}, {'stone-wall', 7, 8}, {'stone-wall', 8, 8},
+            {'stone-wall', 3, -8}, {'stone-wall', 4, -8}, {'stone-wall', 5, -8}, {'stone-wall', 6, -8}, {'stone-wall', 7, -8}, {'stone-wall', 8, -8},
+            {'stone-wall', -3, 8}, {'stone-wall', -4, 8}, {'stone-wall', -5, 8}, {'stone-wall', -6, 8}, {'stone-wall', -7, 8}, {'stone-wall', -8, 8},
+            {'stone-wall', -3, -8}, {'stone-wall', -4, -8}, {'stone-wall', -5, -8}, {'stone-wall', -6, -8}, {'stone-wall', -7, -8}, {'stone-wall', -8, -8},
+            {'stone-wall', 8, 3}, {'stone-wall', 8, 4}, {'stone-wall', 8, 5}, {'stone-wall', 8, 6}, {'stone-wall', 8, 7}, {'stone-wall', 8, 8},
+            {'stone-wall', 8, -3}, {'stone-wall', 8, -4}, {'stone-wall', 8, -5}, {'stone-wall', 8, -6}, {'stone-wall', 8, -7}, {'stone-wall', 8, -8},
+            {'stone-wall', -8, 3}, {'stone-wall', -8, 4}, {'stone-wall', -8, 5}, {'stone-wall', -8, 6}, {'stone-wall', -8, 7}, {'stone-wall', -8, 8},
+            {'stone-wall', -8, -3}, {'stone-wall', -8, -4}, {'stone-wall', -8, -5}, {'stone-wall', -8, -6}, {'stone-wall', -8, -7}, {'stone-wall', -8, -8}
         }
     },
     pattern = {
