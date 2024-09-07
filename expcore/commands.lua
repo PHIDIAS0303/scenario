@@ -419,6 +419,7 @@ function Commands.search(keyword, player)
     local custom_commands = Commands.get(player)
     local matches = {}
     keyword = keyword:lower()
+
     -- Loops over custom commands
     for name, command_data in pairs(custom_commands) do
         -- combines name help and aliases into one message to be searched
@@ -427,6 +428,7 @@ function Commands.search(keyword, player)
             matches[name] = command_data
         end
     end
+
     -- Loops over the names of game commands
     for name, description in pairs(commands.game_commands) do
         if name:lower():match(keyword) then
@@ -439,6 +441,7 @@ function Commands.search(keyword, player)
             }
         end
     end
+
     return matches
 end
 
