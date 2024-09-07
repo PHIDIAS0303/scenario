@@ -6,7 +6,7 @@ return {
         -- Enable predefined patches: 128, else: 32
         deconstruction_radius = 20, -- @setting deconstruction_radius All entities within this radius will be removed
         tile_radius = 20,
-        deconstruction_tile = 'concrete', --- @setting deconstruction_tile Tile to be placed in the deconstruction radius, use nil for map gen
+        deconstruction_tile = 'refined-concrete', --- @setting deconstruction_tile Tile to be placed in the deconstruction radius, use nil for map gen
         landfill_radius = 50, --- @setting pattern_radius All water within this radius will be land filled
     },
     turrets = { --- @setting turrets Settings relating to adding turrets to spawn
@@ -15,14 +15,14 @@ return {
         refill_time = 60*60*5, --- @setting refill_time The time in ticks between each refill of the turrets, only change if having lag issues
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to turrets
         locations = { --- @setting locations The locations of all turrets, this list can change during runtime
+            {surface=1, position={x=4, y=4}},
+            {surface=1, position={x=4, y=-4}},
+            {surface=1, position={x=-4, y=-3}},
             {surface=1, position={x=-3, y=-3}},
-            {surface=1, position={x=3, y=-3}},
-            {surface=1, position={x=-3, y=3}},
-            {surface=1, position={x=3, y=3}}
         }
     },
     afk_belts = { --- @setting afk_belts Settings relating to adding afk belts to spawn
-        enabled = true, --- @setting enabled Whether afk belts will be added to spawn
+        enabled = false, --- @setting enabled Whether afk belts will be added to spawn
         belt_type = 'transport-belt', --- @setting belt_type The belt to be used as afk belts
         protected = true, --- @setting protected Whether belts will be protected from player interaction
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to afk belts
@@ -32,7 +32,7 @@ return {
         }
     },
     water = { --- @setting water Settings relating to adding water to spawn
-        enabled = true, --- @setting enabled Whether water tiles will be added to spawn
+        enabled = false, --- @setting enabled Whether water tiles will be added to spawn
         water_tile = 'water-mud', --- @setting water_tile The tile to be used as the water tile
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to water tiles
         locations = { --- @setting locations The location of the water tiles {x,y}
@@ -49,9 +49,17 @@ return {
         operable = true, --- @setting operable Whether entities can be opened by players, must be true if chests are used
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to entities
         locations = { --- @setting locations The location and names of entities {name,x,y}
-            {'steel-chest', 2, 2}, {'steel-chest', 2, 3},
+            {'steel-chest', 2, 2}, {'steel-chest', 2, 3}, {'steel-chest', 2, 4}, {'steel-chest', 2, 5},
+            {'steel-chest', 2, -2}, {'steel-chest', 2, -3}, {'steel-chest', 2, -4}, {'steel-chest', 2, -5},
+            {'steel-chest', -2, 2}, {'steel-chest', -2, 3}, {'steel-chest', -2, 4}, {'steel-chest', -2, 5},
+            {'steel-chest', -2, -2}, {'steel-chest', -2, -3}, {'steel-chest', -2, -4}, {'steel-chest', -2, -5},
+            {'steel-chest', 3, 2}, {'steel-chest', 4, 2}, {'steel-chest', 5, 2},
+            {'steel-chest', 3, -2}, {'steel-chest', 4, -2}, {'steel-chest', 5, -2},
+            {'steel-chest', -3, 2}, {'steel-chest', -4, 2}, {'steel-chest', -5, 2},
+            {'steel-chest', -3, -2}, {'steel-chest', -4, -2}, {'steel-chest', -5, -2},
+            {'small-lamp', 5, 5}, {'small-lamp', 5, -5}, {'small-lamp', -5, 5}, {'small-lamp', -5, -5},
+
             {'medium-electric-pole', -7, -2},
-            {'small-lamp', 5, 9},
             {'stone-wall', -10, -5}
         }
     },
