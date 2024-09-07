@@ -55,6 +55,19 @@ local function apply_bonus(player)
             end
         end
     end
+end
+
+local function apply_periodic_bonus(player)
+    if not Roles.player_allowed(player, 'gui/bonus') then
+        return
+    end
+
+    if not player.character then
+        return
+    end
+
+    local frame = Gui.get_left_element(player, bonus_container)
+    local disp = frame.container['bonus_st_2'].disp.table
 
     if vlayer.get_statistics()['energy_sustained'] > 0 then
         local armor = player.get_inventory(defines.inventory.character_armor)[1].grid
