@@ -38,5 +38,4 @@ Event.add(defines.events.on_entity_damaged, function(event)
             text_colour
         )
     end
-
 end)
