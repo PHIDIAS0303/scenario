@@ -59,10 +59,10 @@ return {
             {'steel-chest', 3, -2}, {'steel-chest', 4, -2}, {'steel-chest', 5, -2},
             {'steel-chest', -3, 2}, {'steel-chest', -4, 2}, {'steel-chest', -5, 2},
             {'steel-chest', -3, -2}, {'steel-chest', -4, -2}, {'steel-chest', -5, -2},
-            {'medium-electric-pole', 4, 6}, {'medium-electric-pole', 4, -6}, {'medium-electric-pole', -4, 6}, {'medium-electric-pole', -4, -6},
-            {'medium-electric-pole', 6, 4}, {'medium-electric-pole', 6, -4}, {'medium-electric-pole', -6, 4}, {'medium-electric-pole', -6, -4},
-            {'small-lamp', 4, 5}, {'small-lamp', 4, -5}, {'small-lamp', -4, 5}, {'small-lamp', -4, -5},
-            {'small-lamp', 5, 4}, {'small-lamp', 5, -4}, {'small-lamp', -5, 4}, {'small-lamp', -5, -4},
+            {'medium-electric-pole', 3, 6}, {'medium-electric-pole', 3, -6}, {'medium-electric-pole', -3, 6}, {'medium-electric-pole', -3, -6},
+            {'medium-electric-pole', 6, 3}, {'medium-electric-pole', 6, -3}, {'medium-electric-pole', -6, 3}, {'medium-electric-pole', -6, -3},
+            {'small-lamp', 3, 5}, {'small-lamp', 3, -5}, {'small-lamp', -3, 5}, {'small-lamp', -3, -5},
+            {'small-lamp', 5, 3}, {'small-lamp', 5, -3}, {'small-lamp', -5, 3}, {'small-lamp', -5, -3},
             {'stone-wall', -10, -5}
         }
     },
