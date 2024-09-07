@@ -5,7 +5,6 @@ return {
     --[[
     TODO
     force bonus
-    vlayer battery recharge (auto)
     quick health regeneration
 
     Base point is equal to the amount of standard value in each parameter.
@@ -30,7 +29,7 @@ return {
             ['Senior Member'] = 1.1,
             ['Member'] = 1
         },
-        base = 200
+        base = 210
     },
     gui_display_width = {
         half = 160,
