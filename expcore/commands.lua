@@ -465,11 +465,11 @@ end
 Commands.new_command('repeat-name', 'Will repeat you name a number of times in chat.')
 
 ]]
-function Commands.new_command(name, help)
+function Commands.new_command(name, help, descr)
     local command = setmetatable({
         name = name,
         help = help,
-        searchable_description = '',
+        searchable_description = descr or '',
         callback = function() Commands.internal_error(false, name, 'No callback registered') end,
         auto_concat = false,
         min_param_count = 0,
