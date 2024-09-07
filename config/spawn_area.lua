@@ -15,9 +15,9 @@ return {
         refill_time = 60*60*5, --- @setting refill_time The time in ticks between each refill of the turrets, only change if having lag issues
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to turrets
         locations = { --- @setting locations The locations of all turrets, this list can change during runtime
-            {surface=1, position={x=4, y=4}},
+            {surface=1, position={x=4, y=3}},
             {surface=1, position={x=4, y=-4}},
-            {surface=1, position={x=-4, y=-3}},
+            {surface=1, position={x=-4, y=3}},
             {surface=1, position={x=-3, y=-3}},
         }
     },
@@ -57,9 +57,10 @@ return {
             {'steel-chest', 3, -2}, {'steel-chest', 4, -2}, {'steel-chest', 5, -2},
             {'steel-chest', -3, 2}, {'steel-chest', -4, 2}, {'steel-chest', -5, 2},
             {'steel-chest', -3, -2}, {'steel-chest', -4, -2}, {'steel-chest', -5, -2},
-            {'small-lamp', 5, 5}, {'small-lamp', 5, -5}, {'small-lamp', -5, 5}, {'small-lamp', -5, -5},
+            {'medium-electric-pole', 5, 5}, {'medium-electric-pole', 5, -5}, {'medium-electric-pole', -5, 5}, {'medium-electric-pole', -5, -5},
+            {'small-lamp', 3, 5}, {'small-lamp', 3, -5}, {'small-lamp', -3, 5}, {'small-lamp', -3, -5},
+            {'small-lamp', 5, 3}, {'small-lamp', 5, -3}, {'small-lamp', -5, 3}, {'small-lamp', -5, -3},
 
-            {'medium-electric-pole', -7, -2},
             {'stone-wall', -10, -5}
         }
     },
