@@ -10,12 +10,12 @@ return {
 
     Base point is equal to the amount of standard value in each parameter.
 
-            CMMS    CRS     CCS     CISB    CHB     CRDB
-    STD     30      60      32      20      16      12
-    =       170
+            CMMS    CRS     CCS     CISB    CHB     CRDB    PBR
+    STD     30      60      32      20      16      12      40
+    =       210
 
-    MAX     60      180     64      40      32      24
-    =       400
+    MAX     60      180     64      40      32      24      80
+    =       480
     ]]
     pts = {
         rate = {
@@ -53,11 +53,11 @@ return {
     player_special_bonus = {
         ['personal_battery_recharge'] = {
             -- 1 MW
-            value = 10,
-            max = 20,
+            value = 8,
+            max = 16,
             scale = 1,
             cost_scale = 4,
-            cost = 30,
+            cost = 20,
             is_percentage = false
         }
     },
