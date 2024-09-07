@@ -207,9 +207,7 @@ Roles.new_role('Member','Mem')
     'command/home-get',
     'command/return',
     'gui/tool/home',
-    'fast-tree-decon',
-    'command/personal-battery-recharge',
-    'gui/tool/personal-battery-recharge'
+    'fast-tree-decon'
 }
 
 local hours6, hours250 = 6*216000, 250*60

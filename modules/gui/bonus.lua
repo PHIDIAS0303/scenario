@@ -7,6 +7,8 @@ local Gui = require 'expcore.gui' --- @dep expcore.gui
 local Roles = require 'expcore.roles' --- @dep expcore.roles
 local Event = require 'utils.event' --- @dep utils.event
 local config = require 'config.bonus' --- @dep config.bonus
+local vlayer = require 'modules.control.vlayer'
+
 local format_number = require('util').format_number --- @dep util
 local bonus_container
 
@@ -50,6 +52,31 @@ local function apply_bonus(player)
         if config.player_bonus[v].combined_bonus then
             for i=1, #config.player_bonus[v].combined_bonus do
                 player[config.player_bonus[v].combined_bonus[i]] = disp['bonus_display_' .. k .. '_slider'].slider_value
+            end
+        end
+    end
+
+    if vlayer.get_statistics()['energy_sustained'] > 0 then
+        local armor = player.get_inventory(defines.inventory.character_armor)[1].grid
+        local energy_changed = 0 - disp['bonus_display_personal_battery_recharge_slider'].slider_value
+
+        for i=1, #armor.equipment do
+            local target = armor.equipment[i].max_energy
+
+            if armor.equipment[i].energy < target then
+                local energy_required = math.min(math.floor(target - armor.equipment[i].energy), vlayer.get_statistics()['energy_storage'])
+                local new_energy_changed = energy_changed + energy_required
+
+                if new_energy_changed > 0 then
+                    armor.equipment[i].energy = armor.equipment[i].energy + energy_required
+                    energy_changed = energy_changed + energy_required
+                    vlayer.energy_changed(- energy_required)
+
+                else
+                    armor.equipment[i].energy = armor.equipment[i].energy + energy_required
+                    energy_changed = new_energy_changed
+                    vlayer.energy_changed(- energy_required)
+                end
             end
         end
     end

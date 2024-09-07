@@ -9,7 +9,6 @@ local Event = require 'utils.event' --- @dep utils.event
 local Selection = require 'modules.control.selection' --- @dep modules.control.selection
 local addon_train = require 'modules.addons.train'
 local addon_home = require 'modules.addons.home'
-local addon_vlayer = require 'modules.addons.vlayer'
 
 local tool_container
 
@@ -215,33 +214,6 @@ Gui.element{
     addon_home.home_return(player)
 end)
 
---- Personal Battery Recharge label
--- @element tool_gui_personal_battery_recharge_h
-local tool_gui_personal_battery_recharge_h =
-Gui.element{
-    type = 'label',
-    name = 'tool_personal_battery_recharge_h',
-    caption = {'tool.personal-battery-recharge'},
-    tooltip = {'tool.personal-battery-recharge-tooltip'},
-    style = 'heading_2_label'
-}:style{
-    width = 160
-}
-
---- Personal Battery Recharge button
--- @element tool_gui_personal_battery_recharge_b
-local tool_gui_personal_battery_recharge_b =
-Gui.element{
-    type = 'button',
-    name = 'tool_personal_battery_recharge_b',
-    caption = {'tool.apply'}
-}:style{
-    width = 80
-}:on_click(function(player, _, _)
-    addon_vlayer.pbr(player)
-end)
-
-
 local function tool_perm(player)
     local frame = Gui.get_left_element(player, tool_container)
     local disp = frame.container['tool_st'].disp.table
@@ -262,15 +234,6 @@ local function tool_perm(player)
     else
         disp[tool_gui_waterfill_l.name].visible = false
         disp[tool_gui_waterfill_b.name].visible = false
-    end
-
-    if Roles.player_allowed(player, 'gui/tool/personal-battery-recharge') then
-        disp[tool_gui_personal_battery_recharge_h.name].visible = true
-        disp[tool_gui_personal_battery_recharge_b.name].visible = true
-
-    else
-        disp[tool_gui_personal_battery_recharge_h.name].visible = false
-        disp[tool_gui_personal_battery_recharge_b.name].visible = false
     end
 
     if Roles.player_allowed(player, 'gui/tool/set-trains-to-automatic') then
@@ -315,8 +278,6 @@ Gui.element(function(_, parent, name)
     tool_gui_arty_b(disp)
     tool_gui_waterfill_l(disp)
     tool_gui_waterfill_b(disp)
-    tool_gui_personal_battery_recharge_h(disp)
-    tool_gui_personal_battery_recharge_b(disp)
     tool_gui_train_l(disp)
     tool_gui_train_b(disp)
     tool_gui_home_home_h(disp)

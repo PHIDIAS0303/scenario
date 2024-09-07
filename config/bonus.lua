@@ -11,8 +11,8 @@ return {
     Base point is equal to the amount of standard value in each parameter.
 
             CMMS    CRS     CCS     CISB    CHB     CRDB
-    STD     30      90      32      20      16      12
-    =       200
+    STD     30      60      32      20      16      12
+    =       170
 
     MAX     60      180     64      40      32      24
     =       400
@@ -44,10 +44,20 @@ return {
         ['ccs'] = 'character_crafting_speed_modifier',
         ['cisb'] = 'character_inventory_slots_bonus',
         ['chb'] = 'character_health_bonus',
-        ['crdb'] = 'character_reach_distance_bonus'
+        ['crdb'] = 'character_reach_distance_bonus',
         --[[
         ['cpdb'] = 'character_item_pickup_distance_bonus'
         ]]
+    },
+    player_special_bonus = {
+        ['personal_battery_recharge'] = {
+            value = 10,
+            max = 20,
+            scale = 2,
+            cost_scale = 1,
+            cost = 1,
+            is_percentage = false
+        }
     },
     player_bonus = {
         ['character_mining_speed_modifier'] = {
@@ -59,7 +69,7 @@ return {
             is_percentage = true
         },
         ['character_running_speed_modifier'] = {
-            value = 1.5,
+            value = 1,
             max = 3,
             scale = 0.25,
             cost_scale = 1,
