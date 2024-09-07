@@ -78,10 +78,8 @@ local function apply_periodic_bonus(player)
             local slider = disp['bonus_display_personal_battery_recharge_slider'].slider_value * 100000 * config.player_special_bonus_rate / 6
 
             for i=1, #armor.equipment do
-                local target = armor.equipment[i].max_energy
-
-                if armor.equipment[i].energy < target then
-                    local energy_required = math.min(math.floor(target - armor.equipment[i].energy), vlayer.get_statistics()['energy_storage'], slider)
+                if armor.equipment[i].energy < armor.equipment[i].max_energy then
+                    local energy_required = math.min(math.floor(armor.equipment[i].max_energy - armor.equipment[i].energy), vlayer.get_statistics()['energy_storage'], slider)
                     armor.equipment[i].energy = armor.equipment[i].energy + energy_required
                     energy_changed = energy_changed + energy_required
                     vlayer.energy_changed(- energy_required)
