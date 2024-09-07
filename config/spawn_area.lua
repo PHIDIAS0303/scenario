@@ -63,20 +63,20 @@ return {
             {'medium-electric-pole', 6, 3}, {'medium-electric-pole', 6, -3}, {'medium-electric-pole', -6, 3}, {'medium-electric-pole', -6, -3},
             {'small-lamp', 3, 5}, {'small-lamp', 3, -5}, {'small-lamp', -3, 5}, {'small-lamp', -3, -5},
             {'small-lamp', 5, 3}, {'small-lamp', 5, -3}, {'small-lamp', -5, 3}, {'small-lamp', -5, -3},
-            {'stone-wall', 3, 8}, {'stone-wall', 4, 8}, {'stone-wall', 5, 8}, {'stone-wall', 6, 8}, {'stone-wall', 7, 8}, {'stone-wall', 8, 8},
-            {'stone-wall', 3, -8}, {'stone-wall', 4, -8}, {'stone-wall', 5, -8}, {'stone-wall', 6, -8}, {'stone-wall', 7, -8}, {'stone-wall', 8, -8},
-            {'stone-wall', -3, 8}, {'stone-wall', -4, 8}, {'stone-wall', -5, 8}, {'stone-wall', -6, 8}, {'stone-wall', -7, 8}, {'stone-wall', -8, 8},
-            {'stone-wall', -3, -8}, {'stone-wall', -4, -8}, {'stone-wall', -5, -8}, {'stone-wall', -6, -8}, {'stone-wall', -7, -8}, {'stone-wall', -8, -8},
-            {'stone-wall', 8, 3}, {'stone-wall', 8, 4}, {'stone-wall', 8, 5}, {'stone-wall', 8, 6}, {'stone-wall', 8, 7}, {'stone-wall', 8, 8},
-            {'stone-wall', 8, -3}, {'stone-wall', 8, -4}, {'stone-wall', 8, -5}, {'stone-wall', 8, -6}, {'stone-wall', 8, -7}, {'stone-wall', 8, -8},
-            {'stone-wall', -8, 3}, {'stone-wall', -8, 4}, {'stone-wall', -8, 5}, {'stone-wall', -8, 6}, {'stone-wall', -8, 7}, {'stone-wall', -8, 8},
-            {'stone-wall', -8, -3}, {'stone-wall', -8, -4}, {'stone-wall', -8, -5}, {'stone-wall', -8, -6}, {'stone-wall', -8, -7}, {'stone-wall', -8, -8}
+            {'stone-wall', 3, 8}, {'stone-wall', 4, 8}, {'stone-wall', 5, 8}, {'stone-wall', 6, 8},
+            {'stone-wall', 8, 3}, {'stone-wall', 8, 4}, {'stone-wall', 8, 5}, {'stone-wall', 8, 6},
+            {'stone-wall', 3, -8}, {'stone-wall', 4, -8}, {'stone-wall', 5, -8}, {'stone-wall', 6, -8},
+            {'stone-wall', 8, -3}, {'stone-wall', 8, -4}, {'stone-wall', 8, -5}, {'stone-wall', 8, -6},
+            {'stone-wall', -3, 8}, {'stone-wall', -4, 8}, {'stone-wall', -5, 8}, {'stone-wall', -6, 8},
+            {'stone-wall', -8, 3}, {'stone-wall', -8, 4}, {'stone-wall', -8, 5}, {'stone-wall', -8, 6},
+            {'stone-wall', -3, -8}, {'stone-wall', -4, -8}, {'stone-wall', -5, -8}, {'stone-wall', -6, -8},
+            {'stone-wall', -8, -3}, {'stone-wall', -8, -4}, {'stone-wall', -8, -5}, {'stone-wall', -8, -6}
         }
     },
     pattern = {
         enabled = false, --- @setting enabled Whether pattern tiles will be added to spawn
         pattern_tile = 'refined-concrete', --- @setting pattern_tile The tile to be used for the pattern
-        offset = {x=0, y=-2}, --- @setting offset The position offset to apply to pattern tiles
+        offset = {x=0, y=0}, --- @setting offset The position offset to apply to pattern tiles
         locations = { --- @setting locations The location of the pattern tiles {x,y}
         }
     },
