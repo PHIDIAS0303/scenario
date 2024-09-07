@@ -220,9 +220,9 @@ end)
 local tool_gui_personal_battery_recharge_h =
 Gui.element{
     type = 'label',
-    name = 'tool_home_return_h',
-    caption = {'tool.return'},
-    tooltip = {'tool.return-tooltip'},
+    name = 'tool_personal_battery_recharge_h',
+    caption = {'tool.personal-battery-recharge'},
+    tooltip = {'tool.personal-battery-recharge-tooltip'},
     style = 'heading_2_label'
 }:style{
     width = 160
@@ -233,12 +233,12 @@ Gui.element{
 local tool_gui_personal_battery_recharge_b =
 Gui.element{
     type = 'button',
-    name = 'tool_home_return_b',
+    name = 'tool_personal_battery_recharge_b',
     caption = {'tool.apply'}
 }:style{
     width = 80
 }:on_click(function(player, _, _)
-    addon_home.home_return(player)
+    addon_vlayer.pbr(player)
 end)
 
 
@@ -293,6 +293,15 @@ local function tool_perm(player)
         disp[tool_gui_home_return_h.name].visible = false
         disp[tool_gui_home_return_b.name].visible = false
     end
+
+    if Roles.player_allowed(player, 'gui/tool/personal-battery-recharge') then
+        disp[tool_gui_personal_battery_recharge_h.name].visible = true
+        disp[tool_gui_personal_battery_recharge_b.name].visible = true
+
+    else
+        disp[tool_gui_personal_battery_recharge_h.name].visible = false
+        disp[tool_gui_personal_battery_recharge_b.name].visible = false
+    end
 end
 
 --- A vertical flow containing all the tool
@@ -316,6 +325,8 @@ Gui.element(function(_, parent, name)
     tool_gui_home_home_get_b(disp)
     tool_gui_home_return_h(disp)
     tool_gui_home_return_b(disp)
+    tool_gui_personal_battery_recharge_h(disp)
+    tool_gui_personal_battery_recharge_b(disp)
 
     return tool_set
 end)
