@@ -28,9 +28,9 @@ return {
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to afk belts
         locations={ --- @setting locations The locations to spawn afk belts at, given as the top left position
             {6, 6},
-            {6, -6},
-            {-6, 6},
-            {-6, -6}
+            {6, -5},
+            {-5, 6},
+            {-5, -5}
         }
     },
     water = { --- @setting water Settings relating to adding water to spawn
