@@ -264,6 +264,15 @@ local function tool_perm(player)
         disp[tool_gui_waterfill_b.name].visible = false
     end
 
+    if Roles.player_allowed(player, 'gui/tool/personal-battery-recharge') then
+        disp[tool_gui_personal_battery_recharge_h.name].visible = true
+        disp[tool_gui_personal_battery_recharge_b.name].visible = true
+
+    else
+        disp[tool_gui_personal_battery_recharge_h.name].visible = false
+        disp[tool_gui_personal_battery_recharge_b.name].visible = false
+    end
+
     if Roles.player_allowed(player, 'gui/tool/set-trains-to-automatic') then
         disp[tool_gui_train_l.name].visible = true
         disp[tool_gui_train_b.name].visible = true
@@ -293,15 +302,6 @@ local function tool_perm(player)
         disp[tool_gui_home_return_h.name].visible = false
         disp[tool_gui_home_return_b.name].visible = false
     end
-
-    if Roles.player_allowed(player, 'gui/tool/personal-battery-recharge') then
-        disp[tool_gui_personal_battery_recharge_h.name].visible = true
-        disp[tool_gui_personal_battery_recharge_b.name].visible = true
-
-    else
-        disp[tool_gui_personal_battery_recharge_h.name].visible = false
-        disp[tool_gui_personal_battery_recharge_b.name].visible = false
-    end
 end
 
 --- A vertical flow containing all the tool
@@ -315,6 +315,8 @@ Gui.element(function(_, parent, name)
     tool_gui_arty_b(disp)
     tool_gui_waterfill_l(disp)
     tool_gui_waterfill_b(disp)
+    tool_gui_personal_battery_recharge_h(disp)
+    tool_gui_personal_battery_recharge_b(disp)
     tool_gui_train_l(disp)
     tool_gui_train_b(disp)
     tool_gui_home_home_h(disp)
@@ -325,8 +327,6 @@ Gui.element(function(_, parent, name)
     tool_gui_home_home_get_b(disp)
     tool_gui_home_return_h(disp)
     tool_gui_home_return_b(disp)
-    tool_gui_personal_battery_recharge_h(disp)
-    tool_gui_personal_battery_recharge_b(disp)
 
     return tool_set
 end)
