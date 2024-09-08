@@ -22,7 +22,7 @@ function train.manual(player)
     game.print{'expcom-train.manual-result', player.name, format_number(count)}
 end
 
-Commands.new_command('set-trains-to-automatic', {'expcom-train.description'})
+Commands.new_command('set-trains-to-automatic', {'expcom-train.description'}, 'Set All Trains to Automatic')
 :register(function(player)
     train.manual(player)
 
