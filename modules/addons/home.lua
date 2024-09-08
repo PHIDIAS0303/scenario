@@ -89,28 +89,28 @@ end
 
 --- Teleports you to your home location
 -- @command home
-Commands.new_command('home', {'expcom-home.description-home'})
+Commands.new_command('home', {'expcom-home.description-home'}, 'Teleports you to your home location')
 :register(function(player)
     home.home(player)
 end)
 
 --- Sets your home location to your current position
 -- @command home-set
-Commands.new_command('home-set', {'expcom-home.description-home-set'})
+Commands.new_command('home-set', {'expcom-home.description-home-set'}, 'Sets your home location to your current position')
 :register(function(player)
     home.home_set(player)
 end)
 
 --- Returns your current home location
 -- @command home-get
-Commands.new_command('home-get', {'expcom-home.description-home-get'})
+Commands.new_command('home-get', {'expcom-home.description-home-get'}, 'Returns your current home location')
 :register(function(player)
     home.home_get(player)
 end)
 
 --- Teleports you to previous location
 -- @command return
-Commands.new_command('return', {'expcom-home.description-return'})
+Commands.new_command('return', {'expcom-home.description-return'}, 'Teleports you to previous location')
 :register(function(player)
     home.home_return(player)
 end)
