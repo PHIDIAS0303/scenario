@@ -83,7 +83,7 @@ Roles.new_role('Moderator','Mod')
 :set_flag('report-immune')
 :set_flag('instant-respawn')
 :set_flag('deconlog-bypass')
-:set_parent('Trainee')
+:set_parent('Trainee Moderator')
 :allow{
 }
 
