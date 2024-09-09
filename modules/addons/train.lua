@@ -15,6 +15,7 @@ function train.manual(player)
     for _, v in pairs(player.force.get_trains()) do
         if v.manual_mode then
             count = count + 1
+            v.last_user = player
             v.manual_mode = false
         end
     end
