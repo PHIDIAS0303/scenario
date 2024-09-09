@@ -178,7 +178,7 @@ end)
         end
 
     else
-        player.print{}
+        player.print{'landfill.cursor-none'}
     end
 end)
 
