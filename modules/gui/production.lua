@@ -79,21 +79,6 @@ Gui.element{
     horizontal_align = 'right'
 }
 
---- A vertical flow containing all the production control
--- @element production_control_set
-local production_control_set =
-Gui.element(function(_, parent, name)
-    local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 368, 4, 'disp')
-
-    production_time_scale(disp)
-    data_1s(disp)
-    data_2s(disp)
-    data_3s(disp)
-
-    return production_set
-end)
-
 --- Display group
 -- @element production_data_group
 local production_data_group =
@@ -147,6 +132,10 @@ Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(production_set, 368, 4, 'disp')
 
+    production_time_scale(disp)
+    data_1s(disp)
+    data_2s(disp)
+    data_3s(disp)
     for i=1, 8 do
         production_data_group(disp, i)
     end
@@ -159,8 +148,7 @@ Gui.element(function(definition, parent)
     local container = Gui.container(parent, definition.name, 368)
     Gui.header(container, {'production.main-tooltip'}, '', true)
 
-    production_control_set(container, 'production_st_1')
-    production_data_set(container, 'production_st_2')
+    production_data_set(container, 'production_st')
 
     return container.parent
 end)
@@ -175,8 +163,8 @@ Event.on_nth_tick(60, function()
     for _, player in pairs(game.connected_players) do
         local frame = Gui.get_left_element(player, production_container)
         local stat = player.force.item_production_statistics
-        local precision_value = precision[frame.container['production_st_1'].disp.table[production_time_scale.name].selected_index]
-        local table = frame.container['production_st_2'].disp.table
+        local precision_value = precision[frame.container['production_st'].disp.table[production_time_scale.name].selected_index]
+        local table = frame.container['production_st'].disp.table
 
         for i=1, 8 do
             local production_prefix = 'production_' .. i
