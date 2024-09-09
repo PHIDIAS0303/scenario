@@ -159,7 +159,7 @@ end
 Gui.toolbar_button('item/landfill', {'landfill.main-tooltip'}, function(player)
 	return Roles.player_allowed(player, 'gui/landfill')
 end)
-:on_event(Gui.events.on_toolbar_button_toggled, function(player, _, _)
+:on_click(function(player, _, _)
     if player.cursor_stack and player.cursor_stack.valid_for_read then
         if player.cursor_stack.type == 'blueprint' and player.cursor_stack.is_blueprint_setup() then
             local modified = landfill_gui_add_landfill(player.cursor_stack)
