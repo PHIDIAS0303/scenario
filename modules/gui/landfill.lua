@@ -7,7 +7,6 @@
 local Gui = require 'expcore.gui' --- @dep expcore.gui
 local Event = require 'utils.event' --- @dep utils.event
 local Roles = require 'expcore.roles' --- @dep expcore.roles
-local config = require 'config.landfill' --- @dep config.landfill
 
 local rolling_stocks = {}
 
@@ -56,7 +55,16 @@ end
 
 local curves = {}
 
-curves[1] = config.default_curve
+curves[1] = {
+    {0, 0, 0, 0, 0, 1, 0, 0},
+    {0, 0, 0, 0, 1, 1, 1, 0},
+    {0, 0, 0, 1, 1, 1, 1, 0},
+    {0, 0, 0, 1, 1, 1, 0, 0},
+    {0, 0, 1, 1, 1, 0, 0, 0},
+    {0, 0, 1, 1, 1, 0, 0, 0},
+    {0, 0, 1, 1, 0, 0, 0, 0},
+    {0, 0, 1, 1, 0, 0, 0, 0}
+}
 curves[6] = curve_flip_d(curves[1])
 curves[3] = curve_flip_lr(curves[6])
 curves[4] = curve_flip_d(curves[3])
@@ -168,6 +176,9 @@ end)
                 player.cursor_stack.set_blueprint_tiles(modified.tiles)
             end
         end
+
+    else
+        player.print{}
     end
 end)
 
