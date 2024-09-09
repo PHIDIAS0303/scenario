@@ -9,9 +9,11 @@ local Statistics = PlayerData.Statistics
 Roles.define_flag_trigger('is_admin',function(player,state)
     player.admin = state
 end)
+
 Roles.define_flag_trigger('is_spectator',function(player,state)
     player.spectator = state
 end)
+
 Roles.define_flag_trigger('is_jail',function(player,state)
     if player.character then
         player.character.active = not state
