@@ -46,7 +46,7 @@ Gui.element(function(_definition, parent, i)
             items = {'5s', '1m', '10m', '1h', '10h'},
             selected_index = 3
         }
-        item.style.width = 70
+        item.style.width = 80
 
     else
         item = parent.add{
@@ -97,7 +97,7 @@ end)
 local production_data_set =
 Gui.element(function(_, parent, name)
     local production_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(production_set, 340, 4, 'disp')
+    local disp = Gui.scroll_table(production_set, 350, 4, 'disp')
 
     production_data_group(disp, 0)
 
@@ -114,8 +114,7 @@ end)
 
 production_container =
 Gui.element(function(definition, parent)
-    local container = Gui.container(parent, definition.name, 340)
-    Gui.header(container, {'production.main-tooltip'}, '', true)
+    local container = Gui.container(parent, definition.name, 350)
 
     production_data_set(container, 'production_st')
 
