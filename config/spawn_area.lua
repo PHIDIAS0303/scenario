@@ -5,9 +5,9 @@ return {
     spawn_area = { --- @setting spawn_area Settings relating to the whole spawn area
         -- Enable predefined patches: 128, else: 32
         deconstruction_radius = 12, -- @setting deconstruction_radius All entities within this radius will be removed
-        tile_radius = 12,
         deconstruction_tile = 'refined-concrete', --- @setting deconstruction_tile Tile to be placed in the deconstruction radius, use nil for map gen
-        landfill_radius = 24, --- @setting pattern_radius All water within this radius will be land filled
+        tile_radius = 16,
+        landfill_radius = 16, --- @setting pattern_radius All water within this radius will be land filled
     },
     turrets = { --- @setting turrets Settings relating to adding turrets to spawn
         enabled = true, --- @setting enabled Whether turrets will be added to spawn
@@ -15,10 +15,10 @@ return {
         refill_time = 60*60*5, --- @setting refill_time The time in ticks between each refill of the turrets, only change if having lag issues
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to turrets
         locations = { --- @setting locations The locations of all turrets, this list can change during runtime
-            {surface=1, position={x=4, y=4}},
-            {surface=1, position={x=4, y=-3}},
-            {surface=1, position={x=-3, y=4}},
-            {surface=1, position={x=-3, y=-3}},
+            {surface=1, position={x=3, y=3}},
+            {surface=1, position={x=3, y=-2}},
+            {surface=1, position={x=-2, y=3}},
+            {surface=1, position={x=-2, y=-2}},
         }
     },
     afk_belts = { --- @setting afk_belts Settings relating to adding afk belts to spawn
@@ -27,10 +27,10 @@ return {
         protected = true, --- @setting protected Whether belts will be protected from player interaction
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to afk belts
         locations={ --- @setting locations The locations to spawn afk belts at, given as the top left position
-            {6, 6},
-            {6, -5},
-            {-5, 6},
-            {-5, -5}
+            {5, 5},
+            {5, -4},
+            {-4, 5},
+            {-4, -4}
         }
     },
     water = { --- @setting water Settings relating to adding water to spawn
@@ -51,15 +51,14 @@ return {
         operable = true, --- @setting operable Whether entities can be opened by players, must be true if chests are used
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to entities
         locations = { --- @setting locations The location and names of entities {name,x,y}
-            {'steel-chest', 2, 2}, {'steel-chest', 2, -2}, {'steel-chest', -2, 2}, {'steel-chest', -2, -2},
-            {'steel-chest', 2, 3}, {'steel-chest', 2, 4}, {'steel-chest', 2, 5}, {'steel-chest', 2, 6},
-            {'steel-chest', 2, -3}, {'steel-chest', 2, -4}, {'steel-chest', 2, -5}, {'steel-chest', 2, -6},
-            {'steel-chest', -2, 3}, {'steel-chest', -2, 4}, {'steel-chest', -2, 5}, {'steel-chest', -2, 6},
-            {'steel-chest', -2, -3}, {'steel-chest', -2, -4}, {'steel-chest', -2, -5}, {'steel-chest', -2, -6},
-            {'steel-chest', 3, 2}, {'steel-chest', 4, 2}, {'steel-chest', 5, 2}, {'steel-chest', 6, 2},
-            {'steel-chest', 3, -2}, {'steel-chest', 4, -2}, {'steel-chest', 5, -2}, {'steel-chest', 6, -2},
-            {'steel-chest', -3, 2}, {'steel-chest', -4, 2}, {'steel-chest', -5, 2}, {'steel-chest', -6, 2},
-            {'steel-chest', -3, -2}, {'steel-chest', -4, -2}, {'steel-chest', -5, -2}, {'steel-chest', -6, -2},
+            {'steel-chest', 2, 4}, {'steel-chest', 2, 5}, {'steel-chest', 2, 6},
+            {'steel-chest', 2, -4}, {'steel-chest', 2, -5}, {'steel-chest', 2, -6},
+            {'steel-chest', -2, 4}, {'steel-chest', -2, 5}, {'steel-chest', -2, 6},
+            {'steel-chest', -2, -4}, {'steel-chest', -2, -5}, {'steel-chest', -2, -6},
+            {'steel-chest', 4, 2}, {'steel-chest', 5, 2}, {'steel-chest', 6, 2},
+            {'steel-chest', 4, -2}, {'steel-chest', 5, -2}, {'steel-chest', 6, -2},
+            {'steel-chest', -4, 2}, {'steel-chest', -5, 2}, {'steel-chest', -6, 2},
+            {'steel-chest', -4, -2}, {'steel-chest', -5, -2}, {'steel-chest', -6, -2},
             {'medium-electric-pole', 3, 6}, {'medium-electric-pole', 3, -6}, {'medium-electric-pole', -3, 6}, {'medium-electric-pole', -3, -6},
             {'medium-electric-pole', 6, 3}, {'medium-electric-pole', 6, -3}, {'medium-electric-pole', -6, 3}, {'medium-electric-pole', -6, -3},
             {'small-lamp', 3, 5}, {'small-lamp', 3, -5}, {'small-lamp', -3, 5}, {'small-lamp', -3, -5},
