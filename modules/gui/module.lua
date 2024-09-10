@@ -306,7 +306,7 @@ Event.add(defines.events.on_entity_settings_pasted, function(event)
 
         clear_module(player, destination.bounding_box, destination.name)
 
-        if next(source_inventory_content) == nil then
+        if next(source_inventory_content) ~= nil then
             apply_module(player, destination.bounding_box, destination.name, {['n']=source_inventory_content, ['p']=source_inventory_content})
         end
     end
