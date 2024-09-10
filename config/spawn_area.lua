@@ -4,7 +4,7 @@
 return {
     spawn_area = { --- @setting spawn_area Settings relating to the whole spawn area
         -- Enable predefined patches: 128, else: 32
-        deconstruction_radius = 12, -- @setting deconstruction_radius All entities within this radius will be removed
+        deconstruction_radius = 16, -- @setting deconstruction_radius All entities within this radius will be removed
         deconstruction_tile = 'refined-concrete', --- @setting deconstruction_tile Tile to be placed in the deconstruction radius, use nil for map gen
         tile_radius = 16,
         landfill_radius = 16, --- @setting pattern_radius All water within this radius will be land filled
@@ -16,9 +16,9 @@ return {
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to turrets
         locations = { --- @setting locations The locations of all turrets, this list can change during runtime
             {surface=1, position={x=3, y=3}},
-            {surface=1, position={x=3, y=-2}},
-            {surface=1, position={x=-2, y=3}},
-            {surface=1, position={x=-2, y=-2}},
+            {surface=1, position={x=3, y=-3}},
+            {surface=1, position={x=-3, y=3}},
+            {surface=1, position={x=-3, y=-3}},
         }
     },
     afk_belts = { --- @setting afk_belts Settings relating to adding afk belts to spawn
@@ -28,9 +28,9 @@ return {
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to afk belts
         locations={ --- @setting locations The locations to spawn afk belts at, given as the top left position
             {5, 5},
-            {5, -4},
-            {-4, 5},
-            {-4, -4}
+            {5, -5},
+            {-5, 5},
+            {-5, -5}
         }
     },
     water = { --- @setting water Settings relating to adding water to spawn
@@ -40,9 +40,9 @@ return {
         locations = { --- @setting locations The location of the water tiles {x,y}
             -- Each is a 3x3 with the closest tile to 0,0 removed
             {6, 7}, {6, 8}, {7, 6}, {7, 7}, {7, 8}, {8, 6}, {8, 7}, {8, 8},
-            {6, -7}, {6, -8}, {7, -6}, {7, -7}, {7, -8}, {8, -6}, {8, -7}, {8, -8},
-            {-6, 7}, {-6, 8}, {-7, 6}, {-7, 7}, {-7, 8}, {-8, 6}, {-8, 7}, {-8, 8},
-            {-6, -7}, {-6, -8}, {-7, -6}, {-7, -7}, {-7, -8}, {-8, -6}, {-8, -7}, {-8, -8}
+            {6, -8}, {6, -9}, {7, -7}, {7, -8}, {7, -9}, {8, -7}, {8, -8}, {8, -9},
+            {-7, 7}, {-7, 8}, {-8, 6}, {-8, 7}, {-8, 8}, {-9, 6}, {-9, 7}, {-9, 8},
+            {-7, -8}, {-7, -9}, {-8, -7}, {-8, -8}, {-8, -9}, {-9, -7}, {-9, -8}, {-9, -9}
         }
     },
     entities = { --- @setting entities Settings relating to adding entities to spawn
@@ -52,25 +52,25 @@ return {
         offset = {x=0, y=0}, --- @setting offset The position offset to apply to entities
         locations = { --- @setting locations The location and names of entities {name,x,y}
             {'steel-chest', 2, 4}, {'steel-chest', 2, 5}, {'steel-chest', 2, 6},
-            {'steel-chest', 2, -4}, {'steel-chest', 2, -5}, {'steel-chest', 2, -6},
-            {'steel-chest', -2, 4}, {'steel-chest', -2, 5}, {'steel-chest', -2, 6},
-            {'steel-chest', -2, -4}, {'steel-chest', -2, -5}, {'steel-chest', -2, -6},
+            {'steel-chest', 2, -5}, {'steel-chest', 2, -6}, {'steel-chest', 2, -7},
+            {'steel-chest', -3, 4}, {'steel-chest', -3, 5}, {'steel-chest', -3, 6},
+            {'steel-chest', -3, -5}, {'steel-chest', -3, -6}, {'steel-chest', -3, -7},
             {'steel-chest', 4, 2}, {'steel-chest', 5, 2}, {'steel-chest', 6, 2},
-            {'steel-chest', 4, -2}, {'steel-chest', 5, -2}, {'steel-chest', 6, -2},
-            {'steel-chest', -4, 2}, {'steel-chest', -5, 2}, {'steel-chest', -6, 2},
-            {'steel-chest', -4, -2}, {'steel-chest', -5, -2}, {'steel-chest', -6, -2},
-            {'medium-electric-pole', 3, 6}, {'medium-electric-pole', 3, -6}, {'medium-electric-pole', -3, 6}, {'medium-electric-pole', -3, -6},
-            {'medium-electric-pole', 6, 3}, {'medium-electric-pole', 6, -3}, {'medium-electric-pole', -6, 3}, {'medium-electric-pole', -6, -3},
-            {'small-lamp', 3, 5}, {'small-lamp', 3, -5}, {'small-lamp', -3, 5}, {'small-lamp', -3, -5},
-            {'small-lamp', 5, 3}, {'small-lamp', 5, -3}, {'small-lamp', -5, 3}, {'small-lamp', -5, -3},
+            {'steel-chest', 4, -3}, {'steel-chest', 5, -3}, {'steel-chest', 6, -3},
+            {'steel-chest', -5, 2}, {'steel-chest', -6, 2}, {'steel-chest', -7, 2},
+            {'steel-chest', -5, -3}, {'steel-chest', -6, -3}, {'steel-chest', -7, -3},
+            {'medium-electric-pole', 3, 6}, {'medium-electric-pole', 3, -7}, {'medium-electric-pole', -4, 6}, {'medium-electric-pole', -4, -7},
+            {'medium-electric-pole', 6, 3}, {'medium-electric-pole', 6, -4}, {'medium-electric-pole', -7, 3}, {'medium-electric-pole', -7, -4},
+            {'small-lamp', 3, 5}, {'small-lamp', 3, -6}, {'small-lamp', -4, 5}, {'small-lamp', -4, -6},
+            {'small-lamp', 5, 3}, {'small-lamp', 5, -4}, {'small-lamp', -6, 3}, {'small-lamp', -6, -4},
             {'stone-wall', 2, 8}, {'stone-wall', 3, 8}, {'stone-wall', 4, 8}, {'stone-wall', 5, 8},
             {'stone-wall', 8, 2}, {'stone-wall', 8, 3}, {'stone-wall', 8, 4}, {'stone-wall', 8, 5},
-            {'stone-wall', 2, -8}, {'stone-wall', 3, -8}, {'stone-wall', 4, -8}, {'stone-wall', 5, -8},
-            {'stone-wall', 8, -2}, {'stone-wall', 8, -3}, {'stone-wall', 8, -4}, {'stone-wall', 8, -5},
-            {'stone-wall', -2, 8}, {'stone-wall', -3, 8}, {'stone-wall', -4, 8}, {'stone-wall', -5, 8},
-            {'stone-wall', -8, 2}, {'stone-wall', -8, 3}, {'stone-wall', -8, 4}, {'stone-wall', -8, 5},
-            {'stone-wall', -2, -8}, {'stone-wall', -3, -8}, {'stone-wall', -4, -8}, {'stone-wall', -5, -8},
-            {'stone-wall', -8, -2}, {'stone-wall', -8, -3}, {'stone-wall', -8, -4}, {'stone-wall', -8, -5},
+            {'stone-wall', 2, -9}, {'stone-wall', 3, -9}, {'stone-wall', 4, -9}, {'stone-wall', 5, -9},
+            {'stone-wall', 8, -3}, {'stone-wall', 8, -4}, {'stone-wall', 8, -5}, {'stone-wall', 8, -6},
+            {'stone-wall', -3, 8}, {'stone-wall', -4, 8}, {'stone-wall', -5, 8}, {'stone-wall', -6, 8},
+            {'stone-wall', -9, 2}, {'stone-wall', -9, 3}, {'stone-wall', -9, 4}, {'stone-wall', -9, 5},
+            {'stone-wall', -3, -9}, {'stone-wall', -4, -9}, {'stone-wall', -5, -9}, {'stone-wall', -6, -9},
+            {'stone-wall', -9, -3}, {'stone-wall', -9, -4}, {'stone-wall', -9, -5}, {'stone-wall', -9, -6},
         }
     },
     pattern = {
