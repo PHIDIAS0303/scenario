@@ -24,6 +24,7 @@ end}
         entity.destroy()
     end
 
-    surface.map_gen_settings.autoplace_controls['enemy-base'].size = 'none'
+    surface.map_gen_settings.autoplace_controls['enemy-base'].frequency = 0
+    surface.map_gen_settings.autoplace_controls['enemy-base'].size = 0
     return Commands.success
 end)
