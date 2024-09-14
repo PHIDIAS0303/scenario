@@ -50,7 +50,7 @@ return {
     -- mod change
     'modules.addons.spawn-area',
     -- mod change
-    -- 'modules.addons.compilatron',
+    'modules.addons.compilatron',
     -- 'modules.addons.scorched-earth',
     -- 'modules.addons.pollution-grading',
     -- 'modules.addons.station-auto-name',
