@@ -15,7 +15,13 @@ function train.manual(player)
     for _, v in pairs(player.force.get_trains()) do
         if v.manual_mode then
             count = count + 1
-            v.last_user = player
+
+            for _, m in pairs(v.locomotives) do
+                for _, l in pairs(m) do
+                    l.last_user = player
+                end
+            end
+
             v.manual_mode = false
         end
     end
