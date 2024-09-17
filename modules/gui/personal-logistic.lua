@@ -7,13 +7,6 @@ local Gui = require 'expcore.gui' --- @dep expcore.gui
 local Roles = require 'expcore.roles' --- @dep expcore.roles
 local config = require 'config.personal_logistic' --- @dep config.personal-logistic
 
---[[
-stage I - VII
-matching the science tech
-to set the current requirements
-make those as preset and further adjust later
-]]
-
 --- A vertical flow containing all the main control
 -- @element pl_main_set
 local pl_main_set =
@@ -21,18 +14,6 @@ Gui.element(function(_, parent, name)
     local pl_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(pl_set, 480, 6, 'disp')
     local i = 0
-
-    --[[
-    local player = Gui.get_player_from_element(parent)
-    local stats = player.force.item_production_statistics
-    local research = {}
-
-    for k, v in pairs(config.sci) do
-        if stats.get_input_count(k) > 100 then
-            research[v] = true
-        end
-    end
-    ]]
 
     disp.add{
         type = 'label',

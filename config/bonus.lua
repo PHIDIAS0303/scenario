@@ -10,10 +10,10 @@ return {
     Base point is equal to the amount of standard value in each parameter.
 
             CMMS    CRS     CCS     CISB    CHB     CRDB    PBR
-    STD     30      60      32      20      16      12      40
+    STD     30      60      32      20      16      12      60
     =       210
 
-    MAX     60      180     64      40      32      24      80
+    MAX     60      180     64      40      32      24      120
     =       480
     ]]
     pts = {
@@ -29,7 +29,7 @@ return {
             ['Senior Member'] = 1.1,
             ['Member'] = 1
         },
-        base = 210
+        base = 230
     },
     gui_display_width = {
         half = 150,
@@ -56,7 +56,7 @@ return {
             max = 16,
             scale = 1,
             cost_scale = 4,
-            cost = 20,
+            cost = 30,
             is_percentage = false
         }
     },
