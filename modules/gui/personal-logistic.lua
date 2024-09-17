@@ -5,8 +5,51 @@
 
 local Gui = require 'expcore.gui' --- @dep expcore.gui
 local Roles = require 'expcore.roles' --- @dep expcore.roles
+local PlayerData = require 'expcore.player_data' --- @dep expcore.player_data
 local config = require 'config.personal_logistic' --- @dep config.personal-logistic
 -- local pl = require 'modules.data.personal-logistic'
+
+--[[
+local pl_data = PlayerData.Settings:combine('PersonalLogistic')
+pl_data:set_metadata{
+    permission = 'gui/personal-logistic',
+    stringify = function(value)
+        if not value then
+            return 'No logitstics set'
+        end
+
+        local count = 0
+
+        for _ in pairs(value) do
+            count = count + 1
+        end
+
+        return count .. ' logitstics set'
+    end
+}
+
+--- Loads your logistics preset
+pl_data:on_load(function(player_name, pld)
+    if not pld then
+        pld = config[player_name]
+    end
+
+    if not pld then
+        return
+    end
+
+    local player = game.players[player_name]
+    local c = player.clear_personal_logistic_slot
+    local s = player.set_personal_logistic_slot
+
+    for k, v in pairs(pld) do
+        if v then
+            c(k)
+            s()
+        end
+    end
+end)
+]]
 
 --- A vertical flow containing all the main control
 -- @element pl_main_set
