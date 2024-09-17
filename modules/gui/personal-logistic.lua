@@ -6,6 +6,7 @@
 local Gui = require 'expcore.gui' --- @dep expcore.gui
 local Roles = require 'expcore.roles' --- @dep expcore.roles
 local config = require 'config.personal_logistic' --- @dep config.personal-logistic
+-- local pl = require 'modules.data.personal-logistic'
 
 --- A vertical flow containing all the main control
 -- @element pl_main_set
@@ -13,27 +14,6 @@ local pl_main_set =
 Gui.element(function(_, parent, name)
     local pl_set = parent.add{type='flow', direction='vertical', name=name}
     local disp = Gui.scroll_table(pl_set, 480, 2, 'disp')
-
-    disp.add{
-        type = 'label',
-        name = 'pl_display_c_0',
-        caption = 'category name',
-        style = 'heading_1_label'
-    }
-
-    disp.add{
-        type = 'label',
-        name = 'pl_display_g_0',
-        caption = 'group name',
-        style = 'heading_1_label'
-    }
-
-    disp.add{
-        type = 'label',
-        name = 'pl_display_m_0',
-        caption = 'multiplier',
-        style = 'heading_1_label'
-    }
 
     return pl_set
 end)
