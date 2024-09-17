@@ -101,7 +101,7 @@ return {
     'modules.gui.module',
     'modules.gui.landfill',
     'modules.gui.tool',
-    -- 'modules.gui.personal-logistic',
+    'modules.gui.personal-logistic',
     -- 'modules.gui.miner',
     'modules.gui.production',
     'modules.gui.playerdata',
