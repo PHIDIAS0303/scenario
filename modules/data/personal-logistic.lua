@@ -1,7 +1,9 @@
 local Commands = require 'expcore.commands' --- @dep expcore.commands
 local config = require 'config.personal_logistic' --- @dep config.personal-logistic
 
-local function pl(type, target, amount)
+local pl = {}
+
+function pl.pl(type, target, amount)
     local c
     local s
 
@@ -78,12 +80,12 @@ Commands.new_command('personal-logistic', 'Set Personal Logistic (-1 to cancel a
     if player.force.technologies['logistic-robotics'].researched then
         if player.selected then
             if player.selected.name == 'spidertron' then
-                pl('s', player.selected, amount / 10)
+                pl.pl('s', player.selected, amount / 10)
                 return Commands.success
             end
 
         else
-            pl('p', player, amount / 10)
+            pl.pl('p', player, amount / 10)
             return Commands.success
         end
 
@@ -91,3 +93,5 @@ Commands.new_command('personal-logistic', 'Set Personal Logistic (-1 to cancel a
         player.print('Personal Logistic not researched')
     end
 end)
+
+return pl

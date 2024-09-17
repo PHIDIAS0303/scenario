@@ -203,6 +203,7 @@ Roles.new_role('Member','Mem')
     'command/last-location',
     -- 'command/bonus',
     'gui/bonus',
+    'gui/personal-logistic',
     'command/personal-logistic',
     'command/home',
     'command/home-set',

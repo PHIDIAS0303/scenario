@@ -12,8 +12,7 @@ local config = require 'config.personal_logistic' --- @dep config.personal-logis
 local pl_main_set =
 Gui.element(function(_, parent, name)
     local pl_set = parent.add{type='flow', direction='vertical', name=name}
-    local disp = Gui.scroll_table(pl_set, 480, 6, 'disp')
-    local i = 0
+    local disp = Gui.scroll_table(pl_set, 480, 2, 'disp')
 
     disp.add{
         type = 'label',
@@ -35,68 +34,6 @@ Gui.element(function(_, parent, name)
         caption = 'multiplier',
         style = 'heading_1_label'
     }
-
-    for j=1, 3, 1 do
-        disp.add{
-            type = 'label',
-            name = 'pl_display_m_0_' .. j,
-            caption = 'item ' .. j,
-            style = 'heading_1_label'
-        }
-    end
-
-    for k, v in pairs(config.pl) do
-        disp.add{
-            type = 'label',
-            name = 'pl_display_c_' .. i,
-            caption = 'group ' .. i .. ' - ' .. k,
-            style = 'heading_1_label'
-        }
-
-        local gn = {}
-
-        for l=1, #v['group'], 1 do
-            gn[l] = l
-        end
-
-        disp.add{
-            type = 'drop-down',
-            name = 'pl_display_g_' .. i,
-            items = gn,
-            selected_index = 1
-        }
-
-        disp.add{
-            type = 'drop-down',
-            name = 'pl_display_m_' .. i,
-            items = {0, 1, 2, 3, 4, 5, 6},
-            selected_index = 1
-        }
-
-        for j=1, 3, 1 do
-            if v['group'][1][j] then
-                local nj = v['group'][1][j]
-                local vnj = v['item'][nj]
-
-                disp.add{
-                    type = 'sprite-button',
-                    name = 'pl_display_m_' .. i .. '_' .. j,
-                    sprite = 'item/' .. vnj['name'],
-                    number = vnj['stack'] * vnj['ratio']
-                }
-
-            else
-                disp.add{
-                    type = 'sprite-button',
-                    name = 'pl_display_m_' .. i .. '_' .. j,
-                    sprite = nil,
-                    number = 0
-                }
-            end
-        end
-
-        i = i + 1
-	end
 
     return pl_set
 end)
