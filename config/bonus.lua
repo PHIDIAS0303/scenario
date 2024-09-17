@@ -11,7 +11,7 @@ return {
 
             CMMS    CRS     CCS     CISB    CHB     CRDB    PBR
     STD     30      60      32      20      16      12      60
-    =       210
+    =       230
 
     MAX     60      180     64      40      32      24      120
     =       480
@@ -52,11 +52,11 @@ return {
     player_special_bonus = {
         ['personal_battery_recharge'] = {
             -- 1 MW
-            value = 8,
-            max = 16,
+            value = 6,
+            max = 12,
             scale = 1,
             cost_scale = 4,
-            cost = 30,
+            cost = 40,
             is_percentage = false
         }
     },
