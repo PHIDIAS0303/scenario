@@ -206,19 +206,6 @@ local function get_sustained_multiplier()
     return mul * (day_duration + (0.5 * (sunset_duration + sunrise_duration)))
 end
 
---- Get the optimal sustained solar output that is close enough to the solar ratio
-local function get_new_optimal_solar_output()
-    local gsm = get_sustained_multiplier()
-    local gai = vlayer.get_allocated_items()
-    local gsr = gsm * 100 * config.allowed_items['solar-panel'].production / config.allowed_items['accumulator'].capacity
-
-    if (gai['accumulator'] / math.max(gai['solar-panel'], 1)) == 0 then
-        return 0
-    end
-
-    return vlayer_data.properties.production * mega * gsm * (gai['accumulator'] / math.max(gai['solar-panel'] * gsr, 1))
-end
-
 --- Internal, Allocate items in the vlayer, this will increase the property values of the vlayer such as production and capacity
 -- Does not increment item storage, so should not be called before insert_item unless during init
 -- Does not validate area requirements, so checks must be performed before calling this function
@@ -499,7 +486,6 @@ function vlayer.get_statistics()
         energy_sustained = vdp * get_sustained_multiplier(),
         energy_capacity = vlayer_data.properties.capacity * mega,
         energy_storage = vlayer_data.storage.energy,
-        new_energy_sustained = get_new_optimal_solar_output(),
         day_time = math.floor(vlayer_data.surface.daytime * vlayer_data.surface.ticks_per_day),
         day_length = vlayer_data.surface.ticks_per_day,
         tick = game.tick

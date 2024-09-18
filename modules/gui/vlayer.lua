@@ -221,14 +221,14 @@ Gui.element{
 
 local vlayer_gui_display_signal_sustained_count =
 Gui.element{
-    type = 'progressbar',
+    type = 'label',
     name = 'vlayer_display_signal_sustained_count',
-    caption = '',
-    value = 0,
-    style = 'electric_satisfaction_statistics_progressbar'
+    caption = '0',
+    style = 'heading_2_label'
 }:style{
     width = 200,
-    font = 'heading-2'
+    height = 28,
+    horizontal_align = 'right'
 }
 
 --- Display label for the current energy production
@@ -501,8 +501,7 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
             cap = format_number(stats.remaining_surface_area)
         },
         [vlayer_gui_display_signal_sustained_count.name] = {
-            val = (stats.new_energy_sustained / math.max(stats.energy_sustained, 1)),
-            cap = format_energy(stats.new_energy_sustained, 'W') .. ' / ' .. format_energy(stats.energy_sustained, 'W')
+            cap = format_energy(stats.energy_sustained, 'W')
         },
         [vlayer_gui_display_signal_production_count.name] = {
             val = (stats.energy_production / math.max(stats.energy_max, 1)),
