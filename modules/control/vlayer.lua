@@ -206,21 +206,17 @@ local function get_sustained_multiplier()
     return mul * (day_duration + (0.5 * (sunset_duration + sunrise_duration)))
 end
 
+--- Get the optimal sustained solar output that is close enough to the solar ratio
 local function get_new_optimal_solar_output()
     local gsm = get_sustained_multiplier()
     local gai = vlayer.get_allocated_items()
-    local gsr = gsm * 2500 / 6 * config.allowed_items['solar-panel'].production / config.allowed_items['accumulator'].capacity
-    local esm = 0
-    local cer = gai['accumulator'] / math.max(gai['solar-panel'], 1)
+    local gsr = gsm * 100 * config.allowed_items['solar-panel'].production / config.allowed_items['accumulator'].capacity
 
-    if (gai['solar-panel'] * gsr) > gai['accumulator'] then
-        esm = vlayer_data.properties.production * mega * gsm * cer / gsr
-
-    else
-        esm = vlayer_data.properties.production * mega * gsm * gsr / cer
+    if (gai['accumulator'] / math.max(gai['solar-panel'], 1)) == 0 then
+        return 0
     end
 
-    return esm
+    return vlayer_data.properties.production * mega * gsm * (gai['accumulator'] / math.max(gai['solar-panel'] * gsr, 1))
 end
 
 --- Internal, Allocate items in the vlayer, this will increase the property values of the vlayer such as production and capacity
