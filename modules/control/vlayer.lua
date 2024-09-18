@@ -206,6 +206,23 @@ local function get_sustained_multiplier()
     return mul * (day_duration + (0.5 * (sunset_duration + sunrise_duration)))
 end
 
+local function get_new_optimal_solar_output()
+    local gsm = get_sustained_multiplier()
+    local gai = vlayer.get_allocated_items()
+    local gsr = gsm * 2500 / 6 * config.allowed_items['solar-panel'].production / config.allowed_items['accumulator'].capacity
+    local esm = 0
+    local cer = gai['accumulator'] / math.max(gai['solar-panel'], 1)
+
+    if (gai['solar-panel'] * gsr) > gai['accumulator'] then
+        esm = vlayer_data.properties.production * mega * gsm * cer / gsr
+
+    else
+        esm = vlayer_data.properties.production * mega * gsm * gsr / cer
+    end
+
+    return esm
+end
+
 --- Internal, Allocate items in the vlayer, this will increase the property values of the vlayer such as production and capacity
 -- Does not increment item storage, so should not be called before insert_item unless during init
 -- Does not validate area requirements, so checks must be performed before calling this function
@@ -474,18 +491,19 @@ end
 --- Get the statistics for the vlayer
 function vlayer.get_statistics()
     local vdp = vlayer_data.properties.production * mega
-    local gdm = get_production_multiplier()
+    local gpm = get_production_multiplier()
 
     return {
         total_surface_area = vlayer_data.properties.total_surface_area,
         used_surface_area = vlayer_data.properties.used_surface_area,
         remaining_surface_area = get_actual_land_defecit(),
-        production_multiplier = gdm,
+        production_multiplier = gpm,
         energy_max = vdp,
-        energy_production = vdp * gdm,
+        energy_production = vdp * gpm,
         energy_sustained = vdp * get_sustained_multiplier(),
         energy_capacity = vlayer_data.properties.capacity * mega,
         energy_storage = vlayer_data.storage.energy,
+        new_energy_sustained = get_new_optimal_solar_output(),
         day_time = math.floor(vlayer_data.surface.daytime * vlayer_data.surface.ticks_per_day),
         day_length = vlayer_data.surface.ticks_per_day,
         tick = game.tick
