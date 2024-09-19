@@ -10,8 +10,8 @@ return {
     Base point is equal to the amount of standard value in each parameter.
 
             CMMS    CRS     CCS     CISB    CHB     CRDB    PBR
-    STD     30      60      32      20      16      12      60
-    =       230
+    STD     30      90      32      20      16      12      60
+    =       260
 
     MAX     60      180     64      40      32      24      120
     =       480
@@ -29,7 +29,7 @@ return {
             ['Senior Member'] = 1.1,
             ['Member'] = 1
         },
-        base = 230
+        base = 260
     },
     gui_display_width = {
         half = 150,
@@ -70,7 +70,7 @@ return {
             is_percentage = true
         },
         ['character_running_speed_modifier'] = {
-            value = 1,
+            value = 1.5,
             max = 3,
             scale = 0.25,
             cost_scale = 1,
