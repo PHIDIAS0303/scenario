@@ -24,10 +24,11 @@ local vlayer_data = {
         used_surface_area = 0,
         production = 0,
         discharge = 0,
-        capacity = 0,
+        capacity = 0
     },
     storage = {
         items = {},
+        power_items = {},
         energy = 0,
         unallocated = {}
     },
@@ -38,8 +39,15 @@ Global.register(vlayer_data, function(tbl)
     vlayer_data = tbl
 end)
 
-for _, properties in pairs(config.allowed_items) do
+for name, properties in pairs(config.allowed_items) do
     properties.modded = false
+
+    if properties.power then
+        vlayer_data.storage.power_items[name] = {
+            value = properties.fuel_value * 1000000,
+            count = 0
+        }
+    end
 end
 
 -- For all modded items, create a config for them
@@ -63,6 +71,39 @@ function vlayer.get_items()
     return vlayer_data.storage.items
 end
 
+--- Get all unallocated items in storage
+-- @treturn table a dictionary of all unallocated items stored in the vlayer
+function vlayer.get_unallocated_items()
+    return vlayer_data.storage.unallocated
+end
+
+--- Get all allocated items in storage
+-- @treturn table a dictionary of all allocated items stored in the vlayer
+function vlayer.get_allocated_items()
+    local r = {}
+
+    for k, v in pairs(vlayer_data.storage.items) do
+        r[k] = v
+
+        if vlayer_data.storage.unallocated[k] then
+            r[k] = r[k] - vlayer_data.storage.unallocated[k]
+        end
+    end
+
+    return r
+end
+
+--- Get the actual defecit of land
+local function get_actual_land_defecit()
+    local n = vlayer_data.properties.total_surface_area - vlayer_data.properties.used_surface_area
+
+    for k, v in pairs(vlayer.get_unallocated_items()) do
+        n = n - (config.allowed_items[k].required_area * v)
+    end
+
+    return n
+end
+
 --- Get interface counts
 -- @treturn table a dictionary of the vlayer interface counts
 function vlayer.get_interface_counts()
@@ -73,6 +114,19 @@ function vlayer.get_interface_counts()
         circuit = #interfaces.circuit,
         storage_input = #interfaces.storage_input,
         storage_output = #interfaces.storage_output,
+    }
+end
+
+--- Get interfaces
+-- @treturn table a dictionary of the vlayer interfaces
+function vlayer.get_interfaces()
+    local interfaces = vlayer_data.entity_interfaces
+
+    return {
+        energy = interfaces.energy,
+        circuit = interfaces.circuit,
+        storage_input = interfaces.storage_input,
+        storage_output = interfaces.storage_output,
     }
 end
 
@@ -261,6 +315,7 @@ function vlayer.remove_item(item_name, count)
     -- Remove the item from allocated storage
     vlayer_data.storage.items[item_name] = vlayer_data.storage.items[item_name] - remove_count
     vlayer.allocate_item(item_name, -remove_count)
+
     return remove_unallocated + remove_count
 end
 
@@ -280,6 +335,7 @@ function vlayer.create_input_interface(surface, position, last_user)
     interface.destructible = false
     interface.minable = false
     interface.operable = true
+
     return interface
 end
 
@@ -303,7 +359,12 @@ local function handle_input_interfaces()
                         end
 
                     else
-                        vlayer.insert_item(name, count)
+                        if vlayer_data.storage.power_items[name] then
+                            vlayer_data.storage.power_items[name].count = vlayer_data.storage.power_items[name].count + count
+
+                        else
+                            vlayer.insert_item(name, count)
+                        end
                     end
 
                     inventory.remove({name=name, count=count})
@@ -329,6 +390,7 @@ function vlayer.create_output_interface(surface, position, last_user)
     interface.destructible = false
     interface.minable = false
     interface.operable = true
+
     return interface
 end
 
@@ -382,6 +444,7 @@ local function handle_unallocated()
 
     -- Allocate items in an equal distribution
     local surplus_area = vlayer_data.properties.total_surface_area - vlayer_data.properties.used_surface_area
+
     for item_name, count in pairs(vlayer_data.storage.unallocated) do
         local allocation_count = math.min(count, math.floor(count * surplus_area / unallocated_area))
 
@@ -394,29 +457,41 @@ end
 
 --- Get the statistics for the vlayer
 function vlayer.get_statistics()
+    local vdp = vlayer_data.properties.production * mega
+    local gdm = get_production_multiplier()
+
     return {
         total_surface_area = vlayer_data.properties.total_surface_area,
         used_surface_area = vlayer_data.properties.used_surface_area,
-        energy_production = vlayer_data.properties.production * mega * get_production_multiplier(),
-        energy_sustained = vlayer_data.properties.production * mega * get_sustained_multiplier(),
+        remaining_surface_area = get_actual_land_defecit(),
+        production_multiplier = gdm,
+        energy_max = vdp,
+        energy_production = vdp * gdm,
+        energy_sustained = vdp * get_sustained_multiplier(),
         energy_capacity = vlayer_data.properties.capacity * mega,
         energy_storage = vlayer_data.storage.energy,
-        day = math.floor(game.tick / vlayer_data.surface.ticks_per_day),
-        time = math.floor(vlayer_data.surface.daytime * vlayer_data.surface.ticks_per_day)
+        day_time = math.floor(vlayer_data.surface.daytime * vlayer_data.surface.ticks_per_day),
+        day_length = vlayer_data.surface.ticks_per_day,
+        tick = game.tick
     }
 end
 
 --- Circuit signals used for the statistics
-local circuit_signals = {
-    total_surface_area = 'signal-A',
-    used_surface_area = 'signal-B',
-    energy_production = 'signal-P',
-    energy_sustained = 'signal-S',
-    energy_capacity = 'signal-C',
-    energy_storage = 'signal-E',
-    day = 'signal-D',
-    time = 'signal-T',
-}
+function vlayer.get_circuits()
+    return {
+        total_surface_area = 'signal-A',
+        used_surface_area = 'signal-U',
+        remaining_surface_area = 'signal-R',
+        production_multiplier = 'signal-M',
+        energy_production = 'signal-P',
+        energy_sustained = 'signal-S',
+        energy_capacity = 'signal-C',
+        energy_storage = 'signal-E',
+        day_time = 'signal-D',
+        day_length = 'signal-L',
+        tick = 'signal-T',
+    }
+end
 
 --- Create a new circuit interface
 -- @tparam LuaSurface surface The surface to place the interface onto
@@ -434,6 +509,7 @@ function vlayer.create_circuit_interface(surface, position, last_user)
     interface.destructible = false
     interface.minable = false
     interface.operable = true
+
     return interface
 end
 
@@ -454,6 +530,9 @@ local function handle_circuit_interfaces()
             for stat_name, signal_name in pairs(circuit_signals) do
                 if stat_name:find('energy') then
                     circuit_oc.set_signal(signal_index, {signal={type='virtual', name=signal_name}, count=math.floor(stats[stat_name] / mega)})
+
+                elseif stat_name == 'production_multiplier' then
+                    circuit_oc.set_signal(signal_index, {signal={type='virtual', name=signal_name}, count=math.floor(stats[stat_name] * 10000)})
 
                 else
                     circuit_oc.set_signal(signal_index, {signal={type='virtual', name=signal_name}, count=math.floor(stats[stat_name])})
@@ -518,6 +597,7 @@ function vlayer.create_energy_interface(surface, position, last_user)
     interface.power_production = 0
     interface.power_usage = 0
     interface.energy = 0
+
     return interface
 end
 
@@ -544,7 +624,7 @@ local function handle_energy_interfaces()
         local discharge_rate = 2 * (production + vlayer_data.properties.discharge * mega) / #vlayer_data.entity_interfaces.energy
         local fill_to = math.min(discharge_rate, math.floor(available_energy / #vlayer_data.entity_interfaces.energy))
 
-        for index, interface in pairs(vlayer_data.entity_interfaces.energy) do
+        for _, interface in pairs(vlayer_data.entity_interfaces.energy) do
             interface.electric_buffer_size = math.max(discharge_rate, interface.energy) -- prevent energy loss
             local delta = fill_to - interface.energy -- positive means storage to interface
             vlayer_data.storage.energy = vlayer_data.storage.energy - delta
@@ -555,21 +635,33 @@ local function handle_energy_interfaces()
     -- Cap the stored energy to the allowed capacity
     if not config.unlimited_capacity and vlayer_data.storage.energy > vlayer_data.properties.capacity * mega then
         vlayer_data.storage.energy = vlayer_data.properties.capacity * mega
+
+    -- burn the trash to produce power
+    elseif vlayer_data.storage.power_items then
+        for k, v in pairs(vlayer_data.storage.power_items) do
+            local max_burning = (vlayer_data.properties.capacity * mega / 2) - vlayer_data.storage.energy
+
+            if v.count > 0 and max_burning > 0 then
+                local to_burn = math.min(v.count, math.floor(max_burning / v.value))
+
+                vlayer_data.storage.energy = vlayer_data.storage.energy + (to_burn * v.value)
+                vlayer_data.storage.power_items[k].count = vlayer_data.storage.power_items[k].count - to_burn
+            end
+        end
     end
 end
 
---- Remove the closest entity interface to the given position
+--- Remove the entity interface using the given position
 -- @tparam LuaSurface surface The surface to search for an interface on
--- @tparam MapPosition position The position to start the search from
--- @tparam number radius The radius to search for an interface within
+-- @tparam MapPosition position The position of the item
 -- @treturn string The type of interface that was removed, or nil if no interface was found
 -- @treturn MapPosition The position the interface was at, or nil if no interface was found
-function vlayer.remove_closest_interface(surface, position, radius)
+function vlayer.remove_interface(surface, position)
     local entities = surface.find_entities_filtered{
         name = {'logistic-chest-storage', 'logistic-chest-requester', 'constant-combinator', 'electric-energy-interface'},
         force = 'neutral',
         position = position,
-        radius = radius,
+        radius = 2,
         limit = 1
     }
 
@@ -587,23 +679,27 @@ function vlayer.remove_closest_interface(surface, position, radius)
         move_items_stack(interface.get_inventory(defines.inventory.chest).get_contents())
         table.remove_element(vlayer_data.entity_interfaces.storage_input, interface)
         interface.destroy()
-        return 'storage input', pos
+
+        return 'storage-input', pos
 
     elseif name == 'logistic-chest-requester' then
         move_items_stack(interface.get_inventory(defines.inventory.chest).get_contents())
         table.remove_element(vlayer_data.entity_interfaces.storage_output, interface)
         interface.destroy()
-        return 'storage output', pos
+
+        return 'storage-output', pos
 
     elseif name == 'constant-combinator' then
         table.remove_element(vlayer_data.entity_interfaces.circuit, interface)
         interface.destroy()
+
         return 'circuit', pos
 
     elseif name == 'electric-energy-interface' then
         vlayer_data.storage.energy = vlayer_data.storage.energy + interface.energy
         table.remove_element(vlayer_data.entity_interfaces.energy, interface)
         interface.destroy()
+
         return 'energy', pos
     end
 end

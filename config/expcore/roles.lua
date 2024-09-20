@@ -55,7 +55,7 @@ Roles.new_role('Administrator','Admin')
     'command/toggle-cheat-mode',
     'command/research-all',
     'command/connect-all',
-	'command/collectdata'
+    'command/collectdata'
 }
 
 Roles.new_role('Senior Moderator','SMod')
@@ -92,8 +92,12 @@ Roles.new_role('Moderator','Mod')
     'command/clear-reports',
     'command/clear-warnings',
     'command/clear-inventory',
-    'gui/warp-list/bypass-proximity',
-    'gui/warp-list/bypass-cooldown',
+    -- 'command/bonus',
+    'gui/bonus',
+    'command/home',
+    'command/home-set',
+    'command/home-get',
+    'command/return',
     'command/connect-player',
     'command/toggle-friendly-fire',
     'command/toggle-always-day',
@@ -147,6 +151,15 @@ Roles.new_role('Board Member','Board')
 :set_flag('deconlog-bypass')
 :set_parent('Supporter')
 :allow{
+    'gui/rocket-info/toggle-active',
+    'gui/rocket-info/remote_launch',
+    -- 'command/bonus',
+    'gui/bonus',
+    'command/home',
+    'command/home-set',
+    'command/home-get',
+    'command/return',
+    'fast-tree-decon'
 }
 
 Roles.new_role('Supporter','Sup')
@@ -297,7 +310,8 @@ local default = Roles.new_role('Guest','')
     'gui/vlayer',
     'gui/research',
     'gui/autofill',
-    'gui/module'
+    'gui/module',
+    'gui/production'
 }
 
 --- Jail role
