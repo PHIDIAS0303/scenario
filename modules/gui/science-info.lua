@@ -367,7 +367,6 @@ Event.on_nth_tick(60, function()
         else
             -- Data found in chache is no need to generate it
             update_eta_label(eta_label, eta_data)
-
         end
 
     end
