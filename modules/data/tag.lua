@@ -49,7 +49,7 @@ end)
 --- Sets your player tag.
 -- @command tag
 -- @tparam string tag the tag that will be after the name, there is a max length
-Commands.new_command('tag', 'Sets your player tag.')
+Commands.new_command('tag', {'expcom-tag.description'}, 'Sets your player tag.')
 :add_param('tag', false, 'string-max-length', 20)
 :enable_auto_concat()
 :register(function(player, tag)
@@ -69,7 +69,7 @@ end)
 --- Clears your tag. Or another player if you are admin.
 -- @command tag-clear
 -- @tparam[opt=self] LuaPlayer player the player to remove the tag from, nil will apply to self
-Commands.new_command('tag-clear', 'Clears your tag. Or another player if you are admin.')
+Commands.new_command('tag-clear', {'expcom-tag.description-clear'}, 'Clears your tag. Or another player if you are admin.')
 :add_param('player', true, 'player-role')
 :set_defaults{player=function(player)
     return player -- default is the user using the command
