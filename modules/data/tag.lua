@@ -78,9 +78,11 @@ end}
     if action_player.index == player.index then
         -- no player given so removes your tag
         PlayerTags:remove(action_player)
+
     elseif Roles.player_allowed(player, 'command/clear-tag/always') then
         -- player given and user is admin so clears that player's tag
         PlayerTags:remove(action_player)
+
     else
         -- user is not admin and tried to clear another users tag
         return Commands.error{'expcore-commands.unauthorized'}
