@@ -73,7 +73,7 @@ function pl.pl(type, target, amount)
     end
 end
 
-Commands.new_command('personal-logistic', 'Set Personal Logistic (-1 to cancel all) (Select spidertron to edit spidertron)')
+Commands.new_command('personal-logistic', {'expcom-personal-logistics'}, 'Set Personal Logistic (-1 to cancel all) (Select spidertron to edit spidertron)')
 :add_param('amount', 'integer-range', -1, 10)
 :add_alias('pl')
 :register(function(player, amount)
