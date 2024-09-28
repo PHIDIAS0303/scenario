@@ -94,14 +94,13 @@ return {
         -- ['stone-furnace']=cutoff_time(20 * minutes, 8, 0),
         ['submachine-gun']=1,
         ['piercing-rounds-magazine']=20,
-        --[[
         ['construction-robot']=10,
         ['modular-armor']=1,
         ['solar-panel-equipment'] = 16,
         ['belt-immunity-equipment'] = 1,
         ['battery-equipment'] = 2,
         ['personal-roboport-equipment'] = 1
-        ]]
+        --[[
         ['construction-robot']=50,
         ['spidertron']=1,
         ['spidertron-remote']=1,
@@ -110,5 +109,6 @@ return {
         ['belt-immunity-equipment'] = 1,
         ['battery-equipment'] = 6,
         ['personal-roboport-equipment'] = 5
+        ]]
     }
 }
