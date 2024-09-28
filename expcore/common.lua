@@ -631,14 +631,15 @@ function Common.move_items_stack(items, surface, position, radius, chest_type)
 	local current = 0
     local last_entity = nil
 
+    -- ipairs does not work on LuaInventory
     for i = 1, #items do
         local item = items[i]
         if item.valid_for_read then
             local inserted = false
 
             -- Attempt to insert the items
-            for i = 1, count do
-                local entity = entities[((current + i - 1) % count) + 1]
+            for j = 1, count do
+                local entity = entities[((current + j - 1) % count) + 1]
 
                 if entity.can_insert(item) then
                     last_entity = entity
