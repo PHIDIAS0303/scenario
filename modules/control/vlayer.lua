@@ -489,6 +489,7 @@ end
 function vlayer.get_statistics()
     local vdp = vlayer_data.properties.production * mega
     local gdm = get_production_multiplier()
+    local gsm = get_sustained_multiplier()
 
     return {
         total_surface_area = vlayer_data.properties.total_surface_area,
@@ -497,8 +498,8 @@ function vlayer.get_statistics()
         production_multiplier = gdm,
         energy_max = vdp,
         energy_production = vdp * gdm,
-        energy_total_production = vlayer_data.properties.total_production * mega,
-        energy_sustained = vdp * get_sustained_multiplier(),
+        energy_total_production = vlayer_data.properties.total_production * gsm * mega,
+        energy_sustained = vdp * gsm,
         energy_capacity = vlayer_data.properties.capacity * mega,
         energy_storage = vlayer_data.storage.energy,
         day_time = math.floor(vlayer_data.surface.daytime * vlayer_data.surface.ticks_per_day),
