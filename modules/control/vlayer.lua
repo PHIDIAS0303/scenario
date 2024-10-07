@@ -22,6 +22,7 @@ local vlayer_data = {
     properties = {
         total_surface_area = 0,
         used_surface_area = 0,
+        total_production = 0,
         production = 0,
         discharge = 0,
         capacity = 0
@@ -217,7 +218,9 @@ function vlayer.allocate_item(item_name, count)
     assert(item_properties, 'Item not allowed in vlayer: ' .. tostring(item_name))
 
     if item_properties.production then
-        vlayer_data.properties.production = vlayer_data.properties.production + item_properties.production * count
+        local nc = item_properties.production * count
+        vlayer_data.properties.production = vlayer_data.properties.production + nc
+        vlayer_data.properties.total_production = vlayer_data.properties.total_production + nc
     end
 
     if item_properties.capacity then
@@ -234,6 +237,14 @@ function vlayer.allocate_item(item_name, count)
 
     if item_properties.required_area and item_properties.required_area > 0 then
         vlayer_data.properties.used_surface_area = vlayer_data.properties.used_surface_area + item_properties.required_area * count
+    end
+end
+
+function vlayer.unable_alloc_item_pwr_calc(item_name, count)
+    local item_properties = config.allowed_items[item_name]
+
+    if item_properties.production then
+        vlayer_data.properties.total_production = vlayer_data.properties.total_production + item_properties.production * count
     end
 end
 
@@ -265,7 +276,9 @@ function vlayer.insert_item(item_name, count)
             vlayer.allocate_item(item_name, allocate_count)
         end
 
+        local nc = count - allocate_count
         vlayer_data.storage.unallocated[item_name] = vlayer_data.storage.unallocated[item_name] + count - allocate_count
+        vlayer.unable_alloc_item_pwr_calc(item_name, nc)
 
     else
         vlayer.allocate_item(item_name, count)
@@ -289,6 +302,7 @@ function vlayer.remove_item(item_name, count)
         if remove_unallocated > 0 then
             vlayer_data.storage.items[item_name] = vlayer_data.storage.items[item_name] - count
             vlayer_data.storage.unallocated[item_name] = vlayer_data.storage.unallocated[item_name] - count
+            vlayer.unable_alloc_item_pwr_calc(item_name, -count)
         end
 
         -- Check if any more items need to be removed
@@ -483,6 +497,7 @@ function vlayer.get_statistics()
         production_multiplier = gdm,
         energy_max = vdp,
         energy_production = vdp * gdm,
+        energy_total_production = vlayer_data.properties.total_production * mega,
         energy_sustained = vdp * get_sustained_multiplier(),
         energy_capacity = vlayer_data.properties.capacity * mega,
         energy_storage = vlayer_data.storage.energy,
