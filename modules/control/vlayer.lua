@@ -481,6 +481,7 @@ local function handle_unallocated()
         if allocation_count > 0 then
             vlayer_data.storage.unallocated[item_name] = vlayer_data.storage.unallocated[item_name] - allocation_count
             vlayer.allocate_item(item_name, allocation_count)
+            vlayer.unable_alloc_item_pwr_calc(item_name, -allocation_count)
         end
     end
 end
