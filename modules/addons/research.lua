@@ -8,7 +8,9 @@ Global.register(research, function(tbl)
     research = tbl
 end)
 
-local function res_queue(force, by_script)
+local r = {}
+
+function r.res_queue(force, by_script)
     local res_q = force.research_queue
     local res = force.technologies['mining-productivity-4']
 
@@ -39,7 +41,9 @@ end)
 Event.add(defines.events.on_research_finished, function(event)
     if research.res_queue_enable then
         if event.research.force.rockets_launched > 0 and event.research.force.technologies['mining-productivity-4'].level > 4 then
-            res_queue(event.research.force, event.by_script)
+            r.res_queue(event.research.force, event.by_script)
         end
     end
 end)
+
+return r

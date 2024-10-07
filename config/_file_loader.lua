@@ -37,7 +37,6 @@ return {
     'modules.commands.speed',
     'modules.commands.pollution',
     'modules.commands.friendly-fire',
-    'modules.commands.research',
     'modules.commands.enemy',
     'modules.commands.surface-clearing',
     'modules.commands.vlayer',
@@ -70,6 +69,7 @@ return {
     'modules.addons.artillery',
     'modules.addons.train',
     'modules.addons.home',
+    'modules.addons.research',
 
     -- Control
     'modules.control.vlayer',

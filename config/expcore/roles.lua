@@ -210,6 +210,8 @@ Roles.new_role('Member','Mem')
     'command/home-get',
     'command/return',
     'gui/tool/home',
+    'command/auto-research',
+    'gui/tool/auto-research',
     'fast-tree-decon'
 }
 
@@ -227,7 +229,6 @@ Roles.new_role('Veteran','Vet')
     'gui/tool/waterfill',
     'command/artillery-target-remote',
     'command/waterfill',
-    'command/auto-research',
     'command/save-quickbar',
     'gui/surveillance'
 }

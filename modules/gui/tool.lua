@@ -4,16 +4,23 @@
 ]]
 
 local Gui = require 'expcore.gui' --- @dep expcore.gui
+local Global = require 'utils.global' --- @dep utils.global
 local Roles = require 'expcore.roles' --- @dep expcore.roles
 local Event = require 'utils.event' --- @dep utils.event
 local Selection = require 'modules.control.selection' --- @dep modules.control.selection
 local addon_train = require 'modules.addons.train'
+local addon_research = require 'modules.addons.research'
 local addon_home = require 'modules.addons.home'
 
 local tool_container
 
 local SelectionArtyArea = 'ArtyArea'
 local SelectionWaterfillArea = 'WaterfillArea'
+
+local research = {}
+Global.register(research, function(tbl)
+    research = tbl
+end)
 
 --- Arty label
 -- @element tool_gui_arty_l
@@ -108,6 +115,38 @@ Gui.element{
     width = 80
 }:on_click(function(player, _, _)
     addon_train.manual(player)
+end)
+
+--- Research label
+-- @element tool_gui_train_l
+local tool_gui_research_l =
+Gui.element{
+    type = 'label',
+    name = 'tool_research_l',
+    caption = {'tool.research'},
+    tooltip = {'tool.research-tooltip'},
+    style = 'heading_2_label'
+}:style{
+    width = 160
+}
+
+--- Research button
+-- @element tool_gui_train_b
+local tool_gui_research_b =
+Gui.element{
+    type = 'button',
+    name = 'tool_research_b',
+    caption = {'tool.apply'}
+}:style{
+    width = 80
+}:on_click(function(player, _, _)
+    research.res_queue_enable = not research.res_queue_enable
+
+    if research.res_queue_enable then
+        addon_research.res_queue(player.force, true)
+    end
+
+    game.print{'expcom-res.res', player.name, research.res_queue_enable}
 end)
 
 --- Home home label
@@ -245,6 +284,15 @@ local function tool_perm(player)
         disp[tool_gui_train_b.name].visible = false
     end
 
+    if Roles.player_allowed(player, 'gui/tool/auto-research') then
+        disp[tool_gui_research_l.name].visible = true
+        disp[tool_gui_research_b.name].visible = true
+
+    else
+        disp[tool_gui_research_l.name].visible = false
+        disp[tool_gui_research_b.name].visible = false
+    end
+
     if Roles.player_allowed(player, 'gui/tool/home') then
         disp[tool_gui_home_home_h.name].visible = true
         disp[tool_gui_home_home_b.name].visible = true
@@ -280,6 +328,8 @@ Gui.element(function(_, parent, name)
     tool_gui_waterfill_b(disp)
     tool_gui_train_l(disp)
     tool_gui_train_b(disp)
+    tool_gui_research_l(disp)
+    tool_gui_research_b(disp)
     tool_gui_home_home_h(disp)
     tool_gui_home_home_b(disp)
     tool_gui_home_home_set_h(disp)
