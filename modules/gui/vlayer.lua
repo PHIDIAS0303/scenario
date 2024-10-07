@@ -502,7 +502,7 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
         },
         [vlayer_gui_display_signal_sustained_count.name] = {
             val = (stats.energy_sustained / math.max(stats.energy_total_production, 1)),
-            cap = format_energy(stats.energy_production, 'W') .. ' / ' .. format_energy(stats.energy_total_production, 'W')
+            cap = format_energy(stats.energy_sustained, 'W') .. ' / ' .. format_energy(stats.energy_total_production, 'W')
         },
         [vlayer_gui_display_signal_production_count.name] = {
             val = (stats.energy_production / math.max(stats.energy_max, 1)),
