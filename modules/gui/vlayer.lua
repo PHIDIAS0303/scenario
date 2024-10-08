@@ -181,29 +181,29 @@ Gui.element{
     font = 'heading-2'
 }
 
---- Display label for the remaining surface area
--- @element vlayer_gui_display_signal_remaining_surface_area_name
-local vlayer_gui_display_signal_remaining_surface_area_name =
+--- Display label for the surface area
+-- @element vlayer_gui_display_signal_surface_area_name
+local vlayer_gui_display_signal_surface_area_name =
 Gui.element{
     type = 'label',
-    name = 'vlayer_display_signal_remaining_surface_area_name',
-    caption = {'vlayer.display-remaining-surface-area'},
-    tooltip = {'vlayer.display-remaining-surface-area-tooltip'},
+    name = 'vlayer_display_signal_surface_area_name',
+    caption = {'vlayer.display-surface-area'},
+    tooltip = {'vlayer.display-surface-area-tooltip'},
     style = 'heading_2_label'
 }:style{
     width = 200
 }
 
-local vlayer_gui_display_signal_remaining_surface_area_count =
+local vlayer_gui_display_signal_surface_area_count =
 Gui.element{
-    type = 'label',
-    name = 'vlayer_display_signal_remaining_surface_area_count',
-    caption = '0',
-    style = 'heading_2_label'
+    type = 'progressbar',
+    name = 'vlayer_display_signal_surface_area_count',
+    caption = '',
+    value = 0,
+    style = 'electric_satisfaction_statistics_progressbar'
 }:style{
     width = 200,
-    height = 28,
-    horizontal_align = 'right'
+    font = 'heading-2'
 }
 
 --- Display label for the sustained energy production
@@ -292,8 +292,8 @@ Gui.element(function(_, parent, name)
     vlayer_gui_display_item_solar_count(disp)
     vlayer_gui_display_item_accumulator_name(disp)
     vlayer_gui_display_item_accumulator_count(disp)
-    vlayer_gui_display_signal_remaining_surface_area_name(disp)
-    vlayer_gui_display_signal_remaining_surface_area_count(disp)
+    vlayer_gui_display_signal_surface_area_name(disp)
+    vlayer_gui_display_signal_surface_area_count(disp)
     vlayer_gui_display_signal_sustained_name(disp)
     vlayer_gui_display_signal_sustained_count(disp)
     vlayer_gui_display_signal_production_name(disp)
@@ -497,8 +497,9 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
             val = (items_alloc['accumulator'] / math.max(items['accumulator'], 1)),
             cap = format_number(items_alloc['accumulator']) .. ' / ' .. format_number(items['accumulator'])
         },
-        [vlayer_gui_display_signal_remaining_surface_area_count.name] = {
-            cap = format_number(stats.remaining_surface_area)
+        [vlayer_gui_display_signal_surface_area_count.name] = {
+            val = (stats.used_surface_area / math.max(stats.total_surface_area, 1)),
+            cap = format_number(stats.used_surface_area) .. ' / ' .. format_number(stats.total_surface_area)
         },
         [vlayer_gui_display_signal_sustained_count.name] = {
             val = (stats.energy_sustained / math.max(stats.energy_total_production, 1)),
