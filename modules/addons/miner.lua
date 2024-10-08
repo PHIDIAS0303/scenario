@@ -176,24 +176,19 @@ local function miner_check(entity)
 end
 
 Event.add(defines.events.on_resource_depleted, function(event)
-    if event.entity.prototype.infinite_resource then
+    local en = event.entity
+
+    if en.prototype.infinite_resource then
         return
     end
 
-    local p = event.entity.position
+    local p = en.position
     local r = 2
-    local es = event.entity.surface.find_entities_filtered{area={{p.x - r, p.y - r}, {p.x + r, p.y + r}}, type='mining-drill'}
 
-    if #es == 0 then
-        return
-    end
-
-    for _, e in pairs(es) do
-        r = e.prototype.mining_drill_radius
-
-        if ((math.abs(e.position.x - p.x) < r) and (math.abs(e.position.y - p.y) < r)) then
-            miner_check(e)
-        end
+    for _, e in pairs(en.surface.find_entities_filtered{area={{p.x - r, p.y - r}, {p.x + r, p.y + r}}, type='mining-drill'}) do
+        -- r = e.prototype.mining_drill_radius
+        -- if ((math.abs(e.position.x - p.x) < r) and (math.abs(e.position.y - p.y) < r)) then
+        miner_check(e)
     end
 end)
 
