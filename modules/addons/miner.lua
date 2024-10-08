@@ -94,7 +94,7 @@ local function beacon_check(entity)
             end
 
             if bb then
-                table.insert(miner_data.queue, {t=game.tick + 60, e=b})
+                table.insert(miner_data.queue, {t=game.tick + 60, e=e})
             end
         end
     end
