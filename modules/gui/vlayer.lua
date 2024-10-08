@@ -499,7 +499,7 @@ Event.on_nth_tick(config.update_tick_gui, function(_)
         },
         [vlayer_gui_display_signal_surface_area_count.name] = {
             val = (stats.total_surface_area / math.max(stats.surface_area, 1)),
-            cap = format_number(stats.total_surface_area) .. ' / ' .. format_number(stats.surface_area)
+            cap = format_number(stats.remaining_surface_area)
         },
         [vlayer_gui_display_signal_sustained_count.name] = {
             val = (stats.energy_sustained / math.max(stats.energy_total_production, 1)),
