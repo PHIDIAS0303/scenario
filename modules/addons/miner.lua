@@ -80,6 +80,28 @@ local function chest_check(entity)
     end
 end
 
+local function beacon_check(entity)
+    local b = entity.get_beacons()
+
+    if b == nil then
+        return
+    end
+
+    for _, e in pairs(b) do
+        if check_entity(e) then
+            break
+        else
+            for _, r in pairs(e.get_beacon_effect_receivers()) do
+                if e ~= entity and not check_entity(r) then
+                    break
+                else
+                    table.insert(miner_data.queue, {t=game.tick + 60, e=b})
+                end
+            end
+        end
+    end
+end
+
 local function miner_check(entity)
     local ep = entity.position
     local es = entity.surface
@@ -136,6 +158,10 @@ local function miner_check(entity)
 
     if config.chest then
         chest_check(entity)
+    end
+
+    if config.beacon then
+        beacon_check(entity)
     end
 
     table.insert(miner_data.queue, {t=game.tick + 30, e=entity})
