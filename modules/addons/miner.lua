@@ -76,7 +76,7 @@ local function chest_check(entity)
     end
 
     if check_entity(target) then
-        table.insert(miner_data.queue, {t=game.tick + 10, e=target})
+        table.insert(miner_data.queue, {t=game.tick + 60, e=target})
     end
 end
 
@@ -138,7 +138,7 @@ local function miner_check(entity)
         chest_check(entity)
     end
 
-    table.insert(miner_data.queue, {t=game.tick + 5, e=entity})
+    table.insert(miner_data.queue, {t=game.tick + 30, e=entity})
 
     for _, pos in ipairs(pipe_build) do
         es.create_entity{name='entity-ghost', position={x=ep.x + pos.x, y=ep.y + pos.y}, force=ef, inner_name='pipe', raise_built=true}
@@ -163,7 +163,7 @@ Event.add(defines.events.on_resource_depleted, function(event)
     end
 end)
 
-Event.on_nth_tick(10, function(event)
+Event.on_nth_tick(60, function(event)
     for k, q in pairs(miner_data.queue) do
         if not q.e or not q.e.valid then
             table.remove(miner_data.queue, k)
