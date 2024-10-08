@@ -150,6 +150,36 @@ Gui.element{
     game.print{'expcom-res.res', player.name, research.res_queue_enable}
 end)
 
+--- Spawn label
+-- @element tool_gui_spawn_l
+local tool_gui_spawn_l =
+Gui.element{
+    type = 'label',
+    name = 'tool_spawn_l',
+    caption = {'tool.spawn'},
+    tooltip = {'tool.spawn-tooltip'},
+    style = 'heading_2_label'
+}:style{
+    width = 160
+}
+
+--- Spawn button
+-- @element tool_gui_spawn_b
+local tool_gui_spawn_b =
+Gui.element{
+    type = 'button',
+    name = 'tool_spawn_b',
+    caption = {'tool.apply'}
+}:style{
+    width = 80
+}:on_click(function(player, _, _)
+    if player.connected and player.character and player.character.health > 0 then
+        if not addon_spawn.teleport(player) then
+            return player.print{'expcom-spawn.unavailable'}
+        end
+    end
+end)
+
 --- Home home label
 -- @element tool_gui_home_home_h
 local tool_gui_home_home_h =
@@ -254,32 +284,6 @@ Gui.element{
     addon_home.home_return(player)
 end)
 
---- Spawn label
--- @element tool_gui_spawn_l
-local tool_gui_spawn_l =
-Gui.element{
-    type = 'label',
-    name = 'tool_spawn_l',
-    caption = {'tool.spawn'},
-    tooltip = {'tool.spawn-tooltip'},
-    style = 'heading_2_label'
-}:style{
-    width = 160
-}
-
---- Train button
--- @element tool_gui_spawn_b
-local tool_gui_spawn_b =
-Gui.element{
-    type = 'button',
-    name = 'tool_spawn_b',
-    caption = {'tool.apply'}
-}:style{
-    width = 80
-}:on_click(function(player, _, _)
-    addon_spawn.teleport(player)
-end)
-
 local function tool_perm(player)
     local frame = Gui.get_left_element(player, tool_container)
     local disp = frame.container['tool_st'].disp.table
@@ -320,6 +324,15 @@ local function tool_perm(player)
         disp[tool_gui_research_b.name].visible = false
     end
 
+    if Roles.player_allowed(player, 'command/go-to-spawn') then
+        disp[tool_gui_spawn_l.name].visible = true
+        disp[tool_gui_spawn_b.name].visible = true
+
+    else
+        disp[tool_gui_spawn_l.name].visible = false
+        disp[tool_gui_spawn_b.name].visible = false
+    end
+
     if Roles.player_allowed(player, 'command/home') then
         disp[tool_gui_home_home_h.name].visible = true
         disp[tool_gui_home_home_b.name].visible = true
@@ -339,15 +352,6 @@ local function tool_perm(player)
         disp[tool_gui_home_home_get_b.name].visible = false
         disp[tool_gui_home_return_h.name].visible = false
         disp[tool_gui_home_return_b.name].visible = false
-    end
-
-    if Roles.player_allowed(player, 'command/go-to-spawn') then
-        disp[tool_gui_spawn_l.name].visible = true
-        disp[tool_gui_spawn_b.name].visible = true
-
-    else
-        disp[tool_gui_spawn_l.name].visible = false
-        disp[tool_gui_spawn_b.name].visible = false
     end
 end
 
@@ -370,6 +374,9 @@ Gui.element(function(_, parent, name)
     tool_gui_research_l(disp)
     tool_gui_research_b(disp)
 
+    tool_gui_spawn_l(disp)
+    tool_gui_spawn_b(disp)
+
     tool_gui_home_home_h(disp)
     tool_gui_home_home_b(disp)
     tool_gui_home_home_set_h(disp)
@@ -378,9 +385,6 @@ Gui.element(function(_, parent, name)
     tool_gui_home_home_get_b(disp)
     tool_gui_home_return_h(disp)
     tool_gui_home_return_b(disp)
-
-    tool_gui_spawn_l(disp)
-    tool_gui_spawn_b(disp)
 
     return tool_set
 end)
