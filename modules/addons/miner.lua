@@ -186,9 +186,11 @@ Event.add(defines.events.on_resource_depleted, function(event)
     local r = 2
 
     for _, e in pairs(en.surface.find_entities_filtered{area={{p.x - r, p.y - r}, {p.x + r, p.y + r}}, type='mining-drill'}) do
-        -- r = e.prototype.mining_drill_radius
-        -- if ((math.abs(e.position.x - p.x) < r) and (math.abs(e.position.y - p.y) < r)) then
-        miner_check(e)
+        r = e.prototype.mining_drill_radius
+
+        if ((math.abs(e.position.x - p.x) < r) and (math.abs(e.position.y - p.y) < r)) then
+            miner_check(e)
+        end
     end
 end)
 
