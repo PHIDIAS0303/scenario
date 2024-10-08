@@ -118,7 +118,7 @@ Gui.element{
 end)
 
 --- Research label
--- @element tool_gui_train_l
+-- @element tool_gui_research_l
 local tool_gui_research_l =
 Gui.element{
     type = 'label',
@@ -131,7 +131,7 @@ Gui.element{
 }
 
 --- Research button
--- @element tool_gui_train_b
+-- @element tool_gui_research_b
 local tool_gui_research_b =
 Gui.element{
     type = 'button',

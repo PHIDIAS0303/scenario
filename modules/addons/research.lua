@@ -31,7 +31,7 @@ Commands.new_command('auto-research', {'expcom-res.description-ares'}, 'Automati
     research.res_queue_enable = not research.res_queue_enable
 
     if research.res_queue_enable then
-        res_queue(player.force, true)
+        r.res_queue(player.force, true)
     end
 
     game.print{'expcom-res.res', player.name, research.res_queue_enable}
