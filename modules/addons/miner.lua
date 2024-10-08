@@ -23,28 +23,28 @@ local function drop_target(entity)
     end
 end
 
-local function check_entity(entity)
-    if entity.to_be_deconstructed(entity.force) then
+local function check_entity(e)
+    if e.to_be_deconstructed(e.force) then
         -- if it is already waiting to be deconstruct
         return true
     end
 
-    if next(entity.circuit_connected_entities.red) ~= nil or next(entity.circuit_connected_entities.green) ~= nil then
+    if next(e.circuit_connected_entities.red) ~= nil or next(e.circuit_connected_entities.green) ~= nil then
         -- connected to circuit network
         return true
     end
 
-    if not entity.minable then
+    if not e.minable then
         -- if it is minable
         return true
     end
 
-    if not entity.prototype.selectable_in_game then
+    if not e.prototype.selectable_in_game then
         -- if it can select
         return true
     end
 
-    if entity.has_flag('not-deconstructable') then
+    if e.has_flag('not-deconstructable') then
         -- if it can deconstruct
         return true
     end
@@ -52,31 +52,26 @@ local function check_entity(entity)
     return false
 end
 
-local function chest_check(entity)
-    local target = drop_target(entity)
+local function chest_check(e)
+    local t = drop_target(e)
 
-    if check_entity(entity) then
-        return
-    end
-
-    if target.type ~= 'logistic-container' and target.type ~= 'container' then
+    if t.type ~= 'logistic-container' and t.type ~= 'container' then
         -- not a chest
-        return
+        return false
     end
 
-    local radius = 2
-    local entities = target.surface.find_entities_filtered{area={{target.position.x - radius, target.position.y - radius}, {target.position.x + radius, target.position.y + radius}}, type={'mining-drill', 'inserter'}}
+    local r = 2
 
-    for _, e in pairs(entities) do
-        if drop_target(e) == target then
-            if not e.to_be_deconstructed(entity.force) and e ~= entity then
-                return
+    for _, en in pairs(t.surface.find_entities_filtered{area={{t.position.x - r, t.position.y - r}, {t.position.x + r, t.position.y + r}}, type={'mining-drill', 'inserter'}}) do
+        if drop_target(en) == t then
+            if not en.to_be_deconstructed(e.force) and en ~= e then
+                return false
             end
         end
     end
 
-    if check_entity(target) then
-        table.insert(miner_data.queue, {t=game.tick + 60, e=target})
+    if check_entity(t) then
+        table.insert(miner_data.queue, {t=game.tick + 60, e=t})
     end
 end
 
@@ -84,19 +79,22 @@ local function beacon_check(entity)
     local b = entity.get_beacons()
 
     if b == nil then
-        return
+        return false
     end
 
     for _, e in pairs(b) do
-        if check_entity(e) then
-            break
-        else
+        if not check_entity(e) then
+            local bb = false
+
             for _, r in pairs(e.get_beacon_effect_receivers()) do
                 if e ~= entity and not check_entity(r) then
+                    bb = true
                     break
-                else
-                    table.insert(miner_data.queue, {t=game.tick + 60, e=b})
                 end
+            end
+
+            if bb then
+                table.insert(miner_data.queue, {t=game.tick + 60, e=b})
             end
         end
     end
@@ -109,17 +107,17 @@ local function miner_check(entity)
     local er = entity.prototype.mining_drill_radius
 
     if entity.mining_target and entity.mining_target.valid and entity.mining_target.amount and entity.mining_target.amount > 0 then
-        return
+        return false
     end
 
     for _, r in pairs(entity.surface.find_entities_filtered{area={{x=ep.x - er, y=ep.y - er}, {x=ep.x + er, y=ep.y + er}}, type='resource'}) do
         if r.amount > 0 then
-            return
+            return false
         end
     end
 
     if check_entity(entity) then
-        return
+        return false
     end
 
     local pipe_build = {}
@@ -167,6 +165,8 @@ local function miner_check(entity)
     if config.beacon then
         beacon_check(entity)
     end
+
+    game.print(6)
 
     table.insert(miner_data.queue, {t=game.tick + 30, e=entity})
 
