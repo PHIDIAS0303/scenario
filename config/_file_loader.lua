@@ -25,7 +25,6 @@ return {
     'modules.commands.jail',
     'modules.commands.repair',
     'modules.commands.reports',
-    'modules.commands.spawn',
     'modules.commands.warnings',
     'modules.commands.find',
     'modules.commands.connect',
@@ -70,6 +69,7 @@ return {
     'modules.addons.train',
     'modules.addons.home',
     'modules.addons.research',
+    'modules.addons.spawn',
 
     -- Control
     'modules.control.vlayer',
