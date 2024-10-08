@@ -108,7 +108,6 @@ local function miner_check(entity)
     local ef = entity.force
     local er = entity.prototype.mining_drill_radius
 
-    -- should filter pumpjacks
     if entity.mining_target and entity.mining_target.valid and entity.mining_target.amount and entity.mining_target.amount > 0 then
         return
     end
@@ -130,7 +129,7 @@ local function miner_check(entity)
         table.insert(pipe_build, {x=0, y=0})
 
         local half = math.floor(entity.get_radius())
-        local r = 1 + er
+        local r = 0.99 + er
 
         local entities = es.find_entities_filtered{area={{ep.x - r, ep.y - r}, {ep.x + r, ep.y + r}}, type={'mining-drill', 'pipe', 'pipe-to-ground'}}
         local entities_t = es.find_entities_filtered{area={{ep.x - r, ep.y - r}, {ep.x + r, ep.y + r}}, ghost_type={'pipe', 'pipe-to-ground'}}
@@ -181,15 +180,19 @@ Event.add(defines.events.on_resource_depleted, function(event)
         return
     end
 
-    local entities = event.entity.surface.find_entities_filtered{area={{event.entity.position.x - 1, event.entity.position.y - 1}, {event.entity.position.x + 1, event.entity.position.y + 1}}, type='mining-drill'}
+    local p = event.entity.position
+    local r = 2
+    local es = event.entity.surface.find_entities_filtered{area={{p.x - r, p.y - r}, {p.x + r, p.y + r}}, type='mining-drill'}
 
-    if #entities == 0 then
+    if #es == 0 then
         return
     end
 
-    for _, entity in pairs(entities) do
-        if ((math.abs(entity.position.x - event.entity.position.x) < entity.prototype.mining_drill_radius) and (math.abs(entity.position.y - event.entity.position.y) < entity.prototype.mining_drill_radius)) then
-            miner_check(entity)
+    for _, e in pairs(es) do
+        r = e.prototype.mining_drill_radius
+
+        if ((math.abs(e.position.x - p.x) < r) and (math.abs(e.position.y - p.y) < r)) then
+            miner_check(e)
         end
     end
 end)
