@@ -491,11 +491,13 @@ function vlayer.get_statistics()
     local vdp = vlayer_data.properties.production * mega
     local gdm = get_production_multiplier()
     local gsm = get_sustained_multiplier()
+    local gald = get_actual_land_defecit()
 
     return {
         total_surface_area = vlayer_data.properties.total_surface_area,
         used_surface_area = vlayer_data.properties.used_surface_area,
-        remaining_surface_area = get_actual_land_defecit(),
+        remaining_surface_area = gald,
+        surface_area = vlayer_data.properties.total_surface_area - gald,
         production_multiplier = gdm,
         energy_max = vdp,
         energy_production = vdp * gdm,
