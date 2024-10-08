@@ -92,10 +92,6 @@ local function miner_check(entity)
         end
     end
 
-    --[[
-        entity.status ~= defines.entity_status.no_minable_resources
-    ]]
-
     if check_entity(entity) then
         return
     end
