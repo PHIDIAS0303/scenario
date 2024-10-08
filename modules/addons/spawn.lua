@@ -6,7 +6,9 @@
 local Commands = require 'expcore.commands' --- @dep expcore.commands
 local Roles = require 'expcore.roles' --- @dep expcore.roles
 
-local function teleport(player)
+local s = {}
+
+function s.teleport(player)
     local surface = player.surface
     local spawn = player.force.get_spawn_position(surface)
     local position = surface.find_non_colliding_position('character', spawn, 32, 1)
@@ -59,12 +61,12 @@ Commands.new_command('go-to-spawn', {'expcom-spawn.description'}, 'Teleport to s
         return Commands.error{'expcom-spawn.unavailable'}
 
     elseif action_player == player then
-        if not teleport(player) then
+        if not s.teleport(player) then
             return Commands.error{'expcom-spawn.unavailable'}
         end
 
     elseif Roles.player_allowed(player, 'command/go-to-spawn/always') then
-        if not teleport(action_player) then
+        if not s.teleport(action_player) then
             return Commands.error{'expcom-spawn.unavailable'}
         end
 
@@ -72,3 +74,5 @@ Commands.new_command('go-to-spawn', {'expcom-spawn.description'}, 'Teleport to s
         return Commands.error{'expcore-commands.unauthorized'}
     end
 end)
+
+return s

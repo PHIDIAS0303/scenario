@@ -196,7 +196,6 @@ Roles.new_role('Member','Mem')
     'gui/rocket-info/toggle-active',
     'gui/rocket-info/remote_launch',
     -- 'command/tag-color',
-    'gui/tool/set-trains-to-automatic',
     'command/set-trains-to-automatic',
     'command/clear-item-on-ground',
     'command/clear-blueprint',
@@ -211,7 +210,6 @@ Roles.new_role('Member','Mem')
     'command/return',
     'gui/tool/home',
     'command/auto-research',
-    'gui/tool/auto-research',
     'fast-tree-decon'
 }
 
@@ -224,9 +222,6 @@ Roles.new_role('Veteran','Vet')
 :allow{
     'gui/warp-list/add',
     'gui/warp-list/edit',
-    'gui/tool',
-    'gui/tool/artillery-target-remote',
-    'gui/tool/waterfill',
     'command/artillery-target-remote',
     'command/waterfill',
     'command/save-quickbar',
@@ -301,7 +296,8 @@ local default = Roles.new_role('Guest','')
     'gui/module',
     'gui/landfill',
     'gui/mining',
-    'gui/production'
+    'gui/production',
+    'gui/tool'
 }
 
 --- Jail role
