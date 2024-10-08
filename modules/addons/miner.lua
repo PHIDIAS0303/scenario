@@ -75,26 +75,26 @@ local function chest_check(e)
     end
 end
 
-local function beacon_check(entity)
-    local b = entity.get_beacons()
+local function beacon_check(e)
+    local bs = e.get_beacons()
 
-    if b == nil then
+    if bs == nil then
         return false
     end
 
-    for _, e in pairs(b) do
-        if not check_entity(e) then
-            local bb = false
+    local bb = false
 
-            for _, r in pairs(e.get_beacon_effect_receivers()) do
-                if e ~= entity and not check_entity(r) then
+    for _, b in pairs(bs) do
+        if not check_entity(b) then
+            for _, r in pairs(b.get_beacon_effect_receivers()) do
+                if b ~= e and (not check_entity(r)) then
                     bb = true
                     break
                 end
             end
 
-            if bb then
-                table.insert(miner_data.queue, {t=game.tick + 60, e=e})
+            if not bb then
+                table.insert(miner_data.queue, {t=game.tick + 60, e=b})
             end
         end
     end
