@@ -60,17 +60,19 @@ local function chest_check(e)
         return
     end
 
+    if not check_entity(e) then
+        return
+    end
+
     local r = 2
 
     for _, en in pairs(t.surface.find_entities_filtered{area={{t.position.x - r, t.position.y - r}, {t.position.x + r, t.position.y + r}}, type={'mining-drill', 'inserter'}}) do
-        if drop_target(en) == t and (not en.to_be_deconstructed(e.force)) and en ~= e then
+        if en ~= e and drop_target(en) == t and (not check_entity(en)) then
             return
         end
     end
 
-    if check_entity(t) then
-        table.insert(miner_data.queue, {t=game.tick + 60, e=t})
-    end
+    table.insert(miner_data.queue, {t=game.tick + 60, e=t})
 end
 
 local function beacon_check(e)
