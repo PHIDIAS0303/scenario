@@ -34,13 +34,13 @@ local function check_entity(e)
         return false
     end
 
-    if not e.minable then
-        -- if it is minable
+    if not e.prototype.selectable_in_game then
+        -- if it can select
         return false
     end
 
-    if not e.prototype.selectable_in_game then
-        -- if it can select
+    if not e.minable then
+        -- if it is minable
         return false
     end
 
@@ -89,7 +89,7 @@ local function beacon_check(e)
             local br = b.get_beacon_effect_receivers()
 
             for _, r in pairs(br) do
-                if r ~= e and check_entity(r) then
+                if r ~= e and (not r.to_be_deconstructed()) then
                     bw = true
                     break
                 end
@@ -110,7 +110,7 @@ local function miner_check(entity)
     end
 
     for _, r in pairs(entity.surface.find_entities_filtered{area=ea, type='resource'}) do
-        if r.amount and r.amount > 0 and entity.prototype.resource_categories[r.prototype.resource_category] then
+        if entity.prototype.resource_categories[r.prototype.resource_category] and r.amount and r.amount > 0 then
             return
         end
     end
