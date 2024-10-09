@@ -26,30 +26,30 @@ end
 local function check_entity(e)
     if e.to_be_deconstructed(e.force) then
         -- if it is already waiting to be deconstruct
-        return true
+        return false
     end
 
     if e.circuit_connected_entities and (next(e.circuit_connected_entities.red) ~= nil or next(e.circuit_connected_entities.green) ~= nil) then
         -- connected to circuit network
-        return true
+        return false
     end
 
     if not e.minable then
         -- if it is minable
-        return true
+        return false
     end
 
     if not e.prototype.selectable_in_game then
         -- if it can select
-        return true
+        return false
     end
 
     if e.has_flag('not-deconstructable') then
         -- if it can deconstruct
-        return true
+        return false
     end
 
-    return false
+    return true
 end
 
 local function chest_check(e)
@@ -68,7 +68,7 @@ local function chest_check(e)
         end
     end
 
-    if not check_entity(t) then
+    if check_entity(t) then
         table.insert(miner_data.queue, {t=game.tick + 60, e=t})
     end
 end
@@ -83,9 +83,9 @@ local function beacon_check(e)
     local bb = false
 
     for _, b in pairs(bs) do
-        if not check_entity(b) then
+        if check_entity(b) then
             for _, r in pairs(b.get_beacon_effect_receivers()) do
-                if b ~= e and (not check_entity(r)) then
+                if b ~= e and (check_entity(r)) then
                     bb = true
                     break
                 end
@@ -111,7 +111,7 @@ local function miner_check(entity)
         end
     end
 
-    if check_entity(entity) then
+    if not check_entity(entity) then
         return
     end
 
@@ -176,7 +176,7 @@ Event.add(defines.events.on_resource_depleted, function(event)
         return
     end
 
-    local r = 2
+    local r = 1
 
     for _, e in pairs(event.entity.surface.find_entities_filtered{area={{event.entity.position.x - r, event.entity.position.y - r}, {event.entity.position.x + r, event.entity.position.y + r}}, type='mining-drill'}) do
         if math.abs(e.position.x - event.entity.position.x) < e.prototype.mining_drill_radius and math.abs(e.position.y - event.entity.position.y) < e.prototype.mining_drill_radius then
