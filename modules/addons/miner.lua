@@ -91,9 +91,7 @@ local function beacon_check(e)
 
     for _, b in pairs(bs) do
         if check_entity(b) then
-            local br = b.get_beacon_effect_receivers()
-
-            for _, r in pairs(br) do
+            for _, r in pairs(b.get_beacon_effect_receivers()) do
                 if r ~= e and (not check_entity(r)) then
                     bw = true
                     break
