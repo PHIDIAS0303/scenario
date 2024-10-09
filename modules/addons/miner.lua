@@ -130,11 +130,10 @@ local function miner_check(entity)
         local r = er + 0.99
         ea = {{x=ep.x - r, y=ep.y - r}, {x=ep.x + r, y=ep.y + r}}
 
-        local entities = es.find_entities_filtered{area=ea, type={'mining-drill', 'pipe', 'pipe-to-ground'}}
-        local entities_t = es.find_entities_filtered{area=ea, ghost_type={'pipe', 'pipe-to-ground'}}
-        table.array_insert(entities, entities_t)
+        local en = es.find_entities_filtered{area=ea, type={'mining-drill', 'pipe', 'pipe-to-ground'}}
+        table.array_insert(en, es.find_entities_filtered{area=ea, ghost_type={'pipe', 'pipe-to-ground'}})
 
-        for _, e in pairs(entities) do
+        for _, e in pairs(en) do
             if (e.position.x > ep.x) and (e.position.y == ep.y) then
                 for h=1, half do
                     table.insert(pipe_build, {x=h, y=0})
@@ -158,7 +157,6 @@ local function miner_check(entity)
         end
     end
 
-    --[[
     if config.chest then
         chest_check(entity)
     end
@@ -166,12 +164,11 @@ local function miner_check(entity)
     if config.beacon then
         beacon_check(entity)
     end
-    ]]
 
     table.insert(miner_data.queue, {t=game.tick + 30, e=entity})
 
-    for _, pos in ipairs(pipe_build) do
-        es.create_entity{name='entity-ghost', position={x=ep.x + pos.x, y=ep.y + pos.y}, force=ef, inner_name='pipe', raise_built=true}
+    for _, e in ipairs(pipe_build) do
+        es.create_entity{name='entity-ghost', position={x=ep.x + e.x, y=ep.y + e.y}, force=ef, inner_name='pipe', raise_built=true}
     end
 end
 
@@ -180,7 +177,7 @@ Event.add(defines.events.on_resource_depleted, function(event)
         return
     end
 
-    local r = 1
+    local r = 2
 
     for _, e in pairs(event.entity.surface.find_entities_filtered{area={{event.entity.position.x - r, event.entity.position.y - r}, {event.entity.position.x + r, event.entity.position.y + r}}, type='mining-drill'}) do
         er = e.prototype.mining_drill_radius
