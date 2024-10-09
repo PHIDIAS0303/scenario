@@ -29,7 +29,7 @@ local function check_entity(e)
         return true
     end
 
-    if next(e.circuit_connected_entities.red) ~= nil or next(e.circuit_connected_entities.green) ~= nil then
+    if e.circuit_connected_entities and (next(e.circuit_connected_entities.red) ~= nil or next(e.circuit_connected_entities.green) ~= nil) then
         -- connected to circuit network
         return true
     end
@@ -68,7 +68,7 @@ local function chest_check(e)
         end
     end
 
-    if check_entity(t) then
+    if not check_entity(t) then
         table.insert(miner_data.queue, {t=game.tick + 60, e=t})
     end
 end
