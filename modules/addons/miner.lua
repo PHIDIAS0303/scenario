@@ -181,12 +181,11 @@ Event.add(defines.events.on_resource_depleted, function(event)
     end
 
     local r = 1
-    local es = event.entity.surface.find_entities_filtered{area={{event.entity.position.x - r, event.entity.position.y - r}, {event.entity.position.x + r, event.entity.position.y + r}}, type='mining-drill'}
 
-    for _, e in pairs(es) do
+    for _, e in pairs(event.entity.surface.find_entities_filtered{area={{event.entity.position.x - r, event.entity.position.y - r}, {event.entity.position.x + r, event.entity.position.y + r}}, type='mining-drill'}) do
         er = e.prototype.mining_drill_radius
 
-        if ((math.abs(e.position.x - event.entity.position.x) <= er) and (math.abs(e.position.y - event.entity.position.y) <= r)) then
+        if ((math.abs(e.position.x - event.entity.position.x) <= er) and (math.abs(e.position.y - event.entity.position.y) <= er)) then
             miner_check(e)
         end
     end
