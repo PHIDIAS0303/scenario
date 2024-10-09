@@ -88,7 +88,7 @@ local function beacon_check(e)
 
             if br then
                 for _, r in pairs(br) do
-                    if b ~= e and (check_entity(r)) then
+                    if b ~= e and check_entity(r) then
                         bb = true
                         break
                     end
