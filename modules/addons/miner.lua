@@ -99,11 +99,7 @@ local function beacon_check(e)
 end
 
 local function miner_check(entity)
-    local ep = entity.position
-    local es = entity.surface
-    local ef = entity.force
-    local er = entity.prototype.mining_drill_radius
-    local ea = {{x=ep.x - er, y=ep.y - er}, {x=ep.x + er, y=ep.y + er}}
+    local ea = {{x=entity.position.x - entity.prototype.mining_drill_radius, y=entity.position.y - entity.prototype.mining_drill_radius}, {x=entity.position.x + entity.prototype.mining_drill_radius, y=entity.position.y + entity.prototype.mining_drill_radius}}
 
     if entity.mining_target and entity.mining_target.valid and entity.mining_target.amount and entity.mining_target.amount > 0 then
         return
@@ -122,34 +118,33 @@ local function miner_check(entity)
     local pipe_build = {}
 
     if config.fluid and entity.fluidbox and #entity.fluidbox > 0 then
-
         -- if require fluid to mine
         table.insert(pipe_build, {x=0, y=0})
 
         local half = math.floor(entity.get_radius())
-        local r = er + 0.99
-        ea = {{x=ep.x - r, y=ep.y - r}, {x=ep.x + r, y=ep.y + r}}
+        local r = entity.prototype.mining_drill_radius + 0.99
+        ea = {{x=entity.position.x - r, y=entity.position.y - r}, {x=entity.position.x + r, y=entity.position.y + r}}
 
-        local en = es.find_entities_filtered{area=ea, type={'mining-drill', 'pipe', 'pipe-to-ground'}}
-        table.array_insert(en, es.find_entities_filtered{area=ea, ghost_type={'pipe', 'pipe-to-ground'}})
+        local en = entity.surface.find_entities_filtered{area=ea, type={'mining-drill', 'pipe', 'pipe-to-ground'}}
+        table.array_insert(en, entity.surface.find_entities_filtered{area=ea, ghost_type={'pipe', 'pipe-to-ground'}})
 
         for _, e in pairs(en) do
-            if (e.position.x > ep.x) and (e.position.y == ep.y) then
+            if (e.position.x > entity.position.x) and (e.position.y == entity.position.y) then
                 for h=1, half do
                     table.insert(pipe_build, {x=h, y=0})
                 end
 
-            elseif (e.position.x < ep.x) and (e.position.y == ep.y) then
+            elseif (e.position.x < entity.position.x) and (e.position.y == entity.position.y) then
                 for h=1, half do
                     table.insert(pipe_build, {x=-h, y=0})
                 end
 
-            elseif (e.position.x == ep.x) and (e.position.y > ep.y) then
+            elseif (e.position.x == entity.position.x) and (e.position.y > entity.position.y) then
                 for h=1, half do
                     table.insert(pipe_build, {x=0, y=h})
                 end
 
-            elseif (e.position.x == ep.x) and (e.position.y < ep.y) then
+            elseif (e.position.x == entity.position.x) and (e.position.y < entity.position.y) then
                 for h=1, half do
                     table.insert(pipe_build, {x=0, y=-h})
                 end
@@ -164,6 +159,10 @@ local function miner_check(entity)
     if config.beacon then
         beacon_check(entity)
     end
+
+    local es = entity.surface
+    local ef = entity.force
+    local ep = entity.position
 
     table.insert(miner_data.queue, {t=game.tick + 30, e=entity})
 
