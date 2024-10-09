@@ -106,17 +106,17 @@ local function miner_check(entity)
     local ea = {{x=ep.x - er, y=ep.y - er}, {x=ep.x + er, y=ep.y + er}}
 
     if entity.mining_target and entity.mining_target.valid and entity.mining_target.amount and entity.mining_target.amount > 0 then
-        return false
+        return
     end
 
     for _, r in pairs(entity.surface.find_entities_filtered{area=ea, type='resource'}) do
         if r.amount > 0 then
-            return false
+            return
         end
     end
 
     if check_entity(entity) then
-        return false
+        return
     end
 
     local pipe_build = {}
