@@ -34,18 +34,23 @@ local function check_entity(e)
         return false
     end
 
-    if not e.prototype.selectable_in_game then
-        -- if it can select
-        return false
-    end
-
     if not e.minable then
         -- if it is minable
         return false
     end
 
+    if not e.prototype.selectable_in_game then
+        -- if it can select
+        return false
+    end
+
     if e.has_flag('not-deconstructable') then
         -- if it can deconstruct
+        return false
+    end
+
+    if not e.burner then
+        -- if it maybe is a part of the chain
         return false
     end
 
