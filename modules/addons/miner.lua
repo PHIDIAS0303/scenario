@@ -24,7 +24,7 @@ local function drop_target(entity)
 end
 
 local function check_entity(e)
-    if e.to_be_deconstructed(e.force) then
+    if e.to_be_deconstructed() then
         -- if it is already waiting to be deconstruct
         return false
     end
@@ -80,23 +80,21 @@ local function beacon_check(e)
         return
     end
 
-    local bb = false
+    local bw = false
 
     for _, b in pairs(bs) do
         if check_entity(b) then
             local br = b.get_beacon_effect_receivers()
 
-            if br then
-                for _, r in pairs(br) do
-                    if b ~= e and check_entity(r) then
-                        bb = true
-                        break
-                    end
+            for _, r in pairs(br) do
+                if r ~= e and check_entity(r) then
+                    bw = true
+                    break
                 end
+            end
 
-                if not bb then
-                    table.insert(miner_data.queue, {t=game.tick + 60, e=b})
-                end
+            if not bw then
+                table.insert(miner_data.queue, {t=game.tick + 60, e=b})
             end
         end
     end
@@ -170,7 +168,7 @@ local function miner_check(entity)
 
     table.insert(miner_data.queue, {t=game.tick + 30, e=entity})
 
-    for _, e in ipairs(pipe_build) do
+    for _, e in pairs(pipe_build) do
         es.create_entity{name='entity-ghost', position={x=ep.x + e.x, y=ep.y + e.y}, force=ef, inner_name='pipe', raise_built=true}
     end
 end
