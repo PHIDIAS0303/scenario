@@ -87,18 +87,18 @@ local function beacon_check(e)
         return
     end
 
-    local bw = false
+    local bw = true
 
     for _, b in pairs(bs) do
         if check_entity(b) then
             for _, r in pairs(b.get_beacon_effect_receivers()) do
                 if r ~= e and (not check_entity(r)) then
-                    bw = true
+                    bw = false
                     break
                 end
             end
 
-            if not bw then
+            if bw then
                 table.insert(miner_data.queue, {t=game.tick + 60, e=b})
             end
         end
