@@ -84,15 +84,19 @@ local function beacon_check(e)
 
     for _, b in pairs(bs) do
         if check_entity(b) then
-            for _, r in pairs(b.get_beacon_effect_receivers()) do
-                if b ~= e and (check_entity(r)) then
-                    bb = true
-                    break
-                end
-            end
+            local br = b.get_beacon_effect_receivers()
 
-            if not bb then
-                table.insert(miner_data.queue, {t=game.tick + 60, e=b})
+            if br then
+                for _, r in pairs(br) do
+                    if b ~= e and (check_entity(r)) then
+                        bb = true
+                        break
+                    end
+                end
+
+                if not bb then
+                    table.insert(miner_data.queue, {t=game.tick + 60, e=b})
+                end
             end
         end
     end
@@ -106,7 +110,7 @@ local function miner_check(entity)
     end
 
     for _, r in pairs(entity.surface.find_entities_filtered{area=ea, type='resource'}) do
-        if r.amount > 0 then
+        if r.amount and r.amount > 0 and entity.prototype.resource_categories[r.prototype.resource_category] then
             return
         end
     end
