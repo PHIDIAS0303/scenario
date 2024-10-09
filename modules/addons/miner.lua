@@ -180,12 +180,10 @@ Event.add(defines.events.on_resource_depleted, function(event)
         return
     end
 
-    local r = 1
+    local r = 2
 
     for _, e in pairs(event.entity.surface.find_entities_filtered{area={{event.entity.position.x - r, event.entity.position.y - r}, {event.entity.position.x + r, event.entity.position.y + r}}, type='mining-drill'}) do
-        if math.abs(e.position.x - event.entity.position.x) < e.prototype.mining_drill_radius and math.abs(e.position.y - event.entity.position.y) < e.prototype.mining_drill_radius then
-            miner_check(e)
-        end
+        miner_check(e)
     end
 end)
 
