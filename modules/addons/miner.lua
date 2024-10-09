@@ -89,7 +89,7 @@ local function beacon_check(e)
             local br = b.get_beacon_effect_receivers()
 
             for _, r in pairs(br) do
-                if r ~= e and (not r.to_be_deconstructed()) then
+                if r ~= e and (not check_entity(r) then
                     bw = true
                     break
                 end
