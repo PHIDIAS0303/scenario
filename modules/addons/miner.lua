@@ -158,6 +158,7 @@ local function miner_check(entity)
         end
     end
 
+    --[[
     if config.chest then
         chest_check(entity)
     end
@@ -165,6 +166,7 @@ local function miner_check(entity)
     if config.beacon then
         beacon_check(entity)
     end
+    ]]
 
     table.insert(miner_data.queue, {t=game.tick + 30, e=entity})
 
@@ -178,9 +180,10 @@ Event.add(defines.events.on_resource_depleted, function(event)
         return
     end
 
-    local r = 2
+    local r = 1
+    local es = event.entity.surface.find_entities_filtered{area={{event.entity.position.x - r, event.entity.position.y - r}, {event.entity.position.x + r, event.entity.position.y + r}}, type='mining-drill'}
 
-    for _, e in pairs(event.entity.surface.find_entities_filtered{area={{event.entity.position.x - r, event.entity.position.y - r}, {event.entity.position.x + r, event.entity.position.y + r}}, type='mining-drill'}) do
+    for _, e in pairs(es) do
         er = e.prototype.mining_drill_radius
 
         if ((math.abs(e.position.x - event.entity.position.x) <= er) and (math.abs(e.position.y - event.entity.position.y) <= r)) then
