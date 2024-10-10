@@ -70,7 +70,7 @@ local function chest_check(e)
         return
     end
 
-    for _, en in pairs(t.surface.find_entities_filtered{position=t.position, radius=2, force=entity.force, type={'mining-drill', 'inserter'}}) do
+    for _, en in pairs(t.surface.find_entities_filtered{position=t.position, radius=2, force=t.force, type={'mining-drill', 'inserter'}}) do
         if drop_target(en) == t and en ~= e and (not check_entity(en)) then
             return
         end
@@ -179,9 +179,7 @@ Event.add(defines.events.on_resource_depleted, function(event)
         return
     end
 
-    local r = 1
-
-    for _, e in pairs(event.entity.surface.find_entities_filtered{area={{event.entity.position.x - r, event.entity.position.y - r}, {event.entity.position.x + r, event.entity.position.y + r}}, force=entity.force, type='mining-drill'}) do
+    for _, e in pairs(event.entity.surface.find_entities_filtered{position=event.entity.position, radius=1, force=event.entity.force, type='mining-drill'}) do
         miner_check(e)
     end
 end)
