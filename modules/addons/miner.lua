@@ -161,19 +161,13 @@ local function miner_check(entity)
         end
     end
 
-    game.print(4)
-
     if config.chest then
         chest_check(entity)
     end
 
-    game.print(5)
-
     if config.beacon then
         beacon_check(entity)
     end
-
-    game.print(6)
 
     local es = entity.surface
     local ef = entity.force
