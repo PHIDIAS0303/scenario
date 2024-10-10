@@ -13,13 +13,12 @@ miner_data.queue = {}
 local function drop_target(entity)
     if entity.drop_target then
         return entity.drop_target
+    end
 
-    else
-        local entities = entity.surface.find_entities_filtered{position=entity.drop_position}
+    local entities = entity.surface.find_entities_filtered{position=entity.drop_position}
 
-        if #entities > 0 then
-            return entities[1]
-        end
+    if #entities > 0 then
+        return entities[1]
     end
 end
 
