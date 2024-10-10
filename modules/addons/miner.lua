@@ -10,18 +10,6 @@ end)
 
 miner_data.queue = {}
 
-local function drop_target(entity)
-    if entity.drop_target then
-        return entity.drop_target
-    end
-
-    local entities = entity.surface.find_entities_filtered{position=entity.drop_position}
-
-    if #entities > 0 then
-        return entities[1]
-    end
-end
-
 local function check_entity(e)
     if e.to_be_deconstructed() then
         -- if it is already waiting to be deconstruct
@@ -56,8 +44,27 @@ local function check_entity(e)
     return true
 end
 
+local function drop_target(entity)
+    if entity.drop_target then
+        return entity.drop_target
+    end
+
+    local entities = entity.surface.find_entities_filtered{position=entity.drop_position}
+
+    if #entities > 0 then
+        return entities[1]
+
+    else
+        return nil
+    end
+end
+
 local function chest_check(e)
     local t = drop_target(e)
+
+    if not t then
+        return
+    end
 
     if t.type ~= 'logistic-container' and t.type ~= 'container' then
         -- not a chest
