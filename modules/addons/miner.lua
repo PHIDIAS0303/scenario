@@ -188,10 +188,6 @@ Event.add(defines.events.on_resource_depleted, function(event)
     end
 end)
 
---[[
-command/miner-check-force
-]]
-
 Event.on_nth_tick(10, function(event)
     for k, q in pairs(miner_data.queue) do
         if q.e and q.e.valid then
