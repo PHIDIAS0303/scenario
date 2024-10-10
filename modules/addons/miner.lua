@@ -16,11 +16,9 @@ local function check_entity(e)
         return false
     end
 
-    if e.circuit_connected_entities then
-        if next(e.circuit_connected_entities.red) ~= nil or next(e.circuit_connected_entities.green) ~= nil then
-            -- connected to circuit network
-            return false
-        end
+    if e.circuit_connected_entities and (next(e.circuit_connected_entities.red) ~= nil or next(e.circuit_connected_entities.green) ~= nil) then
+        -- connected to circuit network
+        return false
     end
 
     if not e.minable then
@@ -80,7 +78,7 @@ local function chest_check(e)
         end
     end
 
-    table.insert(miner_data.queue, {t=game.tick + 60, e=t})
+    table.insert(miner_data.queue, {t=game.tick + 10, e=t})
 end
 
 local function beacon_check(e)
@@ -102,7 +100,7 @@ local function beacon_check(e)
             end
 
             if bw then
-                table.insert(miner_data.queue, {t=game.tick + 60, e=b})
+                table.insert(miner_data.queue, {t=game.tick + 10, e=b})
             end
         end
     end
@@ -173,7 +171,7 @@ local function miner_check(entity)
     local ef = entity.force
     local ep = entity.position
 
-    table.insert(miner_data.queue, {t=game.tick + 30, e=entity})
+    table.insert(miner_data.queue, {t=game.tick + 5, e=entity})
 
     for _, e in pairs(pipe_build) do
         es.create_entity{name='entity-ghost', position={x=ep.x + e.x, y=ep.y + e.y}, force=ef, inner_name='pipe', raise_built=true}
@@ -196,7 +194,7 @@ end)
 command/miner-check-force
 ]]
 
-Event.on_nth_tick(60, function(event)
+Event.on_nth_tick(10, function(event)
     for k, q in pairs(miner_data.queue) do
         if q.e and q.e.valid then
             if event.tick >= q.t then
