@@ -16,9 +16,11 @@ local function check_entity(e)
         return false
     end
 
-    if e.circuit_connected_entities and (next(e.circuit_connected_entities.red) ~= nil or next(e.circuit_connected_entities.green) ~= nil) then
-        -- connected to circuit network
-        return false
+    if e.circuit_connected_entities then
+        if next(e.circuit_connected_entities.red) ~= nil or next(e.circuit_connected_entities.green) ~= nil then
+            -- connected to circuit network
+            return false
+        end
     end
 
     if not e.minable then
@@ -33,11 +35,6 @@ local function check_entity(e)
 
     if e.has_flag('not-deconstructable') then
         -- if it can deconstruct
-        return false
-    end
-
-    if not e.burner then
-        -- if it maybe is a part of the chain
         return false
     end
 
@@ -112,13 +109,11 @@ local function beacon_check(e)
 end
 
 local function miner_check(entity)
-    local ea = {{x=entity.position.x - entity.prototype.mining_drill_radius, y=entity.position.y - entity.prototype.mining_drill_radius}, {x=entity.position.x + entity.prototype.mining_drill_radius, y=entity.position.y + entity.prototype.mining_drill_radius}}
-
     if entity.mining_target and entity.mining_target.valid and entity.mining_target.amount and entity.mining_target.amount > 0 then
         return
     end
 
-    for _, r in pairs(entity.surface.find_entities_filtered{area=ea, type='resource'}) do
+    for _, r in pairs(entity.surface.find_entities_filtered{position=entity.position, radius=entity.prototype.mining_drill_radius, type='resource'}) do
         if entity.prototype.resource_categories[r.prototype.resource_category] and r.amount and r.amount > 0 then
             return
         end
@@ -128,6 +123,8 @@ local function miner_check(entity)
         return
     end
 
+    game.print(3)
+
     local pipe_build = {}
 
     if config.fluid and entity.fluidbox and #entity.fluidbox > 0 then
@@ -136,10 +133,9 @@ local function miner_check(entity)
 
         local half = math.floor(entity.get_radius())
         local r = entity.prototype.mining_drill_radius + 0.99
-        ea = {{x=entity.position.x - r, y=entity.position.y - r}, {x=entity.position.x + r, y=entity.position.y + r}}
 
-        local en = entity.surface.find_entities_filtered{area=ea, type={'mining-drill', 'pipe', 'pipe-to-ground'}}
-        table.array_insert(en, entity.surface.find_entities_filtered{area=ea, ghost_type={'pipe', 'pipe-to-ground'}})
+        local en = entity.surface.find_entities_filtered{position=entity.position, radius=r, type={'mining-drill', 'pipe', 'pipe-to-ground'}}
+        table.array_insert(en, entity.surface.find_entities_filtered{position=entity.position, radius=r, ghost_type={'pipe', 'pipe-to-ground'}})
 
         for _, e in pairs(en) do
             if (e.position.x > entity.position.x) and (e.position.y == entity.position.y) then
@@ -165,13 +161,19 @@ local function miner_check(entity)
         end
     end
 
+    game.print(4)
+
     if config.chest then
         chest_check(entity)
     end
 
+    game.print(5)
+
     if config.beacon then
         beacon_check(entity)
     end
+
+    game.print(6)
 
     local es = entity.surface
     local ef = entity.force
