@@ -121,8 +121,6 @@ local function miner_check(entity)
         return
     end
 
-    game.print(3)
-
     local pipe_build = {}
 
     if config.fluid and entity.fluidbox and #entity.fluidbox > 0 then
