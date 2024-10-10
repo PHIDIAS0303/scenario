@@ -210,6 +210,7 @@ Roles.new_role('Member','Mem')
     'command/return',
     'gui/tool/home',
     'command/auto-research',
+    'command/miner-check-force',
     'fast-tree-decon'
 }
 
