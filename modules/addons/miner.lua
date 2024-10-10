@@ -196,12 +196,12 @@ command/miner-check-force
 
 Event.on_nth_tick(60, function(event)
     for k, q in pairs(miner_data.queue) do
-        if q.e and q.e.valid then
-            if event.tick >= q.t then
-                q.e.order_deconstruction(q.e.force)
-                table.remove(miner_data.queue, k)
-            end
-        else
+        if (not q.e) or (not q.e.valid) then
+            table.remove(miner_data.queue, k)
+            break
+
+        elseif event.tick >= q.t then
+            q.e.order_deconstruction(q.e.force)
             table.remove(miner_data.queue, k)
         end
     end
