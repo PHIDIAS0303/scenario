@@ -84,7 +84,7 @@ end
 local function beacon_check(e)
     local bs = e.get_beacons()
 
-    if bs == nil then
+    if not bs then
         return
     end
 
