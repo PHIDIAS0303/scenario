@@ -66,7 +66,7 @@ local function chest_check(e)
         return
     end
 
-    if t.type ~= 'logistic-container' and t.type ~= 'container' then
+    if t.type and t.type ~= 'logistic-container' and t.type ~= 'container' then
         -- not a chest
         return
     end
