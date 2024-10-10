@@ -70,9 +70,7 @@ local function chest_check(e)
         return
     end
 
-    local r = 2
-
-    for _, en in pairs(t.surface.find_entities_filtered{area={{t.position.x - r, t.position.y - r}, {t.position.x + r, t.position.y + r}}, type={'mining-drill', 'inserter'}}) do
+    for _, en in pairs(t.surface.find_entities_filtered{position=t.position, radius=2, force=entity.force, type={'mining-drill', 'inserter'}}) do
         if drop_target(en) == t and en ~= e and (not check_entity(en)) then
             return
         end
@@ -111,7 +109,7 @@ local function miner_check(entity)
         return
     end
 
-    for _, r in pairs(entity.surface.find_entities_filtered{position=entity.position, radius=entity.prototype.mining_drill_radius, type='resource'}) do
+    for _, r in pairs(entity.surface.find_entities_filtered{position=entity.position, radius=entity.prototype.mining_drill_radius, force=entity.force, type='resource'}) do
         if entity.prototype.resource_categories[r.prototype.resource_category] and r.amount and r.amount > 0 then
             return
         end
@@ -130,8 +128,8 @@ local function miner_check(entity)
         local half = math.floor(entity.get_radius())
         local r = entity.prototype.mining_drill_radius + 0.99
 
-        local en = entity.surface.find_entities_filtered{position=entity.position, radius=r, type={'mining-drill', 'pipe', 'pipe-to-ground'}}
-        table.array_insert(en, entity.surface.find_entities_filtered{position=entity.position, radius=r, ghost_type={'pipe', 'pipe-to-ground'}})
+        local en = entity.surface.find_entities_filtered{position=entity.position, radius=r, force=entity.force, type={'mining-drill', 'pipe', 'pipe-to-ground'}}
+        table.array_insert(en, entity.surface.find_entities_filtered{position=entity.position, radius=r, force=entity.force, ghost_type={'pipe', 'pipe-to-ground'}})
 
         for _, e in pairs(en) do
             if (e.position.x > entity.position.x) and (e.position.y == entity.position.y) then
@@ -183,7 +181,7 @@ Event.add(defines.events.on_resource_depleted, function(event)
 
     local r = 1
 
-    for _, e in pairs(event.entity.surface.find_entities_filtered{area={{event.entity.position.x - r, event.entity.position.y - r}, {event.entity.position.x + r, event.entity.position.y + r}}, type='mining-drill'}) do
+    for _, e in pairs(event.entity.surface.find_entities_filtered{area={{event.entity.position.x - r, event.entity.position.y - r}, {event.entity.position.x + r, event.entity.position.y + r}}, force=entity.force, type='mining-drill'}) do
         miner_check(e)
     end
 end)
