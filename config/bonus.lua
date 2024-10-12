@@ -54,7 +54,7 @@ return {
             -- 1 MW
             value = 4,
             max = 8,
-            scale = 1,
+            scale = 0.5,
             cost_scale = 1,
             cost = 10,
             is_percentage = false
