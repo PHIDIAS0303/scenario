@@ -80,7 +80,7 @@ return {
         ['character_crafting_speed_modifier'] = {
             value = 6,
             max = 12,
-            scale = 1,
+            scale = 0.5,
             cost_scale = 1,
             cost = 4,
             is_percentage = true
@@ -88,7 +88,7 @@ return {
         ['character_inventory_slots_bonus'] = {
             value = 60,
             max = 120,
-            scale = 10,
+            scale = 5,
             cost_scale = 10,
             cost = 2,
             is_percentage = false
