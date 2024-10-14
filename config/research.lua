@@ -3,7 +3,7 @@
 
 return {
     enabled = true,
-    pollution_ageing_by_research = false,
+    pollution_ageing_by_research = true,
     queue_amount = 3,
     -- this enable 20 more inventory for each mining productivity level up to 4
     bonus_inventory = {
